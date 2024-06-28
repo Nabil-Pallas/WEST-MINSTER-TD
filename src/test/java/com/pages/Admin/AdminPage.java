@@ -1,0 +1,210 @@
+package com.pages.Admin;
+
+import com.page.base.DashboardPage;
+import com.page.base.MenuPage;
+import com.pages.Admin.DataManagerPages.DataManagerPage;
+import com.pages.Admin.FileManagerPages.FileManagerPage;
+import com.pages.Admin.ListManagerPages.ListManagerPage;
+import com.pages.Admin.RulesManagerPages.RulesManagerPage;
+import com.pages.Admin.UsersAndSecurityPages.UserSecurityPage;
+
+public class AdminPage extends MenuPage {
+
+    protected String userAndSecurity = "//span[contains(text(),'Users & Security')]";
+    protected String fileManager = "//span[contains(text(),'File Manager')]";
+    protected String adminText = "//h1[text()='Admin']";
+    protected String dataManager = "//span[contains(text(),'Data Manager')]";
+    protected String rulesManager = "//span[contains(text(),'Rules Manager')]";
+    private String clientSelectDrpDown = "(//div[@class='dx-dropdowneditor-icon'])[1]";
+
+
+    public String frameClientDetailsLocator(String placeholder) {
+        return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div//input";
+    }
+
+    public String frameClientDetailsLocator(String placeholder, int index) {
+        return "(//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div//input)[" + index + "]";
+    }
+
+    public String frameClientDetailsLocator(int index) {
+        return "(//div[contains(@class,'dx-item dx-list-item')])[" + index + "]";
+    }
+
+    public String frameClientSelectDropDownLocator(String placeholder) {
+        return "//div[@class='wdx-custom-dropdown__text']/div[text()='" + placeholder + "']";
+    }
+
+    public String selectRolesCheckBox(String placeholder) {
+        return "//div[text()='" + placeholder + "']/preceding-sibling::div";
+    }
+
+    public String selectRolesCheckBox(int index) {
+        return "(//div[@role='option'])[" + index + "]";
+    }
+
+    public String searchValueWithHeader(int index) {
+        return "((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])/ancestor::tr[2]//td[@aria-label='Filter cell'][" + index + "]//input  | //td[@aria-label='Filter cell'][" + index + "]//input";
+    }
+
+    public String selectPermissionCheckBox(String placeholder) {
+        return "//div[text()='" + placeholder + "']";
+    }
+
+    public String searchFieldName(String placeholder) {
+        waitForLoaderToDisappear();
+        return "//td[text()='" + placeholder + "']";
+    }
+
+
+    public String frameUserSelectDropDownLocator(String placeholder) {
+        return "//div[@class='dx-item dx-list-item']/div[text()='" + placeholder + "']";
+    }
+
+    public String frameUserSelectDropDownLocator(String placeholder, int index) {
+        return "(//div[@class='dx-item dx-list-item']/div[text()='" + placeholder + "'])[" + index + "]";
+    }
+
+    public String frameUserSearchResult(String placeholder) {
+        return "//span[text()='" + placeholder + "']";
+    }
+
+    public String frameSpanTextLocator(String placeholder) {
+        pause("low");
+        return "//span[contains(text(),'" + placeholder + "')]";
+
+    }
+
+    public String frameDivTextLocator(String placeholder) {
+        return "//div[contains(text(),'" + placeholder + "')]";
+    }
+
+    public String frameDivTextLocator(String placeholder, int index) {
+        return "(//div[text()='" + placeholder + "'])[" + index + "]";
+    }
+
+    public AdminPage validateAdminPage() {
+        waitForElementToLoad(adminText);
+        if (isVisible(adminText, "Admin Text")) {
+            reportPass("User successfully navigated to the Admin tab.");
+        } else {
+            reportFailAndThrowException("Admin Page is not loaded.");
+        }
+        return this;
+    }
+
+    public AdminPage typeCompanyName(String companyName) {
+        typeWithType(frameClientDetailsLocator("Company Name"), companyName, "companyName");
+        return this;
+    }
+
+
+    public AdminPage typeWRAClientID(String wraClientID) {
+        type(frameClientDetailsLocator("WRA Client ID"), wraClientID, "WRAClientID");
+        return this;
+    }
+
+    public AdminPage typeFTPFolderAcronym(String ftpFolderAcronym) {
+        typeWithType(frameClientDetailsLocator("FTP Folder Acronym"), ftpFolderAcronym, "FTPFolderAcronym");
+        return this;
+    }
+
+
+    public AdminPage typeAdminFirstName(String adminFirstName) {
+        type(frameClientDetailsLocator("Admin Contact First Name"), adminFirstName, "AdminFirstName");
+        return this;
+    }
+
+    public AdminPage typeAdminLastName(String adminLastName) {
+        type(frameClientDetailsLocator("Admin Contact Last Name"), adminLastName, "AdminLastName");
+        return this;
+    }
+
+    public AdminPage typeAdminContactEmail(String adminContactEmail) {
+        typeWithType(frameClientDetailsLocator("Admin Contact Email"), adminContactEmail, "AdminContactEmail");
+        return this;
+    }
+
+    public AdminPage typeAdminContactPhoneNo(String adminContactPhoneNo) {
+        type(frameClientDetailsLocator("Admin Contact Phone Number", 2), adminContactPhoneNo, "AdminContactPhoneNo");
+        return this;
+    }
+
+    public AdminPage clickAndselectDateFormating(String dateFormat) {
+        clickAndChoose(frameClientDetailsLocator("Date Formatting", 2), frameClientSelectDropDownLocator(dateFormat), dateFormat, "Date Format");
+        return this;
+    }
+
+    public AdminPage clickAndselectLocalTimeZone(String localTimeZone) {
+        clickAndChoose(frameClientDetailsLocator("Local Timezone", 2), localTimeZone, localTimeZone, "Local TimeZone");
+        return this;
+    }
+
+    public AdminPage clickAndselectTimeFormating(String timeFormat) {
+        clickAndChoose(frameClientDetailsLocator("Time Formatting", 2), timeFormat, timeFormat, "Time Format");
+        return this;
+    }
+
+    public AdminPage clickAndselectNumberFormating(String numberFormat) {
+        clickAndChoose(frameClientDetailsLocator("Number Formatting", 2), numberFormat, numberFormat, "Number Format");
+        return this;
+    }
+
+    public AdminPage clickAndselectMasterCurrency(String masterCurrency) {
+        clickAndChoose(frameClientDetailsLocator("Master Currency", 2), masterCurrency, masterCurrency, "Master Currency");
+        return this;
+    }
+
+    public AdminPage setClient(String clientName) {
+
+        switch (xmlUserLevel) {
+            case "Tier2Admin":
+                break;
+            case "Tier2User":
+                break;
+            case "Tier3EndUser":
+                break;
+            default:
+                try {
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + clientName + "')]", "Client Name", clientName);
+                    pause("low");
+                    reportPass("User successfully selected the Client.");
+                } catch (Exception e) {
+                    reportWarning("Client is not selected as it is set as default");
+                }
+                break;
+        }
+
+        return new AdminPage();
+    }
+
+    public DataManagerPage clickOnDataManager() {
+        click(dataManager, "Data Manager");
+        waitForLoaderToDisappear();
+        return new DataManagerPage();
+    }
+
+    public UserSecurityPage clickOnUserSecurity() {
+        click(userAndSecurity, "User & Security");
+        waitForLoaderToDisappear();
+        return new UserSecurityPage();
+    }
+
+    public FileManagerPage clickOnFileManager() {
+        click(fileManager, "FileManager");
+        waitForLoaderToDisappear();
+        return new FileManagerPage();
+    }
+
+    public RulesManagerPage clickOnRulesManager() {
+        click(rulesManager, "Rules Manager");
+        waitForLoaderToDisappear();
+        return new RulesManagerPage();
+    }
+
+    public ListManagerPage clickOnListManager() {
+        click(frameSpanTextLocator("List Manager"), "List Manager");
+        waitForLoaderToDisappear();
+        return new ListManagerPage();
+    }
+
+}

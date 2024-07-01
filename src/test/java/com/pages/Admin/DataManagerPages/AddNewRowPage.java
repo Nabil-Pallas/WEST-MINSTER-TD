@@ -205,8 +205,8 @@ public class AddNewRowPage extends DataManagerPage {
     public AddNewRowPage clickOnAddBtn() {
         click(addBtn, "Add Button");
         pause("low");
-        waitForLoaderToDisappear();
-        waitForAppearance(addBtn);
+//        waitForLoaderToDisappear();
+//        waitForAppearance(addBtn);
         return this;
     }
 

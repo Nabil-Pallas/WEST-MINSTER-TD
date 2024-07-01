@@ -42,19 +42,23 @@ public class DataManagerPage extends AdminPage {
 
     //Click the Add New Row Button
     public AddNewRowPage clickOnAddNewRowBtn() {
+        waitForLoaderToDisappear();
         waitForElementToLoad(addNewRowBtn);
+//        pause("medium");
         pause("medium");
         click(addNewRowBtn, "Add new row button");
         pause("low");
-        waitForLoaderToDisappear();
-        waitForAppearance(addNewRowBtn);
+//
+//        waitForAppearance(addNewRowBtn);
         return new AddNewRowPage();
     }
 
     //Click the Action Button
     public DataManagerPage clickOnActionsBtn() {
-        click(actionBtn, "Action button");
         waitForLoaderToDisappear();
+        pause("medium");
+        click(actionBtn, "Action button");
+//        waitForLoaderToDisappear();
         return new DataManagerPage();
     }
 

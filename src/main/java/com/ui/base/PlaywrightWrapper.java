@@ -504,6 +504,54 @@ public class PlaywrightWrapper extends Reporter {
 
     }
 
+    public boolean forceClick(String locator, String name, String type) {
+
+        try {
+
+            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+
+            getPage().locator(locator).scrollIntoViewIfNeeded();
+
+            getPage().locator(locator).click(new Locator.ClickOptions().setForce(true));
+
+            reportStep("The " + type + " :" + name + " is clicked", "info");
+
+            return true;
+
+        } catch (PlaywrightException e) {
+
+            reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
+
+        }
+
+        return false;
+
+    }
+
+    public boolean programmaticClick(String locator, String name, String type) {
+
+        try {
+
+            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+
+            getPage().locator(locator).scrollIntoViewIfNeeded();
+
+            getPage().locator(locator).dispatchEvent("click");
+
+            reportStep("The " + type + " :" + name + " is clicked", "info");
+
+            return true;
+
+        } catch (PlaywrightException e) {
+
+            reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
+
+        }
+
+        return false;
+
+    }
+
     /**
      * Use this method to double click an element.
      *

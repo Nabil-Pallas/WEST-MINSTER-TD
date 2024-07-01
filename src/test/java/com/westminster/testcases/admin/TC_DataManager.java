@@ -23,7 +23,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Adding the new row in the data manager
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void AddNewRow() {
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()
@@ -71,6 +71,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnApplyBtn()
                 .searchValueToValidate(ruleName.get(), "Broker Name")
                 .validateEditedRowInformation((ruleName.get()), ("Broker Name"));
+        System.out.println("TC-----------04");
     }
 
     @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})

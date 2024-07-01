@@ -42,10 +42,12 @@ public class DataManagerPage extends AdminPage {
 
     //Click the Add New Row Button
     public AddNewRowPage clickOnAddNewRowBtn() {
-        waitForLoaderToDisappear();
-        waitForElementToLoad(addNewRowBtn);
+//        waitForLoaderToDisappear();
+//        waitForElementToLoad(addNewRowBtn);
 //        pause("medium");
         pause("medium");
+        pause("medium");
+        pause("low");
         click(addNewRowBtn, "Add new row button");
         pause("low");
 //

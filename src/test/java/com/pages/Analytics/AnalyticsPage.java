@@ -25,6 +25,10 @@ public class AnalyticsPage extends MenuPage {
         return "//div[contains(text(),'" + Placeholder + "')]";
     }
 
+    public String frameSeriesValueField(String Placeholder) {
+        return "//div[contains(@class, 'wdx-custom-dropdown__text') and contains(text(), '" + Placeholder + "')]";
+    }
+
     public String frameDivTextLocator(String Placeholder, int index) {
         return "(//div[contains(text(),'" + Placeholder + "')])[" + index + "]";
     }
@@ -95,11 +99,11 @@ public class AnalyticsPage extends MenuPage {
             String analysisList = "((//h3[@class='dataviz__title'])//span)[" + i + "]";
             String analysisText = getInnerText(analysisList);
 
-                boolean verifyExactText = verifyExactText(analysisList, analysisName);
-                pause("low");
-                Assert.assertTrue(verifyExactText);
-                break;
-                // Exit once the match is found and validated
+            boolean verifyExactText = verifyExactText(analysisList, analysisName);
+            pause("low");
+            Assert.assertTrue(verifyExactText);
+            break;
+            // Exit once the match is found and validated
 
         }
         return new DashboardPage();

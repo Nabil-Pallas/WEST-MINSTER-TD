@@ -30,6 +30,7 @@ public class AddNewListPage extends ListManagerPage {
         for (String listItem : listItems) {
             clickOnAddListItem();
             typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
+            pause("low");
         }
         return this;
     }

@@ -71,6 +71,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnApplyBtn()
                 .searchValueToValidate(ruleName.get(), "Broker Name")
                 .validateEditedRowInformation((ruleName.get()), ("Broker Name"));
+        System.out.println("TC-----------04");
     }
 
     @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})

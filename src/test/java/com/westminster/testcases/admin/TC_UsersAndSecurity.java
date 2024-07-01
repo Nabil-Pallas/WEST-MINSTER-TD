@@ -25,7 +25,6 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     //Client creation - 2136
     @Test(priority = 22, groups = {"Tier1Admin"})
     public void createClient() {
-        System.out.println("TC-----------01");
         clientCompanyName.set(FakerDataFactory.getCompanyNameWithoutSpace());
         new DashboardPage()
                 .validateDashBoardElements()
@@ -39,6 +38,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                         FakerDataFactory.getEmailAddress(), "MM/DD/YYYY", "", "", "", "")
                 .clickOnApplyBtn()
                 .validateClientInformation(clientCompanyName.get());
+        System.out.println("TC-----------22");
     }
 
     //Edit created client - 23

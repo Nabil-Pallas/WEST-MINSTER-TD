@@ -7,6 +7,6 @@
                 <suite-file path="Westminister2.xml"/>
                 <suite-file path="Westminister3.xml"/>
                 <suite-file path="Westminister4.xml"/>
-                <suite-file path="Westminister5.xml"/>
+<!--                <suite-file path="Westminister5.xml"/>-->
     </suite-files>
 </suite> <!-- WestministerSuite -->

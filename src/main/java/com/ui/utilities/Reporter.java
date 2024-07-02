@@ -25,7 +25,7 @@ public abstract class Reporter extends DriverFactory {
     protected static ThreadLocal<String> testName = new ThreadLocal<String>();
 
 
-    private String fileName = "Tier2Admin_result.html";
+    private String fileName = "result.html";
     private static String pattern = "dd-MMM-yyyy HH-mm-ss";
 
     public String testcaseName, testDescription, authors, category, dataFileType, dataFileName;

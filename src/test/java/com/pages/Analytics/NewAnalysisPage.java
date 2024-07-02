@@ -38,6 +38,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     }
 
     public NewAnalysisPage typeFilterValue() {
+        pause("medium");
         String getBrokerName = getInnerText(brokerNameFirstGrid);
         pause("low");
         typeAndEnter(frameFilterGroupLocator("Value", 4), getBrokerName, "Value");

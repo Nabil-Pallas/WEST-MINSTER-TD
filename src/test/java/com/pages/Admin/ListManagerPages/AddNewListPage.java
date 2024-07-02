@@ -23,6 +23,7 @@ public class AddNewListPage extends ListManagerPage {
 
     public AddNewListPage clickOnAddListItem() {
         click(frameSpanTextLocator("Add list item"), "Add list item");
+//        forceClick(frameSpanTextLocator("Add list item"), "Add list item","Button");
         return this;
     }
 

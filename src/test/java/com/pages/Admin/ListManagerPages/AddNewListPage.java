@@ -25,7 +25,7 @@ public class AddNewListPage extends ListManagerPage {
 //        click(frameSpanTextLocator("Add list item"), "Add list item");
         try {
             pause("low");
-            forceClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
+            click("//div[@id='add-list-item-button']//i", "Add list item", "Button");
         } catch (Exception e) {
             pause("low");
             programmaticClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");

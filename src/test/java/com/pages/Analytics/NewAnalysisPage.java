@@ -34,6 +34,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage typeFilterOperator(String operator) {
         pause("medium");
         typeAndEnter(frameFilterGroupLocator("Operator", 3), operator, "Operator");
+        pause("low");
         return this;
     }
 
@@ -48,7 +49,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     }
 
     public NewAnalysisPage validateDataFilter() {
-        pause("low");
+        pause("medium");
         int tableRowCount = getLocatorsCount(rowFields);
         Assert.assertEquals(tableRowCount, 1);
         return this;
@@ -65,6 +66,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     }
 
     public AnalyticsPage clickOnBackBtn() {
+        pause("low");
         click(frameSpanTextLocator("Back"), "Back");
         return new AnalyticsPage();
     }

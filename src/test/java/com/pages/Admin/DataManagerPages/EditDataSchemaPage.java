@@ -37,7 +37,6 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     public AddNewColumnPage validateAddedNewColumn(String fieldName) {
-        waitForLoaderToDisappear();
         pause("medium");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
 
@@ -56,7 +55,8 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     public EditDataSchemaPage clickOnApplyAndExitBtn() {
-        waitForLoaderToDisappear();
+        pause("medium");
+        pause("medium");
         click(applyBtn, "Apply Button");
         pause("medium");
         click(frameSpanTextLocator("< Exit"), "Exit Button");

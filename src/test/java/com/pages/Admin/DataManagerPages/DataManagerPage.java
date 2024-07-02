@@ -44,7 +44,6 @@ public class DataManagerPage extends AdminPage {
     public AddNewRowPage clickOnAddNewRowBtn() {
 //        waitForLoaderToDisappear();
 //        waitForElementToLoad(addNewRowBtn);
-//        pause("medium");
         pause("medium");
         pause("medium");
         pause("low");

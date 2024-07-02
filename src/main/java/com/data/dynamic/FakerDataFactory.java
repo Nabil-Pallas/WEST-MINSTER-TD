@@ -223,4 +223,12 @@ public class FakerDataFactory {
 
     }
 
+    public static String getFieldNameWithTimeStamp(String type) {
+        String name = faker.name().firstName();
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
+        String formattedTime = sdf.format(date);
+        return name + type + formattedTime;
+
+    }
 }

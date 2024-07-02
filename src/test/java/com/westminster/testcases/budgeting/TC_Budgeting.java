@@ -21,7 +21,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
         testcaseName = "TC_127 " + xmlUserLevel;
         testDescription = "Create New Budget and validate";
         authors = "Srikanth";
-        category = "create New Budget";
+        category = "Create New Budget";
 
     }
 
@@ -47,7 +47,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
         testcaseName = "TC_14 " + xmlUserLevel;
         testDescription = "Edit budget and validate";
         authors = "Srikanth";
-        category = "edit Budget";
+        category = "Edit Budget";
         startTestCase();
         setNode();
         ruleName.set(FakerDataFactory.getCompanyNameWithoutSpace());
@@ -72,7 +72,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
         testcaseName = "TC_126 " + xmlUserLevel;
         testDescription = "Import new budget and validate";
         authors = "Srikanth";
-        category = "import New Budget";
+        category = "Import New Budget";
         startTestCase();
         setNode();
         ruleName.set(FakerDataFactory.getCompanyNameWithoutSpace());

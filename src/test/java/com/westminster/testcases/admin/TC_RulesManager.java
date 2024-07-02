@@ -18,7 +18,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
         testcaseName = "TC_5587 " + xmlUserLevel;
         testDescription = "Add New Rule and validate";
         authors = "Srikanth";
-        category = "add New Rule";
+        category = "Add New Rule";
     }
 
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
@@ -47,7 +47,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
         testcaseName = "TC_50 " + xmlUserLevel;
         testDescription = "Edit Rule and Validate";
         authors = "Srikanth";
-        category = "edit Rule";
+        category = "Edit Rule";
         startTestCase();
         setNode();
         ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));

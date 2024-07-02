@@ -346,6 +346,22 @@ public class PlaywrightWrapper extends Reporter {
     }
 
     /**
+     * Use this method to typing into an element and press Enter key.
+     *
+     * @param locator The locator to identify the element
+     * @return void
+     * @author Srikanth
+     */
+    public void pressEnter(String locator) {
+        try {
+            getPage().locator(locator).press("Enter");
+        } catch (PlaywrightException e) {
+            reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
+        }
+
+    }
+
+    /**
      * Use this method to upload a file into the chosen field.
      *
      * @param locator  The locator to identify the element where need to upload

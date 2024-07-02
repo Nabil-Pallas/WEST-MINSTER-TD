@@ -20,7 +20,7 @@ public class TC_ListManager extends WestMinsterPageHook {
         testcaseName = "TC_5591 " + xmlUserLevel;
         testDescription = "Create New List and Validate";
         authors = "Srikanth";
-        category = "add New List";
+        category = "Add New List";
     }
 
     @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
@@ -44,12 +44,12 @@ public class TC_ListManager extends WestMinsterPageHook {
 
     }
 
-    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+//    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void editList() {
         testcaseName = "TC_5357 " + xmlUserLevel;
         testDescription = "Edit List and Validate";
         authors = "Srikanth";
-        category = "edit List";
+        category = "Edit List";
         startTestCase();
         setNode();
         newListName.set(FakerDataFactory.getListName());

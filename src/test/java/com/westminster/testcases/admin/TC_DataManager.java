@@ -19,7 +19,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         testcaseName = "TC_5577 " + xmlUserLevel;
         testDescription = "Add New Row And validate";
         authors = "Srikanth";
-        category = "add New Row";
+        category = "Add New Row";
     }
 
     // Adding the new row in the data manager

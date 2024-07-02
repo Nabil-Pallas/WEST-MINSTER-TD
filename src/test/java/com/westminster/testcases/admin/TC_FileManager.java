@@ -20,7 +20,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         testcaseName = "TC_5588 " + xmlUserLevel;
         testDescription = "Upload a file and validate";
         authors = "Srikanth";
-        category = "file Upload";
+        category = "File Upload";
     }
 
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
@@ -49,7 +49,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         testcaseName = "TC_4460 " + xmlUserLevel;
         testDescription = "Promoting Rows and Validate";
         authors = "Srikanth";
-        category = "promoting Rows";
+        category = "Promoting Rows";
         startTestCase();
         setNode();
         fileName.set("SampleFile_AU_Chrome.csv");

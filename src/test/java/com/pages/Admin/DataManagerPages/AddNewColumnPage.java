@@ -81,7 +81,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
     public AddNewColumnPage typeInformationInAddNewColumnsAndValidate(boolean uniqueTradeIdentifierCheckbox, boolean calculatedCheckbox, boolean readOnlyCheckbox) {
 
         for (int i = 0; i < 1; i++) {
-            clientCompanyName.set(FakerDataFactory.getNameWithTimeStamp(""));
+            clientCompanyName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
             typeFieldName(clientCompanyName.get());
             selectFieldDataType(i);
             switch (i) {
@@ -103,10 +103,8 @@ public class AddNewColumnPage extends EditDataSchemaPage {
 
             clickOnApplyAndExitBtn()
                     .validateAddedNewColumn(clientCompanyName.get());
-            if (i < 1) {
-                clickOnEditDataSchema();
-                clickOnAddNewColumn();
-            }
+            clickOnEditDataSchema();
+            clickOnAddNewColumn();
         }
         return this;
     }

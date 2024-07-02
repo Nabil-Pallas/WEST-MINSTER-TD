@@ -48,7 +48,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     }
 
     public NewAnalysisPage validateDataFilter() {
-        pause("medium");
+        pause("low");
         int tableRowCount = getLocatorsCount(rowFields);
         Assert.assertEquals(tableRowCount, 1);
         return this;

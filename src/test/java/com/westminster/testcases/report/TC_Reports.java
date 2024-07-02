@@ -19,7 +19,7 @@ public class TC_Reports extends WestMinsterPageHook {
         testcaseName = "TC_5785 " + xmlUserLevel;
         testDescription = "Create New Report and Validate";
         authors = "Srikanth";
-        category = "create Report";
+        category = "Create Report";
 
     }
 
@@ -60,7 +60,7 @@ public class TC_Reports extends WestMinsterPageHook {
         testcaseName = "TC_133 " + xmlUserLevel;
         testDescription = "Edit a report and validate";
         authors = "Srikanth";
-        category = "edit Reports";
+        category = "Edit Reports";
         startTestCase();
         setNode();
         reportName.set(FakerDataFactory.getNameWithTimeStamp("Report"));
@@ -96,7 +96,7 @@ public class TC_Reports extends WestMinsterPageHook {
         testcaseName = "TC_5674 " + xmlUserLevel;
         testDescription = "Report Delivery";
         authors = "Srikanth";
-        category = "report Delivery";
+        category = "Report Delivery";
         startTestCase();
         setNode();
         new DashboardPage()

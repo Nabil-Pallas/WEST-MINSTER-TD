@@ -18,7 +18,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         testcaseName = "TC_2136 " + xmlUserLevel;
         testDescription = "Create New User and Validate";
         authors = "Srikanth";
-        category = "create Client";
+        category = "Create Client";
 
     }
 
@@ -47,7 +47,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         testcaseName = "TC_23 " + xmlUserLevel;
         testDescription = "Edit Existing Client and Validate";
         authors = "Srikanth";
-        category = "edit Client";
+        category = "Edit Client";
         startTestCase();
         setNode();
         String editClientCompanyName = clientCompanyName.get();
@@ -73,7 +73,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         testcaseName = "TC_5613 " + xmlUserLevel;
         testDescription = "Create User and Validate";
         authors = "Srikanth";
-        category = "create User";
+        category = "Create User";
         startTestCase();
         setNode();
         userFirstName.set(FakerDataFactory.getFirstName());
@@ -100,7 +100,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         testcaseName = "TC_24 " + xmlUserLevel;
         testDescription = "Edit Existing User and Validate";
         authors = "Srikanth";
-        category = "edit User";
+        category = "Edit User";
         startTestCase();
         setNode();
         userFirstName.set(FakerDataFactory.getFirstName());
@@ -128,7 +128,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         testcaseName = "TC_101 " + xmlUserLevel;
         testDescription = "Create New Role and Validate";
         authors = "Srikanth";
-        category = "create Role";
+        category = "Create Role";
         startTestCase();
         setNode();
         userFirstName.set(FakerDataFactory.getRoleName());
@@ -153,7 +153,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         testcaseName = "TC_621 " + xmlUserLevel;
         testDescription = "Edit Existing Role and Validate";
         authors = "Srikanth";
-        category = "edit Role";
+        category = "Edit Role";
         startTestCase();
         setNode();
 

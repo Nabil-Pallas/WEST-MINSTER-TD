@@ -22,8 +22,14 @@ public class AddNewListPage extends ListManagerPage {
     }
 
     public AddNewListPage clickOnAddListItem() {
-        click(frameSpanTextLocator("Add list item"), "Add list item");
-//        forceClick(frameSpanTextLocator("Add list item"), "Add list item","Button");
+//        click(frameSpanTextLocator("Add list item"), "Add list item");
+        try {
+            pause("low");
+            forceClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
+        } catch (Exception e) {
+            pause("low");
+            programmaticClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
+        }
         return this;
     }
 
@@ -37,7 +43,7 @@ public class AddNewListPage extends ListManagerPage {
     }
 
     public ListManagerPage clickOnSaveListBtn() {
-        click(frameSpanTextLocator("Save List"),"Save List");
+        click(frameSpanTextLocator("Save List"), "Save List");
         waitForLoaderToDisappear();
         return new ListManagerPage();
     }

@@ -12,7 +12,7 @@
                 <include name="Tier1Admin"></include>
             </run>
         </groups>
-        <parameter name="Browser" value="chrome"></parameter>
+        <parameter name="Browser" value="edge"></parameter>
         <classes>
 
             <class name="com.westminster.testcases.admin.TC_FileManager"/>

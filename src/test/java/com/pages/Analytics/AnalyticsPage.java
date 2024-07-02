@@ -97,10 +97,8 @@ public class AnalyticsPage extends MenuPage {
         int analysisListCount = getLocatorsCount("((//h3[@class='dataviz__title'])//span)");
         for (int i = 1; i < analysisListCount; i++) {
             String analysisList = "((//h3[@class='dataviz__title'])//span)[" + i + "]";
-            String analysisText = getInnerText(analysisList);
-
+            pause("medium");
             boolean verifyExactText = verifyExactText(analysisList, analysisName);
-            pause("low");
             Assert.assertTrue(verifyExactText);
             break;
             // Exit once the match is found and validated

@@ -102,7 +102,6 @@ public class AnalyticsPage extends MenuPage {
             Assert.assertTrue(verifyExactText);
             break;
             // Exit once the match is found and validated
-
         }
         return new DashboardPage();
     }

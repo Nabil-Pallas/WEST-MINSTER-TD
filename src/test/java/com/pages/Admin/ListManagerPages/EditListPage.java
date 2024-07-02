@@ -23,7 +23,8 @@ public class EditListPage extends ListManagerPage {
     }
 
     public EditListPage clickOnAddListItem() {
-        click(frameSpanTextLocator("Add list item"), "Add list item");
+//        click(frameSpanTextLocator("Add list item"), "Add list item");
+        click("//div[@id='add-list-item-button']//i", "Add list item", "Button");
         return this;
     }
 

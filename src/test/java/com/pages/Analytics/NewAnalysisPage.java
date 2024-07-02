@@ -90,10 +90,10 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         click(frameDivTextLocator(color), " Chart Color", "color");
         waitForDisappearance("(//*[contains(text(),'Loading...')])[3]");
-        pause("low");
+        pause("medium");
         click(frameSpanTextLocator("Full Data"), "Full Data Tab", "Section Tab");
         waitForDisappearance("(//*[contains(text(),'Loading...')])[3]");
-        pause("low");
+        pause("medium");
         reportPass("User successfully reviewed the Analysis");
         return this;
     }

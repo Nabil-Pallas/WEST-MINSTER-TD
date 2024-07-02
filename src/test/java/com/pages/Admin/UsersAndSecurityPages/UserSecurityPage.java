@@ -143,7 +143,7 @@ public class UserSecurityPage extends AdminPage {
 
     public EditClientPage searchAndEditClientDetails() {
         waitForLoaderToDisappear();
-        String firstGridName = getInnerText("(//table)[3]//tr[6]/td[1]");
+        String firstGridName = getInnerText("(//table)[3]//tr[8]/td[1]");
         typeSearchClient(firstGridName);
         pause("low");
         click(clientActionLink, "First Grid Action Item", "Link");

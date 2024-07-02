@@ -101,13 +101,6 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage plotDetailsRingChart(String mainField, String singleSeriesValueField, String numOfItems) {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         pause("low");
-//        try {
-//            clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameDivTextLocator(singleSeriesValueField, 2), singleSeriesValueField, "Single Series Value Field");
-//            pause("low");
-//        } catch (Exception e) {
-//            clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameDivTextLocator(singleSeriesValueField, 1), singleSeriesValueField, "Single Series Value Field");
-//            pause("low");
-//        }
         clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
         pause("low");
         typeWithType(frameAnalysisFieldLocator("Define the maximum number of items appearing in this chart:", 2), numOfItems, "number of items appearing in this chart");
@@ -118,11 +111,6 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage plotDetailsBarChart(String mainField, String multipleSeriesValueField1, String multipleSeriesValueField2) {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         pause("low");
-//        try {
-//            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField1, 2), multipleSeriesValueField1, "Multiple Series Value Field 1");
-//        } catch (Exception e) {
-//            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField1, 1), multipleSeriesValueField1, "Multiple Series Value Field 1");
-//        }
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField1,2), multipleSeriesValueField2, "Multiple Series Value Field 2");
@@ -133,13 +121,6 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage plotDetailsPivotTable(String multipleSeriesRowField, String multipleSeriesValueField, String multipleSeriesColumnField, String multipleSeriesFilterField) {
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Row Fields:", 1), frameDivTextLocator(multipleSeriesRowField, 2), multipleSeriesRowField, "Multiple Series Row Fields");
         pause("low");
-//        try {
-//            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField, 2), multipleSeriesValueField, "Multiple Series Value Field");
-//            pause("low");
-//        } catch (Exception e) {
-//            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField, 1), multipleSeriesValueField, "Multiple Series Value Field");
-//            pause("low");
-//        }
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField), multipleSeriesValueField, "Multiple Series Value Field");
         pause("low");
 
@@ -154,13 +135,6 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage plotDetailsScatterPlot(String mainField, String singleSeriesValueField) {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         pause("low");
-//        try {
-//            clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameDivTextLocator(singleSeriesValueField, 2), singleSeriesValueField, "Single Series Value Field");
-//            pause("low");
-//        } catch (Exception e) {
-//            clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameDivTextLocator(singleSeriesValueField, 1), singleSeriesValueField, "Single Series Value Field");
-//            pause("low");
-//        }
         clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
         pause("low");
         reportPass("User successfully entered the plot details.");
@@ -170,12 +144,6 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage plotDetailsLineChart(String mainField, String multipleSeriesValueField1, String multipleSeriesValueField2) {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         pause("low");
-//        try {
-//            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField1, 2), multipleSeriesValueField1, "Multiple Series Value Field 1");
-//        } catch (Exception e) {
-//            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField1, 1), multipleSeriesValueField1, "Multiple Series Value Field 1");
-//
-//        }
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
         reportPass("User successfully entered the plot details.");
@@ -185,13 +153,6 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage plotDetailsSummaryTable(String mainField, String multipleSeriesValueField1, String multipleSeriesValueField2) {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         pause("low");
-//        try {
-//            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField1, 2), multipleSeriesValueField1, "Multiple Series Value Field 1");
-//            pause("low");
-//        } catch (Exception e) {
-//            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField1, 1), multipleSeriesValueField1, "Multiple Series Value Field 1");
-//            pause("low");
-//        }
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
         reportPass("User successfully entered the plot details.");

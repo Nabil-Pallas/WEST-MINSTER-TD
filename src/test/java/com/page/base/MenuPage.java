@@ -24,12 +24,9 @@ public class MenuPage extends WestMinsterPageHook {
     //protected String loaderIcon = "(//div[text()='Loading...'])[1]";
 
 
-
-
-
     //Wait For Loader To Disappear
     public void waitForLoaderToDisappear() {
-        if (waitForDisappearance(loaderIcon)) {
+        if (waitForDisappearance(loaderIcon, "Loader Icon")) {
             reportStep("Loader is disappeared", "info");
         } else {
             reportFail("Loader is not disappeared");

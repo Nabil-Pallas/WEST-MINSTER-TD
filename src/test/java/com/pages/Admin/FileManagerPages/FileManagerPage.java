@@ -77,7 +77,7 @@ public class FileManagerPage extends AdminPage {
     }
 
     public FileManagerPage clickOnCreateNewMapping() {
-        waitForAppearance(createNewMapping);
+        waitForAppearance(createNewMapping,"Create New Mapping");
         click(createNewMapping, "Create New Mapping", "Link");
         return this;
     }

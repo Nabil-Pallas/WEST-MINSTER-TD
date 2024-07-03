@@ -106,7 +106,7 @@ public class PlaywrightWrapper extends Reporter {
     public boolean isVisible(String locator, String elementName) {
         boolean bVisible = false;
         try {
-            waitForAppearance(locator);
+            waitForAppearance(locator,elementName);
             bVisible = getPage().isVisible(locator);
             if (bVisible == true) {
                 reportStep("The WebElement : " + elementName + " is visible ", "info");
@@ -523,21 +523,13 @@ public class PlaywrightWrapper extends Reporter {
     public boolean forceClick(String locator, String name, String type) {
 
         try {
-
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
-
             getPage().locator(locator).scrollIntoViewIfNeeded();
-
             getPage().locator(locator).click(new Locator.ClickOptions().setForce(true));
-
             reportStep("The " + type + " :" + name + " is clicked", "info");
-
             return true;
-
         } catch (PlaywrightException e) {
-
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
-
         }
 
         return false;
@@ -547,21 +539,14 @@ public class PlaywrightWrapper extends Reporter {
     public boolean programmaticClick(String locator, String name, String type) {
 
         try {
-
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
-
             getPage().locator(locator).scrollIntoViewIfNeeded();
-
             getPage().locator(locator).dispatchEvent("click");
-
             reportStep("The " + type + " :" + name + " is clicked", "info");
-
             return true;
 
         } catch (PlaywrightException e) {
-
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
-
         }
 
         return false;
@@ -935,7 +920,7 @@ public class PlaywrightWrapper extends Reporter {
     public boolean isEditable(String locator, String elementName) {
         boolean bEditable = false;
         try {
-            waitForAppearance(locator);
+            waitForAppearance(locator,elementName);
             bEditable = getPage().isEditable(locator);
             if (bEditable == true) {
                 reportStep("The WebElement : " + elementName + " is editable ", "info");
@@ -962,7 +947,8 @@ public class PlaywrightWrapper extends Reporter {
         try {
             if (isDisabled(locator, label)) reportStep("The element : " + label + " is disabled as expected", "info");
             else reportStep("The element : " + label + " is enabled", "warning");
-        } catch (Exception e) {
+        } catch (PlaywrightException e) {
+            reportStep("The element : " + label + " is enabled", "fail");
         }
         return false;
     }
@@ -979,7 +965,8 @@ public class PlaywrightWrapper extends Reporter {
             if (getValue.isEmpty() || getValue.equals(" "))
                 reportStep("The element attribute: " + label + " is empty.", "fail");
             else reportStep("The element '" + label + "' has value as - " + getValue, "info");
-        } catch (Exception e) {
+        } catch (PlaywrightException e) {
+            reportStep("The element '" + label + "' has value as - ","fail");
             e.printStackTrace();
         }
     }
@@ -991,11 +978,13 @@ public class PlaywrightWrapper extends Reporter {
      * @return true if the element is disappeared else false
      * @author Srikanth
      */
-    public boolean waitForDisappearance(String locator) {
+    public boolean waitForDisappearance(String locator,String element) {
         try {
             getPage().locator(locator).waitFor(new Locator.WaitForOptions().setTimeout(ConfigurationManager.configuration().pauseHigh()).setState(WaitForSelectorState.HIDDEN));
+            reportStep("Waiting for the element " + element + " to disappear.", "info");
             return true;
-        } catch (Exception e) {
+        } catch (PlaywrightException e) {
+            reportStep("The element " + element + " is not  disappeared for the provided timeline.", "fail");
             e.printStackTrace();
         }
         return false;
@@ -1008,11 +997,13 @@ public class PlaywrightWrapper extends Reporter {
      * @return true if the element is appeared else false
      * @author Srikanth
      */
-    public boolean waitForAppearance(String locator) {
+    public boolean waitForAppearance(String locator,String element) {
         try {
             getPage().locator(locator).waitFor(new Locator.WaitForOptions().setTimeout(ConfigurationManager.configuration().pauseHigh()).setState(WaitForSelectorState.VISIBLE));
+            reportStep("Waiting for the element " + element + " to appear.", "info");
             return true;
-        } catch (Exception e) {
+        } catch (PlaywrightException e) {
+            reportStep("The element " + element + " is appeared for the provided timeline.", "fail");
             e.printStackTrace();
         }
         return false;
@@ -1130,6 +1121,7 @@ public class PlaywrightWrapper extends Reporter {
             locators = getPage().locator(locator);
             return locators.count();
         } catch (PlaywrightException e) {
+            reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }
         return locators.count();
     }
@@ -1419,7 +1411,7 @@ public class PlaywrightWrapper extends Reporter {
     public void uploadFile() {
         try {
             getPage().setInputFiles("input[type='file']", Path.of(attachment));
-            waitForAppearance("//img[@data-testid='preview-thumbnail']");
+            waitForAppearance("//img[@data-testid='preview-thumbnail']","File");
             reportStep("File is Uploaded", "info");
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");

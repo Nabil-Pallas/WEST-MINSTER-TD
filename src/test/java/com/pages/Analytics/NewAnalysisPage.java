@@ -94,10 +94,10 @@ public class NewAnalysisPage extends AnalyticsPage {
         typeAndEnter(frameAnalysisFieldLocator("Analysis Name:"), analysisName, "Analysis Name Field");
         pause("medium");
         click(frameDivTextLocator(color), " Chart Color", "color");
-        waitForDisappearance("(//*[contains(text(),'Loading...')])[3]");
+        waitForDisappearance("(//*[contains(text(),'Loading...')])[3]", "Loading...");
         pause("medium");
         click(frameSpanTextLocator("Full Data"), "Full Data Tab", "Section Tab");
-        waitForDisappearance("(//*[contains(text(),'Loading...')])[3]");
+        waitForDisappearance("(//*[contains(text(),'Loading...')])[3]", "Loading...");
         pause("medium");
         String verifyExactText = getInputText(frameAnalysisFieldLocator("Analysis Name:"));
         Assert.assertEquals(verifyExactText, analysisName);

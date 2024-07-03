@@ -97,6 +97,7 @@ public class AnalyticsPage extends MenuPage {
         waitForLoaderToDisappear();
         int analysisListCount = getLocatorsCount("((//h3[@class='dataviz__title'])//span)");
         for (int i = 1; i < analysisListCount; i++) {
+            pause("medium");
             String analysisList = "((//h3[@class='dataviz__title'])//span)[" + i + "]";
             pause("medium");
             boolean verifyExactText = verifyExactText(analysisList, analysisName);

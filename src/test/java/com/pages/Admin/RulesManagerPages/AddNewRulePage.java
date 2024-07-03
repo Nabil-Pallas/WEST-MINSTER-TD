@@ -178,7 +178,7 @@ public class AddNewRulePage extends RulesManagerPage {
     }
 
     public AddNewRulePage clickOnApplyBtn() {
-        waitForAppearance(frameSpanTextLocator("Apply"));
+        waitForAppearance(frameSpanTextLocator("Apply"), "Apply");
         click(frameSpanTextLocator("Apply"), "Apply Button");
         pause("medium");
         return this;

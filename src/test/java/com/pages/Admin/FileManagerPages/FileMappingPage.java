@@ -111,7 +111,7 @@ public class FileMappingPage extends FileManagerPage {
 
     public FileManagerPage clickOnFinishMapping() {
         click(finishMapping, "Finish Mapping");
-        waitForAppearance("//div[text()='Confirm Data Mapping']");
+        waitForAppearance("//div[text()='Confirm Data Mapping']","Confirm Data Mapping");
         click(confirmAndUpload, "Confirm & Upload");
         pause("medium");
         pause("medium");

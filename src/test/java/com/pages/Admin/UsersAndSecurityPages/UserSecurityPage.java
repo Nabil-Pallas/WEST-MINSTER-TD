@@ -44,7 +44,7 @@ public class UserSecurityPage extends AdminPage {
         click(usersTab, "User Tab");
         pause("low");
         waitForLoaderToDisappear();
-        waitForAppearance(addNewUserBtn);
+        waitForAppearance(addNewUserBtn, "Add a new user");
         return this;
     }
 
@@ -52,7 +52,7 @@ public class UserSecurityPage extends AdminPage {
         click(rolesTab, "Roles Tab");
         pause("low");
         waitForLoaderToDisappear();
-        waitForAppearance(addNewRoleBtn);
+        waitForAppearance(addNewRoleBtn, "Add a new Role");
         return this;
     }
 
@@ -60,7 +60,7 @@ public class UserSecurityPage extends AdminPage {
         pause("low");
         waitForLoaderToDisappear();
         // waitForElementToLoad(addNewUserBtn);
-        waitForAppearance(addNewUserBtn);
+        waitForAppearance(addNewUserBtn, "Add a new user");
         click(addNewUserBtn, "Add New User");
         return new AddNewUserPage();
     }
@@ -68,7 +68,7 @@ public class UserSecurityPage extends AdminPage {
     public AddNewRolePage clickOnaddNewRoleBtn() {
         pause("low");
         waitForLoaderToDisappear();
-        waitForAppearance(addNewRoleBtn);
+        waitForAppearance(addNewRoleBtn, "Add a new role");
         click(addNewRoleBtn, "Add New Role");
         return new AddNewRolePage();
     }
@@ -147,7 +147,7 @@ public class UserSecurityPage extends AdminPage {
         typeSearchClient(firstGridName);
         pause("low");
         click(clientActionLink, "First Grid Action Item", "Link");
-        waitForAppearance(frameEditClientDetailsResult("Edit Client Details"));
+        waitForAppearance(frameEditClientDetailsResult("Edit Client Details"), "Edit Client Details");
         click(frameEditClientDetailsResult("Edit Client Details"), "Edit Client Details Button");
         return new EditClientPage();
     }
@@ -174,7 +174,7 @@ public class UserSecurityPage extends AdminPage {
                 break;
         }
 
-        waitForAppearance(frameEditClientDetailsResult("Edit User"));
+        waitForAppearance(frameEditClientDetailsResult("Edit User"), "Edit User");
         click(frameEditClientDetailsResult("Edit User"), "Edit User Button");
         return new EditUserPage();
     }
@@ -198,7 +198,7 @@ public class UserSecurityPage extends AdminPage {
         }
 
 
-        waitForAppearance(frameEditClientDetailsResult("Edit Role"));
+        waitForAppearance(frameEditClientDetailsResult("Edit Role"), "Edit Role");
         click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
         return new EditRolePage();
     }

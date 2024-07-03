@@ -57,7 +57,7 @@ public class EditDataSchemaPage extends DataManagerPage {
     public EditDataSchemaPage clickOnApplyAndExitBtn() {
         pause("medium");
         pause("medium");
-        click(applyBtn, "Apply Button");
+        click(applyBtnForDataSchema, "Apply Button");
         pause("medium");
         click(frameSpanTextLocator("< Exit"), "Exit Button");
         waitForLoaderToDisappear();

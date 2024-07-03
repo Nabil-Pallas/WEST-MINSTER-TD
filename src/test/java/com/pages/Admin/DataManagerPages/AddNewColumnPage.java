@@ -84,6 +84,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
             clientCompanyName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
             typeFieldName(clientCompanyName.get());
             selectFieldDataType(i);
+            pause("medium");
             switch (i) {
 //                case 0:
 //                    calculatedCheckbox(calculatedCheckbox);
@@ -100,11 +101,12 @@ public class AddNewColumnPage extends EditDataSchemaPage {
 //                    break;
             }
 
-
             clickOnApplyAndExitBtn()
                     .validateAddedNewColumn(clientCompanyName.get());
-            clickOnEditDataSchema();
-            clickOnAddNewColumn();
+            if (i > 0) {
+                clickOnEditDataSchema();
+                clickOnAddNewColumn();
+            }
         }
         return this;
     }

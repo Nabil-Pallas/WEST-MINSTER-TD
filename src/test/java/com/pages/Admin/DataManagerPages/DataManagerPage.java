@@ -19,7 +19,7 @@ public class DataManagerPage extends AdminPage {
     private String addNewRowBtn = "//span[text()='Add new row']";
 
     //Locator for Apply Button
-    protected String applyBtn = "//span[text()='Apply']";
+    protected String applyBtn = "//div[@id='apply-new-col-changes-save']//span";
 
 
     //Locator for Action Button

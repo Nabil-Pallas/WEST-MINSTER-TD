@@ -95,7 +95,7 @@ public class AnalyticsPage extends MenuPage {
     public DashboardPage validateAnalysis(String analysisName) {
         pause("medium");
         waitForLoaderToDisappear();
-        int analysisListCount = getLocatorsCount("((//h3[@class='dataviz__title'])//span)");
+        long analysisListCount = getLocatorsCount("((//h3[@class='dataviz__title'])//span)");
         for (int i = 1; i < analysisListCount; i++) {
             pause("medium");
             String analysisList = "((//h3[@class='dataviz__title'])//span)[" + i + "]";

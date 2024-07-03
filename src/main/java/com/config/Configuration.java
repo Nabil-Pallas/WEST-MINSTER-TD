@@ -36,8 +36,10 @@ import org.aeonbits.owner.Config.LoadType;
 "classpath:report.properties"})
 public interface Configuration extends Config {
 
-	@Key("app.clientName")
-	String appClientName();
+	@Key("app.clientName.tier1_Admin")
+	String appClientNameTier1Admin();
+	@Key("app.clientName.tier1_User")
+	String appClientNameTier1User();
 
 	@Key("app.username.tier1_Admin")
 	String appUserNameTier1Admin();

@@ -53,7 +53,7 @@ public class AnalyticsPage extends MenuPage {
         return "//div[@class='wdx-custom-dropdown__text']/div[text()='" + placeholder + "']";
     }
 
-    public AnalyticsPage setClient(String clientName) {
+    public AnalyticsPage setClient() {
         switch (xmlUserLevel) {
             case "Tier2Admin":
                 break;
@@ -61,9 +61,25 @@ public class AnalyticsPage extends MenuPage {
                 break;
             case "Tier3EndUser":
                 break;
+            case "Tier1Admin":
+                try {
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1Admin() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1Admin());
+                    pause("low");
+                    reportPass("User successfully selected the Client.");
+                } catch (Exception e) {
+                    reportWarning("Client is not selected as it is set as default");
+                }
+            case "Tier1User":
+                try {
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1User() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1User());
+                    pause("low");
+                    reportPass("User successfully selected the Client.");
+                } catch (Exception e) {
+                    reportWarning("Client is not selected as it is set as default");
+                }
             default:
                 try {
-                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + clientName + "')]", "Client Name", clientName);
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1Admin() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1Admin());
                     pause("low");
                     reportPass("User successfully selected the Client.");
                 } catch (Exception e) {
@@ -95,7 +111,7 @@ public class AnalyticsPage extends MenuPage {
     public DashboardPage validateAnalysis(String analysisName) {
         pause("medium");
         waitForLoaderToDisappear();
-        int analysisListCount = getLocatorsCount("((//h3[@class='dataviz__title'])//span)");
+        long analysisListCount = getLocatorsCount("((//h3[@class='dataviz__title'])//span)");
         for (int i = 1; i < analysisListCount; i++) {
             pause("medium");
             String analysisList = "((//h3[@class='dataviz__title'])//span)[" + i + "]";

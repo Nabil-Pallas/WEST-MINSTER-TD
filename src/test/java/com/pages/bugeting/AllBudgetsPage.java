@@ -1,5 +1,6 @@
 package com.pages.bugeting;
 
+import com.config.ConfigurationManager;
 import com.page.base.DashboardPage;
 import com.page.base.MenuPage;
 import com.pages.Admin.AdminPage;
@@ -140,7 +141,7 @@ public class AllBudgetsPage extends MenuPage {
         return new DashboardPage();
     }
 
-    public AllBudgetsPage setClient(String clientName) {
+    public AllBudgetsPage setClient() {
 
         //select client
 
@@ -151,9 +152,25 @@ public class AllBudgetsPage extends MenuPage {
                 break;
             case "Tier3EndUser":
                 break;
+            case "Tier1Admin":
+                try {
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1Admin() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1Admin());
+                    pause("low");
+                    reportPass("User successfully selected the Client.");
+                } catch (Exception e) {
+                    reportWarning("Client is not selected as it is set as default");
+                }
+            case "Tier1User":
+                try {
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1User() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1User());
+                    pause("low");
+                    reportPass("User successfully selected the Client.");
+                } catch (Exception e) {
+                    reportWarning("Client is not selected as it is set as default");
+                }
             default:
                 try {
-                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + clientName + "')]", "Client Name", clientName);
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1Admin() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1Admin());
                     pause("low");
                     reportPass("User successfully selected the Client.");
                 } catch (Exception e) {

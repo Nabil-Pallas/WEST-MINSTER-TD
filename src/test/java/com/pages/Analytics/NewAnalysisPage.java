@@ -34,7 +34,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage typeFilterOperator(String operator) {
         pause("medium");
         typeAndEnter(frameFilterGroupLocator("Operator", 3), operator, "Operator");
-        pause("low");
+        pause("medium");
         return this;
     }
 
@@ -68,6 +68,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     public AnalyticsPage clickOnBackBtn() {
         pause("low");
         click(frameSpanTextLocator("Back"), "Back");
+        pause("low");
         return new AnalyticsPage();
     }
 
@@ -90,14 +91,16 @@ public class NewAnalysisPage extends AnalyticsPage {
     }
 
     public NewAnalysisPage reviewYourAnalysis(String analysisName, String color) {
-        typeAndSpace(frameAnalysisFieldLocator("Analysis Name:"), analysisName, "Analysis Name Field");
-        pause("low");
+        typeAndEnter(frameAnalysisFieldLocator("Analysis Name:"), analysisName, "Analysis Name Field");
+        pause("medium");
         click(frameDivTextLocator(color), " Chart Color", "color");
-        waitForDisappearance("(//*[contains(text(),'Loading...')])[3]");
+        waitForDisappearance("(//*[contains(text(),'Loading...')])[3]", "Loading...");
         pause("medium");
         click(frameSpanTextLocator("Full Data"), "Full Data Tab", "Section Tab");
-        waitForDisappearance("(//*[contains(text(),'Loading...')])[3]");
+        waitForDisappearance("(//*[contains(text(),'Loading...')])[3]", "Loading...");
         pause("medium");
+        String verifyExactText = getInputText(frameAnalysisFieldLocator("Analysis Name:"));
+        Assert.assertEquals(verifyExactText, analysisName);
         reportPass("User successfully reviewed the Analysis");
         return this;
     }

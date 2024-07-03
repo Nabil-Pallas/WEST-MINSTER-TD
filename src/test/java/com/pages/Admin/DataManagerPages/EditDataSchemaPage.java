@@ -38,8 +38,8 @@ public class EditDataSchemaPage extends DataManagerPage {
 
     public AddNewColumnPage validateAddedNewColumn(String fieldName) {
         pause("medium");
+        waitForLoaderToDisappear();
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
-
         for (int i = 1; i <= headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
@@ -57,7 +57,7 @@ public class EditDataSchemaPage extends DataManagerPage {
     public EditDataSchemaPage clickOnApplyAndExitBtn() {
         pause("medium");
         pause("medium");
-        click(applyBtn, "Apply Button");
+        click(applyBtnForDataSchema, "Apply Button");
         pause("medium");
         click(frameSpanTextLocator("< Exit"), "Exit Button");
         waitForLoaderToDisappear();

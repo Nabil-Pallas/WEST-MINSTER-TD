@@ -19,9 +19,9 @@ public class DataManagerPage extends AdminPage {
     private String addNewRowBtn = "//span[text()='Add new row']";
 
     //Locator for Apply Button
+    protected String applyBtnForDataSchema = "//div[@id='apply-new-col-changes-save']//span";
+
     protected String applyBtn = "//span[text()='Apply']";
-
-
     //Locator for Action Button
     private String actionBtn = "(//td[@class='action-edit-delete-column']/a)[1]";
 
@@ -82,7 +82,8 @@ public class DataManagerPage extends AdminPage {
 
     //Validate the Add New Row Information
     public DashboardPage validateAddedRowInformation(String verificationValue, String verificationHeader) {
-        waitForLoaderToDisappear();
+//        waitForLoaderToDisappear();
+        pause("medium");
         pause("medium");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
 
@@ -121,6 +122,7 @@ public class DataManagerPage extends AdminPage {
     //Click The Apply Button
     public DataManagerPage clickOnApplyBtn() {
 //        waitForLoaderToDisappear();
+        pause("medium//");
         click(applyBtn, "Apply Button");
         pause("medium");
         reportPass("User successfully clicked the Apply button.");

@@ -3,6 +3,7 @@ package com.westminster.testcases.admin;
 import java.util.Arrays;
 
 import com.config.ConfigurationManager;
+import com.ui.utilities.TestGroups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -46,7 +47,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //    Editing the new row in the Data manager
     @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
-    public void editRow() {
+     public void editRow() {
         ruleName.set(FakerDataFactory.getCompanyName());
         reportName.set(FakerDataFactory.getReportsName());
         titleone.set(FakerDataFactory.getTitle());

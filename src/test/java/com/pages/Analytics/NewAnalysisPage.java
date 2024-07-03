@@ -34,7 +34,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage typeFilterOperator(String operator) {
         pause("medium");
         typeAndEnter(frameFilterGroupLocator("Operator", 3), operator, "Operator");
-        pause("low");
+        pause("medium");
         return this;
     }
 
@@ -68,6 +68,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     public AnalyticsPage clickOnBackBtn() {
         pause("low");
         click(frameSpanTextLocator("Back"), "Back");
+        pause("low");
         return new AnalyticsPage();
     }
 

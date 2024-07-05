@@ -68,7 +68,8 @@ public class TC_ListManager extends WestMinsterPageHook {
                 .editListItem(listItem)
                 .typeListItems(listItems)
                 .clickOnSaveListBtn()
-                .validateListNameAndItem(newListName.get(), listItems);
+                .validateListNameAndItem(newListName.get(), listItems)
+                .deleteListItem(newListName.get());
         System.out.println("TC-----------09");
 
     }

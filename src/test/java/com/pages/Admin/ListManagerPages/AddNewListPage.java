@@ -17,18 +17,17 @@ public class AddNewListPage extends ListManagerPage {
     }
 
     public AddNewListPage typeListTitle(String listTitle) {
-        typeAndEnter(frameInputLocator("List Title…", 1), listTitle, "listTitle");
+        typeWithType(frameInputLocator("List Title…", 1), listTitle, "listTitle");
+        pause("low");
         return this;
     }
 
     public AddNewListPage clickOnAddListItem() {
-//        click(frameSpanTextLocator("Add list item"), "Add list item");
         try {
-            pause("medium");
-            pause("low");
+//            pause("low");
             click("//div[@id='add-list-item-button']//i", "Add list item", "Button");
         } catch (Exception e) {
-            pause("medium");
+//            pause("medium");
             programmaticClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
         }
         return this;
@@ -37,9 +36,25 @@ public class AddNewListPage extends ListManagerPage {
     public AddNewListPage typeListItems(List<String> listItems) {
         for (String listItem : listItems) {
             clickOnAddListItem();
-            typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
-            pause("low");
+            typeWithType(frametextareaLocator(2), listItem, "List Item " + listItem);
+//            pause("low");
         }
+
+        //Different Methods
+//        int size = listItems.size();
+//        for (int i = 0; i < size; i++) {
+//            String listItem = listItems.get(i);
+//            if (i == 0) {
+//                clickOnAddListItem(); // Call this method only once for the first iteration
+//            }
+//            typeAndEnter(frametextareaLocator(2), listItem, "List Item " + listItem);
+//            pause("low");
+//
+//            if (i == size - 1) {
+//                type(frametextareaLocator(2), listItem, "List Item " + listItem);
+//            }
+//        }
+
         return this;
     }
 

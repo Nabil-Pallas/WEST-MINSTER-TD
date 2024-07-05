@@ -65,7 +65,8 @@ public class TC_RulesManager extends WestMinsterPageHook {
                 .editDefineTheNewColumn(true, FakerDataFactory.getFieldName())
                 .editAddFilters()
                 .editDefineTheCaluculation("FX Rate", "*", "FX Rate")
-                .validateEditRuleChanges(ruleName.get(), ruleDescription);
+                .validateEditRuleChanges(ruleName.get(), ruleDescription)
+                .deleteRuleName();
         System.out.println("TC-----------07");
     }
 

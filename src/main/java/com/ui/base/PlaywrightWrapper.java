@@ -268,7 +268,6 @@ public class PlaywrightWrapper extends Reporter {
     public boolean typeAndEnter(String locator, String value, String name) {
         try {
             getPage().locator(locator).fill("");
-            ;
             getPage().locator(locator).fill(value);
             pause("low");
             getPage().locator(locator).press("Enter");
@@ -278,7 +277,6 @@ public class PlaywrightWrapper extends Reporter {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }
         return false;
-
     }
 
     /**

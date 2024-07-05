@@ -119,6 +119,34 @@ public class RulesManagerPage extends AdminPage {
         return new DashboardPage();
     }
 
+    //Delete Rule Manager
+    public DashboardPage deleteRuleNameIsEnabled(String ruleName) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        waitForLoaderToDisappear();
+        pause("low");
+        int ruleNameCount = getLocatorsCount("(((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()]");
+
+        for (int i = 1; i <= ruleNameCount; i++) {
+            String ruleNameInnerText = getInnerText("((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()])[" + i + "]");
+            String enableCheckBox = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[2])[position() < last()])[" + i + "]";
+            String actionLocatorStr = "(//td[@class='action-edit-delete-column']/a)[" + i + "]";
+
+            if (ruleNameInnerText.equals(ruleName)) {
+                click(actionLocatorStr, "Action", "Action Icon");
+                click(frameSpanTextLocator("Enable"), "Enable", "Action Item");
+                waitForLoaderToDisappear();
+                pause("low");
+                boolean isRuleEnable = isEnabled(enableCheckBox, "Enable Check Box");
+                Assert.assertTrue(isRuleEnable, "Rule is Enabled");
+                reportPass("User successfully validated the new rule and Rule is Enabled as Expected.");
+                break;
+            }
+        }
+
+        return new DashboardPage();
+    }
+
     public EditRulePage clickOnEditRule() {
         click(actionRuleLocator, "Action", "Link");
         click(frameSpanTextLocator("Edit"), "Edit", "Link");

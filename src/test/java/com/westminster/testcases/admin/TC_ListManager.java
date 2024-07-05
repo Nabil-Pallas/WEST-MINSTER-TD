@@ -19,7 +19,7 @@ public class TC_ListManager extends WestMinsterPageHook {
     public void setReportValues() {
         testcaseName = "TC_5591 " + xmlUserLevel;
         testDescription = "Create New List and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Add New List";
     }
 
@@ -48,7 +48,7 @@ public class TC_ListManager extends WestMinsterPageHook {
     public void editList() {
         testcaseName = "TC_5357 " + xmlUserLevel;
         testDescription = "Edit List and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Edit List";
         startTestCase();
         setNode();

@@ -17,7 +17,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     public void setReportValues() {
         testcaseName = "TC_5774 " + xmlUserLevel;
         testDescription = "Create New Analytics - Ring chart and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create Ring Chart";
 
     }
@@ -51,7 +51,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     public void createBarChart() {
         testcaseName = "TC_6044 " + xmlUserLevel;
         testDescription = "Create New Analytics - Bar chart and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create Bar Chart";
         startTestCase();
         setNode();
@@ -81,7 +81,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     public void createPivotTable() {
         testcaseName = "TC_6045 " + xmlUserLevel;
         testDescription = "Create New Analytics - Pivot table and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create Pivot Table";
         startTestCase();
         setNode();
@@ -111,7 +111,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     public void createScatterPlot() {
         testcaseName = "TC_4734 " + xmlUserLevel;
         testDescription = "Create New Analytics - Scatter plot and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create Scatter Plot";
         startTestCase();
         setNode();
@@ -141,7 +141,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     public void createLineChart() {
         testcaseName = "TC_5594 " + xmlUserLevel;
         testDescription = "Create New Analytics - Line chart and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create Line Chart";
 
         startTestCase();
@@ -174,7 +174,7 @@ public class TC_Analytics extends WestMinsterPageHook {
 
         testcaseName = "TC_5773 " + xmlUserLevel;
         testDescription = "Create New Analytics - Summary Table and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create Summary Table";
         startTestCase();
         setNode();

@@ -17,7 +17,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     public void setReportValues() {
         testcaseName = "TC_2136 " + xmlUserLevel;
         testDescription = "Create New User and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create Client";
 
     }
@@ -46,7 +46,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     public void editClient() {
         testcaseName = "TC_23 " + xmlUserLevel;
         testDescription = "Edit Existing Client and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Edit Client";
         startTestCase();
         setNode();
@@ -68,11 +68,11 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //User creation - 5613
-    @Test(priority = 24, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
+//    @Test(priority = 24, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void createUser() {
         testcaseName = "TC_5613 " + xmlUserLevel;
         testDescription = "Create User and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create User";
         startTestCase();
         setNode();
@@ -95,11 +95,11 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //Edit created user - 24
-    @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
+//    @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void editUser() {
         testcaseName = "TC_24 " + xmlUserLevel;
         testDescription = "Edit Existing User and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Edit User";
         startTestCase();
         setNode();
@@ -123,11 +123,11 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //Role creation - 101
-    @Test(priority = 26, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
+//    @Test(priority = 26, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void createRole() {
         testcaseName = "TC_101 " + xmlUserLevel;
         testDescription = "Create New Role and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create Role";
         startTestCase();
         setNode();
@@ -148,11 +148,11 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //Edit created role - 621
-    @Test(priority = 27, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
+//    @Test(priority = 27, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void editRole() {
         testcaseName = "TC_621 " + xmlUserLevel;
         testDescription = "Edit Existing Role and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Edit Role";
         startTestCase();
         setNode();

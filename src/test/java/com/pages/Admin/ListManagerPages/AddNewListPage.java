@@ -24,10 +24,11 @@ public class AddNewListPage extends ListManagerPage {
     public AddNewListPage clickOnAddListItem() {
 //        click(frameSpanTextLocator("Add list item"), "Add list item");
         try {
+            pause("medium");
             pause("low");
             click("//div[@id='add-list-item-button']//i", "Add list item", "Button");
         } catch (Exception e) {
-            pause("low");
+            pause("medium");
             programmaticClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
         }
         return this;

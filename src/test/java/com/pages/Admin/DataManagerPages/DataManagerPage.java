@@ -6,6 +6,7 @@ import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
 import com.pages.Admin.UsersAndSecurityPages.AddNewUserPage;
 import com.pages.Admin.UsersAndSecurityPages.UserSecurityPage;
+import com.pages.bugeting.AllBudgetsPage;
 import org.testng.Assert;
 
 import java.util.*;
@@ -56,7 +57,8 @@ public class DataManagerPage extends AdminPage {
 
     //Click the Action Button
     public DataManagerPage clickOnActionsBtn() {
-        waitForLoaderToDisappear();
+//        waitForLoaderToDisappear();
+        pause("medium");
         pause("medium");
         click(actionBtn, "Action button");
 //        waitForLoaderToDisappear();
@@ -81,7 +83,7 @@ public class DataManagerPage extends AdminPage {
     }
 
     //Validate the Add New Row Information
-    public DashboardPage validateAddedRowInformation(String verificationValue, String verificationHeader) {
+    public DataManagerPage validateAddedRowInformation(String verificationValue, String verificationHeader) {
 //        waitForLoaderToDisappear();
         pause("medium");
         pause("medium");
@@ -99,7 +101,7 @@ public class DataManagerPage extends AdminPage {
                 break;
             }
         }
-        return new DashboardPage();
+        return new DataManagerPage();
     }
 
     //Search The Value To Be Edited

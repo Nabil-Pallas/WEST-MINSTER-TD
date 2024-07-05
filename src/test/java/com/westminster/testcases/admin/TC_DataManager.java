@@ -42,12 +42,13 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnAddBtn()
                 .clickOnApplyBtn()
                 .validateAddedRowInformation(clientCompanyName.get(), "Broker Name");
+
         System.out.println("TC-----------03");
     }
 
     //    Editing the new row in the Data manager
     @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
-     public void editRow() {
+    public void editRow() {
         ruleName.set(FakerDataFactory.getCompanyName());
         reportName.set(FakerDataFactory.getReportsName());
         titleone.set(FakerDataFactory.getTitle());

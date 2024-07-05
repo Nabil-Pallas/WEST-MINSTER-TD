@@ -17,6 +17,10 @@ public class AllBudgetsPage extends MenuPage {
     protected String allBudgetsText = "//h1[text()='All Budgets']";
     private String actionBtn = "(//td[@class='action-edit-delete-column']/a)[1]";
     private String editBtn = "//span[text()='Edit']";
+    private String exitBtn = "//span[text()='< Exit']";
+    private String deleteBtn = "//span[text()='Delete']";
+    private String confirmDeleteBtn = "//span[text()='Yes']";
+
     private String clientSelectDrpDown = "(//div[@class='dx-dropdowneditor-icon'])[1]";
 
     public String frameClientDetailsLocator(String placeholder) {
@@ -141,6 +145,23 @@ public class AllBudgetsPage extends MenuPage {
         return new DashboardPage();
     }
 
+    public AllBudgetsPage searchValueOfBudget(String verificationHeader, String budgetName) {
+        int headerCount = getLocatorsCount("(//td[contains(@class,'dx-datagrid-action dx')])");
+        for (int i = 1; i < headerCount; i++) {
+
+            String headerElement = "(//td[contains(@class,'dx-datagrid-action dx')])[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader)) {
+                click(searchValueWithHeader(i), "Search Filter", "Search Box");
+                type(searchValueWithHeader(i), budgetName, budgetName);
+                break;
+            }
+
+        }
+        pause("medium");
+        return new AllBudgetsPage();
+    }
+
     public AllBudgetsPage setClient() {
 
         //select client
@@ -152,14 +173,6 @@ public class AllBudgetsPage extends MenuPage {
                 break;
             case "Tier3EndUser":
                 break;
-            case "Tier1Admin":
-                try {
-                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1Admin() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1Admin());
-                    pause("low");
-                    reportPass("User successfully selected the Client.");
-                } catch (Exception e) {
-                    reportWarning("Client is not selected as it is set as default");
-                }
             case "Tier1User":
                 try {
                     clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1User() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1User());
@@ -168,6 +181,7 @@ public class AllBudgetsPage extends MenuPage {
                 } catch (Exception e) {
                     reportWarning("Client is not selected as it is set as default");
                 }
+                break;
             default:
                 try {
                     clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1Admin() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1Admin());
@@ -180,5 +194,32 @@ public class AllBudgetsPage extends MenuPage {
         }
         return new AllBudgetsPage();
     }
+
+    public AllBudgetsPage deleteBudget(String budgetName) {
+
+        click(exitBtn, "Exit Button");
+        waitForLoaderToDisappear();
+        searchValueOfBudget("Name", budgetName);
+        clickOnActionsBtn();
+        pause("low");
+        click(deleteBtn, "Delete Button");
+        pause("low");
+        click(confirmDeleteBtn, "Confirm Delete");
+        searchValueOfBudget("Name", budgetName);
+        pause("low");
+        String budgetNameElement = "//div[@class='wdx-interactive-cell dx-command-view-budget-cell']";
+
+//        boolean verifyExactBudgetNameText = verifyExactText(budgetNameElement, budgetName);
+        if (getInnerText(budgetNameElement).equals(budgetName)) {
+            reportStep("Budget Name is not deleted", "warning");
+
+        } else {
+            reportStep("Budget Name is deleted successfully", "pass");
+        }
+
+
+        return new AllBudgetsPage();
+    }
+
 
 }

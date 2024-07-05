@@ -18,13 +18,13 @@ public class TC_Reports extends WestMinsterPageHook {
     public void setReportValues() {
         testcaseName = "TC_5785 " + xmlUserLevel;
         testDescription = "Create New Report and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create Report";
 
     }
 
     //Create Report - 5785
-//    @Test(priority = 19, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @Test(priority = 19, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
     public void createReports() {
 
         reportName.set(FakerDataFactory.getNameWithTimeStamp("Report"));
@@ -59,7 +59,7 @@ public class TC_Reports extends WestMinsterPageHook {
     public void editReports() {
         testcaseName = "TC_133 " + xmlUserLevel;
         testDescription = "Edit a report and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Edit Reports";
         startTestCase();
         setNode();
@@ -91,11 +91,11 @@ public class TC_Reports extends WestMinsterPageHook {
     }
 
     //Report Delivery -5674
-//    @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
     public void reportDelivery() {
         testcaseName = "TC_5674 " + xmlUserLevel;
         testDescription = "Report Delivery";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Report Delivery";
         startTestCase();
         setNode();

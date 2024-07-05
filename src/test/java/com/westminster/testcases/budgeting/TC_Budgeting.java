@@ -20,7 +20,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
     public void setReportValues() {
         testcaseName = "TC_127 " + xmlUserLevel;
         testDescription = "Create New Budget and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create New Budget";
 
     }
@@ -46,7 +46,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
     public void editBudget() {
         testcaseName = "TC_14 " + xmlUserLevel;
         testDescription = "Edit budget and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Edit Budget";
         startTestCase();
         setNode();
@@ -71,7 +71,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
 
         testcaseName = "TC_126 " + xmlUserLevel;
         testDescription = "Import new budget and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Import New Budget";
         startTestCase();
         setNode();

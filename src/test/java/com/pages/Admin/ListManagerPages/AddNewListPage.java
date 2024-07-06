@@ -24,22 +24,25 @@ public class AddNewListPage extends ListManagerPage {
 
     public AddNewListPage clickOnAddListItem() {
         try {
-//            pause("low");
+            pause("low");
             click("//div[@id='add-list-item-button']//i", "Add list item", "Button");
         } catch (Exception e) {
-//            pause("medium");
+            pause("medium");
             programmaticClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
         }
         return this;
     }
 
     public AddNewListPage typeListItems(List<String> listItems) {
+        int i = 2;
         for (String listItem : listItems) {
             clickOnAddListItem();
             typeWithType(frametextareaLocator(2), listItem, "List Item " + listItem);
-//            pause("low");
+            pause("low");
+//            click("//div[@data-dx_placeholder='Search List Items…']", "Item Count", "Text");
+            click("(//div[@class='dx-datagrid-content']/table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[2]/tbody/tr[" + i + "]/td[2]", "Next Row", "Empty Row");
+            i++;
         }
-
         //Different Methods
 //        int size = listItems.size();
 //        for (int i = 0; i < size; i++) {

@@ -89,10 +89,27 @@ public class ListManagerPage extends AdminPage {
         return new EditListPage();
     }
 
-    public DashboardPage validateListNameAndItem(String listName, List<String> listItems) {
+    public ListManagerPage clickOnDeleteList() {
+        click(frameSpanTextLocator("Delete List"), "Delete List", "Link");
+        pause("low");
+        click(frameSpanTextLocator("Yes"), "Yes", "Button");
+        pause("low");
+        waitForLoaderToDisappear();
+        reportPass("User successfully deleted the List.");
+        return this;
+    }
+
+    public ListManagerPage validateListNameAndItem(String listName, List<String> listItems) {
         searchListName(listName)
                 .validateListName(listName)
                 .validateListItem(listItems);
-        return new DashboardPage();
+        return this;
+    }
+
+    public ListManagerPage deleteListItem(String listName) {
+        searchListName(listName)
+                .clickOnActionIcon()
+                .clickOnDeleteList();
+        return this;
     }
 }

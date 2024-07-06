@@ -48,7 +48,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     public void promotingRows() {
         testcaseName = "TC_4460 " + xmlUserLevel;
         testDescription = "Promoting Rows and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Promoting Rows";
         startTestCase();
         setNode();

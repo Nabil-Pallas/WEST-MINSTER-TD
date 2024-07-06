@@ -19,7 +19,7 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
         return this;
     }
 
-    public DashboardPage validateCreatedBudget(String budgetName, String beginDate, String endDate, String targetColumn) {
+    public AllBudgetsPage validateCreatedBudget(String budgetName, String beginDate, String endDate, String targetColumn) {
         waitForLoaderToDisappear();
         String budgetNameElement = "//h2[text()='" + budgetName + "']";
         String beginDateElement = frameSpanTextLocator(beginDate);
@@ -37,7 +37,7 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
         Assert.assertTrue(verifyExactTargetColumnText);
 
 
-        return new DashboardPage();
+        return new AllBudgetsPage();
     }
 
     public CreateNewBudgetPage typeBudgetName(String brokerName) {

@@ -67,7 +67,7 @@ public class RulesManagerPage extends AdminPage {
     }
     //Rule Name:
 
-    public DashboardPage validateNewRuleNameIsEnabled(String ruleName) {
+    public RulesManagerPage validateNewRuleNameIsEnabled(String ruleName) {
         waitForLoaderToDisappear();
         pause("medium");
         waitForLoaderToDisappear();
@@ -91,11 +91,11 @@ public class RulesManagerPage extends AdminPage {
             }
         }
 
-        return new DashboardPage();
+        return this;
     }
 
     //Validate the edit changes
-    public DashboardPage validateEditRuleChanges(String ruleName, String description) {
+    public RulesManagerPage validateEditRuleChanges(String ruleName, String description) {
         waitForLoaderToDisappear();
         pause("medium");
         waitForLoaderToDisappear();
@@ -116,12 +116,43 @@ public class RulesManagerPage extends AdminPage {
             }
         }
 
-        return new DashboardPage();
+        return this;
+    }
+
+    //Delete Rule Manager
+    public RulesManagerPage deleteRuleName() {
+        waitForLoaderToDisappear();
+        pause("medium");
+        waitForLoaderToDisappear();
+        pause("low");
+        int ruleNameCount = getLocatorsCount("(((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()]");
+        if (ruleNameCount > 0) {
+            for (int i = 1; i <= ruleNameCount; i++) {
+                if (i == 1) {
+                    String actionLocatorStr = "(//td[@class='action-edit-delete-column']/a)[" + i + "]";
+                    click(actionLocatorStr, "Action", "Action Icon");
+                    click(frameSpanTextLocator("Delete"), "Delete", "Delete Item");
+                    pause("low");
+                    click(frameSpanTextLocator("Yes"), "Yes", "Button");
+                    pause("low");
+                    waitForLoaderToDisappear();
+                    reportPass("User successfully deleted the rule.");
+                    break;
+                }
+            }
+        } else {
+            reportWarning("User unable to  delete the rule because there is no rule items");
+        }
+        return this;
     }
 
     public EditRulePage clickOnEditRule() {
-        click(actionRuleLocator, "Action", "Link");
-        click(frameSpanTextLocator("Edit"), "Edit", "Link");
+        if (isVisible(actionRuleLocator, "Action Icon")) {
+            click(actionRuleLocator, "Action", "Link");
+            click(frameSpanTextLocator("Edit"), "Edit", "Link");
+        } else {
+            reportWarning("User is unable to edit the rule because there are no rule items.");
+        }
         return new EditRulePage();
     }
 }

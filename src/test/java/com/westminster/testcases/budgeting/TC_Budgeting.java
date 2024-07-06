@@ -20,7 +20,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
     public void setReportValues() {
         testcaseName = "TC_127 " + xmlUserLevel;
         testDescription = "Create New Budget and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Create New Budget";
 
     }
@@ -38,7 +38,8 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .clickSaveItemBtn()
                 .clickSaveBudgetBtn()
                 .validateViewBudget()
-                .validateCreatedBudget(clientCompanyName.get(), "05/21/2024", "05/27/2024", "FX Rate");
+                .validateCreatedBudget(clientCompanyName.get(), "05/21/2024", "05/27/2024", "FX Rate")
+                .deleteBudget(clientCompanyName.get());
         System.out.println("TC-----------10");
     }
 
@@ -46,7 +47,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
     public void editBudget() {
         testcaseName = "TC_14 " + xmlUserLevel;
         testDescription = "Edit budget and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Edit Budget";
         startTestCase();
         setNode();
@@ -71,7 +72,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
 
         testcaseName = "TC_126 " + xmlUserLevel;
         testDescription = "Import new budget and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Import New Budget";
         startTestCase();
         setNode();

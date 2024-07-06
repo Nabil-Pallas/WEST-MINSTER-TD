@@ -19,7 +19,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     public void setReportValues() {
         testcaseName = "TC_5577 " + xmlUserLevel;
         testDescription = "Add New Row And validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Add New Row";
     }
 
@@ -42,19 +42,20 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnAddBtn()
                 .clickOnApplyBtn()
                 .validateAddedRowInformation(clientCompanyName.get(), "Broker Name");
+
         System.out.println("TC-----------03");
     }
 
     //    Editing the new row in the Data manager
     @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
-     public void editRow() {
+    public void editRow() {
         ruleName.set(FakerDataFactory.getCompanyName());
         reportName.set(FakerDataFactory.getReportsName());
         titleone.set(FakerDataFactory.getTitle());
         titleTwo.set(FakerDataFactory.getTitle());
         testcaseName = "TC_4937 " + xmlUserLevel;
         testDescription = "Edit a row and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Edit Row";
         startTestCase();
         setNode();
@@ -79,7 +80,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     public void addNewColumnInEditDataSchema() {
         testcaseName = "TC_6587 " + xmlUserLevel;
         testDescription = "Add new System Column";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Add new column schema";
         startTestCase();
         setNode();

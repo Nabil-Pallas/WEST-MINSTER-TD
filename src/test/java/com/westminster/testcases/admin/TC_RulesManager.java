@@ -17,7 +17,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
     public void setReportValues() {
         testcaseName = "TC_5587 " + xmlUserLevel;
         testDescription = "Add New Rule and validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Add New Rule";
     }
 
@@ -46,7 +46,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
     public void editRule() {
         testcaseName = "TC_50 " + xmlUserLevel;
         testDescription = "Edit Rule and Validate";
-        authors = "Srikanth";
+        authors = "Automation Team";
         category = "Edit Rule";
         startTestCase();
         setNode();
@@ -65,7 +65,8 @@ public class TC_RulesManager extends WestMinsterPageHook {
                 .editDefineTheNewColumn(true, FakerDataFactory.getFieldName())
                 .editAddFilters()
                 .editDefineTheCaluculation("FX Rate", "*", "FX Rate")
-                .validateEditRuleChanges(ruleName.get(), ruleDescription);
+                .validateEditRuleChanges(ruleName.get(), ruleDescription)
+                .deleteRuleName();
         System.out.println("TC-----------07");
     }
 

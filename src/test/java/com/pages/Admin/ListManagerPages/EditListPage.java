@@ -23,13 +23,18 @@ public class EditListPage extends ListManagerPage {
     }
 
     public EditListPage clickOnAddListItem() {
-//        click(frameSpanTextLocator("Add list item"), "Add list item");
-        click("//div[@id='add-list-item-button']//i", "Add list item", "Button");
+        try {
+            pause("low");
+            click("//div[@id='add-list-item-button']//i", "Add list item", "Button");
+        } catch (Exception e) {
+            pause("medium");
+            programmaticClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
+        }
         return this;
     }
 
     public EditListPage typeListItems(String listItem) {
-        typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
+        typeWithType(frametextareaLocator(2), listItem, "List Item " + listItem);
         return this;
     }
 
@@ -76,7 +81,7 @@ public class EditListPage extends ListManagerPage {
         pause("low");
         for (String listItem : listItems) {
             clickOnAddListItem();
-            typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
+            typeWithType(frametextareaLocator(2), listItem, "List Item " + listItem);
             pause("low");
         }
         return this;

@@ -106,7 +106,7 @@ public class PlaywrightWrapper extends Reporter {
     public boolean isVisible(String locator, String elementName) {
         boolean bVisible = false;
         try {
-            waitForAppearance(locator,elementName);
+            waitForAppearance(locator, elementName);
             bVisible = getPage().isVisible(locator);
             if (bVisible == true) {
                 reportStep("The WebElement : " + elementName + " is visible ", "info");
@@ -268,7 +268,6 @@ public class PlaywrightWrapper extends Reporter {
     public boolean typeAndEnter(String locator, String value, String name) {
         try {
             getPage().locator(locator).fill("");
-            ;
             getPage().locator(locator).fill(value);
             pause("low");
             getPage().locator(locator).press("Enter");
@@ -278,7 +277,6 @@ public class PlaywrightWrapper extends Reporter {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }
         return false;
-
     }
 
     /**
@@ -920,7 +918,7 @@ public class PlaywrightWrapper extends Reporter {
     public boolean isEditable(String locator, String elementName) {
         boolean bEditable = false;
         try {
-            waitForAppearance(locator,elementName);
+            waitForAppearance(locator, elementName);
             bEditable = getPage().isEditable(locator);
             if (bEditable == true) {
                 reportStep("The WebElement : " + elementName + " is editable ", "info");
@@ -966,7 +964,7 @@ public class PlaywrightWrapper extends Reporter {
                 reportStep("The element attribute: " + label + " is empty.", "fail");
             else reportStep("The element '" + label + "' has value as - " + getValue, "info");
         } catch (PlaywrightException e) {
-            reportStep("The element '" + label + "' has value as - ","fail");
+            reportStep("The element '" + label + "' has value as - ", "fail");
             e.printStackTrace();
         }
     }
@@ -978,7 +976,7 @@ public class PlaywrightWrapper extends Reporter {
      * @return true if the element is disappeared else false
      * @author Srikanth
      */
-    public boolean waitForDisappearance(String locator,String element) {
+    public boolean waitForDisappearance(String locator, String element) {
         try {
             getPage().locator(locator).waitFor(new Locator.WaitForOptions().setTimeout(ConfigurationManager.configuration().pauseHigh()).setState(WaitForSelectorState.HIDDEN));
             reportStep("Waiting for the element " + element + " to disappear.", "info");
@@ -997,7 +995,7 @@ public class PlaywrightWrapper extends Reporter {
      * @return true if the element is appeared else false
      * @author Srikanth
      */
-    public boolean waitForAppearance(String locator,String element) {
+    public boolean waitForAppearance(String locator, String element) {
         try {
             getPage().locator(locator).waitFor(new Locator.WaitForOptions().setTimeout(ConfigurationManager.configuration().pauseHigh()).setState(WaitForSelectorState.VISIBLE));
             reportStep("Waiting for the element " + element + " to appear.", "info");
@@ -1411,7 +1409,7 @@ public class PlaywrightWrapper extends Reporter {
     public void uploadFile() {
         try {
             getPage().setInputFiles("input[type='file']", Path.of(attachment));
-            waitForAppearance("//img[@data-testid='preview-thumbnail']","File");
+            waitForAppearance("//img[@data-testid='preview-thumbnail']", "File");
             reportStep("File is Uploaded", "info");
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");

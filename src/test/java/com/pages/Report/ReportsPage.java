@@ -68,15 +68,6 @@ public class ReportsPage extends MenuPage {
                 break;
             case "Tier3EndUser":
                 break;
-            case "Tier1Admin":
-                try {
-                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1Admin() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1Admin());
-                    pause("low");
-                    reportPass("User successfully selected the Client.");
-                } catch (Exception e) {
-                    reportWarning("Client is not selected as it is set as default");
-                }
-                break;
             case "Tier1User":
                 try {
                     clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1User() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1User());

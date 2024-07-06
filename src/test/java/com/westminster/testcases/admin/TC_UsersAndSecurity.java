@@ -43,7 +43,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //Edit created client - 23
-    //@Test(priority = 23, groups = {"Tier1Admin"})
+    @Test(priority = 23, groups = {"Tier1Admin"})
     public void editClient() {
         testcaseName = "TC_23 " + xmlUserLevel;
         testDescription = "Edit Existing Client and Validate";
@@ -98,7 +98,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //Edit created user - 24
-    // @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
+     @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void editUser() {
         testcaseName = "TC_24 " + xmlUserLevel;
         testDescription = "Edit Existing User and Validate";
@@ -153,7 +153,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //Edit created role - 621
-    // @Test(priority = 27, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
+     @Test(priority = 27, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void editRole() {
         testcaseName = "TC_621 " + xmlUserLevel;
         testDescription = "Edit Existing Role and Validate";

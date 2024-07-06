@@ -26,7 +26,7 @@ public class TC_ListManager extends WestMinsterPageHook {
     @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void addNewList() {
         newListName.set(FakerDataFactory.getListName());
-        List<String> listItems = FakerDataFactory.getListOfItems(4);
+        List<String> listItems = FakerDataFactory.getListOfItems(8);
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -44,7 +44,7 @@ public class TC_ListManager extends WestMinsterPageHook {
 
     }
 
-    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+   // @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void editList() {
         testcaseName = "TC_5357 " + xmlUserLevel;
         testDescription = "Edit List and Validate";

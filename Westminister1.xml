@@ -25,6 +25,7 @@
             <class name="com.westminster.testcases.report.TC_Reports"/>
 
         </classes>
+
     </test>
     <!--
      <test thread-count="5" name="WestminsterTest2">

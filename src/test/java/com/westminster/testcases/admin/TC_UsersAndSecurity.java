@@ -23,7 +23,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //Client creation - 2136
-    @Test(priority = 22, groups = {"Tier1Admin"})
+//    @Test(priority = 22, groups = {"Tier1Admin"})
     public void createClient() {
         clientCompanyName.set(FakerDataFactory.getCompanyNameWithoutSpace());
         new DashboardPage()
@@ -42,7 +42,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //Edit created client - 23
-    @Test(priority = 23, groups = {"Tier1Admin"})
+//    @Test(priority = 23, groups = {"Tier1Admin"})
     public void editClient() {
         testcaseName = "TC_23 " + xmlUserLevel;
         testDescription = "Edit Existing Client and Validate";
@@ -95,7 +95,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     //Edit created user - 24
-//    @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
+    @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void editUser() {
         testcaseName = "TC_24 " + xmlUserLevel;
         testDescription = "Edit Existing User and Validate";

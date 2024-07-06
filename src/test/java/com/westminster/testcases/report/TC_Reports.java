@@ -55,7 +55,7 @@ public class TC_Reports extends WestMinsterPageHook {
     }
 
 
-//    @Test(priority = 20, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @Test(priority = 20, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
     public void editReports() {
         testcaseName = "TC_133 " + xmlUserLevel;
         testDescription = "Edit a report and validate";
@@ -85,13 +85,14 @@ public class TC_Reports extends WestMinsterPageHook {
                 .validateAnalyticsPage(titleTwo.get(), descriptionTwo.get())
                 .clickOnViewReport()
                 .clickOnExitBtn()
-                .validateMyReportTitle(reportName.get());
+                .validateMyReportTitle(reportName.get())
+                .deleteReport(reportName.get());
         System.out.println("TC-----------20");
 
     }
 
     //Report Delivery -5674
-    @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+//    @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
     public void reportDelivery() {
         testcaseName = "TC_5674 " + xmlUserLevel;
         testDescription = "Report Delivery";

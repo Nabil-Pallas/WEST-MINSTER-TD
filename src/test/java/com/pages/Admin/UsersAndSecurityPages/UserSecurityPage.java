@@ -42,7 +42,8 @@ public class UserSecurityPage extends AdminPage {
 
     public UserSecurityPage clickOnUserTab() {
         click(usersTab, "User Tab");
-        pause("low");
+        pause("medium");
+        waitForLoaderToDisappear();
         waitForLoaderToDisappear();
         waitForAppearance(addNewUserBtn, "Add a new user");
         return this;
@@ -208,6 +209,21 @@ public class UserSecurityPage extends AdminPage {
         click(applyBtn, "Apply Button");
         pause("medium");
         return new UserSecurityPage();
+    }
+
+    public UserSecurityPage deleteUsersAndSecurity(String userData){
+        waitForLoaderToDisappear();
+        pause("medium");
+        click("//span[text()='"+userData+"']/ancestor::tr//a[@title='Actions']","Action Link");
+        pause("low");
+        click("(//span[contains(text(),'Delete')])[4]","Delete Link","Action Item Popup");
+        //click Yes popup
+        click(frameSpanTextLocator("Yes"), "Yes");
+        pause("low");
+        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+        pause("low");
+        click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete");
+        return this;
     }
 
 

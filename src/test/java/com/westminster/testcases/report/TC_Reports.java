@@ -85,7 +85,8 @@ public class TC_Reports extends WestMinsterPageHook {
                 .validateAnalyticsPage(titleTwo.get(), descriptionTwo.get())
                 .clickOnViewReport()
                 .clickOnExitBtn()
-                .validateMyReportTitle(reportName.get());
+                .validateMyReportTitle(reportName.get())
+                .deleteReport(reportName.get());
         System.out.println("TC-----------20");
 
     }

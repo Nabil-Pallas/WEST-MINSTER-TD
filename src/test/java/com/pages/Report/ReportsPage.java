@@ -108,14 +108,27 @@ public class ReportsPage extends MenuPage {
         return new CreateNewReportPage();
     }
 
-    public DashboardPage validateMyReportTitle(String reportTitle) {
+    public ReportsPage validateMyReportTitle(String reportTitle) {
         waitForLoaderToDisappear();
         pause("medium");
 //        reLoadPage();
 //        waitForElementToLoad(frameSpanTextLocator(reportTitle));
         boolean verifyExactText = verifyExactText(frameSpanTextLocator(reportTitle), reportTitle);
         Assert.assertTrue(verifyExactText);
-        return new DashboardPage();
+        return this;
+    }
+
+    //Delete Report
+    public ReportsPage deleteReport(String reportTitle) {
+        pause("low");
+        click("(//span[contains(text(),'" + reportTitle + "')]/following::div[@aria-label='Actions'])[1]", "Action", "Link");
+        click(frameSpanTextLocator("Delete Report"), "Delete Report", "Link");
+        pause("low");
+        boolean deletePage = isVisible(frameDivTextLocator("Delete Report"));
+        Assert.assertTrue(deletePage);
+        click(frameSpanTextLocator("Delete", 1), "Delete", "Button");
+        pause("medium");
+        return this;
     }
 
     //Click On Report to view and Delivery

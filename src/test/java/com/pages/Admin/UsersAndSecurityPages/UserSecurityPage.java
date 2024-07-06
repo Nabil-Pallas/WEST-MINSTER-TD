@@ -44,6 +44,7 @@ public class UserSecurityPage extends AdminPage {
         click(usersTab, "User Tab");
         pause("medium");
         waitForLoaderToDisappear();
+        pause("medium");
         waitForLoaderToDisappear();
         waitForAppearance(addNewUserBtn, "Add a new user");
         return this;
@@ -109,16 +110,16 @@ public class UserSecurityPage extends AdminPage {
         return this;
     }
 
-    public DashboardPage validateClientInformation(String clientName) {
+    public UserSecurityPage validateClientInformation(String clientName) {
         waitForLoaderToDisappear();
         typeSearchClient(clientName);
         pause("medium");
         boolean verifyExactText = verifyExactText(clientGridFirstRow, clientName);
         Assert.assertTrue(verifyExactText);
-        return new DashboardPage();
+        return this;
     }
 
-    public DashboardPage validateUserInformation(String userName, String emailId) {
+    public UserSecurityPage validateUserInformation(String userName, String emailId) {
         waitForLoaderToDisappear();
         pause("medium");
         waitForLoaderToDisappear();
@@ -127,11 +128,11 @@ public class UserSecurityPage extends AdminPage {
         boolean verifyExactText = verifyExactText(frameUserSearchResult(userName), userName);
         Assert.assertTrue(verifyExactText);
 
-        return new DashboardPage();
+        return this;
     }
 
 
-    public DashboardPage validateRoleInformation(String roleName) {
+    public UserSecurityPage validateRoleInformation(String roleName) {
         waitForLoaderToDisappear();
         pause("medium");
         waitForLoaderToDisappear();
@@ -139,7 +140,7 @@ public class UserSecurityPage extends AdminPage {
         waitForElementToLoad(frameUserSearchResult(roleName));
         boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
         Assert.assertTrue(verifyExactText);
-        return new DashboardPage();
+        return this;
     }
 
     public EditClientPage searchAndEditClientDetails() {
@@ -211,12 +212,12 @@ public class UserSecurityPage extends AdminPage {
         return new UserSecurityPage();
     }
 
-    public UserSecurityPage deleteUsersAndSecurity(String userData){
+    public UserSecurityPage deleteClient(String clientName){
         waitForLoaderToDisappear();
         pause("medium");
-        click("//span[text()='"+userData+"']/ancestor::tr//a[@title='Actions']","Action Link");
+        click("(// tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines'])[2]/ td[2]// a","Action Link");
         pause("low");
-        click("(//span[contains(text(),'Delete')])[4]","Delete Link","Action Item Popup");
+        click("//span[text()='Delete Client']","Delete Link","Action Item Popup");
         //click Yes popup
         click(frameSpanTextLocator("Yes"), "Yes");
         pause("low");
@@ -225,6 +226,53 @@ public class UserSecurityPage extends AdminPage {
         click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete");
         return this;
     }
+
+    public UserSecurityPage deleteUser(String UserName){
+        waitForLoaderToDisappear();
+        pause("medium");
+
+        switch (xmlUserLevel) {
+            case "Tier2Admin":
+                click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
+                break;
+            default:
+                click(userActionLink, "First Grid Action Item", "Link");
+                break;
+        }
+        pause("low");
+        click("//span[text()='Delete User']","Delete Link","Action Item Popup");
+        //click Yes popup
+        click(frameSpanTextLocator("Yes"), "Yes");
+        pause("low");
+        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+        pause("low");
+        click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete");
+        return this;
+    }
+
+    public UserSecurityPage deleteRole(String RoleName){
+        waitForLoaderToDisappear();
+        pause("medium");
+
+        switch (xmlUserLevel) {
+            case "Tier2Admin":
+                click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
+                break;
+            default:
+                click(roleActionLink, "First Grid Action Item", "Link");
+                break;
+        }
+        pause("low");
+        click("//span[text()='Delete Role']","Delete Link","Action Item Popup");
+        //click Yes popup
+        click(frameSpanTextLocator("Yes"), "Yes");
+        pause("low");
+        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+        pause("low");
+        click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete");
+        return this;
+    }
+
 
 
 }

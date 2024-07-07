@@ -34,15 +34,14 @@ public class AddNewListPage extends ListManagerPage {
     }
 
     public AddNewListPage typeListItems(List<String> listItems) {
-        int i = 2;
         for (String listItem : listItems) {
             clickOnAddListItem();
             typeWithType(frametextareaLocator(2), listItem, "List Item " + listItem);
             pause("low");
 //            click("//div[@data-dx_placeholder='Search List Items…']", "Item Count", "Text");
-            click("(//div[@class='dx-datagrid-content']/table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[2]/tbody/tr[" + i + "]/td[2]", "Next Row", "Empty Row");
-            i++;
+            click("(//div[@class='dx-datagrid-content']/table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[2]/tbody/tr[2]/td[2]", "Next Row", "Empty Row");
         }
+
         //Different Methods
 //        int size = listItems.size();
 //        for (int i = 0; i < size; i++) {

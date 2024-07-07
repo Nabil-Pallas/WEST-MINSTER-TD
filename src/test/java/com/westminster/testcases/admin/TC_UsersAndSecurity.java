@@ -9,7 +9,6 @@ import com.listener.TestListener;
 import com.page.base.DashboardPage;
 import com.page.base.WestMinsterPageHook;
 
-
 @Listeners(TestListener.class)
 public class TC_UsersAndSecurity extends WestMinsterPageHook {
 
@@ -21,7 +20,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         category = "Create Client";
     }
 
-    //Client creation - 2136
+    // Client creation - 2136
     @Test(priority = 22, groups = {"Tier1Admin"})
     public void createClient() {
         clientCompanyName.set(FakerDataFactory.getCompanyNameWithoutSpace());
@@ -33,7 +32,8 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateUserSecurityPage()
                 .clickOnaddNewClientBtn()
                 .validateNewClientPage()
-                .fillClientInformation(clientCompanyName.get(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFirstName(), FakerDataFactory.getLastName(),
+                .fillClientInformation(clientCompanyName.get(), FakerDataFactory.getFTPFolderAcronym(),
+                        FakerDataFactory.getFirstName(), FakerDataFactory.getLastName(),
                         FakerDataFactory.getEmailAddress(), "MM/DD/YYYY", "", "", "", "")
                 .clickOnApplyBtn()
                 .validateClientInformation(clientCompanyName.get())
@@ -41,7 +41,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         System.out.println("TC-----------22");
     }
 
-    //Edit created client - 23
+    // Edit created client - 23
     @Test(priority = 23, groups = {"Tier1Admin"})
     public void editClient() {
         testcaseName = "TC_23 " + xmlUserLevel;
@@ -68,7 +68,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         System.out.println("TC-----------23");
     }
 
-    //User creation - 5613
+    // User creation - 5613
     @Test(priority = 24, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void createUser() {
         testcaseName = "TC_5613 " + xmlUserLevel;
@@ -89,14 +89,15 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateUserSecurityPage()
                 .clickOnUserTab()
                 .clickOnaddNewUsrBtn()
-                .fillUserInformation(userFirstName.get(), userLastName.get(), userMailId.get(), FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", 4)
+                .fillUserInformation(userFirstName.get(), userLastName.get(), userMailId.get(),
+                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", 4)
                 .clickOnApplyBtn()
                 .validateUserInformation(displayUserName, userMailId.get())
                 .deleteUser(displayUserName);
         System.out.println("TC-----------24");
     }
 
-    //Edit created user - 24
+    // Edit created user - 24
     @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void editUser() {
         testcaseName = "TC_24 " + xmlUserLevel;
@@ -125,7 +126,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
 
     }
 
-    //Role creation - 101
+    // Role creation - 101
     @Test(priority = 26, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void createRole() {
         testcaseName = "TC_101 " + xmlUserLevel;
@@ -144,14 +145,15 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateUserSecurityPage()
                 .clickOnRolesTab()
                 .clickOnaddNewRoleBtn()
-                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "my-new-test-environment", "Select All")
+                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "my-new-test-environment",
+                        "Select All")
                 .clickOnApplyBtn()
                 .validateRoleInformation(userFirstName.get())
                 .deleteRole(userFirstName.get());
         System.out.println("TC-----------26");
     }
 
-    //Edit created role - 621
+    // Edit created role - 621
     @Test(priority = 27, groups = {"Tier1Admin", "Tier1User", "Tier2Admin"})
     public void editRole() {
         testcaseName = "TC_621 " + xmlUserLevel;

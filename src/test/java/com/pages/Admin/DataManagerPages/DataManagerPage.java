@@ -31,14 +31,15 @@ public class DataManagerPage extends AdminPage {
 
 
     //Validate Data Manager Page
-    public EditDataSchemaPage validateDataManagerPage() {
+    public AddNewColumnPage validateDataManagerPage() {
         waitForElementToLoad(dataManagerText);
         if (isVisible(dataManagerText, "DataManagerText")) {
             reportPass("User Navigated to the Data Manager page successfully");
         } else {
             reportFailAndThrowException("Data Manager Page is not loaded.");
         }
-        return new EditDataSchemaPage();
+        pause("medium");
+        return new AddNewColumnPage();
     }
 
     //Click the Add New Row Button

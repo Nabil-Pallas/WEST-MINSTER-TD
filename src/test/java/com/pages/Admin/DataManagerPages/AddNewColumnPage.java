@@ -5,6 +5,9 @@ import com.data.dynamic.FakerDataFactory;
 public class AddNewColumnPage extends EditDataSchemaPage {
     String AddNewColumnText = "//div[text()='Add New Column(s)']";
     String confirmBtn = "//span[text()='Confirm']";
+    String deleteBtn = "//span[text()='Delete']";
+    String confirmDeleteBtn = "//span[text()='Yes']";
+
 
     public AddNewColumnPage validateAddNewColumnPage() {
         waitForElementToLoad(AddNewColumnText);
@@ -78,10 +81,11 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         return new AddNewRowPage();
     }
 
-    public AddNewColumnPage typeInformationInAddNewColumnsAndValidate(boolean uniqueTradeIdentifierCheckbox, boolean calculatedCheckbox, boolean readOnlyCheckbox) {
 
+    public AddNewColumnPage typeInformationInAddNewColumnsAndValidate(boolean uniqueTradeIdentifierCheckbox, boolean calculatedCheckbox, boolean readOnlyCheckbox) {
+        clientCompanyName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
         for (int i = 0; i < 1; i++) {
-            clientCompanyName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
+
             typeFieldName(clientCompanyName.get());
             selectFieldDataType(i);
             pause("medium");
@@ -111,5 +115,38 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         return this;
     }
 
+    public AddNewRowPage deleteDataSchema() {
+        clickOnEditDataSchema();
+        pause("medium");
+        click("//td[text()='Account Name']", "");
+        boolean elementVisible = false;
+        while (!elementVisible) {
+            boolean a = isVisible("//td[text()='" + clientCompanyName.get() + "']");
+            if (!a) {
+                scrollToElement("(//tr[@class='dx-row dx-data-row dx-column-lines'])[7]");
+            } else {
+                elementVisible = true;
+            }
+        }
+        scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
+        pause("low");
+        pause("low");
+        forceClick("(//td[text()='" + clientCompanyName.get() + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
+        System.out.println("Clicked");
+        pause("low");
+        click(deleteBtn, "Delete Button");
+        pause("low");
+        click(confirmDeleteBtn, "Confirm Delete");
+        pause("low");
+
+        if (getInnerText(frameSpanTextLocator("Success")).equals("Success")) {
+            reportStep("Added Data Schema is deleted successfully", "pass");
+
+        } else {
+            reportStep("Added Data Schema is not deleted", "warning");
+
+        }
+        return new AddNewRowPage();
+    }
 
 }

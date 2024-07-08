@@ -182,13 +182,14 @@ public class AdminPage extends MenuPage {
                 }
                 break;
         }
-
         return new AdminPage();
     }
 
     public DataManagerPage clickOnDataManager() {
+//        pause("medium");
         click(dataManager, "Data Manager");
-        waitForLoaderToDisappear();
+//        waitForLoaderToDisappear();
+        pause("medium");
         return new DataManagerPage();
     }
 

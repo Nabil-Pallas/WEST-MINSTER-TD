@@ -65,7 +65,7 @@ public class EditBudgetPage extends AllBudgetsPage {
 
     }
 
-    public DashboardPage validateEditedBudget(String budgetName, String beginDate, String endDate, String targetColumn) {
+    public AllBudgetsPage validateEditedBudget(String budgetName, String beginDate, String endDate, String targetColumn) {
         waitForLoaderToDisappear();
         String budgetNameElement = "//h2[text()='" + budgetName + "']";
         String beginDateElement = frameSpanTextLocator(beginDate);
@@ -83,7 +83,7 @@ public class EditBudgetPage extends AllBudgetsPage {
         Assert.assertTrue(verifyExactTargetColumnText);
 
 
-        return new DashboardPage();
+        return new AllBudgetsPage();
     }
 
     public EditBudgetPage clickSaveBudgetBtn() {

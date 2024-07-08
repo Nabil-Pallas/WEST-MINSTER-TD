@@ -117,5 +117,21 @@ public class AnalyticsPage extends MenuPage {
         return new DashboardPage();
     }
 
+    public AnalyticsPage deleteAnalytics(String analysisName){
+        waitForLoaderToDisappear();
+        pause("low");
+        click("//h3[@title='"+analysisName+"']//following::div[@aria-label='Actions'][1]","Actions Button :"+analysisName);
+        pause("low");
+        click(frameSpanTextLocator("Delete Analysis"),"Delete Analysis");
+
+        //Delete popup
+        //span[text()='Delete']
+
+        //confirm Delete popup
+
+        //span[text()='Confirm Delete']
+        return this;
+    }
+
 
 }

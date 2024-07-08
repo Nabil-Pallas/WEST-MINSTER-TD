@@ -4,7 +4,8 @@ import java.util.List;
 
 
 public class AddNewListPage extends ListManagerPage {
-    private final String addNewRuleText = "";
+    private final String addNewListBtn = "//div[@id='add-list-item-button']//i";
+    private final String listTable = "(//div[@class='dx-datagrid-content']/table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[2]/tbody/tr[2]/td[2]";
 
     public AddNewListPage validateAddListItemPage() {
         waitForElementToLoad(frameSpanTextLocator("Add list item"));
@@ -24,10 +25,10 @@ public class AddNewListPage extends ListManagerPage {
 
     public AddNewListPage clickOnAddListItem() {
         try {
-//            pause("low");
-            click("//div[@id='add-list-item-button']//i", "Add list item", "Button");
+            pause("low");
+            click(addNewListBtn, "Add list item", "Button");
         } catch (Exception e) {
-//            pause("medium");
+            pause("medium");
             programmaticClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
         }
         return this;
@@ -37,24 +38,9 @@ public class AddNewListPage extends ListManagerPage {
         for (String listItem : listItems) {
             clickOnAddListItem();
             typeWithType(frametextareaLocator(2), listItem, "List Item " + listItem);
-//            pause("low");
+            pause("low");
+            click(listTable, "Next Row", "Empty Row");
         }
-
-        //Different Methods
-//        int size = listItems.size();
-//        for (int i = 0; i < size; i++) {
-//            String listItem = listItems.get(i);
-//            if (i == 0) {
-//                clickOnAddListItem(); // Call this method only once for the first iteration
-//            }
-//            typeAndEnter(frametextareaLocator(2), listItem, "List Item " + listItem);
-//            pause("low");
-//
-//            if (i == size - 1) {
-//                type(frametextareaLocator(2), listItem, "List Item " + listItem);
-//            }
-//        }
-
         return this;
     }
 

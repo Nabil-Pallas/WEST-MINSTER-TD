@@ -33,6 +33,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
+                .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnAddNewRowBtn()
                 .validateAddNewRowPage()
@@ -65,6 +66,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
+                .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnActionsBtn()
                 .clickOnEditBtn()
@@ -95,7 +97,9 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateEditDataSchemaColumnsPage()
                 .clickOnAddNewColumn()
                 .validateAddNewColumnPage()
-                .typeInformationInAddNewColumnsAndValidate(true, true, true);
+                .typeInformationInAddNewColumnsAndValidate(true, true, true)
+                .deleteDataSchema();
         System.out.println("TC-----------05");
     }
 }
+

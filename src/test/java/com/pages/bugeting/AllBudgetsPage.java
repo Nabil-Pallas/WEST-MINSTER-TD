@@ -209,7 +209,6 @@ public class AllBudgetsPage extends MenuPage {
         pause("low");
         String budgetNameElement = "//div[@class='wdx-interactive-cell dx-command-view-budget-cell']";
 
-//        boolean verifyExactBudgetNameText = verifyExactText(budgetNameElement, budgetName);
         if (getInnerText(budgetNameElement).equals(budgetName)) {
             reportStep("Budget Name is not deleted", "warning");
 

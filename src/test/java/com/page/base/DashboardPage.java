@@ -60,6 +60,7 @@ public class DashboardPage extends MenuPage {
     public AdminPage clickOnAdmin() {
         mouseHoverOnDashboard();
         click(adminLink, "Admin Link");
+        pause("medium");
         return new AdminPage();
     }
 

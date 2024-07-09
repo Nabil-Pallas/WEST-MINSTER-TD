@@ -101,9 +101,10 @@ public class AnalyticsPage extends MenuPage {
         return new NewAnalysisPage();
     }
 
-    public DashboardPage validateAnalysis(String analysisName) {
+    public AnalyticsPage validateAnalysis(String analysisName) {
         pause("medium");
         waitForLoaderToDisappear();
+        pause("medium");
         long analysisListCount = getLocatorsCount("((//h3[@class='dataviz__title'])//span)");
         for (int i = 1; i < analysisListCount; i++) {
             pause("medium");
@@ -114,7 +115,7 @@ public class AnalyticsPage extends MenuPage {
             break;
             // Exit once the match is found and validated
         }
-        return new DashboardPage();
+        return this;
     }
 
     public AnalyticsPage deleteAnalytics(String analysisName){
@@ -124,12 +125,10 @@ public class AnalyticsPage extends MenuPage {
         pause("low");
         click(frameSpanTextLocator("Delete Analysis"),"Delete Analysis");
 
+        pause("low");
         //Delete popup
-        //span[text()='Delete']
-
-        //confirm Delete popup
-
-        //span[text()='Confirm Delete']
+        click("//span[text()='Delete']","Delete Button");
+        pause("low");
         return this;
     }
 

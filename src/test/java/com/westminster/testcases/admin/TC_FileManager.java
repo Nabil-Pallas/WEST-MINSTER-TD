@@ -77,4 +77,50 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     }
 
+
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    public void fileUpload_AddSystemColumn() {
+        testcaseName = "TC_1304 " + xmlUserLevel;
+        testDescription = "Upload file and add system column";
+        authors = "Automation Team";
+        category = "";
+        startTestCase();
+        setNode();
+        fileName.set("SampleFile_AU_Chrome.csv");
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .clickOnAddNewSystemColumns()
+                .validateAddNewSystemColumnsPage()
+                .typeInformationInAddNewSystemColumns(false, false, true)
+                .mappingFileAndSystemColumns(systemColumnNames);
+
+
+//                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+//                .validateErrorQueuePage()
+//                .clickOnSelectAll()
+//                .clickOnBulkEditRows()
+//                .validateBulkEditRowsPage()
+//                .editInvalidRowInfo("06/07/2023", "06/12/2023")
+//                .clickOnApplyBtn()
+//                .validateErrorQueuePage()
+//                .clickOnSelectAll()
+//                .clickOnPromoteRows()
+//                .clickOnExitBtn()
+//                .validateFileManagerPage()
+//                .validateRowPromote(fileName.get());
+        System.out.println("TC-----------02");
+
+    }
+
+
 }

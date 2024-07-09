@@ -42,8 +42,8 @@ public class TC_DataManager extends WestMinsterPageHook {
                         FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
                 .clickOnAddBtn()
                 .clickOnApplyBtn()
-                .validateAddedRowInformation(clientCompanyName.get(), "Broker Name");
-
+                .validateAddedRowInformation(clientCompanyName.get(), "Broker Name")
+                .deleteAddedRow(clientCompanyName.get(), "Broker Name");
         System.out.println("TC-----------03");
     }
 
@@ -74,7 +74,8 @@ public class TC_DataManager extends WestMinsterPageHook {
                         Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
                 .clickOnApplyBtn()
                 .searchValueToValidate(ruleName.get(), "Broker Name")
-                .validateEditedRowInformation((ruleName.get()), ("Broker Name"));
+                .validateEditedRowInformation((ruleName.get()), ("Broker Name"))
+                .deleteAddedRow((ruleName.get()), "Broker Name");
         System.out.println("TC-----------04");
     }
 

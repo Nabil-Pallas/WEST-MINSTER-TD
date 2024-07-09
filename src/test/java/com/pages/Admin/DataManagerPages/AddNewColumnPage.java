@@ -5,8 +5,7 @@ import com.data.dynamic.FakerDataFactory;
 public class AddNewColumnPage extends EditDataSchemaPage {
     String AddNewColumnText = "//div[text()='Add New Column(s)']";
     String confirmBtn = "//span[text()='Confirm']";
-    String deleteBtn = "//span[text()='Delete']";
-    String confirmDeleteBtn = "//span[text()='Yes']";
+
 
 
     public AddNewColumnPage validateAddNewColumnPage() {

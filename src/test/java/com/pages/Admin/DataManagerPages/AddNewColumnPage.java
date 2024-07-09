@@ -88,6 +88,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
             typeFieldName(clientCompanyName.get());
             selectFieldDataType(i);
             pause("medium");
+            pause("medium");
             switch (i) {
 //                case 0:
 //                    calculatedCheckbox(calculatedCheckbox);

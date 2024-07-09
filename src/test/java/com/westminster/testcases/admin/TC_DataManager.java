@@ -44,7 +44,6 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnApplyBtn()
                 .validateAddedRowInformation(clientCompanyName.get(), "Broker Name")
                 .deleteAddedRow(clientCompanyName.get(), "Broker Name");
-
         System.out.println("TC-----------03");
     }
 

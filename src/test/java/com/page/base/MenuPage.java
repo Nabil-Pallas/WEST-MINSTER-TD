@@ -94,7 +94,7 @@ public class MenuPage extends WestMinsterPageHook {
     }
 
     public MenuPage clickSaveBtn() {
-        forceClick("//span[text()='Save']", "click on Save Button", "Save Button");
+        click("//span[text()='Save']", "click on Save Button", "Save Button");
         return this;
     }
 
@@ -131,7 +131,14 @@ public class MenuPage extends WestMinsterPageHook {
     }
 
     public MenuPage clickAndselectDateFormating() {
-        clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
+        pause("low");
+        String innerText = getInputText("//input[contains(@id,'DATE_FORMAT')]");
+        if (innerText.equals("MM/DD/YYYY")) {
+            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
+        } else {
+            clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
+            clickSaveBtn();
+        }
         return this;
     }
 
@@ -158,9 +165,13 @@ public class MenuPage extends WestMinsterPageHook {
     }
 
     public DashboardPage dateFormattingInPreferences() {
-        mouseHoverOnProfile().clickAccountSettingsBtn().waitForLoaderToDisappear();
-        clickPreferencesBtn().clickEditPreferencesBtn().clickAndselectDateFormating().clickSaveBtn();
-
+        mouseHoverOnProfile()
+                .clickAccountSettingsBtn()
+                .waitForLoaderToDisappear();
+        clickPreferencesBtn()
+                .clickEditPreferencesBtn()
+                .clickAndselectDateFormating();
+        new DashboardPage().clickOnHomePage();
 
         return new DashboardPage();
     }

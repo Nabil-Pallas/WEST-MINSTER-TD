@@ -124,7 +124,9 @@ public class WestMinsterPageHook extends ProjectHooks {
 
             // Load the page with URL based on configuration
             navigate(ConfigurationManager.configuration().baseStagingUrl());
-            new MenuPage().doLogin(userLevel, password);
+            new MenuPage().doLogin(userLevel, password)
+                    .dateFormattingInPreferences();
+
 
         } catch (Exception e) {
             reportStep("The browser and/or the URL could not be loaded as expected", "fail");

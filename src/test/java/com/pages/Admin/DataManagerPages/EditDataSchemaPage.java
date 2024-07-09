@@ -38,6 +38,8 @@ public class EditDataSchemaPage extends DataManagerPage {
 
     public AddNewColumnPage validateAddedNewColumn(String fieldName) {
         pause("medium");
+        pause("medium");
+        pause("medium");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
         for (int i = 1; i <= headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";

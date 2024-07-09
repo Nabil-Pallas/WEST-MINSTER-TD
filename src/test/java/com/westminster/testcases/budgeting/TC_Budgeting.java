@@ -38,7 +38,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .clickSaveItemBtn()
                 .clickSaveBudgetBtn()
                 .validateViewBudget()
-                .validateCreatedBudget(clientCompanyName.get(), "2024-05-21", "2024-05-27", "FX Rate")
+                .validateCreatedBudget(clientCompanyName.get(), "05/21/2024", "05/27/2024", "FX Rate")
                 .deleteBudget(clientCompanyName.get());
         System.out.println("TC-----------10");
     }

@@ -137,12 +137,12 @@ public class AllBudgetsPage extends MenuPage {
         return new AllBudgetsPage();
     }
 
-    public DashboardPage validateImportedBudget() {
+    public AllBudgetsPage validateImportedBudget() {
         String name = ImportBudgetPage.updatedCsvValue;
         String budgetNameElement = "//div[@class='wdx-interactive-cell dx-command-view-budget-cell']";
         boolean verifyExactBudgetNameText = verifyExactText(budgetNameElement, name);
         Assert.assertTrue(verifyExactBudgetNameText);
-        return new DashboardPage();
+        return new AllBudgetsPage();
     }
 
     public AllBudgetsPage searchValueOfBudget(String verificationHeader, String budgetName) {
@@ -219,6 +219,31 @@ public class AllBudgetsPage extends MenuPage {
 
         return new AllBudgetsPage();
     }
+    public AllBudgetsPage deleteImportedBudget() {
+
+        String budgetName = ImportBudgetPage.updatedCsvValue;
+        waitForLoaderToDisappear();
+        searchValueOfBudget("Name", budgetName);
+        clickOnActionsBtn();
+        pause("low");
+        click(deleteBtn, "Delete Button");
+        pause("low");
+        click(confirmDeleteBtn, "Confirm Delete");
+        searchValueOfBudget("Name", budgetName);
+        pause("low");
+        String budgetNameElement = "//div[@class='wdx-interactive-cell dx-command-view-budget-cell']";
+
+        if (getInnerText(budgetNameElement).equals(budgetName)) {
+            reportStep("Budget Name is not deleted", "warning");
+
+        } else {
+            reportStep("Budget Name is deleted successfully", "pass");
+        }
+
+
+        return new AllBudgetsPage();
+    }
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.page.base;
 
+import com.pages.Admin.UsersAndSecurityPages.AddNewClientPage;
 import org.testng.annotations.AfterMethod;
 
 public class MenuPage extends WestMinsterPageHook {
@@ -15,7 +16,7 @@ public class MenuPage extends WestMinsterPageHook {
 
     //Locator For Dashboard Hover
     protected String dashboardHover = "#navbar-nav__dashboard";
-
+    protected String profileHover = "//label[@class='header__profile__dropdown__trigger__label']";
     //Locator For Home Link
     protected String homeLink = "//a[@aria-label='Go to Home']/img";
 
@@ -77,15 +78,33 @@ public class MenuPage extends WestMinsterPageHook {
         return this;
     }
 
+    public MenuPage clickAccountSettingsBtn() {
+        click("//span[text()='Account Settings']", "click on Account Settings");
+        return this;
+    }
+
+    public MenuPage clickPreferencesBtn() {
+        click("//span[text()='Preferences']", "click on Preferences");
+        return this;
+    }
+
+    public MenuPage clickEditPreferencesBtn() {
+        click("//span[text()='Edit Preferences']", "click on Edit Preferences");
+        return this;
+    }
+
+    public MenuPage clickSaveBtn() {
+        forceClick("//span[text()='Save']", "click on Save Button", "Save Button");
+        return this;
+    }
+
     //Validate Login Element in Login Page
     public MenuPage validateLoginElements() {
         waitForLoaderToDisappear();
         waitForElementToLoad(emailField);
         if (getPage().title().contains("Login | Westminster")) {
             reportStep("User reaches to the right Sign In page", "info");
-            userNameIsVisible()
-                    .passwordIsVisible()
-                    .signInIsDisabled();
+            userNameIsVisible().passwordIsVisible().signInIsDisabled();
         } else {
             reportFailAndThrowException("Sign-In Page is not loaded.");
         }
@@ -102,6 +121,20 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
+    public DashboardPage mouseHoverOnProfile() {
+        if (mouseOver(profileHover, "Profile MouseHover")) {
+            reportStep("Mouse Hover on Profile is success.", "info");
+        } else {
+            reportFailAndThrowException("Mouser Hover on Profile is failed");
+        }
+        return new DashboardPage();
+    }
+
+    public MenuPage clickAndselectDateFormating() {
+        clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
+        return this;
+    }
+
     public DashboardPage mouseHover() {
         if (mouseOver(dashboardHover, "Dashboard MouseHover")) {
             reportStep("Mouse Hover on Dashboard is success.", "info");
@@ -113,9 +146,7 @@ public class MenuPage extends WestMinsterPageHook {
 
     //Login to the Application
     public DashboardPage doLogin(String userName, String password) {
-        validateLoginElements()
-                .typeUserName(userName)
-                .typePassword(password);
+        validateLoginElements().typeUserName(userName).typePassword(password);
         if (isEnabled(loginWithPassword, "Login With Password")) {
             clickLoginWithPassword();
         } else {
@@ -123,6 +154,14 @@ public class MenuPage extends WestMinsterPageHook {
         }
         pause("medium");
         waitForLoaderToDisappear();
+        return new DashboardPage();
+    }
+
+    public DashboardPage dateFormattingInPreferences() {
+        mouseHoverOnProfile().clickAccountSettingsBtn().waitForLoaderToDisappear();
+        clickPreferencesBtn().clickEditPreferencesBtn().clickAndselectDateFormating().clickSaveBtn();
+
+
         return new DashboardPage();
     }
 

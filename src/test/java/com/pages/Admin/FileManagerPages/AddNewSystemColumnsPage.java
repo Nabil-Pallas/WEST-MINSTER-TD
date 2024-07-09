@@ -31,7 +31,7 @@ public class AddNewSystemColumnsPage  extends FileManagerPage {
 //        click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler')])[1]", "Field Name");
         pause("low");
         click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator')])[1]", "Field Name");
-        clickAndType("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator')])[1]", fieldName, "Field Name");
+        typeAndSpace("//div[@data-dx_placeholder='Field Name here…']//..//input", fieldName, "Field Name");
         pause("low");
         return new AddNewSystemColumnsPage();
     }
@@ -39,8 +39,8 @@ public class AddNewSystemColumnsPage  extends FileManagerPage {
         String fieldDataTypeElement = "//div[contains(@class,'dx-item dx-list-item')]";
 
         int index = i + 1;
-        click("(//td[@class='dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler'])[2]", "selectFieldDataType");
-        clickAndChoose("(//div[@class='dx-item dx-list-item'])[1]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
+        click("(//td[@class='dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler dx-datagrid-invalid'])", "selectFieldDataType");
+        clickAndChoose("(//div[@aria-label='Select'])[5]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
 
         pause("medium");
         return this;

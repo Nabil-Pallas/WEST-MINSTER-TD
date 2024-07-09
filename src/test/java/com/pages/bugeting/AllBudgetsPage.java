@@ -220,7 +220,6 @@ public class AllBudgetsPage extends MenuPage {
         return new AllBudgetsPage();
     }
     public AllBudgetsPage deleteImportedBudget() {
-
         String budgetName = ImportBudgetPage.updatedCsvValue;
         waitForLoaderToDisappear();
         searchValueOfBudget("Name", budgetName);
@@ -232,7 +231,6 @@ public class AllBudgetsPage extends MenuPage {
         searchValueOfBudget("Name", budgetName);
         pause("low");
         String budgetNameElement = "//div[@class='wdx-interactive-cell dx-command-view-budget-cell']";
-
         if (getInnerText(budgetNameElement).equals(budgetName)) {
             reportStep("Budget Name is not deleted", "warning");
 

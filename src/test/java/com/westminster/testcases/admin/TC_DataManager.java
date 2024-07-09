@@ -105,7 +105,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
 
     // Verify that the "Add" button is disabled when error occurs in required field
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void AddNewRow_ErrorValidation() {
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()

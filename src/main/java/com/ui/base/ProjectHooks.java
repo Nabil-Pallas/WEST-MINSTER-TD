@@ -27,6 +27,7 @@ package com.ui.base;
 import java.nio.file.Paths;
 import java.util.List;
 
+import com.ui.utilities.TestGroups;
 import org.testng.annotations.*;
 
 import com.config.ConfigurationManager;
@@ -52,7 +53,7 @@ public class ProjectHooks extends PlaywrightWrapper {
      *
      * @author Srikanth
      */
-    @BeforeSuite(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @BeforeSuite(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY,TestGroups.Type.REGRESSION})
     public void initSuite() {
         videoFolderName = createFolder("videos");
         tracesFolderName = createFolder("traces");

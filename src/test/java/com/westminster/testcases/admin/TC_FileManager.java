@@ -3,6 +3,7 @@ package com.westminster.testcases.admin;
 import java.util.List;
 
 import com.config.ConfigurationManager;
+import com.ui.utilities.TestGroups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -15,7 +16,7 @@ import com.page.base.WestMinsterPageHook;
 @Listeners(TestListener.class)
 public class TC_FileManager extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY,TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "TC_5588 " + xmlUserLevel;
         testDescription = "Upload a file and validate";
@@ -23,7 +24,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         category = "File Upload";
     }
 
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
     public void fileUpload() {
         fileName.set("SampleFile_AU_Chrome.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -77,4 +78,29 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     }
 
+    //TC-961
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void uploadDpFileWDiffName(){
+        DataMap.set(FakerDataFactory.getDataMapName());
+        fileName.set("SampleFile_AU_Chrome.csv");
+        fileName2.set("SampleFile_AU_Chrome2.csv");
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .fileUpload(fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnApplyMapping();
+
+    }
 }

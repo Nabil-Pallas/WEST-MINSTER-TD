@@ -42,10 +42,9 @@ import com.microsoft.playwright.options.BoundingBox;
 import com.microsoft.playwright.options.RequestOptions;
 import com.microsoft.playwright.options.SelectOption;
 import com.microsoft.playwright.options.WaitForSelectorState;
-
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
 import com.ui.utilities.Reporter;
+import org.apache.commons.lang3.BooleanUtils;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -904,6 +903,37 @@ public class PlaywrightWrapper extends Reporter {
             reportStep("The '" + name + "' is not disabled ", "fail");
         }
         return bEnabled;
+    }
+
+    /**
+     * Use this method to assert if the element is disabled
+     *
+     * @param locator The locator to identify the element
+     * @param name    The name of the element (label)
+     * @return true if the element is disabled else false
+     * @author Srikanth
+     */
+    public boolean assertIsDisabled(String locator, String name) {
+        boolean isDisabled = false;
+        try {
+            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+            Locator element = getPage().locator(locator);
+            // Assuming assertThat is correctly imported and works as expected
+            assertThat(element).isDisabled();
+            // If assertThat throws an AssertionError when the element is not disabled,
+            // the code will not reach this line, so isDisabled won't change from false
+            isDisabled = true;
+            reportStep("The '" + name + "' is disabled ", "info");
+        } catch (AssertionError e) {
+            // Handle assertion errors specifically
+            e.printStackTrace();
+            reportStep("The '" + name + "' is not disabled ", "fail");
+        } catch (Exception e) {
+            // Handle other exceptions
+            e.printStackTrace();
+            reportStep("Error occurred while checking '" + name + "' disabled state ", "fail");
+        }
+        return isDisabled;
     }
 
 

@@ -87,7 +87,8 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .importBudget("Budget_Import_Chrome.csv")
                 .clickImportBtn()
                 .searchValueOfImportedBudget("Name")
-                .validateImportedBudget();
+                .validateImportedBudget()
+                .deleteImportedBudget();
         System.out.println("TC-----------12");
 
     }

@@ -10,7 +10,6 @@ public class TestGroups {
 
     public static class Feature {
         public static final String ADMIN = "ADMIN";
-        
     }
 
     public static class Login {

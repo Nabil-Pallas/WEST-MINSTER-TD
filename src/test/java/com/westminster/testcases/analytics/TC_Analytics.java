@@ -42,7 +42,8 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .reviewYourAnalysis(analysisName.get(), "Blue")
                 .clickOnSaveBtn()
                 .clickOnBackBtn()
-                .validateAnalysis(analysisName.get());
+                .validateAnalysis(analysisName.get())
+                .deleteAnalytics(analysisName.get());
         System.out.println("TC-----------13");
     }
 
@@ -72,7 +73,8 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .reviewYourAnalysis(analysisName.get(), "Indigo")
                 .clickOnSaveBtn()
                 .clickOnBackBtn()
-                .validateAnalysis(analysisName.get());
+                .validateAnalysis(analysisName.get())
+                .deleteAnalytics(analysisName.get());
         System.out.println("TC-----------14");
     }
 
@@ -102,7 +104,8 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .reviewYourAnalysis(analysisName.get(), "Black")
                 .clickOnSaveBtn()
                 .clickOnBackBtn()
-                .validateAnalysis(analysisName.get());
+                .validateAnalysis(analysisName.get())
+                .deleteAnalytics(analysisName.get());
         System.out.println("TC-----------15");
     }
 
@@ -132,7 +135,8 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .reviewYourAnalysis(analysisName.get(), "Green")
                 .clickOnSaveBtn()
                 .clickOnBackBtn()
-                .validateAnalysis(analysisName.get());
+                .validateAnalysis(analysisName.get())
+                .deleteAnalytics(analysisName.get());
         System.out.println("TC-----------16");
     }
 
@@ -163,7 +167,8 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .reviewYourAnalysis(analysisName.get(), "Indigo")
                 .clickOnSaveBtn()
                 .clickOnBackBtn()
-                .validateAnalysis(analysisName.get());
+                .validateAnalysis(analysisName.get())
+                .deleteAnalytics(analysisName.get());
         System.out.println("TC-----------24");
     }
 
@@ -195,7 +200,8 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .reviewYourAnalysis(analysisName.get(), "Indigo")
                 .clickOnSaveBtn()
                 .clickOnBackBtn()
-                .validateAnalysis(analysisName.get());
+                .validateAnalysis(analysisName.get())
+                .deleteAnalytics(analysisName.get());
         System.out.println("TC-----------17");
     }
 

@@ -22,10 +22,9 @@ public class TC_Budgeting extends WestMinsterPageHook {
         testDescription = "Create New Budget and validate";
         authors = "Automation Team";
         category = "Create New Budget";
-
     }
 
-//    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
     public void createNewBudget() {
         clientCompanyName.set(FakerDataFactory.getCompanyNameWithoutSpace());
         new DashboardPage()
@@ -43,7 +42,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
         System.out.println("TC-----------10");
     }
 
-//    @Test(priority = 11, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @Test(priority = 11, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
     public void editBudget() {
         testcaseName = "TC_14 " + xmlUserLevel;
         testDescription = "Edit budget and validate";

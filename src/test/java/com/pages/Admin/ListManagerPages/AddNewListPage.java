@@ -18,6 +18,7 @@ public class AddNewListPage extends ListManagerPage {
     }
 
     public AddNewListPage typeListTitle(String listTitle) {
+        pause("low");
         typeWithType(frameInputLocator("List Title…", 1), listTitle, "listTitle");
         pause("low");
         return this;

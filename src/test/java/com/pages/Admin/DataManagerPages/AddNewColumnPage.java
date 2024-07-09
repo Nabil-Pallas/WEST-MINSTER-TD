@@ -119,20 +119,13 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         clickOnEditDataSchema();
         pause("medium");
         click("//td[text()='Account Name']", "");
-        boolean elementVisible = false;
-        while (!elementVisible) {
-            boolean a = isVisible("//td[text()='" + clientCompanyName.get() + "']");
-            if (!a) {
-                scrollToElement("(//tr[@class='dx-row dx-data-row dx-column-lines'])[7]");
-            } else {
-                elementVisible = true;
-            }
+        while (!isVisible("//td[text()='" + clientCompanyName.get() + "']")) {
+            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
         }
         scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
         pause("low");
         pause("low");
         forceClick("(//td[text()='" + clientCompanyName.get() + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
-        System.out.println("Clicked");
         pause("low");
         click(deleteBtn, "Delete Button");
         pause("low");

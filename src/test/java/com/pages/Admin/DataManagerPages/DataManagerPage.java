@@ -118,7 +118,7 @@ public class DataManagerPage extends AdminPage {
             if (headerText.equalsIgnoreCase(verificationHeader)) {
                 click(searchValueWithHeader(i), "Search Filter", "Search Box");
                 type(searchValueWithHeader(i), verificationValue, verificationValue);
-                forceClick("//td[text()='" + verificationValue + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a", "Action", "Button");
+                forceClick("(//td[text()='" + verificationValue + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Action", "Button");
                 pause("low");
                 click(deleteBtn, "Delete Button");
                 pause("low");

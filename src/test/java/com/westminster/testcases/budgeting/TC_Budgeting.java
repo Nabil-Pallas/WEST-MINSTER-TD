@@ -23,7 +23,6 @@ public class TC_Budgeting extends WestMinsterPageHook {
         testDescription = "Create New Budget and validate";
         authors = "Automation Team";
         category = "Create New Budget";
-
     }
 
     @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY})

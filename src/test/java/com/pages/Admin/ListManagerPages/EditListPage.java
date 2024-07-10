@@ -20,6 +20,7 @@ public class EditListPage extends ListManagerPage {
     public EditListPage typeListTitle(String listTitle) {
         pause("low");
         typeAndSpace(frameInputLocator("List Title…", 1), listTitle, "listTitle");
+        pause("low");
         return this;
     }
 

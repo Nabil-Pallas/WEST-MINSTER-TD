@@ -13,21 +13,21 @@
 
             </run>
             <run>
-                <include name="SANITY"></include>
-<!--                <include name="REGRESSION"></include>-->
+<!--                <include name="SANITY"></include>-->
+                <include name="REGRESSION"></include>
             </run>
         </groups>
         <parameter name="Browser" value="edge"></parameter>
         <classes>
 
-<!--            <class name="com.westminster.testcases.admin.TC_FileManager"/>-->
-<!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity"/>-->
-<!--            <class name="com.westminster.testcases.admin.TC_DataManager"/>-->
-<!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
+            <class name="com.westminster.testcases.admin.TC_FileManager"/>
+            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity"/>
+            <class name="com.westminster.testcases.admin.TC_DataManager"/>
+            <class name="com.westminster.testcases.admin.TC_RulesManager"/>
             <class name="com.westminster.testcases.admin.TC_ListManager"/>
-<!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-<!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-<!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>
+            <class name="com.westminster.testcases.analytics.TC_Analytics"/>
+            <class name="com.westminster.testcases.report.TC_Reports"/>
 
         </classes>
 

@@ -81,6 +81,12 @@ public class TC_FileManager extends WestMinsterPageHook {
     //TC-961
     @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadDpFileWDiffName(){
+        testcaseName = "TC_961 " + xmlUserLevel;
+        testDescription = "Upload Duplicate File with Different Name";
+        authors = "Automation Team";
+        category = "uploadDpFile";
+        startTestCase();
+        setNode();
         DataMap.set(FakerDataFactory.getDataMapName());
         fileName.set("SampleFile_AU_Chrome.csv");
         fileName2.set("SampleFile_AU_Chrome2.csv");

@@ -15,7 +15,7 @@ import com.page.base.WestMinsterPageHook;
 
 @Listeners(TestListener.class)
 public class TC_DataManager extends WestMinsterPageHook {
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
     public void setReportValues() {
         testcaseName = "TC_5577 " + xmlUserLevel;
         testDescription = "Add New Row And validate";
@@ -24,7 +24,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Adding the new row in the data manager
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
     public void AddNewRow() {
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()
@@ -48,7 +48,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     //    Editing the new row in the Data manager
-    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
     public void editRow() {
         ruleName.set(FakerDataFactory.getCompanyName());
         reportName.set(FakerDataFactory.getReportsName());
@@ -78,7 +78,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------04");
     }
 
-    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
     public void addNewColumnInEditDataSchema() {
         testcaseName = "TC_6587 " + xmlUserLevel;
         testDescription = "Add new System Column";

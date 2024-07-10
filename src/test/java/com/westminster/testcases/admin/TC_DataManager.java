@@ -2,6 +2,7 @@ package com.westminster.testcases.admin;
 
 import java.util.Arrays;
 
+import com.ui.utilities.TestGroups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ import com.page.base.WestMinsterPageHook;
 
 @Listeners(TestListener.class)
 public class TC_DataManager extends WestMinsterPageHook {
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "TC_5577 " + xmlUserLevel;
         testDescription = "Add New Row And validate";
@@ -103,8 +104,14 @@ public class TC_DataManager extends WestMinsterPageHook {
 
 
     // Verify that the "Add" button is disabled when error occurs in required field
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void AddNewRow_ErrorValidation() {
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void AddNewRowErrorValidation() {
+        testcaseName = "TC_5731 " + xmlUserLevel;
+        testDescription = "Add New Row Error Validation";
+        authors = "Automation Team";
+        category = "Add New Row Error Validation";
+        startTestCase();
+        setNode();
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()
                 .validateDashBoardElements()

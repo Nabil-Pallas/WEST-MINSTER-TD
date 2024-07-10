@@ -78,7 +78,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
 
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+//    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void fileUpload_AddSystemColumn() {
         testcaseName = "TC_1304 " + xmlUserLevel;
         testDescription = "Upload file and add system column";

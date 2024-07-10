@@ -16,7 +16,9 @@ public class AdminPage extends MenuPage {
     protected String dataManager = "//span[contains(text(),'Data Manager')]";
     protected String rulesManager = "//span[contains(text(),'Rules Manager')]";
     private String clientSelectDrpDown = "(//div[@class='dx-dropdowneditor-icon'])[1]";
-
+    public String deleteBtn = "//span[text()='Delete']";
+    public String confirmDeleteBtn = "//span[text()='Yes']";
+    public String closeIcon = "//i[@class='dx-icon dx-icon-close']";
 
     public String frameClientDetailsLocator(String placeholder) {
         return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div//input";
@@ -213,6 +215,11 @@ public class AdminPage extends MenuPage {
         click(rulesManager, "Rules Manager");
         waitForLoaderToDisappear();
         return new RulesManagerPage();
+    }
+
+    public FileManagerPage clickOnViewDataMaps() {
+        click(frameSpanTextLocator("View Data Maps"), "View Data Maps");
+        return new FileManagerPage();
     }
 
     public ListManagerPage clickOnListManager() {

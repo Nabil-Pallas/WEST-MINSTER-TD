@@ -117,7 +117,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
 
     public AddNewRowPage deleteDataSchema() {
         clickOnEditDataSchema();
-        pause("medium");
+//        pause("low");
         click("//td[text()='Account Name']", "");
         while (!isVisible("//td[text()='" + clientCompanyName.get() + "']")) {
             pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");

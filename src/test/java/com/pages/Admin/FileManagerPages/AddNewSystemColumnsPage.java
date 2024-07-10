@@ -10,10 +10,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AddNewSystemColumnsPage  extends FileManagerPage {
+public class AddNewSystemColumnsPage extends FileManagerPage {
 
     private String addNewSystemColumnsText = "//div[text()='Add New system Column(s)']";
     protected String applyBtn = "//span[text()='Apply']";
+    private String mapColumnsBtn = "//span[text()='Map Columns']";
 
 
     public AddNewSystemColumnsPage validateAddNewSystemColumnsPage() {
@@ -30,16 +31,17 @@ public class AddNewSystemColumnsPage  extends FileManagerPage {
     public AddNewSystemColumnsPage typeFieldName(String fieldName) {
 //        click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler')])[1]", "Field Name");
         pause("low");
-        click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator')])[1]", "Field Name");
+        click("//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines dx-row-inserted']//td[1]", "Field Name");
         typeAndSpace("//div[@data-dx_placeholder='Field Name here…']//..//input", fieldName, "Field Name");
         pause("low");
         return new AddNewSystemColumnsPage();
     }
+
     public AddNewSystemColumnsPage selectFieldDataType(int i) {
-        String fieldDataTypeElement = "//div[contains(@class,'dx-item dx-list-item')]";
+//        String fieldDataTypeElement = "//div[contains(@class,'dx-item dx-list-item')]";
 
         int index = i + 1;
-        click("(//td[@class='dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler dx-datagrid-invalid'])", "selectFieldDataType");
+        click("//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines dx-row-inserted']//td[2]", "selectFieldDataType");
         clickAndChoose("(//div[@aria-label='Select'])[5]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
 
         pause("medium");
@@ -67,7 +69,7 @@ public class AddNewSystemColumnsPage  extends FileManagerPage {
     public FileMappingPage typeInformationInAddNewSystemColumns(boolean uniqueTradeIdentifierCheckbox, boolean calculatedCheckbox, boolean readOnlyCheckbox) {
         clientCompanyName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
         for (int i = 0; i < 1; i++) {
-
+            System.out.println("clientCompanyName--------" + clientCompanyName.get());
             typeFieldName(clientCompanyName.get());
             selectFieldDataType(i);
             pause("medium");
@@ -90,6 +92,25 @@ public class AddNewSystemColumnsPage  extends FileManagerPage {
 
             clickOnApplyBtn();
         }
+        //Verifying Map column button disable
+        Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
+
+        pause("medium");
+        //Mapping the Values
+        // File Column Count
+        click(frameSpanTextLocator(clientCompanyName.get()), "System Column :" + clientCompanyName.get(), "System Column");
+        pause("low");
+
+        click("(//tbody[@role='presentation']//tr[td='Broker Code'])", "File Column :Broker Code", "File Column");
+        pause("low");
+        //verifying MapColumns Enabled
+        Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
+        pause("low");
+        click(mapColumnsBtn, "Map Columns");
+        pause("low");
+
+        reportPass("User successfully mapped file and system columns.");
+
         return new FileMappingPage();
     }
 

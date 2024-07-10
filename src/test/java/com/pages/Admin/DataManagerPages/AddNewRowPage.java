@@ -242,8 +242,7 @@ public class AddNewRowPage extends DataManagerPage {
 
     //Check Add Button is disabled
     public AddNewRowPage validateAddBtnIsDisable() {
-//        assertIsDisabled(addBtn, "Add Button");
-        isEnabled(addBtn, "Add Button");
+        assertIsDisabled(addBtn, "Add Button");
         pause("low");
         reportPass("User Successfully validated that the add button is Disabled as Expected");
         return this;

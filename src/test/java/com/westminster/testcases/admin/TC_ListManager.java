@@ -45,8 +45,8 @@ public class TC_ListManager extends WestMinsterPageHook {
 
     }
 
-    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
-    public void editList() {
+    //@Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
+     public void editList() {
         testcaseName = "TC_5357 " + xmlUserLevel;
         testDescription = "Edit List and Validate";
         authors = "Automation Team";

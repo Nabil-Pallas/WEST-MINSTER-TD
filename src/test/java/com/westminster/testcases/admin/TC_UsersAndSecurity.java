@@ -13,7 +13,7 @@ import com.page.base.WestMinsterPageHook;
 @Listeners(TestListener.class)
 public class TC_UsersAndSecurity extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY,TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "TC_2136 " + xmlUserLevel;
         testDescription = "Create New User and Validate";
@@ -117,7 +117,8 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnUserSecurity()
                 .validateUserSecurityPage()
                 .clickOnUserTab()
-                .searchAndEditUserDetails("")
+                .searchUserAndClickFirstGrid("")
+                .clickOnEditUser()
                 .validateEditUserPage()
                 .editUserInformation(userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber())
                 .clickOnApplyBtn()
@@ -180,6 +181,33 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateRoleInformation(userFirstName.get())
                 .deleteRole(userFirstName.get());
         System.out.println("TC-----------27");
+    }
+
+    //Regression
+    //TC_25 - Impersonate User
+    @Test(priority = 27, groups = {"Tier1Admin", "Tier1User",TestGroups.Type.REGRESSION})
+    public void impersonateUser(){
+        testcaseName = "TC_25 " + xmlUserLevel;
+        testDescription = "Impersonate User And Validate";
+        authors = "Automation Team";
+        category = "Impersonate User";
+        startTestCase();
+        setNode();
+
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnUserSecurity()
+                .validateUserSecurityPage()
+                .clickOnUserTab()
+                .searchUserAndClickFirstGrid("")
+                .clickOnImpersonateUser()
+                .clickOnProceedAsUser()
+                .validateDashBoardElements()
+                .validateImpersonatingAsUserText()
+                .validateImpersonateInAccountSettings(userMailIdText.get());
+
     }
 
 }

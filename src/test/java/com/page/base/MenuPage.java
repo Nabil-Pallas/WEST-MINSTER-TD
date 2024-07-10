@@ -24,6 +24,8 @@ public class MenuPage extends WestMinsterPageHook {
     protected String loaderIcon = "(//div[@class='dx-loadindicator-icon'])[1]";
     //protected String loaderIcon = "(//div[text()='Loading...'])[1]";
 
+    protected String impersonatingAsUserText = "//div[@id='impersonating-user-banner']";
+
 
     //Wait For Loader To Disappear
     public void waitForLoaderToDisappear() {
@@ -175,6 +177,7 @@ public class MenuPage extends WestMinsterPageHook {
 
         return new DashboardPage();
     }
+
 
 
 }

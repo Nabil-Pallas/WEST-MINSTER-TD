@@ -1,7 +1,9 @@
 package com.westminster.testcases.admin;
 
 import java.util.Arrays;
+import java.util.List;
 
+import com.pages.Admin.DataManagerPages.DataManagerPage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -128,7 +130,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                         FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getPastDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
                 .validateTradeDateErrorMsg("Custom Validation: Trade Date must be before “Settlement Date.”")
                 .validateAddBtnIsDisable();
-        System.out.println("TC-----------03");
+        System.out.println("TC-----------TC_RE_5731");
     }
 
     // Verify that the "Add" button is disabled when error occurs in required field - Broker Name
@@ -156,7 +158,44 @@ public class TC_DataManager extends WestMinsterPageHook {
                         FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
                 .validateBrokerNameErrorMsg("Broker Name is required.")
                 .validateAddBtnIsDisable();
-        System.out.println("TC-----------03");
+        System.out.println("TC-----------TC_RE_5945");
+    }
+
+    // To verify the functionality of enabling dropdowns for available lists during adding ad hoc rows in Data Manager
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void AddingAdhocRowsDataManager() {
+        testcaseName = "TC_RE_5429 " + xmlUserLevel;
+        testDescription = "Adding Adhoc Rows Data Manager";
+        authors = "Automation Team";
+        category = "Adding Adhoc Rows Data Manager";
+        startTestCase();
+        setNode();
+        newListName.set(FakerDataFactory.getListName());
+        List<String> listItems = FakerDataFactory.getListOfItems(4);
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnListManager()
+                .validateListManagerPage()
+                .clickOnAddNewListBtn()
+                .validateAddListItemPage()
+                .typeListTitle(newListName.get())
+                .typeListItems(listItems)
+                .clickOnSaveListBtn()
+                .validateListNameAndItem(newListName.get(), listItems);
+        new DataManagerPage().clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnAddNewRowBtn()
+                .validateAddNewRowPage()
+                .addNewRowInformation("", FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
+                .validateBrokerNameErrorMsg("Broker Name is required.")
+                .validateAddBtnIsDisable();
+        System.out.println("TC-----------TC_RE_5429");
     }
 }
 

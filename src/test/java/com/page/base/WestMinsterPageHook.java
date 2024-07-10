@@ -30,6 +30,8 @@ public class WestMinsterPageHook extends ProjectHooks {
 
     public static final ThreadLocal<String> titleTwo = new ThreadLocal<>();
     public static final ThreadLocal<String> descriptionTwo = new ThreadLocal<>();
+    public static final ThreadLocal<String> filePath = new ThreadLocal<>();
+    public static final ThreadLocal<String> filePath2 = new ThreadLocal<>();
     public static final ThreadLocal<String> fileName = new ThreadLocal<>();
     public static final ThreadLocal<String> fileName2 = new ThreadLocal<>();
     public static final ThreadLocal<String> DataMap = new ThreadLocal<>();
@@ -128,8 +130,8 @@ public class WestMinsterPageHook extends ProjectHooks {
 
             // Load the page with URL based on configuration
             navigate(ConfigurationManager.configuration().baseStagingUrl());
-            new MenuPage().doLogin(userLevel, password);
-//                    .dateFormattingInPreferences();
+            new MenuPage().doLogin(userLevel, password)
+                    .dateFormattingInPreferences();
 
 
         } catch (Exception e) {
@@ -137,7 +139,7 @@ public class WestMinsterPageHook extends ProjectHooks {
         }
     }
 
-    @AfterMethod(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
+    @AfterMethod(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.REGRESSION,TestGroups.Type.SANITY})
     public void redirectToDashboard() {
 //        System.out.println("redirectToDashboard------------------------");
         navigate("https://sakthivel.murugesan%40mojopsg.com:sb%5EyCCM6pieJ@gct-app.qa.cwi.studio/Dashboard");

@@ -27,6 +27,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void fileUpload() {
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
         fileName.set("SampleFile_AU_Chrome.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
@@ -36,7 +37,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(fileName.get())
+                .fileUpload(filePath.get(),fileName.get())
                 .clickOnCreateNewMapping()
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
@@ -46,7 +47,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------01");
     }
 
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
     public void promotingRows() {
         testcaseName = "TC_4460 " + xmlUserLevel;
         testDescription = "Promoting Rows and Validate";
@@ -85,26 +86,25 @@ public class TC_FileManager extends WestMinsterPageHook {
         testcaseName = "TC_1304 " + xmlUserLevel;
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
         authors = "Automation Team";
-        category = "Add data schema";
+        category = "uploadDpFile";
         startTestCase();
         setNode();
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
+        filePath2.set("./src/test/resources/upload/SampleFile_AU_Chrome2.csv");
         fileName.set("SampleFile_AU_Chrome.csv");
-        ruleName.set(FakerDataFactory.getDataMapName());
+        fileName2.set("SampleFile_AU_Chrome2.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
-                .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(fileName.get())
+                .fileUpload(filePath.get(),fileName.get())
                 .clickOnCreateNewMapping()
-                .createNewDataMap(ruleName.get(), "MM/dd/yyyy")
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
                 .validateFileMappingPage()
-                .clickOnAddNewSystemColumns()
-                .validateAddNewSystemColumnsPage()
-                .typeInformationInAddNewSystemColumns(false, false, true)
                 .mappingFileAndSystemColumns(systemColumnNames)
                 .clickOnFinishMapping()
                 .clickOnDataManager()
@@ -130,11 +130,12 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
+                .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(fileName.get())
                 .clickOnCreateNewMapping()
-                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
                 .mappingFileAndSystemColumns(systemColumnNames);
         System.out.println("TC-----------01");

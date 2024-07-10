@@ -124,7 +124,7 @@ public class FileManagerPage extends AdminPage {
     }
 
     //Validate The File Upload
-    public DashboardPage validateFileUpload(String fileName) {
+    public FileManagerPage validateFileUpload(String fileName) {
         waitForLoaderToDisappear();
         pause("medium");
         waitForLoaderToDisappear();
@@ -132,7 +132,7 @@ public class FileManagerPage extends AdminPage {
         String actualText = getInnerText("((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]");
         boolean verifyExactText = verifyExactText(actualElement, fileName);
         Assert.assertTrue(verifyExactText);
-        return new DashboardPage();
+        return this;
     }
 
     public ErrorQueuePage clickOnInvalidRowCountAndAmendErrors(String fileName) {

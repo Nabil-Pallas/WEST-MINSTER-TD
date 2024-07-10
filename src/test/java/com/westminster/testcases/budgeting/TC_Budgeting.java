@@ -3,6 +3,7 @@ package com.westminster.testcases.budgeting;
 import java.util.Arrays;
 
 import com.config.ConfigurationManager;
+import com.ui.utilities.TestGroups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -16,7 +17,7 @@ import com.page.base.WestMinsterPageHook;
 public class TC_Budgeting extends WestMinsterPageHook {
 
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void setReportValues() {
         testcaseName = "TC_127 " + xmlUserLevel;
         testDescription = "Create New Budget and validate";
@@ -24,7 +25,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
         category = "Create New Budget";
     }
 
-    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY})
     public void createNewBudget() {
         clientCompanyName.set(FakerDataFactory.getCompanyNameWithoutSpace());
         new DashboardPage()
@@ -42,7 +43,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
         System.out.println("TC-----------10");
     }
 
-    @Test(priority = 11, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @Test(priority = 11, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY})
     public void editBudget() {
         testcaseName = "TC_14 " + xmlUserLevel;
         testDescription = "Edit budget and validate";
@@ -67,7 +68,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
 
     }
 
-    @Test(priority = 12, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @Test(priority = 12, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY})
     public void importNewBudget() {
 
         testcaseName = "TC_126 " + xmlUserLevel;

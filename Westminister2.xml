@@ -11,8 +11,12 @@
             <run>
                 <include name="Tier1User"></include>
             </run>
+            <run>
+                <include name="SANITY"></include>
+                <!--                <include name="REGRESSION"></include>-->
+            </run>
         </groups>
-        <parameter name="Browser" value="chrome"></parameter>
+        <parameter name="Browser" value="edge"></parameter>
 
         <classes>
 

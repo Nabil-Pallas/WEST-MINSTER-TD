@@ -83,6 +83,28 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
+    //Selecting Existing DataMap
+    public FileManagerPage selectExistingMapping(String dataMap){
+
+        //Click Select mapping DropDown
+        click(frameSelectMappingLocator("Select a mapping:"),"Select Mapping DropDown","DropDown");
+        pause("low");
+        //click Existing Map From DropDown
+        click("//div[contains(@title,'"+dataMap+"')]","Existing DataMap");
+        pause("low");
+        return this;
+    }
+
+    public FileManagerPage clickOnApplyMapping(){
+        pause("low");
+        click(frameSpanTextLocator("Apply Mapping"),"Apply Mapping Button");
+        pause("low");
+        String ExpectedText = "Duplicate files are not permitted.";
+        boolean AssertStatus = verifyPartialText("//ul[@class='error-list']//li",ExpectedText);
+        Assert.assertTrue(AssertStatus);
+        return  this;
+    }
+
     //Click The Create Button
     public FileManagerPage clickOnCreateBtn() {
         click(createNewDataMapBtn, "Create Button");

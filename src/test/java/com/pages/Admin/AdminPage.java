@@ -75,6 +75,10 @@ public class AdminPage extends MenuPage {
         return "//span[contains(text(),'" + placeholder + "')]";
 
     }
+    public String frameSelectMappingLocator(String placeholder) {
+        return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div";
+    }
+
 
     public String frameDivTextLocator(String placeholder) {
         return "//div[contains(text(),'" + placeholder + "')]";

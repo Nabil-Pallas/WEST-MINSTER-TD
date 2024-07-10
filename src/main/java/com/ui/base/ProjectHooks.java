@@ -27,6 +27,7 @@ package com.ui.base;
 import java.nio.file.Paths;
 import java.util.List;
 
+import com.ui.utilities.TestGroups;
 import org.testng.annotations.*;
 
 import com.config.ConfigurationManager;
@@ -44,7 +45,7 @@ public class ProjectHooks extends PlaywrightWrapper {
     public static String videoFolderName = "videos/";
     public static String tracesFolderName = "videos/";
     public static List<String> groupNames = XMLReaderUtil.readXMLAttributeValue("include");
-	public static String xmlUserLevel = groupNames.get(count);
+    public static String xmlUserLevel = groupNames.get(count);
 
 
     /**
@@ -52,15 +53,14 @@ public class ProjectHooks extends PlaywrightWrapper {
      *
      * @author Srikanth
      */
-    @BeforeSuite(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @BeforeSuite(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void initSuite() {
         videoFolderName = createFolder("videos");
         tracesFolderName = createFolder("traces");
         startReport(xmlUserLevel);
         xmlUserLevel = groupNames.get(count);
-    	count++;
+        count++;
     }
-
 
     //    @BeforeClass(alwaysRun = true)
     public void beginTestcaseReporting() {
@@ -74,7 +74,7 @@ public class ProjectHooks extends PlaywrightWrapper {
      *
      * @author Srikanth
      */
-    @AfterClass(alwaysRun = true, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @AfterClass(alwaysRun = true, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void tearDown() {
         try {
             System.out.println("tear down start");
@@ -101,7 +101,7 @@ public class ProjectHooks extends PlaywrightWrapper {
         }
     }
 
-    @AfterSuite(alwaysRun = true, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @AfterSuite(alwaysRun = true, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void endReport() {
         try {
             endResult();

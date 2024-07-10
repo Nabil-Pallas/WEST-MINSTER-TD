@@ -871,17 +871,17 @@ public class PlaywrightWrapper extends Reporter {
      * @author Srikanth
      */
     public boolean isEnabled(String locator, String name) {
-        boolean bEnabled = false;
+        boolean isEnabled = false;
         try {
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
-            bEnabled = getPage().isEnabled(locator);
+            isEnabled = getPage().isEnabled(locator);
             reportStep("The '" + name + "' is enabled ", "info");
-            return bEnabled;
+            return isEnabled;
         } catch (Exception e) {
             e.printStackTrace();
             reportStep("The '" + name + "' is disabled ", "fail");
         }
-        return bEnabled;
+        return isEnabled;
     }
 
     /**
@@ -894,17 +894,17 @@ public class PlaywrightWrapper extends Reporter {
      */
 
     public boolean isDisabled(String locator, String name) {
-        boolean bEnabled = false;
+        boolean isDisabled = false;
         try {
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
-            bEnabled = getPage().isDisabled(locator);
+            isDisabled = getPage().isDisabled(locator);
             reportStep("The '" + name + "' is disabled ", "info");
-            return bEnabled;
+            return isDisabled;
         } catch (Exception e) {
             e.printStackTrace();
             reportStep("The '" + name + "' is not disabled ", "fail");
         }
-        return bEnabled;
+        return isDisabled;
     }
 
     /**

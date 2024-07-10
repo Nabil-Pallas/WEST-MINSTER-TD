@@ -35,6 +35,12 @@ public class AddNewRowPage extends DataManagerPage {
         return this;
     }
 
+    // Click The Trade Date
+    public AddNewRowPage clickTradeDate() {
+        click(frameClientDetailsLocator("Trade  Date:", 2), "Trade  Date", "Field");
+        return this;
+    }
+
     // Type The Account Name
     public AddNewRowPage typeAccountName(String accountName) {
         try {
@@ -209,6 +215,24 @@ public class AddNewRowPage extends DataManagerPage {
 //        waitForAppearance(addBtn);
         return this;
     }
+
+    //Validate the trade date error message
+    public AddNewRowPage validateErrorMsg() {
+        clickTradeDate();
+        String errorMsg = getInnerText("//*[contains(text(),'Custom Validation')]");
+        Assert.assertEquals(errorMsg,"Custom Validation: Trade Date must be before “Settlement Date.”");
+        reportPass("The Error Msg is " + errorMsg);
+        return this;
+    }
+
+    //Check Add Button is disabled
+    public AddNewRowPage validateAddBtnIsDisable() {
+        assertIsDisabled(addBtn, "Add Button");
+        pause("low");
+        reportPass("User Successfully validated that the add button is Disabled as Expected");
+        return this;
+    }
+
 
     //Enter the Values in Add New Row Page
     public AddNewRowPage addNewRowInformation(String brokerName, String tradeDate, String accountName, String assetClass, String baseCurrency,

@@ -28,7 +28,8 @@ public class DataManagerPage extends AdminPage {
 
     //Locator for Edit Button
     private String editBtn = "//span[text()='Edit']";
-
+    String deleteBtn = "//span[text()='Delete']";
+    String confirmDeleteBtn = "//span[text()='Yes']";
 
     //Validate Data Manager Page
     public AddNewColumnPage validateDataManagerPage() {
@@ -105,6 +106,38 @@ public class DataManagerPage extends AdminPage {
         return new DataManagerPage();
     }
 
+    public DataManagerPage deleteAddedRow(String verificationValue, String verificationHeader) {
+//        waitForLoaderToDisappear();
+        pause("medium");
+        pause("medium");
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+
+        for (int i = 1; i < headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader)) {
+                click(searchValueWithHeader(i), "Search Filter", "Search Box");
+                type(searchValueWithHeader(i), verificationValue, verificationValue);
+                forceClick("(//td[text()='" + verificationValue + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Action", "Button");
+                pause("low");
+                click(deleteBtn, "Delete Button");
+                pause("low");
+                click(confirmDeleteBtn, "Confirm Delete");
+                pause("low");
+
+                if (getInnerText(frameSpanTextLocator("Success")).equals("Success")) {
+                    reportStep("Added Data Schema is deleted successfully", "pass");
+
+                } else {
+                    reportStep("Added Data Schema is not deleted", "warning");
+
+                }
+                break;
+            }
+        }
+        return new DataManagerPage();
+    }
+
     //Search The Value To Be Edited
     public DataManagerPage searchValueToValidate(String verificationValue, String verificationHeader) {
 
@@ -133,7 +166,7 @@ public class DataManagerPage extends AdminPage {
     }
 
     //Validate The Edited Row Information
-    public DashboardPage validateEditedRowInformation(String verificationValues, String verificationHeaders) {
+    public DataManagerPage validateEditedRowInformation(String verificationValues, String verificationHeaders) {
         waitForLoaderToDisappear();
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
 
@@ -148,7 +181,7 @@ public class DataManagerPage extends AdminPage {
                 break;
             }
         }
-        return new DashboardPage();
+        return new DataManagerPage();
     }
 
 

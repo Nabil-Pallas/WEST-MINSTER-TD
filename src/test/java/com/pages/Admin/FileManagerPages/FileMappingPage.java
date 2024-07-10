@@ -1,7 +1,9 @@
 package com.pages.Admin.FileManagerPages;
 
+import com.pages.Admin.DataManagerPages.AddNewColumnPage;
 import org.testng.Assert;
 
+import javax.swing.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,9 +11,13 @@ import java.util.Set;
 public class FileMappingPage extends FileManagerPage {
 
     private String fileMappingText = "//h1[text()='File Mapping']";
+    private String addNewSystemColumnsText = "//div[text()='Add New system Column(s)']";
     private String mapColumnsBtn = "//span[text()='Map Columns']";
     private String finishMapping = "//span[text()='Finish mapping']";
     private String confirmAndUpload = "//span[text()='Confirm & Upload']";
+
+
+
 
 
     public FileMappingPage validateFileMappingPage() {
@@ -119,6 +125,9 @@ public class FileMappingPage extends FileManagerPage {
         pause("medium");
         return new FileManagerPage();
     }
-
+    public AddNewSystemColumnsPage clickOnAddNewSystemColumns() {
+        click(frameSpanTextLocator("Add new system columns"), "Add new system columns");
+        return new AddNewSystemColumnsPage();
+    }
 
 }

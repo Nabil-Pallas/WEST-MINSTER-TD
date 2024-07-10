@@ -28,8 +28,7 @@ public class DataManagerPage extends AdminPage {
 
     //Locator for Edit Button
     private String editBtn = "//span[text()='Edit']";
-    String deleteBtn = "//span[text()='Delete']";
-    String confirmDeleteBtn = "//span[text()='Yes']";
+
 
     //Validate Data Manager Page
     public AddNewColumnPage validateDataManagerPage() {
@@ -68,10 +67,10 @@ public class DataManagerPage extends AdminPage {
     }
 
     //Click the Action Button
-    public EditDataSchemaPage clickOnEditDataSchema() {
+    public AddNewColumnPage clickOnEditDataSchema() {
         click(frameSpanTextLocator("Edit Data Schema"), "Edit Data Schema");
         waitForLoaderToDisappear();
-        return new EditDataSchemaPage();
+        return new AddNewColumnPage();
     }
 
     //Click the Edit Button

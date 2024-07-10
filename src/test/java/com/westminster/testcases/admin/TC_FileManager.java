@@ -2,6 +2,8 @@ package com.westminster.testcases.admin;
 
 import java.util.List;
 
+import com.config.ConfigurationManager;
+import com.pages.Admin.DataManagerPages.AddNewRowPage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;

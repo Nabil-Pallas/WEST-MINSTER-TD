@@ -43,7 +43,7 @@ public abstract class Reporter extends DriverFactory {
         return folderName;
     }
 
-    public synchronized void startReport() {
+    public synchronized void startReport(String userName) {
     	folderName = createFolder("reports");
 		List<ViewName> viewList = new ArrayList<ViewName>();
 		viewList.add(ViewName.DASHBOARD);
@@ -51,7 +51,7 @@ public abstract class Reporter extends DriverFactory {
 		viewList.add(ViewName.AUTHOR);
 		viewList.add(ViewName.CATEGORY);
 		//ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("./" + folderName + "/" + fileName);
-		oSpark = new ExtentSparkReporter("./" + folderName + "/" + fileName).viewConfigurer().viewOrder().as(viewList).apply();
+		oSpark = new ExtentSparkReporter("./" + folderName + "/" + userName + "_" + fileName ).viewConfigurer().viewOrder().as(viewList).apply();
 //		oSpark.config().setTestViewChartLocation(ChartLocation.BOTTOM);
 //		oSpark.config().setChartVisibilityOnOpen(!true);
 		oSpark.config().setTheme(Theme.STANDARD);

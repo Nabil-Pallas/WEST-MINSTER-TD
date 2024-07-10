@@ -15,7 +15,7 @@ import com.ui.utilities.TestGroups;
 @Listeners(TestListener.class)
 public class TC_FileManager extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY,TestGroups.Type.REGRESSION})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "TC_5588 " + xmlUserLevel;
         testDescription = "Upload a file and validate";
@@ -23,7 +23,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         category = "File Upload";
     }
 
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void fileUpload() {
         fileName.set("SampleFile_AU_Chrome.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -44,7 +44,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------01");
     }
 
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void promotingRows() {
         testcaseName = "TC_4460 " + xmlUserLevel;
         testDescription = "Promoting Rows and Validate";
@@ -79,7 +79,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //TC-961
     @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void uploadDpFileWDiffName(){
+    public void uploadDpFileWDiffName() {
         DataMap.set(FakerDataFactory.getDataMapName());
         fileName.set("SampleFile_AU_Chrome.csv");
         fileName2.set("SampleFile_AU_Chrome2.csv");

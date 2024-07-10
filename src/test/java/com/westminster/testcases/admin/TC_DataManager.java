@@ -14,7 +14,7 @@ import com.ui.utilities.TestGroups;
 
 @Listeners(TestListener.class)
 public class TC_DataManager extends WestMinsterPageHook {
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "TC_5577 " + xmlUserLevel;
         testDescription = "Add New Row And validate";
@@ -23,7 +23,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Adding the new row in the data manager
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void AddNewRow() {
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()
@@ -47,7 +47,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     //    Editing the new row in the Data manager
-    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void editRow() {
         ruleName.set(FakerDataFactory.getCompanyName());
         reportName.set(FakerDataFactory.getReportsName());
@@ -78,7 +78,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------04");
     }
 
-    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewColumnInEditDataSchema() {
         testcaseName = "TC_6587 " + xmlUserLevel;
         testDescription = "Add new System Column";
@@ -105,7 +105,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     // Verify that the "Add" button is disabled when error occurs in required field - Trade Date
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void AddNewRowErrorValidation() {
+    public void AddNewRowTradeDateErrorValidation() {
         testcaseName = "TC_RE_5731 " + xmlUserLevel;
         testDescription = "Add New Row Trade Date Error Validation";
         authors = "Automation Team";
@@ -126,7 +126,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .addNewRowInformation(clientCompanyName.get(), FakerDataFactory.getFutureDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
                         FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
                         FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getPastDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
-                .validateErrorMsg()
+                .validateTradeDateErrorMsg("Custom Validation: Trade Date must be before “Settlement Date.”")
                 .validateAddBtnIsDisable();
         System.out.println("TC-----------03");
     }
@@ -151,10 +151,10 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnAddNewRowBtn()
                 .validateAddNewRowPage()
-                .addNewRowInformation(clientCompanyName.get(), FakerDataFactory.getFutureDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                .addNewRowInformation("", FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
                         FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
-                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getPastDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
-                .validateErrorMsg()
+                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
+                .validateBrokerNameErrorMsg("Broker Name is required.")
                 .validateAddBtnIsDisable();
         System.out.println("TC-----------03");
     }

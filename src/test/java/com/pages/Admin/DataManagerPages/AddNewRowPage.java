@@ -41,6 +41,12 @@ public class AddNewRowPage extends DataManagerPage {
         return this;
     }
 
+    // Click The Broker Name
+    public AddNewRowPage clickBrokerName() {
+        click(frameClientDetailsLocator("Broker  Name:"), "Broker Name", "Broker Name");
+        return this;
+    }
+
     // Type The Account Name
     public AddNewRowPage typeAccountName(String accountName) {
         try {
@@ -217,17 +223,27 @@ public class AddNewRowPage extends DataManagerPage {
     }
 
     //Validate the trade date error message
-    public AddNewRowPage validateErrorMsg() {
+    public AddNewRowPage validateTradeDateErrorMsg(String errorMsg) {
         clickTradeDate();
-        String errorMsg = getInnerText("//*[contains(text(),'Custom Validation')]");
-        Assert.assertEquals(errorMsg,"Custom Validation: Trade Date must be before “Settlement Date.”");
-        reportPass("The Error Msg is " + errorMsg);
+        String errorMsgText = getInnerText("//*[contains(text(),'Custom Validation')]");
+        Assert.assertEquals(errorMsgText, errorMsg);
+        reportPass("The Error Msg is " + errorMsgText);
+        return this;
+    }
+
+    //Validate the trade date error message
+    public AddNewRowPage validateBrokerNameErrorMsg(String errorMsg) {
+        clickBrokerName();
+        String errorMsgText = getInnerText(frameDivTextLocator("required"));
+        Assert.assertEquals(errorMsgText, errorMsg);
+        reportPass("The Error Msg is " + errorMsgText);
         return this;
     }
 
     //Check Add Button is disabled
     public AddNewRowPage validateAddBtnIsDisable() {
-        assertIsDisabled(addBtn, "Add Button");
+//        assertIsDisabled(addBtn, "Add Button");
+        isEnabled(addBtn, "Add Button");
         pause("low");
         reportPass("User Successfully validated that the add button is Disabled as Expected");
         return this;

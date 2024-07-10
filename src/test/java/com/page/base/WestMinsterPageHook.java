@@ -79,7 +79,8 @@ public class WestMinsterPageHook extends ProjectHooks {
      * @author Srikanth
      */
     @Parameters("Browser")
-    @BeforeClass(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION,TestGroups.Type.SANITY})//beforemethod
+    @BeforeClass(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION, TestGroups.Type.SANITY})
+//beforemethod
     public void initBrowserAndDoLogin(@Optional("chrome") String browser) {
         try {
             setUserLevel();
@@ -136,7 +137,7 @@ public class WestMinsterPageHook extends ProjectHooks {
         }
     }
 
-    @AfterMethod(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @AfterMethod(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void redirectToDashboard() {
 //        System.out.println("redirectToDashboard------------------------");
         navigate("https://sakthivel.murugesan%40mojopsg.com:sb%5EyCCM6pieJ@gct-app.qa.cwi.studio/Dashboard");

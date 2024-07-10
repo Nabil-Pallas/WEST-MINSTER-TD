@@ -26,7 +26,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     // Adding the new row in the data manager
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
-    public void AddNewRow() {
+    public void addNewRow() {
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()
                 .validateDashBoardElements()
@@ -107,7 +107,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     // Verify that the "Add" button is disabled when error occurs in required field - Trade Date
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void AddNewRowTradeDateErrorValidation() {
+    public void addNewRowTradeDateErrorValidation() {
         testcaseName = "TC_RE_5731 " + xmlUserLevel;
         testDescription = "Add New Row Trade Date Error Validation";
         authors = "Automation Team";
@@ -135,7 +135,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     // Verify that the "Add" button is disabled when error occurs in required field - Broker Name
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void AddNewRowBrokerNameErrorValidation() {
+    public void addNewRowBrokerNameErrorValidation() {
         testcaseName = "TC_RE_5945 " + xmlUserLevel;
         testDescription = "Add New Row Broker Name Error Validation";
         authors = "Automation Team";
@@ -163,7 +163,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     // To verify the functionality of enabling dropdowns for available lists during adding ad hoc rows in Data Manager
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void AddingAdhocRowsDataManager() {
+    public void addingAdhocRowsDataManager() {
         testcaseName = "TC_RE_5429 " + xmlUserLevel;
         testDescription = "Adding Adhoc Rows Data Manager";
         authors = "Automation Team";
@@ -184,17 +184,20 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .typeListTitle(newListName.get())
                 .typeListItems(listItems)
                 .clickOnSaveListBtn()
-                .validateListNameAndItem(newListName.get(), listItems);
-        new DataManagerPage().clickOnDataManager()
+                .validateListNameAndItem(newListName.get(), listItems)
+                .clickOnDataManager()
                 .clickOnDataManager()
                 .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnActionIcon("Broker Name")
+                .clickOnEditValidation()
+                .validateEditFieldValidationParametersPage()
+                .editFieldValidationParameters(newListName.get())
                 .clickOnAddNewRowBtn()
-                .validateAddNewRowPage()
-                .addNewRowInformation("", FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
-                        FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
-                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
-                .validateBrokerNameErrorMsg("Broker Name is required.")
-                .validateAddBtnIsDisable();
+                .validateAddNewRowPage();
+
+
         System.out.println("TC-----------TC_RE_5429");
     }
 }

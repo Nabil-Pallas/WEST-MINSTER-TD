@@ -47,6 +47,11 @@ public class AddNewRowPage extends DataManagerPage {
         return this;
     }
 
+    public AddNewRowPage selectBrokerName(String brokerName) {
+        clickAndChoose(frameClientDetailsLocator("Broker  Name:", 2), frameDivTextLocator(brokerName), brokerName, "Broker Name");
+        return this;
+    }
+
     // Type The Account Name
     public AddNewRowPage typeAccountName(String accountName) {
         try {
@@ -287,7 +292,10 @@ public class AddNewRowPage extends DataManagerPage {
                 .typeTradeId(tradeId);
         reportPass("User successfully entered the values on the Add New Row page.");
         return this;
+    }
 
+    public AddNewRowPage addNewRowPage() {
+        return this;
     }
 }
 

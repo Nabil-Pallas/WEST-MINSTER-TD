@@ -2,7 +2,6 @@ package com.westminster.testcases.admin;
 
 import java.util.List;
 
-import com.config.ConfigurationManager;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -11,11 +10,12 @@ import com.data.dynamic.FakerDataFactory;
 import com.listener.TestListener;
 import com.page.base.DashboardPage;
 import com.page.base.WestMinsterPageHook;
+import com.ui.utilities.TestGroups;
 
 @Listeners(TestListener.class)
 public class TC_FileManager extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY,TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "TC_5588 " + xmlUserLevel;
         testDescription = "Upload a file and validate";
@@ -23,7 +23,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         category = "File Upload";
     }
 
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
     public void fileUpload() {
         fileName.set("SampleFile_AU_Chrome.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -44,7 +44,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------01");
     }
 
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
     public void promotingRows() {
         testcaseName = "TC_4460 " + xmlUserLevel;
         testDescription = "Promoting Rows and Validate";
@@ -77,50 +77,29 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     }
 
-
-//    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
-    public void fileUpload_AddSystemColumn() {
-        testcaseName = "TC_1304 " + xmlUserLevel;
-        testDescription = "Upload file and add system column";
-        authors = "Automation Team";
-        category = "";
-        startTestCase();
-        setNode();
+    //TC-961
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void uploadDpFileWDiffName(){
+        DataMap.set(FakerDataFactory.getDataMapName());
         fileName.set("SampleFile_AU_Chrome.csv");
+        fileName2.set("SampleFile_AU_Chrome2.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
-                .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(fileName.get())
                 .clickOnCreateNewMapping()
-                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
                 .validateFileMappingPage()
-                .clickOnAddNewSystemColumns()
-                .validateAddNewSystemColumnsPage()
-                .typeInformationInAddNewSystemColumns(false, false, true)
-                .mappingFileAndSystemColumns(systemColumnNames);
-
-
-//                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
-//                .validateErrorQueuePage()
-//                .clickOnSelectAll()
-//                .clickOnBulkEditRows()
-//                .validateBulkEditRowsPage()
-//                .editInvalidRowInfo("06/07/2023", "06/12/2023")
-//                .clickOnApplyBtn()
-//                .validateErrorQueuePage()
-//                .clickOnSelectAll()
-//                .clickOnPromoteRows()
-//                .clickOnExitBtn()
-//                .validateFileManagerPage()
-//                .validateRowPromote(fileName.get());
-        System.out.println("TC-----------02");
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .fileUpload(fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnApplyMapping();
 
     }
-
-
 }

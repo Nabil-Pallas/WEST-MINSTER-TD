@@ -82,6 +82,28 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
+    //Selecting Existing DataMap
+    public FileManagerPage selectExistingMapping(String dataMap){
+
+        //Click Select mapping DropDown
+        click(frameSelectMappingLocator("Select a mapping:"),"Select Mapping DropDown","DropDown");
+        pause("low");
+        //click Existing Map From DropDown
+        click("//div[contains(@title,'"+dataMap+"')]","Existing DataMap");
+        pause("low");
+        return this;
+    }
+
+    public FileManagerPage clickOnApplyMapping(){
+        pause("low");
+        click(frameSpanTextLocator("Apply Mapping"),"Apply Mapping Button");
+        pause("low");
+        String ExpectedText = "Duplicate files are not permitted.";
+        boolean AssertStatus = verifyPartialText("//ul[@class='error-list']//li",ExpectedText);
+        Assert.assertTrue(AssertStatus);
+        return  this;
+    }
+
     //Click The Create Button
     public FileManagerPage clickOnCreateBtn() {
         click(createNewDataMapBtn, "Create Button");
@@ -98,7 +120,7 @@ public class FileManagerPage extends AdminPage {
     }
 
 	//Validate The File Upload
-	public DashboardPage validateFileUpload(String fileName)
+	public FileManagerPage validateFileUpload(String fileName)
 	{
 		waitForLoaderToDisappear();
 		pause("medium");
@@ -107,7 +129,7 @@ public class FileManagerPage extends AdminPage {
 		String actualText = getInnerText("((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]");
 		boolean verifyExactText = verifyExactText(actualElement, fileName);
 		Assert.assertTrue(verifyExactText);
-		return new DashboardPage();
+		return this;
 	}
 
     public ErrorQueuePage clickOnInvalidRowCountAndAmendErrors(String fileName) {

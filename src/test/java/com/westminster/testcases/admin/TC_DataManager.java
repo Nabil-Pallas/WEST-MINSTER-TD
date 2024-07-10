@@ -103,13 +103,41 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
 
-    // Verify that the "Add" button is disabled when error occurs in required field
+    // Verify that the "Add" button is disabled when error occurs in required field - Trade Date
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void AddNewRowErrorValidation() {
-        testcaseName = "TC_5731 " + xmlUserLevel;
-        testDescription = "Add New Row Error Validation";
+        testcaseName = "TC_RE_5731 " + xmlUserLevel;
+        testDescription = "Add New Row Trade Date Error Validation";
         authors = "Automation Team";
-        category = "Add New Row Error Validation";
+        category = "Add New Row Trade Date Error Validation";
+        startTestCase();
+        setNode();
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnAddNewRowBtn()
+                .validateAddNewRowPage()
+                .addNewRowInformation(clientCompanyName.get(), FakerDataFactory.getFutureDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getPastDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
+                .validateErrorMsg()
+                .validateAddBtnIsDisable();
+        System.out.println("TC-----------03");
+    }
+
+    // Verify that the "Add" button is disabled when error occurs in required field - Broker Name
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void AddNewRowBrokerNameErrorValidation() {
+        testcaseName = "TC_RE_5945 " + xmlUserLevel;
+        testDescription = "Add New Row Broker Name Error Validation";
+        authors = "Automation Team";
+        category = "Add New Row Broker Name Error Validation";
         startTestCase();
         setNode();
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());

@@ -42,7 +42,9 @@ import com.microsoft.playwright.options.BoundingBox;
 import com.microsoft.playwright.options.RequestOptions;
 import com.microsoft.playwright.options.SelectOption;
 import com.microsoft.playwright.options.WaitForSelectorState;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 import com.ui.utilities.Reporter;
 import org.apache.commons.lang3.BooleanUtils;
 import org.testng.Assert;
@@ -1069,7 +1071,9 @@ public class PlaywrightWrapper extends Reporter {
      */
     public boolean verifyExactText(String locator, String expectedText) {
         try {
+            System.out.println("inner Text-----" + getPage().locator(locator).innerText());
             if (getPage().locator(locator).innerText().equals(expectedText)) {
+
                 reportStep("The element with text : " + expectedText + " displayed as expected", "pass");
                 return true;
             } else reportStep("The element with text : " + expectedText + " did not match", "warning");

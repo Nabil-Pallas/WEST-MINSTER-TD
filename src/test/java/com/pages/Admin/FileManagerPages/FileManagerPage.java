@@ -2,6 +2,7 @@ package com.pages.Admin.FileManagerPages;
 
 import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
+import com.pages.Admin.DataManagerPages.AddNewRowPage;
 import org.testng.Assert;
 
 import java.util.stream.Stream;
@@ -77,7 +78,7 @@ public class FileManagerPage extends AdminPage {
     }
 
     public FileManagerPage clickOnCreateNewMapping() {
-        waitForAppearance(createNewMapping,"Create New Mapping");
+        waitForAppearance(createNewMapping, "Create New Mapping");
         click(createNewMapping, "Create New Mapping", "Link");
         return this;
     }
@@ -90,6 +91,7 @@ public class FileManagerPage extends AdminPage {
 
     //Create The New Data Map
     public FileMappingPage createNewDataMap(String dataMapName, String dateFormat) {
+        System.out.println("dataMapName----1---" + dataMapName);
         typeAndSpace(frameClientDetailsLocator("Data Map Name"), dataMapName, "Data Map Name");
         clickAndChoose(frameDateFormatLocator("Date Format", 2), frameDateFormatSelectDropDownLocator(dateFormat), dateFormat, "Date Format");
         clickOnCreateBtn();
@@ -97,18 +99,17 @@ public class FileManagerPage extends AdminPage {
         return new FileMappingPage();
     }
 
-	//Validate The File Upload
-	public DashboardPage validateFileUpload(String fileName)
-	{
-		waitForLoaderToDisappear();
-		pause("medium");
-		waitForLoaderToDisappear();
-		String actualElement = "((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]";
-		String actualText = getInnerText("((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]");
-		boolean verifyExactText = verifyExactText(actualElement, fileName);
-		Assert.assertTrue(verifyExactText);
-		return new DashboardPage();
-	}
+    //Validate The File Upload
+    public DashboardPage validateFileUpload(String fileName) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        waitForLoaderToDisappear();
+        String actualElement = "((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]";
+        String actualText = getInnerText("((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]");
+        boolean verifyExactText = verifyExactText(actualElement, fileName);
+        Assert.assertTrue(verifyExactText);
+        return new DashboardPage();
+    }
 
     public ErrorQueuePage clickOnInvalidRowCountAndAmendErrors(String fileName) {
 
@@ -139,7 +140,34 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
+    public AddNewRowPage deleteDataMaps(String dataMapName) {
+        System.out.println("dataMapName----2----" + dataMapName);
+        clickOnViewDataMaps();
 
+        pause("medium");
+        click("(//tr[contains(@class,'dx-row dx-data-row dx-row-lines dx-column-lines')]//td[1])[1]", "");
+        while (!isVisible("//td[text()='" + dataMapName + "']")) {
+            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines'])[8]");
+        }
+        scrollToElement("//td[text()='" + dataMapName + "']");
+        pause("low");
+        pause("low");
+        forceClick("(//td[text()='" + dataMapName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
+        pause("low");
+        click(deleteBtn, "Delete Button");
+        pause("low");
+        click(confirmDeleteBtn, "Confirm Delete");
+        pause("low");
+        type(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+        click(frameSpanTextLocator("Confirm Delete"),"Confirm Delete button");
+//        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+        pause("low");
+
+        boolean verifyExactText = verifyExactText(frameSpanTextLocator("Success"), "Success");
+        Assert.assertTrue(verifyExactText);
+        click(closeIcon, "Close icon");
+        return new AddNewRowPage();
+    }
 }
 
 

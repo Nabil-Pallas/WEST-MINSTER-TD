@@ -5,6 +5,7 @@ import com.page.base.DashboardPage;
 
 import java.util.List;
 
+import com.pages.Admin.AdminPage;
 import org.testng.Assert;
 
 public class EditDataSchemaPage extends DataManagerPage {
@@ -36,7 +37,8 @@ public class EditDataSchemaPage extends DataManagerPage {
         return new DashboardPage();
     }
 
-    public AddNewColumnPage validateAddedNewColumn(String fieldName) {
+    public AdminPage validateAddedNewColumn(String fieldName) {
+        System.out.println("fieldName-------" + fieldName);
         pause("medium");
         pause("medium");
         pause("medium");
@@ -52,7 +54,7 @@ public class EditDataSchemaPage extends DataManagerPage {
                 // Exit once the match is found and validated
             }
         }
-        return new AddNewColumnPage();
+        return new AdminPage();
     }
 
     public EditDataSchemaPage clickOnApplyAndExitBtn() {

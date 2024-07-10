@@ -4,6 +4,7 @@ import com.pages.Admin.AdminPage;
 import com.pages.Analytics.AnalyticsPage;
 import com.pages.Report.ReportsPage;
 import com.pages.bugeting.AllBudgetsPage;
+import org.testng.Assert;
 
 public class DashboardPage extends MenuPage {
 
@@ -55,7 +56,29 @@ public class DashboardPage extends MenuPage {
         return this;
 
     }
+    public DashboardPage validateImpersonatingAsUserText() {
+        waitForLoaderToDisappear();
+        waitForElementToLoad(impersonatingAsUserText);
+        if (isVisible(impersonatingAsUserText,"impersonating a user Text.")) {
+            reportStep("User successfully Impersonated the User","pass");
+        } else {
+            reportFailAndThrowException("User Unable to Impersonate.");
+        }
+        return this;
 
+    }
+
+    public DashboardPage validateImpersonateInAccountSettings(String email) {
+        mouseHoverOnProfile()
+                .clickAccountSettingsBtn()
+                .waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
+        System.out.println(getInputText("//input[contains(@id,'_email')]")+"---");
+        boolean AssertStatus = verifyInputText("//input[contains(@id,'_email')]",email);
+        Assert.assertTrue(AssertStatus);
+        return this;
+
+    }
     // Click the Admin Option
     public AdminPage clickOnAdmin() {
         mouseHoverOnDashboard();

@@ -41,11 +41,11 @@ public class FileManagerPage extends AdminPage {
     }
 
     //Upload The File
-    public FileManagerPage fileUpload(String fileName) {
+    public FileManagerPage fileUpload(String filePath,String fileName) {
         //delete
         validateFileNameInFileManagerGridAndDelete(fileName);
         //upload
-        uploadFile(fileName);
+        uploadFile(filePath);
         reportPass("User successfully Uploaded the File.");
         return this;
     }
@@ -59,7 +59,7 @@ public class FileManagerPage extends AdminPage {
             if (actualText.equalsIgnoreCase(fileName)) {
                 //if equals we are deleting it.
                 //Action Link
-                click("((((//tbody[@role='presentation'])[4])//td)[" + (i + 1) + "])//a", "Action Link", "Action Item");
+                click("((((//tbody[@role='presentation'])[4])//td)[" + (i * 2) + "])//a", "Action Link", "Action Item");
                 pause("low");
                 //delete
                 click(frameSpanTextLocator("Delete"), "Delete Link", "Action Item popup");
@@ -98,12 +98,14 @@ public class FileManagerPage extends AdminPage {
         pause("low");
         click(frameSpanTextLocator("Apply Mapping"),"Apply Mapping Button");
         pause("low");
+        return  this;
+    }
+    public FileManagerPage verifyErrorMessage(){
         String ExpectedText = "Duplicate files are not permitted.";
         boolean AssertStatus = verifyPartialText("//ul[@class='error-list']//li",ExpectedText);
         Assert.assertTrue(AssertStatus);
         return  this;
     }
-
     //Click The Create Button
     public FileManagerPage clickOnCreateBtn() {
         click(createNewDataMapBtn, "Create Button");

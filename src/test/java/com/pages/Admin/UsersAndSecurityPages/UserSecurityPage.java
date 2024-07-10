@@ -154,7 +154,7 @@ public class UserSecurityPage extends AdminPage {
         return new EditClientPage();
     }
 
-    public EditUserPage searchAndEditUserDetails(String FirstName) {
+    public UserSecurityPage searchUserAndClickFirstGrid(String FirstName) {
         waitForLoaderToDisappear();
 //        String firstGridName = getInnerText("(//tr[1])[7]//td[@aria-colindex='1']");
         switch (xmlUserLevel) {
@@ -176,10 +176,25 @@ public class UserSecurityPage extends AdminPage {
                 break;
         }
 
+      return this;
+    }
+    public EditUserPage clickOnEditUser(){
         waitForAppearance(frameEditClientDetailsResult("Edit User"), "Edit User");
         click(frameEditClientDetailsResult("Edit User"), "Edit User Button");
         return new EditUserPage();
     }
+
+    public UserSecurityPage clickOnImpersonateUser(){
+        waitForAppearance(frameEditClientDetailsResult("Impersonate User"), "Impersonate User");
+        click(frameEditClientDetailsResult("Impersonate User"), "Impersonate User Button");
+        return this;
+    }
+    public DashboardPage clickOnProceedAsUser(){
+        waitForAppearance(frameEditClientDetailsResult("Proceed as User"), "Proceed as User");
+        click(frameEditClientDetailsResult("Proceed as User"), "Proceed as User Button");
+        return new DashboardPage();
+    }
+
 
 
     public EditRolePage searchAndEditRoleDetails(String roleName) {

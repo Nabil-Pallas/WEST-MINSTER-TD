@@ -23,8 +23,9 @@ public class TC_FileManager extends WestMinsterPageHook {
         category = "File Upload";
     }
 
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+   // @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void fileUpload() {
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
         fileName.set("SampleFile_AU_Chrome.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
@@ -34,7 +35,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(fileName.get())
+                .fileUpload(filePath.get(),fileName.get())
                 .clickOnCreateNewMapping()
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
@@ -78,8 +79,8 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     //TC-961 - Upload a file which already uploaded with same data but with different file name
-    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void uploadDpFileWDiffName(){
+   // @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void uploadSameContentFileWDiffName(){
         testcaseName = "TC_961 " + xmlUserLevel;
         testDescription = "Upload Duplicate File with Different Name";
         authors = "Automation Team";
@@ -87,6 +88,8 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
         DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
+        filePath2.set("./src/test/resources/upload/SampleFile_AU_Chrome2.csv");
         fileName.set("SampleFile_AU_Chrome.csv");
         fileName2.set("SampleFile_AU_Chrome2.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -96,16 +99,51 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(fileName.get())
+                .fileUpload(filePath.get(),fileName.get())
                 .clickOnCreateNewMapping()
                 .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
                 .validateFileMappingPage()
                 .mappingFileAndSystemColumns(systemColumnNames)
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get())
-                .fileUpload(fileName2.get())
+                .fileUpload(filePath2.get(),fileName2.get())
                 .selectExistingMapping(DataMap.get())
-                .clickOnApplyMapping();
+                .clickOnApplyMapping()
+                .verifyErrorMessage();
 
+    }
+
+    //TC-1603 - Test to verify whether multiple files with same name but different content can be uploaded or not. To do that we have to upload two different files with different contents in the same name. Expected outcome is, warning message should be displayed saying that "duplicate files are not allowed" and the file should not get uploaded.
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void uploadDiffContentFileWSameName(){
+        testcaseName = "TC_1603 " + xmlUserLevel;
+        testDescription = "Upload Different Content File with Same Name";
+        authors = "Automation Team";
+        category = "upload Different File SameName";
+        startTestCase();
+        setNode();
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Edge.csv");
+        filePath2.set("./src/test/resources/upload/upload2/SampleFile_AU_Edge.csv");
+        fileName.set("SampleFile_AU_Edge.csv");
+        fileName2.set("SampleFile_AU_Edge(1).csv");
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(),fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .fileUpload(filePath2.get(),fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnApplyMapping()
+                .validateFileUpload(fileName2.get());
     }
 }

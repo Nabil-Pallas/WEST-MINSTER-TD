@@ -30,6 +30,8 @@ public class WestMinsterPageHook extends ProjectHooks {
 
     public static final ThreadLocal<String> titleTwo = new ThreadLocal<>();
     public static final ThreadLocal<String> descriptionTwo = new ThreadLocal<>();
+    public static final ThreadLocal<String> filePath = new ThreadLocal<>();
+    public static final ThreadLocal<String> filePath2 = new ThreadLocal<>();
     public static final ThreadLocal<String> fileName = new ThreadLocal<>();
     public static final ThreadLocal<String> fileName2 = new ThreadLocal<>();
     public static final ThreadLocal<String> DataMap = new ThreadLocal<>();

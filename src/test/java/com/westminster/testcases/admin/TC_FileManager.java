@@ -81,7 +81,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
 
     @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
-    public void fileUpload_AddSystemColumn() {
+    public void fileUploadAddSystemColumn() {
         testcaseName = "TC_1304 " + xmlUserLevel;
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
         authors = "Automation Team";
@@ -137,6 +137,27 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
                 .validateFileMappingPage()
                 .mappingFileAndSystemColumns(systemColumnNames);
+        System.out.println("TC-----------01");
+    }
+
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    public void upload6000DataFile() {
+        fileName.set("6000_count.csv");
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get());
         System.out.println("TC-----------01");
     }
 }

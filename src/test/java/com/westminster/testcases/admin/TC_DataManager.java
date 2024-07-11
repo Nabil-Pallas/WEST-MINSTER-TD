@@ -165,9 +165,9 @@ public class TC_DataManager extends WestMinsterPageHook {
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDropdownsForAdHocRows() {
         testcaseName = "TC_RE_5429 " + xmlUserLevel;
-        testDescription = "Adding Adhoc Rows Data Manager";
+        testDescription = "Verify Drop downs For AdHoc Rows";
         authors = "Automation Team";
-        category = "Adding Adhoc Rows Data Manager";
+        category = "Verify Drop downs For AdHoc Rows";
         startTestCase();
         setNode();
         newListName.set(FakerDataFactory.getListName());
@@ -231,7 +231,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                         Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
                 .clickOnApplyBtn();
 
-        System.out.println("TC-----------TC_RE_5429");
+        System.out.println("TC-----------TC_RE_5235");
     }
 }
 

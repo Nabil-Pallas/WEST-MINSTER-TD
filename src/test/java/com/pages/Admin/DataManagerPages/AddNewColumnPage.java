@@ -42,6 +42,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         return this;
     }
 
+
     public AddNewColumnPage uniqueTradeIdentifierCheckbox(boolean uniqueTradeIdentifierCheckbox) {
         if (uniqueTradeIdentifierCheckbox) {
             click("(//div[@class='dx-widget dx-checkbox dx-checkbox-indeterminate dx-datagrid-checkbox-size'])[1]", "unique Trade Identifier");

@@ -294,7 +294,10 @@ public class AddNewRowPage extends DataManagerPage {
         return this;
     }
 
-    public AddNewRowPage addNewRowPage() {
+    public AddNewRowPage addNewRow(String brokerName,String tradeDate,String SettlementDate) {
+        selectBrokerName(brokerName)
+                .typeTradeDate(tradeDate)
+                .typeSettlementDate(SettlementDate);
         return this;
     }
 }

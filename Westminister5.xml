@@ -12,16 +12,16 @@
                 <include name="Tier3EndUser"></include>
             </run>
             <run>
-<!--                <include name="SANITY"></include>-->
-                                <include name="REGRESSION"></include>
+                <!--                <include name="SANITY"></include>-->
+                <include name="REGRESSION"></include>
             </run>
         </groups>
         <parameter name="Browser" value="edge"></parameter>
 
         <classes>
-            <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-            <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
+            <class name="com.westminster.testcases.analytics.TC_Analytics"/>
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>
+            <class name="com.westminster.testcases.report.TC_Reports"/>
         </classes>
     </test>
     <!--

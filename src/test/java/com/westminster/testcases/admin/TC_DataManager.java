@@ -105,13 +105,13 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
 
-    // Verify that the "Add" button is disabled when error occurs in required field - Trade Date
+    //Ensure the "Add" button is disabled when there is an error in the required field, Trade Date.
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void addNewRowTradeDateErrorValidation() {
+    public void verifyAddButtonDisabledOnTradeDateError() {
         testcaseName = "TC_RE_5731 " + xmlUserLevel;
-        testDescription = "Add New Row Trade Date Error Validation";
+        testDescription = "Verify Add Button Disabled On TradeDate Error";
         authors = "Automation Team";
-        category = "Add New Row Trade Date Error Validation";
+        category = "Verify Add Button Disabled On TradeDate Error";
         startTestCase();
         setNode();
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
@@ -133,9 +133,9 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5731");
     }
 
-    // Verify that the "Add" button is disabled when error occurs in required field - Broker Name
+    // Verify that the "Add" button disables when the required field "Broker Name" has an error.
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void addNewRowBrokerNameErrorValidation() {
+    public void verifyAddButtonDisabledOnBrokerNameError() {
         testcaseName = "TC_RE_5945 " + xmlUserLevel;
         testDescription = "Add New Row Broker Name Error Validation";
         authors = "Automation Team";
@@ -161,17 +161,17 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5945");
     }
 
-    // To verify the functionality of enabling dropdowns for available lists during adding ad hoc rows in Data Manager
+    // Verify dropdowns enable correctly for available lists when adding ad hoc rows in Data Manager.
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void addingAdhocRowsDataManager() {
+    public void verifyDropdownsForAdHocRows() {
         testcaseName = "TC_RE_5429 " + xmlUserLevel;
-        testDescription = "Adding Adhoc Rows Data Manager";
+        testDescription = "Verify Drop downs For AdHoc Rows";
         authors = "Automation Team";
-        category = "Adding Adhoc Rows Data Manager";
+        category = "Verify Drop downs For AdHoc Rows";
         startTestCase();
         setNode();
         newListName.set(FakerDataFactory.getListName());
-        List<String> listItems = FakerDataFactory.getListOfItems(4);
+        listItems.set(FakerDataFactory.getListOfItems(3));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -182,23 +182,56 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnAddNewListBtn()
                 .validateAddListItemPage()
                 .typeListTitle(newListName.get())
-                .typeListItems(listItems)
+                .typeListItems(listItems.get())
                 .clickOnSaveListBtn()
-                .validateListNameAndItem(newListName.get(), listItems)
+                .validateListNameAndItem(newListName.get(), listItems.get())
                 .clickOnDataManager()
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
                 .clickOnActionIcon("Broker Name")
-                .clickOnEditValidation()
-                .validateEditFieldValidationParametersPage()
-                .editFieldValidationParameters(newListName.get())
+                .clickOnAddValidation()
+                .validateAddFieldValidationParametersPage()
+                .addFieldValidationParameters(newListName.get())
                 .clickOnAddNewRowBtn()
-                .validateAddNewRowPage();
-
+                .validateAddNewRowPage()
+                .addNewRow(listItems.get().get(1), FakerDataFactory.getPastDate(), FakerDataFactory.getFutureDate())
+                .clickOnAddBtn()
+                .clickOnApplyBtn()
+                .validateAddedRowInformation(listItems.get().get(1), "Broker Name")
+                .deleteAddedRow(listItems.get().get(1), "Broker Name")
+                .clickOnListManager()
+                .validateListManagerPage()
+                .deleteListItem(newListName.get());
 
         System.out.println("TC-----------TC_RE_5429");
+    }
+
+    // Ensure the Edit Trade Details page has no blank spaces under "Edit Trade Details" and "Change Log" headings when editing a row.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyNoBlankSpacesOnEditTradeDetailsPage() {
+        testcaseName = "TC_RE_5235 " + xmlUserLevel;
+        testDescription = "Verify No Blank Spaces On Edit TradeDetails";
+        authors = "Automation Team";
+        category = "Verify No Blank Spaces On Edit TradeDetails";
+        startTestCase();
+        setNode();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnActionsBtn()
+                .clickOnEditBtn()
+                .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
+                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
+                .clickOnApplyBtn();
+
+        System.out.println("TC-----------TC_RE_5235");
     }
 }
 

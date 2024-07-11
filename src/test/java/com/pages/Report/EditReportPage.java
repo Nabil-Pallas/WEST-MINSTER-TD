@@ -178,7 +178,7 @@ public class EditReportPage extends ReportsPage {
     public EditReportPage clickOnExitBtn() {
         pause("medium");
         pause("low");
-        click(frameSpanTextLocator("Exit"), "Exit");
+        click(frameSpanTextLocator("< Exit"), "Exit");
         waitForLoaderToDisappear();
         pause("medium");
         return new EditReportPage();

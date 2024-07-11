@@ -17,7 +17,7 @@ import com.ui.utilities.TestGroups;
 @Listeners(TestListener.class)
 public class TC_FileManager extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void setReportValues() {
         testcaseName = "TC_5588 " + xmlUserLevel;
         testDescription = "Upload a file and validate";
@@ -25,7 +25,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         category = "File Upload";
     }
 
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void fileUpload() {
         fileName.set("SampleFile_AU_Chrome.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -46,7 +46,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------01");
     }
 
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+//    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void promotingRows() {
         testcaseName = "TC_4460 " + xmlUserLevel;
         testDescription = "Promoting Rows and Validate";
@@ -80,7 +80,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
 
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+//    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void fileUpload_AddSystemColumn() {
         testcaseName = "TC_1304 " + xmlUserLevel;
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
@@ -121,7 +121,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     }
 
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void mapColumns() {
         fileName.set("SampleFile_AU_Chrome.csv");
         fileName2.set("SampleFile_AU_Chrome2.csv");

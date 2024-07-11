@@ -1,5 +1,6 @@
 package com.pages.Admin.FileManagerPages;
 
+import com.config.ConfigurationManager;
 import com.pages.Admin.DataManagerPages.AddNewColumnPage;
 import org.testng.Assert;
 
@@ -46,7 +47,7 @@ public class FileMappingPage extends FileManagerPage {
         for (String sysColumn : sysColumns) {
             click(frameSpanTextLocator(sysColumn), "System Column :" + sysColumn, "System Column");
             pause("low");
-            int i = 2; // Initialize i outside the if block, but inside the loop to reset it for each sysColumn
+            // Initialize i outside the if block, but inside the loop to reset it for each sysColumn
             if (fileColumn.contains(sysColumn)) {
                 click("(//tbody[@role='presentation']//tr[td='" + sysColumn + "'])", "File Column :" + sysColumn, "File Column");
                 pause("low");
@@ -57,13 +58,33 @@ public class FileMappingPage extends FileManagerPage {
                 pause("low");
 
 
-                String element = "(//div[@class='match-names-span'])[" + i + "]";
+                String element = "";
+
+                switch (xmlUserLevel) {
+                    case "Tier2Admin":
+                    case "Tier1User":
+                    case "Tier2User":
+                        int i = 1;
+                        element = "(//div[@class='match-names-span'])[" + i + "]";
+                        i++; // Increment i by 1 for each iteration
+                        System.out.println("i---------" + i);
+                        break;
+                    case "Tier3EndUser":
+                        break;
+                    default:
+                        int j = 2;
+                        element = "(//div[@class='match-names-span'])[" + j + "]";
+                        j++; // Increment i by 1 for each iteration
+                        System.out.println("i---------" + j);
+                        break;
+                }
+
+                pause("low");
 //                String elementWithTrim = element.replaceAll("\\s+", "");
                 boolean isPresent = isVisible(element);
                 System.out.println("isPresent-----" + isPresent);
                 Assert.assertTrue(isPresent);
-                i++; // Increment i by 1 for each iteration
-                System.out.println("i---------" + i);
+
 
 
             }

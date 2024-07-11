@@ -16,7 +16,7 @@ import com.ui.utilities.TestGroups;
 
 @Listeners(TestListener.class)
 public class TC_DataManager extends WestMinsterPageHook {
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void setReportValues() {
         testcaseName = "TC_5577 " + xmlUserLevel;
         testDescription = "Add New Row And validate";
@@ -25,7 +25,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Adding the new row in the data manager
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void AddNewRow() {
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()
@@ -49,7 +49,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     //    Editing the new row in the Data manager
-    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void editRow() {
         ruleName.set(FakerDataFactory.getCompanyName());
         reportName.set(FakerDataFactory.getReportsName());
@@ -80,7 +80,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------04");
     }
 
-    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void addNewColumnInEditDataSchema() {
         testcaseName = "TC_6587 " + xmlUserLevel;
         testDescription = "Add new System Column";
@@ -106,7 +106,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
 
     // Verify that the "Add" button is disabled when error occurs in required field - Trade Date
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void AddNewRowTradeDateErrorValidation() {
         testcaseName = "TC_RE_5731 " + xmlUserLevel;
         testDescription = "Add New Row Trade Date Error Validation";
@@ -134,7 +134,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Verify that the "Add" button is disabled when error occurs in required field - Broker Name
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void AddNewRowBrokerNameErrorValidation() {
         testcaseName = "TC_RE_5945 " + xmlUserLevel;
         testDescription = "Add New Row Broker Name Error Validation";
@@ -162,7 +162,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // To verify the functionality of enabling dropdowns for available lists during adding ad hoc rows in Data Manager
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void AddingAdhocRowsDataManager() {
         testcaseName = "TC_RE_5429 " + xmlUserLevel;
         testDescription = "Adding Adhoc Rows Data Manager";

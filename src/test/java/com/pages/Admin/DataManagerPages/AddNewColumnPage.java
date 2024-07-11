@@ -21,8 +21,10 @@ public class AddNewColumnPage extends EditDataSchemaPage {
 
     public AddNewColumnPage typeFieldName(String fieldName) {
 //        click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler')])[1]", "Field Name");
-        pause("low");
+        pause("medium");
         click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator')])[1]", "Field Name");
+        pause("medium");
+        pause("low");
         typeAndSpace("(//input[@class='dx-texteditor-input'])[3]", fieldName, "Field Name");
         pause("low");
         return this;
@@ -32,9 +34,10 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         String fieldDataTypeElement = "//div[contains(@class,'dx-item dx-list-item')]";
 
         int index = i + 1;
+        pause("low");
         click("//td[@class='dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler']", "selectFieldDataType");
+        pause("low");
         clickAndChoose("(//div[@class='dx-texteditor-buttons-container'])[3]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
-
         pause("medium");
         return this;
     }

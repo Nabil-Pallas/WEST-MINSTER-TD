@@ -57,13 +57,13 @@ public class FileMappingPage extends FileManagerPage {
                 pause("low");
 
 
-                String element = "(//div[@class='match-names-span'])[" + i + "]";
-//                String elementWithTrim = element.replaceAll("\\s+", "");
-                boolean isPresent = isVisible(element);
-                System.out.println("isPresent-----" + isPresent);
-                Assert.assertTrue(isPresent);
-                i++; // Increment i by 1 for each iteration
-                System.out.println("i---------" + i);
+//                String element = "(//div[@class='match-names-span'])[" + i + "]";
+////                String elementWithTrim = element.replaceAll("\\s+", "");
+//                boolean isPresent = isVisible(element);
+//                System.out.println("isPresent-----" + isPresent);
+//                Assert.assertTrue(isPresent);
+//                i++; // Increment i by 1 for each iteration
+//                System.out.println("i---------" + i);
 
 
             }

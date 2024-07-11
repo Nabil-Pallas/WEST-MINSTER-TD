@@ -50,6 +50,18 @@ public class AddNewUserPage extends UserSecurityPage {
         return this;
     }
 
+    public AddNewUserPage clickAndselectTier2(String tier, String tier1) {
+        switch (xmlUserLevel) {
+            case "Tier2Admin":
+                clickAndChoose(frameClientDetailsLocator("Tier", 4), frameUserSelectDropDownLocator(tier1), tier, "Tier");
+                break;
+            default:
+                clickAndChoose(frameClientDetailsLocator("Tier", 4), frameUserSelectDropDownLocator(tier), tier, "Tier");
+                break;
+        }
+        return this;
+    }
+
     public AddNewUserPage clickAndselectRole(String role) {
         pause("low");
         clickAndChoose(frameClientDetailsLocator("Roles", 1), selectRolesCheckBox(role), role, "Roles");
@@ -63,14 +75,26 @@ public class AddNewUserPage extends UserSecurityPage {
     }
 
 
-    public AddNewUserPage fillUserInformation(String firstName, String lastName, String email, String phoneNo, String tier, String tier1, int index) {
+    public AddNewUserPage fillUserInformation(String firstName, String lastName, String email, String phoneNo, String tier, String tier1, String role) {
         waitForElementToLoad(frameClientDetailsLocator("First Name"));
         typeFirstName(firstName)
                 .typeLastName(lastName)
                 .typeUserEmail(email)
                 .typePhoneNo(phoneNo)
                 .clickAndselectTier(tier, tier1)
-                .clickAndselectRole(index);
+                .clickAndselectRole(role);
+        reportPass("User successfully filled User Information");
+        return this;
+    }
+
+    public AddNewUserPage fillUserInformation2(String firstName, String lastName, String email, String phoneNo, String tier, String tier1, String role) {
+        waitForElementToLoad(frameClientDetailsLocator("First Name"));
+        typeFirstName(firstName)
+                .typeLastName(lastName)
+                .typeUserEmail(email)
+                .typePhoneNo(phoneNo)
+                .clickAndselectTier2(tier, tier1)
+                .clickAndselectRole(role);
         reportPass("User successfully filled User Information");
         return this;
     }

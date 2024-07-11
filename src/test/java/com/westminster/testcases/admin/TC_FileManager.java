@@ -68,7 +68,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnSelectAll()
                 .clickOnBulkEditRows()
                 .validateBulkEditRowsPage()
-                .editInvalidRowInfo("06/07/2023", "06/12/2023")
+                .editInvalidRowInfo("07/10/2023", "07/15/2023")
                 .clickOnApplyBtn()
                 .validateErrorQueuePage()
                 .clickOnSelectAll()

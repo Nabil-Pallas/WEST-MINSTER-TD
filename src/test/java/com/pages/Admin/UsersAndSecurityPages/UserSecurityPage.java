@@ -143,6 +143,22 @@ public class UserSecurityPage extends AdminPage {
         return this;
     }
 
+    public UserSecurityPage validateUserRoleAndMail(String emailId,String role) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        waitForLoaderToDisappear();
+        typeSearchUser(emailId);
+        waitForElementToLoad(frameUserSearchResult(emailId));
+        boolean verifyExactText = verifyExactText(frameUserSearchResult(emailId), emailId);
+        Assert.assertTrue(verifyExactText);
+        if(verifyExactText(frameUserSearchResult(emailId), emailId)){
+            boolean verifyExactRole = verifyExactText("//td[text()='"+role+"']", role);
+            Assert.assertTrue(verifyExactRole);
+        }
+
+        return this;
+    }
+
     public EditClientPage searchAndEditClientDetails() {
         waitForLoaderToDisappear();
         String firstGridName = getInnerText("(//table)[3]//tr[8]/td[1]");
@@ -222,8 +238,19 @@ public class UserSecurityPage extends AdminPage {
 
 
     public UserSecurityPage clickOnApplyBtn() {
-        click(applyBtn, "Apply Button");
+        pause("low");
+        if(isVisible("// span[text()='Apply']")) {
+            click(applyBtn, "Apply Button");
+        }else{
+            click("(//span[text()='Apply'])[2]", "Apply Button");
+        }
         pause("medium");
+        if(isVisible(frameSpanTextLocator("YES"))){
+            pause("low");
+            click(frameSpanTextLocator("YES"),"YES");
+        }else {
+            System.out.println("Tier And Role Selected Successfully");
+        }
         return new UserSecurityPage();
     }
 

@@ -45,6 +45,7 @@ public class ErrorQueuePage extends FileManagerPage {
                     .validateBulkEditRowsPage()
                     .changeDuplicateStatus()
                     .clickOnApplyBtn()
+                    .clickOnSelectAll()
                     .clickOnPromoteRows();
         } else {
             System.out.println("---Promoting is done---");

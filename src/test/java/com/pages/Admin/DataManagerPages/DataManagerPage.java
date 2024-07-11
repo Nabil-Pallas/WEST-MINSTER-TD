@@ -96,7 +96,7 @@ public class DataManagerPage extends AdminPage {
             if (headerText.equalsIgnoreCase(verificationHeader)) {
                 click(searchValueWithHeader(i), "Search Filter", "Search Box");
                 type(searchValueWithHeader(i), verificationValue, verificationValue);
-                String brokerElement = "//td[text()='" + verificationValue + "']";
+                String brokerElement = "(//td[text()='" + verificationValue + "'])[1]";
                 boolean verifyExactText = verifyExactText(brokerElement, verificationValue);
                 Assert.assertTrue(verifyExactText);
                 break;

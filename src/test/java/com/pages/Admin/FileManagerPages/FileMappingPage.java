@@ -57,16 +57,66 @@ public class FileMappingPage extends FileManagerPage {
                 pause("low");
 
 
-//                String element = "(//div[@class='match-names-span'])[" + i + "]";
-////                String elementWithTrim = element.replaceAll("\\s+", "");
-//                boolean isPresent = isVisible(element);
-//                System.out.println("isPresent-----" + isPresent);
-//                Assert.assertTrue(isPresent);
-//                i++; // Increment i by 1 for each iteration
-//                System.out.println("i---------" + i);
+                String element = "(//div[@class='match-names-span'])[" + i + "]";
+                pause("low");
+//                String elementWithTrim = element.replaceAll("\\s+", "");
+                boolean isPresent = isVisible(element);
+                System.out.println("isPresent-----" + isPresent);
+                Assert.assertTrue(isPresent);
+                i++; // Increment i by 1 for each iteration
+                System.out.println("i---------" + i);
 
 
             }
+        }
+
+        reportPass("User successfully mapped file and system columns.");
+        return this;
+    }
+
+    public FileMappingPage mappingFileAndSystemColumns(List<String> sysColumns, List<String> file) {
+
+        //Verifying Map column button disable
+        Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
+
+        pause("medium");
+        //Mapping the Values
+        // File Column Count
+        int fileColumnCount = getLocatorsCount("((//tbody[@role='presentation'])[6])/tr");
+
+
+        Set<String> fileColumn = new HashSet<>();
+        for (int i = 1; i <= fileColumnCount; i++) {
+            fileColumn.add(getInnerText("(((// tbody[@role='presentation'])[6])/ tr)[" + i + "]"));
+        }
+
+        for (int index = 0; index < sysColumns.size(); index++) {
+            String sysColumn = sysColumns.get(index);
+            String fileColumnValue = file.get(index);
+
+            // Click on the system column
+            click(frameSpanTextLocator(sysColumn), "System Column: " + sysColumn, "System Column");
+            pause("low");
+
+            // Click on the corresponding file column
+            click("(//tbody[@role='presentation']//tr[td='" + fileColumnValue + "'])", "File Column: " + fileColumnValue, "File Column");
+            pause("low");
+
+            // Verifying MapColumns Enabled
+            Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
+            pause("low");
+
+            // Click on Map Columns button
+            click(mapColumnsBtn, "Map Columns");
+            pause("low");
+
+            // Verify if the element is present
+            String element = "(//div[@class='match-names-span'])[" + (index + 2) + "]";
+            boolean isPresent = isVisible(element);
+            Assert.assertTrue(isPresent);
+            reportStep(sysColumn + " is mapped with " + fileColumnValue, "pass");
+
+
         }
 
         reportPass("User successfully mapped file and system columns.");
@@ -77,10 +127,14 @@ public class FileMappingPage extends FileManagerPage {
         click(finishMapping, "Finish Mapping");
         waitForAppearance("//div[text()='Confirm Data Mapping']", "Confirm Data Mapping");
         click(confirmAndUpload, "Confirm & Upload");
-        pause("medium");
-        pause("medium");
-        pause("medium");
-        pause("medium");
+        System.out.println("-----file name-" + fileName.get());
+        if (fileName.get().contains("500kFile.csv")) {
+            pause("high");
+            pause("high");
+            pause("high");
+        } else {
+            pause("medium");
+        }
         return new FileManagerPage();
     }
 

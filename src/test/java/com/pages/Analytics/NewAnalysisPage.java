@@ -67,7 +67,7 @@ public class NewAnalysisPage extends AnalyticsPage {
 
     public AnalyticsPage clickOnBackBtn() {
         pause("low");
-        click(frameSpanTextLocator("Back"), "Back");
+        click(frameSpanTextLocator("< Back"), "Back");
         pause("low");
         return new AnalyticsPage();
     }

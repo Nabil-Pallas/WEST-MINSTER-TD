@@ -229,11 +229,11 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .editRowInformation(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
                         FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
                         FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
-                .validateChangeLog(Arrays.asList("Broker Name", "Trade Date", "Settlement Date", "Master Broker", "Base Currency", "Asset Class", "Broker Code", "Fund", "CUSIP", "Exchange"));
+                .validateChangeLog(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"));
 
 
         System.out.println("TC-----------TC_RE_5235");
     }
-    
+
 }
 

@@ -93,13 +93,14 @@ public class DataManagerPage extends AdminPage {
 
     //Click the Delete Button
     public EditDataManagerRow clickOnDeleteBtn() {
+        pause("medium");
         click(deleteBtnn, "Delete button");
         pause("low");
 //        waitForLoaderToDisappear();
 //        waitForAppearance(editBtn);
         reportPass("User successfully clicked the Delete button.");
-        if(isVisible("//div[contains(text(),'Delete')]")){
-            click("//span[text()='Yes']","Click Yes Button");
+        if (isVisible("//div[contains(text(),'Delete')]")) {
+            click("//span[text()='Yes']", "Click Yes Button");
             reportPass("User successfully clicked Yes button.");
         }
         return new EditDataManagerRow();
@@ -128,18 +129,18 @@ public class DataManagerPage extends AdminPage {
             if (headerText.equalsIgnoreCase(verificationHeader)) {
                 click(searchValueWithHeader(i), "Search Filter", "Search Box");
                 type(searchValueWithHeader(i), verificationValue, verificationValue);
-                int count = getLocatorsCount("//td[text()='"+verificationValue+"']");
+                int count = getLocatorsCount("//td[text()='" + verificationValue + "']");
                 List<String> list = new ArrayList<>();
                 for (int j = 1; j < count; j++) {
-                    list.add(getInnerText("(//td[text()='"+verificationValue+"'])["+j+"]"));
+                    list.add(getInnerText("(//td[text()='" + verificationValue + "'])[" + j + "]"));
 
                 }
 
-                for (String li : list){
+                for (String li : list) {
                     boolean verifyExactText = verifyExactText(li, verificationValue);
                     Assert.assertTrue(verifyExactText);
                 }
-               // String brokerElement = "//td[text()='" + verificationValue + "']";
+                // String brokerElement = "//td[text()='" + verificationValue + "']";
 //               boolean verifyExactText = verifyExactText(li, verificationValue);
 //               Assert.assertTrue(verifyExactText);
 //                break;
@@ -215,15 +216,16 @@ public class DataManagerPage extends AdminPage {
         reportPass("User successfully clicked the Cancel button.");
         return new DataManagerPage();
     }
+
     //click select all option
     public DataManagerPage clickOnSelectAll() {
         String selectAll = "//div[@aria-label='Select all']";
-
         waitForLoaderToDisappear();
         pause("medium");
         click(selectAll, "Select All", "CheckBox");
         return new DataManagerPage();
     }
+
     //Validate The Edited Row Information
     public DataManagerPage validateEditedRowInformation(String verificationValues, String verificationHeaders) {
         waitForLoaderToDisappear();

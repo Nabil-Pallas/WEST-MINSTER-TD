@@ -234,6 +234,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5235");
     }
 
+
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkApplyAndCancelBtnForEditAndBulkedit() {
         testcaseName = "TC_4622 " + xmlUserLevel;
@@ -267,6 +268,33 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnSelectAll()
                 .clickOnBulkEditBtn()
                 .clickOnCancelBtn();
+    }
+
+
+    //    Verify if more than 10 rows can be added at once using the 'Add New Row' option in Data Manager.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void addMoreThan10Rows() {
+        testcaseName = "TC_5229 " + xmlUserLevel;
+        testDescription = "Adding more than 10 more rows to whether it is adding successfully";
+        authors = "Automation Team";
+        category = "Adding Rows Data Manager";
+        startTestCase();
+        setNode();
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnAddNewRowBtn()
+                .validateAddNewRowPage()
+                .addNewRowInformation10Times(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
+                .validateAddedRowInformation(clientCompanyName.get(), "Broker Name")
+                .clickOnSelectAll()
+                .clickOnDeleteBtn();
     }
 
 }

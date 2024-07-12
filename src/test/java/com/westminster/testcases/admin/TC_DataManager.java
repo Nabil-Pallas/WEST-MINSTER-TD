@@ -231,7 +231,6 @@ public class TC_DataManager extends WestMinsterPageHook {
                         FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
                 .validateChangeLog(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"));
 
-
         System.out.println("TC-----------TC_RE_5235");
     }
 

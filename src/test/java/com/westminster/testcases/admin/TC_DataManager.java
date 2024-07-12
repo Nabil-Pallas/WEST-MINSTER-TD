@@ -290,6 +290,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
+                .
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())

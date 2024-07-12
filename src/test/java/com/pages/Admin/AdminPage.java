@@ -1,6 +1,7 @@
 package com.pages.Admin;
 
 import com.config.ConfigurationManager;
+import com.page.base.DashboardPage;
 import com.page.base.MenuPage;
 import com.pages.Admin.DataManagerPages.DataManagerPage;
 import com.pages.Admin.FileManagerPages.FileManagerPage;
@@ -226,5 +227,12 @@ public class AdminPage extends MenuPage {
         waitForLoaderToDisappear();
         return new ListManagerPage();
     }
+
+
+
+
+
+
+    public DashboardPage
 
 }

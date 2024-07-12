@@ -33,7 +33,7 @@ public class DataManagerPage extends AdminPage {
     private String editBtn = "//span[text()='Edit']";
 
     //Locator for Edit Button
-    private String deleteBtnn = "//span[text()='Delete Rows']";
+    private String bulkDeleteBtn = "//span[text()='Delete Rows']";
 
     //Locator for Bulk Edit Rows
     private String bulkEditBtn = "(//span[text()='Bulk Edit Rows'])[1]";
@@ -94,14 +94,27 @@ public class DataManagerPage extends AdminPage {
     //Click the Delete Button
     public EditDataManagerRow clickOnDeleteBtn() {
         pause("medium");
-        click(deleteBtnn, "Delete button");
+        click(deleteBtn, "Delete button");
         pause("low");
-//        waitForLoaderToDisappear();
-//        waitForAppearance(editBtn);
         reportPass("User successfully clicked the Delete button.");
         if (isVisible("//div[contains(text(),'Delete')]")) {
             click("//span[text()='Yes']", "Click Yes Button");
             reportPass("User successfully clicked Yes button.");
+        }
+        return new EditDataManagerRow();
+    }
+
+    //Click the Bulk Delete Button
+    public EditDataManagerRow clickOnBulkDeleteBtn() {
+        pause("medium");
+        click(bulkDeleteBtn, "Delete button");
+        pause("low");
+        reportPass("User successfully clicked the Delete button.");
+        if (isVisible("//div[contains(text(),'Delete')]")) {
+            click("//span[text()='Yes']", "Click Yes Button");
+            typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']", "DELETE", "Enter Delete in input box");
+            click("//span[text()='Confirm Delete']", "Click Delete button");
+            reportPass("User successfully clicked Confirm Delete button.");
         }
         return new EditDataManagerRow();
     }
@@ -133,7 +146,6 @@ public class DataManagerPage extends AdminPage {
                 List<String> list = new ArrayList<>();
                 for (int j = 1; j < count; j++) {
                     list.add(getInnerText("(//td[text()='" + verificationValue + "'])[" + j + "]"));
-
                 }
 
                 for (String li : list) {

@@ -8,6 +8,7 @@ import org.testng.Assert;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class AddNewSystemColumnsPage extends FileManagerPage {
@@ -15,6 +16,8 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     private String addNewSystemColumnsText = "//div[text()='Add New system Column(s)']";
     protected String applyBtn = "//span[text()='Apply']";
     private String mapColumnsBtn = "//span[text()='Map Columns']";
+    private String systemColumnsText = "//span[@class='ml-half']//span[@title]";
+    private String newColumnBtn = "//i[@class='dx-icon dx-icon-edit-button-addrow']";
 
 
     public AddNewSystemColumnsPage validateAddNewSystemColumnsPage() {
@@ -26,24 +29,19 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
         }
         return new AddNewSystemColumnsPage();
     }
-////td[@class='dx-required-field-heading']
 
     public AddNewSystemColumnsPage typeFieldName(String fieldName) {
-//        click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler')])[1]", "Field Name");
         pause("low");
         click("//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines dx-row-inserted']//td[1]", "Field Name");
-        typeAndSpace("//div[@data-dx_placeholder='Field Name here…']//..//input", fieldName, "Field Name");
+        typeWithType("//div[@data-dx_placeholder='Field Name here…']//..//input", fieldName, "Field Name");
         pause("low");
         return new AddNewSystemColumnsPage();
     }
 
     public AddNewSystemColumnsPage selectFieldDataType(int i) {
-//        String fieldDataTypeElement = "//div[contains(@class,'dx-item dx-list-item')]";
-
         int index = i + 1;
         click("//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines dx-row-inserted']//td[2]", "selectFieldDataType");
         clickAndChoose("(//div[@aria-label='Select'])[5]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
-
         pause("medium");
         return this;
     }
@@ -56,11 +54,20 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
         return this;
     }
 
+    //Click On Apply Button
     public AddNewSystemColumnsPage clickOnApplyBtn() {
-//        waitForLoaderToDisappear();
-        pause("medium//");
+        pause("medium");
         click(applyBtn, "Apply Button");
         pause("medium");
+        reportPass("User successfully clicked the Apply button.");
+        return new AddNewSystemColumnsPage();
+    }
+
+    //Click On New Column
+    public AddNewSystemColumnsPage clickOnNewColumn() {
+        pause("low");
+        click(newColumnBtn, "New Column");
+        pause("low");
         reportPass("User successfully clicked the Apply button.");
         return new AddNewSystemColumnsPage();
     }
@@ -101,6 +108,39 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
         click(frameSpanTextLocator(clientCompanyName.get()), "System Column :" + clientCompanyName.get(), "System Column");
         pause("low");
 
+        click("(//tbody[@role='presentation']//tr[td='Broker Code'])", "File Column :Broker Code", "File Column");
+        pause("low");
+        //verifying MapColumns Enabled
+        Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
+        pause("low");
+        click(mapColumnsBtn, "Map Columns");
+        pause("low");
+
+        reportPass("User successfully mapped file and system columns.");
+
+        return new FileMappingPage();
+    }
+
+
+    public FileMappingPage typeInformationInAddNewSystemColumns() {
+        clientCompanyName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
+        for (int i = 0; i <= 10; i++) {
+            System.out.println("clientCompanyName--------" + clientCompanyName.get());
+            typeFieldName(clientCompanyName.get());
+            pause("medium");
+            selectFieldDataType(new Random().nextInt(4));
+            pause("medium");
+            clickOnNewColumn();
+        }
+        clickOnApplyBtn();
+        //Verifying Map column button disable
+        Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
+
+        pause("medium");
+        //Mapping the Values
+        // File Column Count
+        click(frameSpanTextLocator(clientCompanyName.get()), "System Column :" + clientCompanyName.get(), "System Column");
+        pause("low");
         click("(//tbody[@role='presentation']//tr[td='Broker Code'])", "File Column :Broker Code", "File Column");
         pause("low");
         //verifying MapColumns Enabled

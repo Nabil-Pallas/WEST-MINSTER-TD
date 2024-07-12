@@ -84,7 +84,6 @@ public class FileMappingPage extends FileManagerPage {
         // File Column Count
         int fileColumnCount = getLocatorsCount("((//tbody[@role='presentation'])[6])/tr");
 
-
         Set<String> fileColumn = new HashSet<>();
         for (int i = 1; i <= fileColumnCount; i++) {
             fileColumn.add(getInnerText("(((// tbody[@role='presentation'])[6])/ tr)[" + i + "]"));

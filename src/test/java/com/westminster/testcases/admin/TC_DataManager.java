@@ -1,9 +1,7 @@
 package com.westminster.testcases.admin;
 
 import java.util.Arrays;
-import java.util.List;
 
-import com.pages.Admin.DataManagerPages.DataManagerPage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -236,5 +234,6 @@ public class TC_DataManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_5235");
     }
+    
 }
 

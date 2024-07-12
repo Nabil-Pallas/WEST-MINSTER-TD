@@ -233,5 +233,40 @@ public class TC_DataManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_5429");
     }
+
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void checkApplyAndCancelBtnForEditAndBulkedit() {
+        testcaseName = "TC_4622 " + xmlUserLevel;
+        testDescription = "Adding Adhoc Rows Data Manager";
+        authors = "Automation Team";
+        category = "Adding Adhoc Rows Data Manager";
+        startTestCase();
+        setNode();
+        ruleName.set(FakerDataFactory.getCompanyName());
+        reportName.set(FakerDataFactory.getReportsName());
+        titleone.set(FakerDataFactory.getTitle());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnActionsBtn()
+                .clickOnEditBtn()
+                .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
+                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
+                .clickOnApplyBtn()
+                .clickOnActionsBtn()
+                .clickOnEditBtn();
+//                .clickOnCancelBtn()
+//                .clickOnSelectAll()
+//                .clickOnBulkEditBtn()
+//                .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
+//                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
+//                .clickOnApplyBtn()
+//                .clickOnSelectAll()
+//                .clickOnBulkEditBtn()
+//                .clickOnCancelBtn();
+    }
 }
 

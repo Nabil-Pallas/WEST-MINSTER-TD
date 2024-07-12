@@ -4,6 +4,7 @@ import com.microsoft.playwright.ElementHandle;
 import com.microsoft.playwright.Locator;
 import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
+import com.pages.Admin.FileManagerPages.ErrorQueuePage;
 import com.pages.Admin.UsersAndSecurityPages.AddNewUserPage;
 import com.pages.Admin.UsersAndSecurityPages.UserSecurityPage;
 import com.pages.bugeting.AllBudgetsPage;
@@ -23,12 +24,19 @@ public class DataManagerPage extends AdminPage {
     protected String applyBtnForDataSchema = "//div[@id='apply-new-col-changes-save']//span";
 
     protected String applyBtn = "//span[text()='Apply']";
+
+    protected String cancelBtn = "//span[text()='Cancel']";
     //Locator for Action Button
     private String actionBtn = "(//td[@class='action-edit-delete-column']/a)[1]";
 
     //Locator for Edit Button
     private String editBtn = "//span[text()='Edit']";
 
+    //Locator for Edit Button
+    private String deleteBtnn = "//span[text()='Delete Rows']";
+
+    //Locator for Bulk Edit Rows
+    private String bulkEditBtn = "(//span[text()='Bulk Edit Rows'])[1]";
 
     //Validate Data Manager Page
     public AddNewColumnPage validateDataManagerPage() {
@@ -83,6 +91,30 @@ public class DataManagerPage extends AdminPage {
         return new EditDataManagerRow();
     }
 
+    //Click the Delete Button
+    public EditDataManagerRow clickOnDeleteBtn() {
+        click(deleteBtnn, "Delete button");
+        pause("low");
+//        waitForLoaderToDisappear();
+//        waitForAppearance(editBtn);
+        reportPass("User successfully clicked the Delete button.");
+        if(isVisible("//div[contains(text(),'Delete')]")){
+            click("//span[text()='Yes']","Click Yes Button");
+            reportPass("User successfully clicked Yes button.");
+        }
+        return new EditDataManagerRow();
+    }
+
+    //Click the Bulk Edit Rows Button
+    public EditDataManagerRow clickOnBulkEditBtn() {
+        click(bulkEditBtn, "Bulk Edit button");
+        pause("medium");
+//        waitForLoaderToDisappear();
+//        waitForAppearance(editBtn);
+        reportPass("User successfully clicked the Bulk Edit Rows button.");
+        return new EditDataManagerRow();
+    }
+
     //Validate the Add New Row Information
     public DataManagerPage validateAddedRowInformation(String verificationValue, String verificationHeader) {
 //        waitForLoaderToDisappear();
@@ -96,10 +128,21 @@ public class DataManagerPage extends AdminPage {
             if (headerText.equalsIgnoreCase(verificationHeader)) {
                 click(searchValueWithHeader(i), "Search Filter", "Search Box");
                 type(searchValueWithHeader(i), verificationValue, verificationValue);
-                String brokerElement = "//td[text()='" + verificationValue + "']";
-                boolean verifyExactText = verifyExactText(brokerElement, verificationValue);
-                Assert.assertTrue(verifyExactText);
-                break;
+                int count = getLocatorsCount("//td[text()='"+verificationValue+"']");
+                List<String> list = new ArrayList<>();
+                for (int j = 1; j < count; j++) {
+                    list.add(getInnerText("(//td[text()='"+verificationValue+"'])["+j+"]"));
+
+                }
+
+                for (String li : list){
+                    boolean verifyExactText = verifyExactText(li, verificationValue);
+                    Assert.assertTrue(verifyExactText);
+                }
+               // String brokerElement = "//td[text()='" + verificationValue + "']";
+//               boolean verifyExactText = verifyExactText(li, verificationValue);
+//               Assert.assertTrue(verifyExactText);
+//                break;
             }
         }
         return new DataManagerPage();
@@ -163,7 +206,24 @@ public class DataManagerPage extends AdminPage {
         reportPass("User successfully clicked the Apply button.");
         return new DataManagerPage();
     }
+    //click the Cancel Button
+    public DataManagerPage clickOnCancelBtn() {
+//        waitForLoaderToDisappear();
+        pause("medium//");
+        click(cancelBtn, "Cancel Button");
+        pause("medium");
+        reportPass("User successfully clicked the Cancel button.");
+        return new DataManagerPage();
+    }
+    //click select all option
+    public DataManagerPage clickOnSelectAll() {
+        String selectAll = "//div[@aria-label='Select all']";
 
+        waitForLoaderToDisappear();
+        pause("medium");
+        click(selectAll, "Select All", "CheckBox");
+        return new DataManagerPage();
+    }
     //Validate The Edited Row Information
     public DataManagerPage validateEditedRowInformation(String verificationValues, String verificationHeaders) {
         waitForLoaderToDisappear();

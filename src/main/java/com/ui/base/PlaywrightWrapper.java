@@ -1452,7 +1452,7 @@ public class PlaywrightWrapper extends Reporter {
 
     public void uploadFile(String fileName) {
         try {
-            getPage().setInputFiles("input[type='file']", Path.of("./src/test/resources/upload/" + fileName));
+            getPage().setInputFiles("input[type='file']", Path.of(fileName));
             /*waitForAppearance("//img[@data-testid='preview-thumbnail']");*/
             reportStep("File is Uploaded", "info");
         } catch (PlaywrightException e) {

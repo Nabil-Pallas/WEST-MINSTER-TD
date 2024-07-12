@@ -257,16 +257,16 @@ public class TC_DataManager extends WestMinsterPageHook {
                         Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
                 .clickOnApplyBtn()
                 .clickOnActionsBtn()
-                .clickOnEditBtn();
-//                .clickOnCancelBtn()
-//                .clickOnSelectAll()
-//                .clickOnBulkEditBtn()
-//                .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
-//                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
-//                .clickOnApplyBtn()
-//                .clickOnSelectAll()
-//                .clickOnBulkEditBtn()
-//                .clickOnCancelBtn();
+                .clickOnEditBtn()
+                .clickOnCancelBtn()
+                .clickOnSelectAll()
+                .clickOnBulkEditBtn()
+                .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
+                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
+                .clickOnApplyBtn()
+                .clickOnSelectAll()
+                .clickOnBulkEditBtn()
+                .clickOnCancelBtn();
     }
 }
 

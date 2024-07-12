@@ -1,9 +1,7 @@
 package com.westminster.testcases.admin;
 
 import java.util.Arrays;
-import java.util.List;
 
-import com.pages.Admin.DataManagerPages.DataManagerPage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -217,12 +215,40 @@ public class TC_DataManager extends WestMinsterPageHook {
         category = "Verify No Blank Spaces On Edit TradeDetails";
         startTestCase();
         setNode();
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnActionsBtn()
+                .clickOnEditBtn()
+                .editRowInformation(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
+                .validateChangeLog(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"));
+
+        System.out.println("TC-----------TC_RE_5235");
+    }
+
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void checkApplyAndCancelBtnForEditAndBulkedit() {
+        testcaseName = "TC_4622 " + xmlUserLevel;
+        testDescription = "Adding Adhoc Rows Data Manager";
+        authors = "Automation Team";
+        category = "Adding Adhoc Rows Data Manager";
+        startTestCase();
+        setNode();
+        ruleName.set(FakerDataFactory.getCompanyName());
+        reportName.set(FakerDataFactory.getReportsName());
+        titleone.set(FakerDataFactory.getTitle());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnActionsBtn()

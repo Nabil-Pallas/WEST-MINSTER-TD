@@ -9,7 +9,7 @@
     <test thread-count="1" name="WestminsterTest1">
         <groups>
             <run>
-                <include name="Tier1Admin"></include>
+                <include name="test"></include>
 
             </run>
             <run>

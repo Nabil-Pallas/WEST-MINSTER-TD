@@ -157,26 +157,25 @@ public class TC_FileManager extends WestMinsterPageHook {
         testcaseName = "TC_1304 " + xmlUserLevel;
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
         authors = "Automation Team";
-        category = "Add data schema";
+        category = "uploadDpFile";
         startTestCase();
         setNode();
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
+        filePath2.set("./src/test/resources/upload/SampleFile_AU_Chrome2.csv");
         fileName.set("SampleFile_AU_Chrome.csv");
-        ruleName.set(FakerDataFactory.getDataMapName());
+        fileName2.set("SampleFile_AU_Chrome2.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
-                .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload("./src/test/resources/upload/", fileName.get())
                 .clickOnCreateNewMapping()
-                .createNewDataMap(ruleName.get(), "MM/dd/yyyy")
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
                 .validateFileMappingPage()
-                .clickOnAddNewSystemColumns()
-                .validateAddNewSystemColumnsPage()
-                .typeInformationInAddNewSystemColumns(false, false, true)
                 .mappingFileAndSystemColumns(systemColumnNames)
                 .clickOnFinishMapping()
                 .clickOnDataManager()

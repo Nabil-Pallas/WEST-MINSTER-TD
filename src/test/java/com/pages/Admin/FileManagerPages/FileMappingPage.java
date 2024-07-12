@@ -58,6 +58,7 @@ public class FileMappingPage extends FileManagerPage {
 
 
 //                String element = "(//div[@class='match-names-span'])[" + i + "]";
+//                pause("low");
 ////                String elementWithTrim = element.replaceAll("\\s+", "");
 //                boolean isPresent = isVisible(element);
 //                System.out.println("isPresent-----" + isPresent);

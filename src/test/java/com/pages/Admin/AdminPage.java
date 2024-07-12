@@ -1,6 +1,7 @@
 package com.pages.Admin;
 
 import com.config.ConfigurationManager;
+import com.page.base.DashboardPage;
 import com.page.base.MenuPage;
 import com.pages.Admin.DataManagerPages.DataManagerPage;
 import com.pages.Admin.FileManagerPages.FileManagerPage;
@@ -37,7 +38,7 @@ public class AdminPage extends MenuPage {
     }
 
     public String selectRolesCheckBox(String placeholder) {
-        return "//div[text()='" + placeholder + "']/preceding-sibling::div";
+        return "//span[contains(., '"+placeholder+"')]/ancestor::div[contains(@class, 'dx-item')]/div[contains(@class, 'dx-list-item-before-bag')]//div[contains(@class, 'dx-checkbox-container')]/span[@class='dx-checkbox-icon']";
     }
 
     public String selectRolesCheckBox(int index) {
@@ -226,5 +227,12 @@ public class AdminPage extends MenuPage {
         waitForLoaderToDisappear();
         return new ListManagerPage();
     }
+
+
+
+
+
+
+    public DashboardPage
 
 }

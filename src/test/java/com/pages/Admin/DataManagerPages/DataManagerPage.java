@@ -205,6 +205,7 @@ public class DataManagerPage extends AdminPage {
         reportPass("User successfully clicked the Apply button.");
         return new DataManagerPage();
     }
+
     //click the Cancel Button
     public DataManagerPage clickOnCancelBtn() {
 //        waitForLoaderToDisappear();

@@ -1,9 +1,7 @@
 package com.westminster.testcases.admin;
 
 import java.util.Arrays;
-import java.util.List;
 
-import com.pages.Admin.DataManagerPages.DataManagerPage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -217,6 +215,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         category = "Verify No Blank Spaces On Edit TradeDetails";
         startTestCase();
         setNode();
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -227,11 +226,13 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnActionsBtn()
                 .clickOnEditBtn()
-                .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
-                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
-                .clickOnApplyBtn();
+                .editRowInformation(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
+                .validateChangeLog(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"));
 
         System.out.println("TC-----------TC_RE_5235");
     }
+
 }
 

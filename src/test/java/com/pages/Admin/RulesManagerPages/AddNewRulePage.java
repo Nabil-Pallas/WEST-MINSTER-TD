@@ -71,7 +71,7 @@ public class AddNewRulePage extends RulesManagerPage {
     }
 
     public AddNewRulePage typeFieldName(String fieldName) {
-        typeAndSpace(frameAddNewcalculatedColumnLocator("Field Name here…", 1), fieldName, "Field Name");
+        typeWithType(frameAddNewcalculatedColumnLocator("Field Name here…", 1), fieldName, "Field Name");
         pause("low");
         randomDoubleClick();
         pause("medium");

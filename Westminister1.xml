@@ -9,15 +9,15 @@
     <test thread-count="1" name="WestminsterTest1">
         <groups>
             <run>
-                <include name="Tier1Admin"></include>
+                <include name="test"></include>
 
             </run>
             <run>
-                <!--                <include name="SANITY"></include>-->
-                <include name="REGRESSION"></include>
+                                <include name="SANITY"></include>
+<!--                <include name="REGRESSION"></include>-->
             </run>
         </groups>
-        <parameter name="Browser" value="edge"></parameter>
+        <parameter name="Browser" value="chrome"></parameter>
         <classes>
 
             <class name="com.westminster.testcases.admin.TC_FileManager"/>

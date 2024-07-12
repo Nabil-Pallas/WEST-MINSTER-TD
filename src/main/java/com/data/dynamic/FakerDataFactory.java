@@ -185,8 +185,9 @@ public class FakerDataFactory {
 
     public static List<String> getListOfItems(int count) {
         List<String> listItems = new ArrayList<>();
+        String timeStamp = getTimeStamp(); // Get timestamp once
         for (int i = 0; i < count; i++) {
-            listItems.add(FakerDataFactory.getListItem());
+            listItems.add(FakerDataFactory.getListItem() + "_" + timeStamp); // Append timestamp
         }
         return listItems;
     }

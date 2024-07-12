@@ -3,7 +3,9 @@ package com.pages.Admin.FileManagerPages;
 import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.AddNewRowPage;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.testng.Assert;
+import org.xml.sax.Locator;
 
 import java.util.stream.Stream;
 
@@ -109,7 +111,6 @@ public class FileManagerPage extends AdminPage {
         Assert.assertTrue(AssertStatus);
         return this;
     }
-
     //Click The Create Button
     public FileManagerPage clickOnCreateBtn() {
         click(createNewDataMapBtn, "Create Button");

@@ -1,5 +1,6 @@
 package com.westminster.testcases.admin;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.config.ConfigurationManager;
@@ -68,7 +69,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnSelectAll()
                 .clickOnBulkEditRows()
                 .validateBulkEditRowsPage()
-                .editInvalidRowInfo("06/07/2023", "06/12/2023")
+                .editInvalidRowInfo("07/10/2023", "07/15/2023")
                 .clickOnApplyBtn()
                 .validateErrorQueuePage()
                 .clickOnSelectAll()
@@ -128,6 +129,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         DataMap.set(FakerDataFactory.getDataMapName());
         filePath.set("./src/test/resources/upload/SampleFile_AU_Edge.csv");
         filePath2.set("./src/test/resources/upload/upload2/SampleFile_AU_Edge.csv");
+
         fileName.set("SampleFile_AU_Edge.csv");
         fileName2.set("SampleFile_AU_Edge(1).csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -150,7 +152,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateFileUpload(fileName2.get());
     }
 
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void fileUploadAddSystemColumn() {
         testcaseName = "TC_1304 " + xmlUserLevel;
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
@@ -170,7 +172,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(filePath.get(), fileName.get())
+                .fileUpload("./src/test/resources/upload/", fileName.get())
                 .clickOnCreateNewMapping()
                 .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
                 .validateFileMappingPage()
@@ -185,13 +187,18 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnDataManager()
                 .clickOnEditDataSchema()
                 .deleteDataSchema();
-
         System.out.println("TC-----------02");
 
     }
 
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void mapColumns() {
+        testcaseName = "TC_5622 " + xmlUserLevel;
+        testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
+        authors = "Automation Team";
+        category = "Add data schema";
+        startTestCase();
+        setNode();
         fileName.set("SampleFile_AU_Chrome.csv");
         fileName2.set("SampleFile_AU_Chrome2.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -212,7 +219,14 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload6000DataFile() {
-        fileName.set("6000_count.csv");
+        testcaseName = "TC_1563 " + xmlUserLevel;
+        testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
+        authors = "Automation Team";
+        category = "Add data schema";
+        startTestCase();
+        setNode();
+        filePath.set("./src/test/resources/upload/6000DataFile.csv");
+        fileName.set("6000DataFile.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
                 .validateDashBoardElements()
@@ -221,40 +235,42 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload("./src/test/resources/upload/", fileName.get())
+                .fileUpload(filePath.get(), fileName.get())
                 .clickOnCreateNewMapping()
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
-                .mappingFileAndSystemColumns(systemColumnNames)
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Rate", "Trade ID", "Ticker", "Local Gross Commission", "Local Executed Value", "Local Currency", "Instrument Type", "Fund", "Security Description", "Local Price", "Executed Quantity"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Spot Rate", "Trade ID", "Ticker", "COMMISSION", "Local Executed Value", "CURRENCY", "Instrument Type", "Fund", "Security Description", "PRICE", "QUANTITY"))
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get());
         System.out.println("TC-----------01");
     }
+
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void uploadFileWithDiffDateFormat(){
-        testcaseName = "TC_1493 " + xmlUserLevel;
-        testDescription = "Upolad file with diff date format";
+    public void upload500KDataFile() {
+        testcaseName = "TC_1543 " + xmlUserLevel;
+        testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
         authors = "Automation Team";
-        category = "uploadDpFile";
+        category = "Add data schema";
         startTestCase();
         setNode();
-        DataMap.set(FakerDataFactory.getDataMapName());
-        filePath.set("./src/test/resources/upload/2019_trade_data.csv");
-        fileName.set("2019_trade_data.csv");
+        filePath.set("./src/test/resources/upload/500kFile.csv");
+        fileName.set("500kFile.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
+                .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())
                 .clickOnCreateNewMapping()
-                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
-                .mappingFileAndSystemColumns(systemColumnNames)
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Rate", "Trade ID", "Ticker", "Local Gross Commission", "Local Executed Value", "Local Currency", "Instrument Type", "Fund", "Security Description", "Local Price", "Executed Quantity"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Spot Rate", "Trade ID", "Ticker", "COMMISSION", "Local Executed Value", "CURRENCY", "Instrument Type", "Fund", "Security Description", "PRICE", "QUANTITY"))
                 .clickOnFinishMapping()
-                .validateFileUpload(fileName.get())
-                .clickOnInvalidRowCountAndAmendErrors(fileName.get());
+                .validateFileUpload(fileName.get());
     }
 }

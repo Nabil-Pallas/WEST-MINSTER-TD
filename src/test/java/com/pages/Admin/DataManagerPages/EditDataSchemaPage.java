@@ -34,6 +34,16 @@ public class EditDataSchemaPage extends DataManagerPage {
         return this;
     }
 
+    public EditDataSchemaPage validateAddFieldValidationParametersPage() {
+        waitForElementToLoad(frameDivTextLocator("Add Field Validation Parameters"));
+        if (isVisible(frameDivTextLocator("Add Field Validation Parameters"), "Add Field Validation Parameters")) {
+            reportPass("User successfully reached the correct Add Field Validation Parameters page.");
+        } else {
+            reportFailAndThrowException("Edit Data Schema Columns Page is not loaded.");
+        }
+        return this;
+    }
+
 
     public AddNewColumnPage clickOnAddNewColumn() {
         click(frameSpanTextLocator("Add new column"), "Add new column");
@@ -71,7 +81,9 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     public EditDataSchemaPage clickOnActionIcon(String fieldName) {
-        click("//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a", fieldName, "Action Icon");
+        pause("medium");
+        scrollToElement("//td[text()='" + fieldName + "']");
+        forceClick("(//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", fieldName, "Action Icon");
         return this;
     }
 
@@ -80,8 +92,13 @@ public class EditDataSchemaPage extends DataManagerPage {
         return this;
     }
 
+    public EditDataSchemaPage clickOnAddValidation() {
+        click(frameSpanTextLocator("Add Validation"), "Add Validation", "Add Validation");
+        return this;
+    }
+
     public EditDataSchemaPage selectParameterType() {
-        String getParameterTypeText = getInnerText(parameterTypeText);
+        String getParameterTypeText = getInputText(parameterTypeText);
         if (getParameterTypeText.equals("List")) {
             reportPass("Parameter type is already in List");
         } else {
@@ -106,7 +123,7 @@ public class EditDataSchemaPage extends DataManagerPage {
         return this;
     }
 
-    public EditDataSchemaPage editFieldValidationParameters(String list) {
+    public EditDataSchemaPage addFieldValidationParameters(String list) {
         selectParameterType()
                 .selectAList(list)
                 .clickOnApplyBtn()

@@ -44,7 +44,7 @@ public class FileManagerPage extends AdminPage {
     }
 
     //Upload The File
-    public FileManagerPage fileUpload(String filePath,String fileName) {
+    public FileManagerPage fileUpload(String filePath, String fileName) {
         //delete
         validateFileNameInFileManagerGridAndDelete(fileName);
         //upload
@@ -52,6 +52,7 @@ public class FileManagerPage extends AdminPage {
         reportPass("User successfully Uploaded the File.");
         return this;
     }
+
 
     public FileManagerPage validateFileNameInFileManagerGridAndDelete(String fileName) {
         waitForLoaderToDisappear();
@@ -86,28 +87,29 @@ public class FileManagerPage extends AdminPage {
     }
 
     //Selecting Existing DataMap
-    public FileManagerPage selectExistingMapping(String dataMap){
+    public FileManagerPage selectExistingMapping(String dataMap) {
 
         //Click Select mapping DropDown
-        click(frameSelectMappingLocator("Select a mapping:"),"Select Mapping DropDown","DropDown");
+        click(frameSelectMappingLocator("Select a mapping:"), "Select Mapping DropDown", "DropDown");
         pause("low");
         //click Existing Map From DropDown
-        click("//div[contains(@title,'"+dataMap+"')]","Existing DataMap");
+        click("//div[contains(@title,'" + dataMap + "')]", "Existing DataMap");
         pause("low");
         return this;
     }
 
-    public FileManagerPage clickOnApplyMapping(){
+    public FileManagerPage clickOnApplyMapping() {
         pause("low");
-        click(frameSpanTextLocator("Apply Mapping"),"Apply Mapping Button");
+        click(frameSpanTextLocator("Apply Mapping"), "Apply Mapping Button");
         pause("low");
-        return  this;
+        return this;
     }
-    public FileManagerPage verifyErrorMessage(){
+
+    public FileManagerPage verifyErrorMessage() {
         String ExpectedText = "Duplicate files are not permitted.";
-        boolean AssertStatus = verifyPartialText("//ul[@class='error-list']//li",ExpectedText);
+        boolean AssertStatus = verifyPartialText("//ul[@class='error-list']//li", ExpectedText);
         Assert.assertTrue(AssertStatus);
-        return  this;
+        return this;
     }
     //Click The Create Button
     public FileManagerPage clickOnCreateBtn() {
@@ -117,7 +119,6 @@ public class FileManagerPage extends AdminPage {
 
     //Create The New Data Map
     public FileMappingPage createNewDataMap(String dataMapName, String dateFormat) {
-        System.out.println("dataMapName----1---" + dataMapName);
         typeAndSpace(frameClientDetailsLocator("Data Map Name"), dataMapName, "Data Map Name");
         clickAndChoose(frameDateFormatLocator("Date Format", 2), frameDateFormatSelectDropDownLocator(dateFormat), dateFormat, "Date Format");
         clickOnCreateBtn();
@@ -128,6 +129,7 @@ public class FileManagerPage extends AdminPage {
     //Validate The File Upload
     public FileManagerPage validateFileUpload(String fileName) {
         waitForLoaderToDisappear();
+        pause("medium");
         pause("medium");
         waitForLoaderToDisappear();
         String actualElement = "((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]";
@@ -185,7 +187,7 @@ public class FileManagerPage extends AdminPage {
         click(confirmDeleteBtn, "Confirm Delete");
         pause("low");
         type(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
-        click(frameSpanTextLocator("Confirm Delete"),"Confirm Delete button");
+        click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete button");
 //        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
         pause("low");
 

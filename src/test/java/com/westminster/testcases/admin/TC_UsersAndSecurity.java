@@ -91,7 +91,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnUserTab()
                 .clickOnaddNewUsrBtn()
                 .fillUserInformation(userFirstName.get(), userLastName.get(), userMailId.get(),
-                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", 4)
+                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", "Sri_Role")
                 .clickOnApplyBtn()
                 .validateUserInformation(displayUserName, userMailId.get())
                 .deleteUser(displayUserName);
@@ -185,7 +185,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
 
     //Regression
     //TC_25 - Impersonate User
-    @Test(priority = 27, groups = {"Tier1Admin", "Tier1User",TestGroups.Type.REGRESSION})
+    @Test(priority = 28, groups = {"Tier1Admin", "Tier1User",TestGroups.Type.REGRESSION})
     public void impersonateUser(){
         testcaseName = "TC_25 " + xmlUserLevel;
         testDescription = "Impersonate User And Validate";
@@ -207,6 +207,40 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .validateImpersonatingAsUserText()
                 .validateImpersonateInAccountSettings(userMailIdText.get());
+
+    }
+
+    //TC_2004
+    @Test(priority = 29, groups = {"Tier1Admin", "Tier1User", "Tier2Admin",TestGroups.Type.SANITY})
+    public void roleCreationAndAssignRole(){
+        testcaseName = "TC_2004 " + xmlUserLevel;
+        testDescription = "Create Role And Assign that Role to User";
+        authors = "Automation Team";
+        category = "roleCreationAndAssignRole";
+        startTestCase();
+        setNode();
+
+        userFirstName.set(FakerDataFactory.getRoleName());
+        userLastName.set(FakerDataFactory.getLastName());
+        userMailId.set(FakerDataFactory.getEmailAddress());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnUserSecurity()
+                .validateUserSecurityPage()
+                .clickOnRolesTab()
+                .clickOnaddNewRoleBtn()
+                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "my-new-test-environment",
+                        "Select All")
+                .clickOnApplyBtn()
+                .validateRoleInformation(userFirstName.get())
+                .clickOnUserTab()
+                .clickOnaddNewUsrBtn()
+                .fillUserInformation2(FakerDataFactory.getFirstName(),FakerDataFactory.getLastName(), userMailId.get(),
+                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2",userFirstName.get())
+                .clickOnApplyBtn()
+                .validateUserRoleAndMail(userMailIdText.get(),userFirstName.get());
 
     }
 

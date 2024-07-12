@@ -16,7 +16,7 @@ Westminister3.xml
 Westminister4.xml
 Westminister5.xml
 WestministerSuite.xml
-test/resources/upload/
+test/resources/upload/500kFile.csv
 # Eclipse m2e generated files
 # Eclipse Core
 .project

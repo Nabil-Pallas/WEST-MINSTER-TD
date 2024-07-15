@@ -101,6 +101,8 @@ public class DataManagerPage extends AdminPage {
         if(isVisible("//div[contains(text(),'Delete')]")){
             click("//span[text()='Yes']","Click Yes Button");
             reportPass("User successfully clicked Yes button.");
+            typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']","delete","Enter Delete in input box");
+            click("//span[text()='Confirm Delete']","Click Delete button");
         }
         return new EditDataManagerRow();
     }

@@ -81,7 +81,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     }
 
-
+    //Srikanth
     //TC-961 - Upload a file which already uploaded with same data but with different file name
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadSameContentFileWDiffName() {
@@ -116,7 +116,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .verifyErrorMessage();
 
     }
-
+    //Srikanth
     //TC-1603 - Test to verify whether multiple files with same name but different content can be uploaded or not. To do that we have to upload two different files with different contents in the same name. Expected outcome is, warning message should be displayed saying that "duplicate files are not allowed" and the file should not get uploaded.
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadDiffContentFileWSameName() {
@@ -306,7 +306,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(filePath.get(), fileName.get())
+                .fileUpload(filePath.get(),fileName.get())
                 .clickOnCreateNewMapping()
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()

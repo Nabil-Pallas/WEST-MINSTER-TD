@@ -147,6 +147,7 @@ public class UserSecurityPage extends AdminPage {
         waitForLoaderToDisappear();
         pause("medium");
         waitForLoaderToDisappear();
+        System.out.println("--validateUserRoleAndMail--"+emailId);
         typeSearchUser(emailId);
         waitForElementToLoad(frameUserSearchResult(emailId));
         boolean verifyExactText = verifyExactText(frameUserSearchResult(emailId), emailId);

@@ -26,7 +26,7 @@ public class AddNewRulePage extends RulesManagerPage {
     }
 
     public AddNewRulePage typeRuleName(String ruleName) {
-        typeAndEnter(frameRuleNameLocator("Rule Name:"), ruleName, "ruleName");
+        typeWithType(frameRuleNameLocator("Rule Name:"), ruleName, "ruleName");
         return this;
     }
 
@@ -39,9 +39,18 @@ public class AddNewRulePage extends RulesManagerPage {
     public AddNewRulePage createANewRule(String ruleName, String ruleDescription) {
         typeRuleName(ruleName)
                 .typeRuleDescription(ruleDescription)
-//                .validateTickMark("Rule Name:")
                 .clickOnNextBtn();
         reportPass("User successfully created the new rule and proceeded to the next step.");
+        return this;
+    }
+
+    //validate the rule name error message
+    public AddNewRulePage validateRuleNameError(String errorMsg) {
+        click(frameRuleNameLocator("Rule Name:"), "Rule Name", "Input");
+        String errorMsgText = getInnerText(frameDivTextLocator(errorMsg));
+        Assert.assertEquals(errorMsgText, errorMsg);
+        reportPass("The Error Msg displayed as -- " + errorMsgText);
+
         return this;
     }
 
@@ -71,7 +80,7 @@ public class AddNewRulePage extends RulesManagerPage {
     }
 
     public AddNewRulePage typeFieldName(String fieldName) {
-        typeAndSpace(frameAddNewcalculatedColumnLocator("Field Name here…", 1), fieldName, "Field Name");
+        typeWithType(frameAddNewcalculatedColumnLocator("Field Name here…", 1), fieldName, "Field Name");
         pause("low");
         randomDoubleClick();
         pause("medium");

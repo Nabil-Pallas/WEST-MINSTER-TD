@@ -93,6 +93,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
             selectFieldDataType(i);
             pause("medium");
             pause("medium");
+            pause("medium");
             switch (i) {
 //                case 0:
 //                    calculatedCheckbox(calculatedCheckbox);
@@ -101,6 +102,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
 //                    uniqueTradeIdentifierCheckbox(uniqueTradeIdentifierCheckbox);
 //                    break;
                 case 0:
+                    pause("medium");
                     readOnlyCheckbox(readOnlyCheckbox);
                     break;
 //                case 3:
@@ -123,9 +125,16 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         clickOnEditDataSchema();
 //        pause("low");
         click("//td[text()='Account Name']", "");
-        while (!isVisible("//td[text()='" + clientCompanyName.get() + "']")) {
+        int maxAttempts = 40;
+        int attempts = 0;
+
+        while (!isVisible("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
             pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+            attempts++;
         }
+
+
+
         scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
         pause("low");
         pause("low");

@@ -296,14 +296,14 @@ public class AddNewRowPage extends DataManagerPage {
 
     //Enter the Values in Add New Row Page 10 times
     public AddNewRowPage addNewRowInformation10Times(String brokerName, String tradeDate, String accountName, String assetClass, String baseCurrency,
-                                              String baseExpectedValue, String baseGrossCommission, String brokerCode, String cusip, String exchange,
-                                              String executedQuantity, String fund, String fxRate, String instrumentType, String isin,
-                                              String localCurrency, String localExecutedValue, String localGrossCommission, String localPrice,
-                                              String masterBroker, String portfolio, String securityDescription, String securityType, String sedol,
-                                              String settlementDate, String side, String status, String ticker, String tradeId) {
+                                                     String baseExpectedValue, String baseGrossCommission, String brokerCode, String cusip, String exchange,
+                                                     String executedQuantity, String fund, String fxRate, String instrumentType, String isin,
+                                                     String localCurrency, String localExecutedValue, String localGrossCommission, String localPrice,
+                                                     String masterBroker, String portfolio, String securityDescription, String securityType, String sedol,
+                                                     String settlementDate, String side, String status, String ticker, String tradeId) {
 
-        for(int i=0;i<=11;i++) {
-            if (i<11) {
+        for (int i = 0; i <= 11; i++) {
+            if (i < 11) {
 
                 typeBrokerName(brokerName)
                         .typeTradeDate(tradeDate)
@@ -335,16 +335,15 @@ public class AddNewRowPage extends DataManagerPage {
                         .typeTicker(ticker)
                         .typeTradeId(tradeId);
                 clickOnAddBtn();
-                reportPass("User successfully entered the values on the Add New Row page.");
-            }
-            else{
+            } else {
                 clickOnApplyBtn();
+                reportPass("User successfully Added 10 rows in Add New Row");
             }
         }
         return this;
     }
 
-    public AddNewRowPage addNewRow(String brokerName,String tradeDate,String SettlementDate) {
+    public AddNewRowPage addNewRow(String brokerName, String tradeDate, String SettlementDate) {
         selectBrokerName(brokerName)
                 .typeTradeDate(tradeDate)
                 .typeSettlementDate(SettlementDate);

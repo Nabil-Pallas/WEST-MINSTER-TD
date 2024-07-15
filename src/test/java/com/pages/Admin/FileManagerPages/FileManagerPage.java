@@ -203,4 +203,35 @@ public class FileManagerPage extends AdminPage {
         click(closeIcon, "Close icon");
         return new AddNewRowPage();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public FileManagerPage getValidRowCount(String fileName){
+        //click Invalid Row Count for Given File Name
+        if (isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]")) {
+            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]", "Invalid Row", "Invalid RowLink");
+            pause("low");
+            String valid = getInnerText(frameRowCountText("Valid Rows"));
+            //validRows.set(Long.parseLong(valid));
+            validRows = Long.parseLong(valid);
+            System.out.println("---"+validRows);
+        }
+        return this;
+    }
+
 }
+
+

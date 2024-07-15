@@ -2,6 +2,7 @@ package com.pages.Admin;
 
 import com.config.ConfigurationManager;
 import com.page.base.MenuPage;
+import com.page.base.WestMinsterPageHook;
 import com.pages.Admin.DataManagerPages.DataManagerPage;
 import com.pages.Admin.FileManagerPages.FileManagerPage;
 import com.pages.Admin.ListManagerPages.ListManagerPage;
@@ -20,6 +21,7 @@ public class AdminPage extends MenuPage {
     public String confirmDeleteBtn = "//span[text()='Yes']";
     public String closeIcon = "//i[@class='dx-icon dx-icon-close']";
 
+
     public String frameClientDetailsLocator(String placeholder) {
         return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div//input";
     }
@@ -37,7 +39,7 @@ public class AdminPage extends MenuPage {
     }
 
     public String selectRolesCheckBox(String placeholder) {
-        return "//div[text()='" + placeholder + "']/preceding-sibling::div";
+        return "//span[contains(., '" + placeholder + "')]/ancestor::div[contains(@class, 'dx-item')]/div[contains(@class, 'dx-list-item-before-bag')]//div[contains(@class, 'dx-checkbox-container')]/span[@class='dx-checkbox-icon']";
     }
 
     public String selectRolesCheckBox(int index) {
@@ -74,8 +76,23 @@ public class AdminPage extends MenuPage {
         pause("low");
         return "//span[contains(text(),'" + placeholder + "')]";
     }
+
+    public String frameSpanExactTextLocator(String placeholder) {
+        pause("low");
+        return "//span[text()='" + placeholder + "']";
+    }
+
+    public String frameSpanExactTextLocator(String placeholder, int index) {
+        pause("low");
+        return "(//span[text()='" + placeholder + "'])[" + index + "]";
+    }
+
     public String frameSelectMappingLocator(String placeholder) {
         return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div";
+    }
+
+    public String frameRowCountText(String placeholder) {
+        return "//span[text()='"+placeholder+"']/following-sibling::span";
     }
 
 
@@ -159,6 +176,7 @@ public class AdminPage extends MenuPage {
         return this;
     }
 
+
     public AdminPage setClient() {
 
         switch (xmlUserLevel) {
@@ -225,6 +243,27 @@ public class AdminPage extends MenuPage {
         click(frameSpanTextLocator("List Manager"), "List Manager");
         waitForLoaderToDisappear();
         return new ListManagerPage();
+    }
+
+
+
+
+
+
+    public DataManagerPage getTotalRowCount(String state){
+        pause("low");
+        String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
+        String replacedRowCount = rowCount.replaceAll("Total Row Count: ","");
+        if(state.equalsIgnoreCase("Initial")) {
+            InitRowCounts = Long.parseLong(replacedRowCount);
+            //InitRowCounts.set(Long.parseLong(replacedRowCount));
+            System.out.println("InitRowCounts: "+ InitRowCounts);
+        }else {
+           // FinRowCounts.set(Long.parseLong(replacedRowCount));
+            FinRowCounts = Long.parseLong(replacedRowCount);
+            System.out.println("FinRowCounts: "+ FinRowCounts);
+        }
+        return new DataManagerPage();
     }
 
 }

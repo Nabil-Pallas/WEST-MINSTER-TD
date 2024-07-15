@@ -22,6 +22,7 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> userMailId = new ThreadLocal<>();
     public static final ThreadLocal<String> userMailIdText = new ThreadLocal<>();
     public static final ThreadLocal<String> ruleName = new ThreadLocal<>();
+    public static final ThreadLocal<String> getFirstRuleNametext = new ThreadLocal<>();
     public static final ThreadLocal<String> newListName = new ThreadLocal<>();
     public static final ThreadLocal<List<String>> listItems = new ThreadLocal<>();
     public static final ThreadLocal<String> analysisName = new ThreadLocal<>();
@@ -29,7 +30,8 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> recipientEmail = new ThreadLocal<>();
     public static final ThreadLocal<String> titleone = new ThreadLocal<>();
     public static final ThreadLocal<String> descriptionOne = new ThreadLocal<>();
-
+    public static final ThreadLocal<String> newSystemColumnName = new ThreadLocal<>();
+    public static final ThreadLocal<List<String>> addedColumns = new ThreadLocal<>();
     public static final ThreadLocal<String> titleTwo = new ThreadLocal<>();
     public static final ThreadLocal<String> descriptionTwo = new ThreadLocal<>();
     public static final ThreadLocal<String> filePath = new ThreadLocal<>();
@@ -37,7 +39,12 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> fileName = new ThreadLocal<>();
     public static final ThreadLocal<String> fileName2 = new ThreadLocal<>();
     public static final ThreadLocal<String> DataMap = new ThreadLocal<>();
-
+    //public static final ThreadLocal<Long> InitRowCounts = new ThreadLocal<>();
+   // public static final ThreadLocal<Long> FinRowCounts = new ThreadLocal<>();
+   // public static final ThreadLocal<Long> validRows = new ThreadLocal<>();
+    public static long InitRowCounts = 0;
+    public static long FinRowCounts = 0;
+    public static long validRows = 0;
 
     public static void setUserLevel() {
 

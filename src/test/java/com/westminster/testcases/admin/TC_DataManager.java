@@ -1,6 +1,7 @@
 package com.westminster.testcases.admin;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
@@ -307,8 +308,8 @@ public class TC_DataManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
-        fileName.set("SampleFile_AU_Chrome.csv");
+        filePath.set("./src/test/resources/upload/ValidRowCase.csv");
+        fileName.set("ValidRowCase.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
                 .validateDashBoardElements()
@@ -316,16 +317,22 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
-                .
+                .getTotalRowCount("Initial")
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(filePath.get(), fileName.get())
+                .fileUpload(filePath.get(),fileName.get())
                 .clickOnCreateNewMapping()
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
                 .mappingFileAndSystemColumns(systemColumnNames)
                 .clickOnFinishMapping()
-                .validateFileUpload(fileName.get());
+                .validateFileUpload(fileName.get())
+                .getValidRowCount(fileName.get())
+                .clickOnDataManager()
+                .getTotalRowCount("Final")
+                .CompareTotalRowCountAndValidRows()
+                .clickOnFileManager()
+                .validateFileNameInFileManagerGridAndDelete(fileName.get());
     }
 
 }

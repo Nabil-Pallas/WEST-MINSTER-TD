@@ -108,6 +108,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
 
+    //Manoj
     //Ensure the "Add" button is disabled when there is an error in the required field, Trade Date.
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyAddButtonDisabledOnTradeDateError() {
@@ -136,6 +137,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5731");
     }
 
+    //Manoj
     // Verify that the "Add" button disables when the required field "Broker Name" has an error.
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyAddButtonDisabledOnBrokerNameError() {
@@ -164,6 +166,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5945");
     }
 
+    //Manoj
     // Verify dropdowns enable correctly for available lists when adding ad hoc rows in Data Manager.
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDropdownsForAdHocRows() {
@@ -212,6 +215,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5429");
     }
 
+    //Manoj
     // Ensure the Edit Trade Details page has no blank spaces under "Edit Trade Details" and "Change Log" headings when editing a row.
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyNoBlankSpacesOnEditTradeDetailsPage() {
@@ -277,7 +281,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_4622");
     }
 
-
+    //Manoj
     //    Verify if more than 10 rows can be added at once using the 'Add New Row' option in Data Manager.
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addMoreThan10Rows() {

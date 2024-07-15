@@ -2,6 +2,7 @@ package com.pages.Admin;
 
 import com.config.ConfigurationManager;
 import com.page.base.MenuPage;
+import com.page.base.WestMinsterPageHook;
 import com.pages.Admin.DataManagerPages.DataManagerPage;
 import com.pages.Admin.FileManagerPages.FileManagerPage;
 import com.pages.Admin.ListManagerPages.ListManagerPage;
@@ -19,6 +20,7 @@ public class AdminPage extends MenuPage {
     public String deleteBtn = "//span[text()='Delete']";
     public String confirmDeleteBtn = "//span[text()='Yes']";
     public String closeIcon = "//i[@class='dx-icon dx-icon-close']";
+
 
     public String frameClientDetailsLocator(String placeholder) {
         return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div//input";
@@ -87,6 +89,10 @@ public class AdminPage extends MenuPage {
 
     public String frameSelectMappingLocator(String placeholder) {
         return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div";
+    }
+
+    public String frameRowCountText(String placeholder) {
+        return "//span[text()='"+placeholder+"']/following-sibling::span";
     }
 
 
@@ -170,6 +176,7 @@ public class AdminPage extends MenuPage {
         return this;
     }
 
+
     public AdminPage setClient() {
 
         switch (xmlUserLevel) {
@@ -239,6 +246,24 @@ public class AdminPage extends MenuPage {
     }
 
 
-    // public DashboardPage
+
+
+
+
+    public DataManagerPage getTotalRowCount(String state){
+        pause("low");
+        String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
+        String replacedRowCount = rowCount.replaceAll("Total Row Count: ","");
+        if(state.equalsIgnoreCase("Initial")) {
+            InitRowCounts = Long.parseLong(replacedRowCount);
+            //InitRowCounts.set(Long.parseLong(replacedRowCount));
+            System.out.println("InitRowCounts: "+ InitRowCounts);
+        }else {
+           // FinRowCounts.set(Long.parseLong(replacedRowCount));
+            FinRowCounts = Long.parseLong(replacedRowCount);
+            System.out.println("FinRowCounts: "+ FinRowCounts);
+        }
+        return new DataManagerPage();
+    }
 
 }

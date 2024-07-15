@@ -1,6 +1,7 @@
 package com.westminster.testcases.admin;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
@@ -302,6 +303,46 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnSelectAll()
                 .clickOnBulkDeleteBtn();
         System.out.println("TC-----------TC_RE_5229");
+    }
+
+    //Srikanth
+    //TC_1583 - Test to verify that all the valid rows in the uploaded file are displayed in the data manager. To do that we have to upload a file and then verify it in the data manager that all the valid rows are there or not.
+//    The expected outcome is, all the valid rows should be there in the data manager.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyValidRowsInDataManager(){
+
+        testcaseName = "TC_RE_1583 " + xmlUserLevel;
+        testDescription = "Verify valid Rows In Data Manager Module";
+        authors = "Automation Team";
+        category = "Verify valid Rows In Data Manager Module";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/upload/ValidRowCase.csv");
+        fileName.set("ValidRowCase.csv");
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .getTotalRowCount("Initial")
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(),fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .getValidRowCount(fileName.get())
+                .clickOnDataManager()
+                .getTotalRowCount("Final")
+                .CompareTotalRowCountAndValidRows()
+                .clickOnFileManager()
+                .validateFileNameInFileManagerGridAndDelete(fileName.get());
     }
 
 }

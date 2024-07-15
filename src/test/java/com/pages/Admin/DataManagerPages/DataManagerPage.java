@@ -5,6 +5,7 @@ import com.microsoft.playwright.Locator;
 import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
 import com.pages.Admin.FileManagerPages.ErrorQueuePage;
+import com.pages.Admin.FileManagerPages.FileManagerPage;
 import com.pages.Admin.UsersAndSecurityPages.AddNewUserPage;
 import com.pages.Admin.UsersAndSecurityPages.UserSecurityPage;
 import com.pages.bugeting.AllBudgetsPage;
@@ -255,6 +256,28 @@ public class DataManagerPage extends AdminPage {
             }
         }
         return new DataManagerPage();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public DataManagerPage CompareTotalRowCountAndValidRows(){
+
+        long totalRows = FinRowCounts - InitRowCounts;
+
+        Assert.assertEquals(totalRows,validRows);
+
+        return this;
     }
 
 

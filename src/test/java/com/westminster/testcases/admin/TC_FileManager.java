@@ -191,47 +191,6 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     }
 
-    public void fileUpload_AddSystemColumn() {
-        testcaseName = "TC_1304 " + xmlUserLevel;
-        testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
-        authors = "Automation Team";
-        category = "Add data schema";
-        startTestCase();
-        setNode();
-        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
-        fileName.set("SampleFile_AU_Chrome.csv");
-        ruleName.set(FakerDataFactory.getDataMapName());
-        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
-        new DashboardPage()
-                .validateDashBoardElements()
-                .clickOnAdmin()
-                .validateAdminPage()
-                .setClient()
-                .clickOnFileManager()
-                .validateFileManagerPage()
-                .fileUpload(filePath.get(), fileName.get())
-                .clickOnCreateNewMapping()
-                .createNewDataMap(ruleName.get(), "MM/dd/yyyy")
-                .validateFileMappingPage()
-                .clickOnAddNewSystemColumns()
-                .validateAddNewSystemColumnsPage()
-                .typeInformationInAddNewSystemColumns(false, false, true)
-                .mappingFileAndSystemColumns(systemColumnNames)
-                .clickOnFinishMapping()
-                .clickOnDataManager()
-                .validateDataManagerPage()
-                .validateAddedNewColumn(clientCompanyName.get())
-                .clickOnFileManager()
-                .validateFileNameInFileManagerGridAndDelete(fileName.get())
-                .deleteDataMaps(ruleName.get())
-                .clickOnDataManager()
-                .clickOnEditDataSchema()
-                .deleteDataSchema();
-
-        System.out.println("TC-----------02");
-
-    }
-
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void mapColumns() {
         testcaseName = "TC_5622 " + xmlUserLevel;

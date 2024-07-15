@@ -122,8 +122,17 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         clickOnEditDataSchema();
 //        pause("low");
         click("//td[text()='Account Name']", "");
-        while (!isVisible("//td[text()='" + clientCompanyName.get() + "']")) {
+        int maxAttempts = 20;
+        int attempts = 0;
+
+        while (!isVisible("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
             pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+            attempts++;
+        }
+
+        if (attempts == maxAttempts) {
+            // Handle the case where the maximum number of attempts is reached
+            System.out.println("The element was not found after " + maxAttempts + " attempts.");
         }
         scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
         pause("low");

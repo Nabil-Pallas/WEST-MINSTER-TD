@@ -128,7 +128,7 @@ public class DataManagerPage extends AdminPage {
                     reportStep("Added Data Schema is deleted successfully", "pass");
 
                 } else {
-                    reportStep("Added Data Schema is not deleted", "warning");
+                    reportStep("Added Data Schema is not deleted", "info");
 
                 }
                 break;

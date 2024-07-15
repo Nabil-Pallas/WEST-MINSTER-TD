@@ -60,7 +60,7 @@ public class FileManagerPage extends AdminPage {
             if (actualText.equalsIgnoreCase(fileName)) {
                 //if equals we are deleting it.
                 //Action Link
-                click("((((//tbody[@role='presentation'])[4])//td)[" + (i + 1) + "])//a", "Action Link", "Action Item");
+                forceClick("((((//tbody[@role='presentation'])[4])//td)[" + (i + 1) + "])//a", "Action Link", "Action Item");
                 pause("low");
                 //delete
                 click(frameSpanTextLocator("Delete"), "Delete Link", "Action Item popup");

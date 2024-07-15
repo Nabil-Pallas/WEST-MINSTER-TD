@@ -22,8 +22,10 @@ public class ErrorQueuePage extends FileManagerPage {
     }
 
     public ErrorQueuePage clickOnSelectAll() {
-        waitForLoaderToDisappear();
+//        waitForLoaderToDisappear();
         pause("medium");
+        pause("medium");
+        waitForElementToLoad(selectAll);
         click(selectAll, "Select All", "CheckBox");
         return new ErrorQueuePage();
     }
@@ -45,6 +47,7 @@ public class ErrorQueuePage extends FileManagerPage {
                     .validateBulkEditRowsPage()
                     .changeDuplicateStatus()
                     .clickOnApplyBtn()
+                    .clickOnSelectAll()
                     .clickOnPromoteRows();
         } else {
             System.out.println("---Promoting is done---");

@@ -318,11 +318,11 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page allows unlimited columns.
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void testAddSystemColumnsMoreThan10Rows() {
+    public void addSystemColumnsMoreThan10Rows() {
         testcaseName = "TC_RE_1623 " + xmlUserLevel;
         testDescription = "Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page";
         authors = "Automation Team";
-        category = "Add New System Columns";
+        category = "Add System Columns More Than 10 Rows";
         startTestCase();
         setNode();
         filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");

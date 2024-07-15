@@ -505,7 +505,7 @@ public class PlaywrightWrapper extends Reporter {
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
             getPage().locator(locator).scrollIntoViewIfNeeded();
             getPage().locator(locator).click();
-            reportStep("The " + type + " :" + name + " is clicked", "info");
+            reportStep("The " + type + " : " + name + " is clicked", "info");
             return true;
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");

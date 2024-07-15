@@ -1,5 +1,6 @@
 package com.pages.Admin.RulesManagerPages;
 
+import com.data.dynamic.FakerDataFactory;
 import com.microsoft.playwright.Locator;
 import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
@@ -64,8 +65,21 @@ public class RulesManagerPage extends AdminPage {
     }
 
     //Get first rule name text
-    public AddNewRulePage getFirstRuleNametext(String fieldName) {
-        getFirstRuleNametext.set(getInnerText(firstRuleNameText));
+    public AddNewRulePage getFirstRuleNametext() {
+        pause("medium");
+        if (isVisible(firstRuleNameText)) {
+            String innerText = getInnerText(firstRuleNameText);
+            System.out.println("firstRuleNameText :" + innerText);
+            getFirstRuleNametext.set(innerText);
+        } else {
+            clickOnAddNewRuleBtn()
+                    .validateAddRulePage()
+                    .createANewRule(ruleName.get(), FakerDataFactory.getRuleDescription())
+                    .defineTheNewColumn(true, FakerDataFactory.getFieldName(), "")
+                    .addFilters("Broker Name", "=")
+                    .defineTheCalculation("Local Price", "*", "Local Price")
+                    .validateNewRuleNameIsEnabled(ruleName.get());
+        }
         return new AddNewRulePage();
     }
     //Rule Name:

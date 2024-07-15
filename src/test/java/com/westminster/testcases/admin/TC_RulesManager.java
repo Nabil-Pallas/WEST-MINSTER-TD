@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 @Listeners(TestListener.class)
 public class TC_RulesManager extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "TC_5587 " + xmlUserLevel;
         testDescription = "Add New Rule and validate";
@@ -87,13 +87,13 @@ public class TC_RulesManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnRulesManager()
                 .validateRulesManagerPage()
+                .getFirstRuleNametext()
                 .clickOnAddNewRuleBtn()
                 .validateAddRulePage()
-                .createANewRule(ruleName.get(), FakerDataFactory.getRuleDescription())
-                .defineTheNewColumn(true, FakerDataFactory.getFieldName(), "")
-                .addFilters("Broker Name", "=")
-                .defineTheCalculation("Local Price", "*", "Local Price")
-                .validateNewRuleNameIsEnabled(ruleName.get());
+                .createANewRule(getFirstRuleNametext.get(), FakerDataFactory.getRuleDescription())
+                .clickOnNextBtn()
+                .validateRuleNameError("Rule name already exists. Please use a unique name.");
+
         System.out.println("TC-----------TC_RE_2825");
     }
 

@@ -8,10 +8,7 @@ import org.testng.Assert;
 public class RulesManagerPage extends AdminPage {
 
     private String rulesManagerText = "//h1[text()='Rules Manager']";
-    private String enableCheckBox = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[2])[position() < last()])";
-    private String ruleNameText = "((//tbody//tr)[4]//td)[3]";
-    private String descriptionText = "((//tbody//tr)[4]//td)[6]";
-    private String outputColumnText = "((//tbody//tr)[4]//td)[8]";
+    private String firstRuleNameText = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()])[1]";
     private String actionRuleLocator = "(//td[@class='action-edit-delete-column']/a)[1]";
 
 
@@ -63,6 +60,12 @@ public class RulesManagerPage extends AdminPage {
         pause("low");
         boolean isTickMarkVisisble = isVisible("//span[text()='" + fieldName + "']/ancestor::label/following-sibling::div//div[@class='dx-placeholder dx-state-invisible']");
         Assert.assertTrue(isTickMarkVisisble, "Tick Mark is Enabled");
+        return new AddNewRulePage();
+    }
+
+    //Get first rule name text
+    public AddNewRulePage getFirstRuleNametext(String fieldName) {
+        getFirstRuleNametext.set(getInnerText(firstRuleNameText));
         return new AddNewRulePage();
     }
     //Rule Name:

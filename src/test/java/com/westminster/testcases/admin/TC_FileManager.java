@@ -333,18 +333,17 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
-                .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())
                 .clickOnCreateNewMapping()
                 .createNewDataMap(ruleName.get(), "MM/dd/yyyy")
                 .validateFileMappingPage()
-                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date"),
-                        Arrays.asList("Broker Name", "Trade Date"))
                 .clickOnAddNewSystemColumns()
                 .validateAddNewSystemColumnsPage()
-                .typeInformationInAddNewSystemColumns();
+                .typeInformationInAddNewSystemColumns(3)
+                .validateFileMappingPage()
+                .verifyAddedColumnsInSystemColumnName(3);
 
         System.out.println("TC-----------TC_RE_1623");
     }

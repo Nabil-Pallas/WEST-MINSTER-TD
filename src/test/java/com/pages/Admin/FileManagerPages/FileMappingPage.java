@@ -1,5 +1,6 @@
 package com.pages.Admin.FileManagerPages;
 
+import com.microsoft.playwright.ElementHandle;
 import com.pages.Admin.DataManagerPages.AddNewColumnPage;
 import org.testng.Assert;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 public class FileMappingPage extends FileManagerPage {
 
     private String fileMappingText = "//h1[text()='File Mapping']";
-    private String addNewSystemColumnsText = "//div[text()='Add New system Column(s)']";
+    private String systemColumnsText = "//span[@class='ml-half']//span[@title]";
     private String mapColumnsBtn = "//span[text()='Map Columns']";
     private String finishMapping = "//span[text()='Finish mapping']";
     private String confirmAndUpload = "//span[text()='Confirm & Upload']";
@@ -115,9 +116,7 @@ public class FileMappingPage extends FileManagerPage {
             Assert.assertTrue(isPresent);
             reportStep(sysColumn + " is mapped with " + fileColumnValue, "pass");
 
-
         }
-
         reportPass("User successfully mapped file and system columns.");
         return this;
     }
@@ -140,6 +139,33 @@ public class FileMappingPage extends FileManagerPage {
     public AddNewSystemColumnsPage clickOnAddNewSystemColumns() {
         click(frameSpanTextLocator("Add new system columns"), "Add new system columns");
         return new AddNewSystemColumnsPage();
+    }
+
+
+    // Method to verify added columns in the system column name
+    public FileManagerPage verifyAddedColumnsInSystemColumnName(int noOfSysColumn) {
+        pause("low");
+        List<ElementHandle> systemColumnNames = getListElements(systemColumnsText);// Replace with the actual selector
+
+        // Iterate over the elements and extract inner text
+        int count = 0;
+        for (ElementHandle element : systemColumnNames) {
+            String innerText = element.innerText();
+            count++;
+        }
+
+        //Getting the locator count
+        System.out.println("Total System Column Name count: " + count);
+        int systemColumnCount = getLocatorsCount(frameSpanTextLocator(newSystemColumnName.get()));
+        System.out.println("Newly Added System Column Name Count: " + systemColumnCount);
+
+        Assert.assertEquals(systemColumnCount, noOfSysColumn);
+        if (systemColumnCount == noOfSysColumn) {
+            reportPass("The number of added columns are displayed in System column Name for mapping ");
+        } else {
+            reportFail("The number of added columns does not match.");
+        }
+        return this;
     }
 
 }

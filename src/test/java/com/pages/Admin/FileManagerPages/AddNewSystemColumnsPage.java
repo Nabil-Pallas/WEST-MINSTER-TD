@@ -6,10 +6,7 @@ import com.pages.Admin.DataManagerPages.AddNewColumnPage;
 import com.pages.Admin.DataManagerPages.DataManagerPage;
 import org.testng.Assert;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class AddNewSystemColumnsPage extends FileManagerPage {
 
@@ -65,9 +62,9 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
 
     //Click On New Column
     public AddNewSystemColumnsPage clickOnNewColumn() {
-        pause("low");
+        pause("medium");
         click(newColumnBtn, "New Column");
-        pause("low");
+        pause("medium");
         reportPass("User successfully clicked the Apply button.");
         return new AddNewSystemColumnsPage();
     }
@@ -122,34 +119,31 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     }
 
 
-    public FileMappingPage typeInformationInAddNewSystemColumns() {
-        clientCompanyName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
-        for (int i = 0; i <= 10; i++) {
-            System.out.println("clientCompanyName--------" + clientCompanyName.get());
-            typeFieldName(clientCompanyName.get());
+    public FileMappingPage typeInformationInAddNewSystemColumns(int noOfColumn) {
+        newSystemColumnName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
+        List<String> addedColumns = new ArrayList<>();
+        for (int i = 0; i < noOfColumn; i++) {
             pause("medium");
-            selectFieldDataType(new Random().nextInt(4));
-            pause("medium");
-            clickOnNewColumn();
+            waitForAppearance(frameSpanExactTextLocator("Delete", (i + 1)), "Delete");
+            if (isVisible(frameSpanExactTextLocator("Delete", (i + 1)))) {
+                System.out.println("clientCompanyName--------" + newSystemColumnName.get());
+                String columnName = newSystemColumnName.get() + "_" + i;
+                addedColumns.add(columnName);
+                typeFieldName(columnName);
+                pause("medium");
+                selectFieldDataType(new Random().nextInt(4));
+                pause("medium");
+                if (i < noOfColumn - 1) { // Change the condition to < noOfColumn - 1
+                    clickOnNewColumn();
+                    System.out.println("New column Clicked");
+                    pause("medium");
+                }
+            }
         }
-        clickOnApplyBtn();
-        //Verifying Map column button disable
-        Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
-
         pause("medium");
-        //Mapping the Values
-        // File Column Count
-        click(frameSpanTextLocator(clientCompanyName.get()), "System Column :" + clientCompanyName.get(), "System Column");
+        clickOnApplyBtn();
         pause("low");
-        click("(//tbody[@role='presentation']//tr[td='Broker Code'])", "File Column :Broker Code", "File Column");
-        pause("low");
-        //verifying MapColumns Enabled
-        Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
-        pause("low");
-        click(mapColumnsBtn, "Map Columns");
-        pause("low");
-
-        reportPass("User successfully mapped file and system columns.");
+        reportPass("User successfully Added " + noOfColumn + " New System Columns");
 
         return new FileMappingPage();
     }

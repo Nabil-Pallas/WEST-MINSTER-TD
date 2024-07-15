@@ -106,6 +106,15 @@ public class ListManagerPage extends AdminPage {
         return this;
     }
 
+    public ListManagerPage validateDeletedItem(String deleteItem) {
+        if (isNotVisible("//*[text()='" + deleteItem + "']", deleteItem)) {
+            reportStep("Added List is deleted successfully", "pass");
+        } else {
+            reportStep("Added List is not deleted", "warning");
+        }
+        return this;
+    }
+
     public ListManagerPage deleteListItem(String listName) {
         searchListName(listName)
                 .clickOnActionIcon()

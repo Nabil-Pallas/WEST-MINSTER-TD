@@ -3,7 +3,6 @@ package com.westminster.testcases.admin;
 import java.util.Arrays;
 import java.util.List;
 
-import com.pages.Admin.DataManagerPages.DataManagerPage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -25,8 +24,8 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Adding the new row in the data manager
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
-    public void AddNewRow() {
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    public void addNewRow() {
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         new DashboardPage()
                 .validateDashBoardElements()
@@ -44,7 +43,9 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnAddBtn()
                 .clickOnApplyBtn()
                 .validateAddedRowInformation(clientCompanyName.get(), "Broker Name")
-                .deleteAddedRow(clientCompanyName.get(), "Broker Name");
+                .clickOnActionsBtn()
+                .clickOnDeleteBtn();
+//                .deleteAddedRow(clientCompanyName.get(), "Broker Name");
         System.out.println("TC-----------03");
     }
 
@@ -76,7 +77,9 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnApplyBtn()
                 .searchValueToValidate(ruleName.get(), "Broker Name")
                 .validateEditedRowInformation((ruleName.get()), ("Broker Name"))
-                .deleteAddedRow((ruleName.get()), "Broker Name");
+                .clickOnActionsBtn()
+                .clickOnDeleteBtn();
+        // .deleteAddedRow((ruleName.get()), "Broker Name");
         System.out.println("TC-----------04");
     }
 
@@ -105,13 +108,14 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
 
-    // Verify that the "Add" button is disabled when error occurs in required field - Trade Date
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void AddNewRowTradeDateErrorValidation() {
+    //Manoj
+    //Ensure the "Add" button is disabled when there is an error in the required field, Trade Date.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyAddButtonDisabledOnTradeDateError() {
         testcaseName = "TC_RE_5731 " + xmlUserLevel;
-        testDescription = "Add New Row Trade Date Error Validation";
+        testDescription = "Verify Add Button Disabled On TradeDate Error";
         authors = "Automation Team";
-        category = "Add New Row Trade Date Error Validation";
+        category = "Verify Add Button Disabled On TradeDate Error";
         startTestCase();
         setNode();
         clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
@@ -133,9 +137,10 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5731");
     }
 
-    // Verify that the "Add" button is disabled when error occurs in required field - Broker Name
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void AddNewRowBrokerNameErrorValidation() {
+    //Manoj
+    // Verify that the "Add" button disables when the required field "Broker Name" has an error.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyAddButtonDisabledOnBrokerNameError() {
         testcaseName = "TC_RE_5945 " + xmlUserLevel;
         testDescription = "Add New Row Broker Name Error Validation";
         authors = "Automation Team";
@@ -161,17 +166,18 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5945");
     }
 
-    // To verify the functionality of enabling dropdowns for available lists during adding ad hoc rows in Data Manager
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void AddingAdhocRowsDataManager() {
+    //Manoj
+    // Verify dropdowns enable correctly for available lists when adding ad hoc rows in Data Manager.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyDropdownsForAdHocRows() {
         testcaseName = "TC_RE_5429 " + xmlUserLevel;
-        testDescription = "Adding Adhoc Rows Data Manager";
+        testDescription = "Verify Drop downs For AdHoc Rows";
         authors = "Automation Team";
-        category = "Adding Adhoc Rows Data Manager";
+        category = "Verify Drop downs For AdHoc Rows";
         startTestCase();
         setNode();
         newListName.set(FakerDataFactory.getListName());
-        List<String> listItems = FakerDataFactory.getListOfItems(4);
+        listItems.set(FakerDataFactory.getListOfItems(3));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -182,20 +188,185 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnAddNewListBtn()
                 .validateAddListItemPage()
                 .typeListTitle(newListName.get())
-                .typeListItems(listItems)
+                .typeListItems(listItems.get())
                 .clickOnSaveListBtn()
-                .validateListNameAndItem(newListName.get(), listItems);
-        new DataManagerPage().clickOnDataManager()
+                .validateListNameAndItem(newListName.get(), listItems.get())
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnActionIcon("Broker Name")
+                .clickOnAddValidation()
+                .validateAddFieldValidationParametersPage()
+                .addFieldValidationParameters(newListName.get())
+                .clickOnAddNewRowBtn()
+                .validateAddNewRowPage()
+                .addNewRow(listItems.get().get(1), FakerDataFactory.getPastDate(), FakerDataFactory.getFutureDate())
+                .clickOnAddBtn()
+                .clickOnApplyBtn()
+                .validateAddedRowInformation(listItems.get().get(1), "Broker Name")
+                .clickOnActionsBtn()
+                .clickOnDeleteBtn()
+                .clickOnListManager()
+                .validateListManagerPage()
+                .deleteListItem(newListName.get());
+
+        System.out.println("TC-----------TC_RE_5429");
+    }
+
+    //Manoj
+    // Ensure the Edit Trade Details page has no blank spaces under "Edit Trade Details" and "Change Log" headings when editing a row.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyNoBlankSpacesOnEditTradeDetailsPage() {
+        testcaseName = "TC_RE_5235 " + xmlUserLevel;
+        testDescription = "Verify No Blank Spaces On Edit TradeDetails";
+        authors = "Automation Team";
+        category = "Verify No Blank Spaces On Edit TradeDetails";
+        startTestCase();
+        setNode();
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnActionsBtn()
+                .clickOnEditBtn()
+                .editRowInformation(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
+                .validateChangeLog(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"));
+
+        System.out.println("TC-----------TC_RE_5235");
+    }
+
+    // Sanjay Kumar
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void checkApplyAndCancelBtnForEditAndBulkedit() {
+        testcaseName = "TC_RE_4622 " + xmlUserLevel;
+        testDescription = "Adding Adhoc Rows Data Manager";
+        authors = "Automation Team";
+        category = "Adding Adhoc Rows Data Manager";
+        startTestCase();
+        setNode();
+        ruleName.set(FakerDataFactory.getCompanyName());
+        reportName.set(FakerDataFactory.getReportsName());
+        titleone.set(FakerDataFactory.getTitle());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnActionsBtn()
+                .clickOnEditBtn()
+                .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
+                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
+                .clickOnApplyBtn()
+                .clickOnActionsBtn()
+                .clickOnEditBtn()
+                .clickOnCancelBtn()
+                .clickOnSelectAll()
+                .clickOnBulkEditBtn()
+                .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
+                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
+                .clickOnApplyBtn()
+                .clickOnSelectAll()
+                .clickOnBulkEditBtn()
+                .clickOnCancelBtn();
+        System.out.println("TC-----------TC_RE_4622");
+    }
+
+    //Manoj
+    //    Verify if more than 10 rows can be added at once using the 'Add New Row' option in Data Manager.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void addMoreThan10Rows() {
+        testcaseName = "TC_RE_5229 " + xmlUserLevel;
+        testDescription = "Adding more than 10 more rows to whether it is adding successfully";
+        authors = "Automation Team";
+        category = "Adding Rows Data Manager";
+        startTestCase();
+        setNode();
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWithTimeStamp());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnAddNewRowBtn()
                 .validateAddNewRowPage()
-                .addNewRowInformation("", FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                .addNewRowInformation10Times(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
                         FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
                         FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
-                .validateBrokerNameErrorMsg("Broker Name is required.")
-                .validateAddBtnIsDisable();
-        System.out.println("TC-----------TC_RE_5429");
+                .validateAddedRowInformation(clientCompanyName.get(), "Broker Name")
+                .clickOnSelectAll()
+                .clickOnBulkDeleteBtn();
+        System.out.println("TC-----------TC_RE_5229");
     }
+
+    //Srikanth
+    //TC_1583 - Test to verify that all the valid rows in the uploaded file are displayed in the data manager. To do that we have to upload a file and then verify it in the data manager that all the valid rows are there or not.
+//    The expected outcome is, all the valid rows should be there in the data manager.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyValidRowsInDataManager() {
+
+        testcaseName = "TC_RE_1583 " + xmlUserLevel;
+        testDescription = "Verify valid Rows In Data Manager Module";
+        authors = "Automation Team";
+        category = "Verify valid Rows In Data Manager Module";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/upload/ValidRowCase.csv");
+        fileName.set("ValidRowCase.csv");
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .getTotalRowCount("Initial")
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .getValidRowCount(fileName.get())
+                .clickOnDataManager()
+                .getTotalRowCount("Final")
+                .CompareTotalRowCountAndValidRows()
+                .clickOnFileManager()
+                .validateFileNameInFileManagerGridAndDelete(fileName.get());
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

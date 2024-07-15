@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 @Listeners(TestListener.class)
 public class TC_RulesManager extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "TC_5587 " + xmlUserLevel;
         testDescription = "Add New Rule and validate";
@@ -21,7 +21,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
         category = "Add New Rule";
     }
 
-    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewRule() {
         ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
         new DashboardPage()
@@ -42,7 +42,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
     }
 
 
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void editRule() {
         testcaseName = "TC_50 " + xmlUserLevel;
         testDescription = "Edit Rule and Validate";
@@ -68,6 +68,34 @@ public class TC_RulesManager extends WestMinsterPageHook {
                 .validateEditRuleChanges(ruleName.get(), ruleDescription)
                 .deleteRuleName();
         System.out.println("TC-----------07");
+    }
+
+    //Manoj
+    //Ensure an error message appears when creating a rule with a duplicate name:
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyDuplicateRuleNameError() {
+        testcaseName = "TC_RE_2825 " + xmlUserLevel;
+        testDescription = "Verify Duplicate Rule Name Error";
+        authors = "Automation Team";
+        category = "Verify Duplicate Rule Name Error";
+        startTestCase();
+        setNode();
+        ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnRulesManager()
+                .validateRulesManagerPage()
+                .getFirstRuleNametext()
+                .clickOnAddNewRuleBtn()
+                .validateAddRulePage()
+                .createANewRule(getFirstRuleNametext.get(), FakerDataFactory.getRuleDescription())
+                .clickOnNextBtn()
+                .validateRuleNameError("Rule name already exists. Please use a unique name.");
+
+        System.out.println("TC-----------TC_RE_2825");
     }
 
 }

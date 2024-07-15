@@ -42,6 +42,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         return this;
     }
 
+
     public AddNewColumnPage uniqueTradeIdentifierCheckbox(boolean uniqueTradeIdentifierCheckbox) {
         if (uniqueTradeIdentifierCheckbox) {
             click("(//div[@class='dx-widget dx-checkbox dx-checkbox-indeterminate dx-datagrid-checkbox-size'])[1]", "unique Trade Identifier");
@@ -92,6 +93,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
             selectFieldDataType(i);
             pause("medium");
             pause("medium");
+            pause("medium");
             switch (i) {
 //                case 0:
 //                    calculatedCheckbox(calculatedCheckbox);
@@ -100,6 +102,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
 //                    uniqueTradeIdentifierCheckbox(uniqueTradeIdentifierCheckbox);
 //                    break;
                 case 0:
+                    pause("medium");
                     readOnlyCheckbox(readOnlyCheckbox);
                     break;
 //                case 3:
@@ -122,7 +125,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         clickOnEditDataSchema();
 //        pause("low");
         click("//td[text()='Account Name']", "");
-        int maxAttempts = 20;
+        int maxAttempts = 40;
         int attempts = 0;
 
         while (!isVisible("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
@@ -130,10 +133,8 @@ public class AddNewColumnPage extends EditDataSchemaPage {
             attempts++;
         }
 
-        if (attempts == maxAttempts) {
-            // Handle the case where the maximum number of attempts is reached
-            System.out.println("The element was not found after " + maxAttempts + " attempts.");
-        }
+
+
         scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
         pause("low");
         pause("low");

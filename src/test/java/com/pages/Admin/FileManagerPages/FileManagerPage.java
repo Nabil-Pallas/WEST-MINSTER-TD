@@ -1,10 +1,14 @@
 package com.pages.Admin.FileManagerPages;
 
+import com.data.dynamic.FakerDataFactory;
 import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.AddNewRowPage;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.testng.Assert;
+import org.xml.sax.Locator;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 
@@ -18,6 +22,11 @@ public class FileManagerPage extends AdminPage {
 
     //Locator For Create Button
     private String createNewDataMapBtn = "//span[text()='Create']";
+
+    private static int size;
+    private static int size2;
+
+
 
 
     //Locator For Date Format
@@ -42,14 +51,15 @@ public class FileManagerPage extends AdminPage {
     }
 
     //Upload The File
-    public FileManagerPage fileUpload(String fileName) {
+    public FileManagerPage fileUpload(String filePath, String fileName) {
         //delete
         validateFileNameInFileManagerGridAndDelete(fileName);
         //upload
-        uploadFile(fileName);
+        uploadFile(filePath);
         reportPass("User successfully Uploaded the File.");
         return this;
     }
+
 
     public FileManagerPage validateFileNameInFileManagerGridAndDelete(String fileName) {
         waitForLoaderToDisappear();
@@ -60,7 +70,7 @@ public class FileManagerPage extends AdminPage {
             if (actualText.equalsIgnoreCase(fileName)) {
                 //if equals we are deleting it.
                 //Action Link
-                forceClick("((((//tbody[@role='presentation'])[4])//td)[" + (i + 1) + "])//a", "Action Link", "Action Item");
+                click("((((//tbody[@role='presentation'])[4])//td)[" + (i * 2) + "])//a", "Action Link", "Action Item");
                 pause("low");
                 //delete
                 click(frameSpanTextLocator("Delete"), "Delete Link", "Action Item popup");
@@ -84,27 +94,30 @@ public class FileManagerPage extends AdminPage {
     }
 
     //Selecting Existing DataMap
-    public FileManagerPage selectExistingMapping(String dataMap){
+    public FileManagerPage selectExistingMapping(String dataMap) {
 
         //Click Select mapping DropDown
-        click(frameSelectMappingLocator("Select a mapping:"),"Select Mapping DropDown","DropDown");
+        click(frameSelectMappingLocator("Select a mapping:"), "Select Mapping DropDown", "DropDown");
         pause("low");
         //click Existing Map From DropDown
-        click("//div[contains(@title,'"+dataMap+"')]","Existing DataMap");
+        click("//div[contains(@title,'" + dataMap + "')]", "Existing DataMap");
         pause("low");
         return this;
     }
 
-    public FileManagerPage clickOnApplyMapping(){
+    public FileManagerPage clickOnApplyMapping() {
         pause("low");
-        click(frameSpanTextLocator("Apply Mapping"),"Apply Mapping Button");
+        click(frameSpanTextLocator("Apply Mapping"), "Apply Mapping Button");
         pause("low");
-        String ExpectedText = "Duplicate files are not permitted.";
-        boolean AssertStatus = verifyPartialText("//ul[@class='error-list']//li",ExpectedText);
-        Assert.assertTrue(AssertStatus);
-        return  this;
+        return this;
     }
 
+    public FileManagerPage verifyErrorMessage() {
+        String ExpectedText = "Duplicate files are not permitted.";
+        boolean AssertStatus = verifyPartialText("//ul[@class='error-list']//li", ExpectedText);
+        Assert.assertTrue(AssertStatus);
+        return this;
+    }
     //Click The Create Button
     public FileManagerPage clickOnCreateBtn() {
         click(createNewDataMapBtn, "Create Button");
@@ -113,7 +126,6 @@ public class FileManagerPage extends AdminPage {
 
     //Create The New Data Map
     public FileMappingPage createNewDataMap(String dataMapName, String dateFormat) {
-        System.out.println("dataMapName----1---" + dataMapName);
         typeAndSpace(frameClientDetailsLocator("Data Map Name"), dataMapName, "Data Map Name");
         clickAndChoose(frameDateFormatLocator("Date Format", 2), frameDateFormatSelectDropDownLocator(dateFormat), dateFormat, "Date Format");
         clickOnCreateBtn();
@@ -122,15 +134,16 @@ public class FileManagerPage extends AdminPage {
     }
 
     //Validate The File Upload
-    public DashboardPage validateFileUpload(String fileName) {
+    public FileManagerPage validateFileUpload(String fileName) {
         waitForLoaderToDisappear();
+        pause("medium");
         pause("medium");
         waitForLoaderToDisappear();
         String actualElement = "((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]";
         String actualText = getInnerText("((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]");
         boolean verifyExactText = verifyExactText(actualElement, fileName);
         Assert.assertTrue(verifyExactText);
-        return new DashboardPage();
+        return this;
     }
 
     public ErrorQueuePage clickOnInvalidRowCountAndAmendErrors(String fileName) {
@@ -140,7 +153,8 @@ public class FileManagerPage extends AdminPage {
             click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]", "Invalid Row", "Invalid RowLink");
             pause("low");
             waitForElementToLoad(frameSpanTextLocator("Amend Errors"));
-            //Amend Errors
+
+            //click Amend Errors
             click(frameSpanTextLocator("Amend Errors"), "Amend Errors");
             pause("low");
         } else {
@@ -152,7 +166,6 @@ public class FileManagerPage extends AdminPage {
         reportPass("User successfully amended the errors.");
         return new ErrorQueuePage();
     }
-
 
     public FileManagerPage validateRowPromote(String fileName) {
         waitForLoaderToDisappear();
@@ -182,7 +195,7 @@ public class FileManagerPage extends AdminPage {
         click(confirmDeleteBtn, "Confirm Delete");
         pause("low");
         type(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
-        click(frameSpanTextLocator("Confirm Delete"),"Confirm Delete button");
+        click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete button");
 //        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
         pause("low");
 
@@ -191,6 +204,35 @@ public class FileManagerPage extends AdminPage {
         click(closeIcon, "Close icon");
         return new AddNewRowPage();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public FileManagerPage getValidRowCount(String fileName){
+        //click Invalid Row Count for Given File Name
+        if (isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]")) {
+            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]", "Invalid Row", "Invalid RowLink");
+            pause("low");
+            String valid = getInnerText(frameRowCountText("Valid Rows"));
+            //validRows.set(Long.parseLong(valid));
+            validRows = Long.parseLong(valid);
+            System.out.println("---"+validRows);
+        }
+        return this;
+    }
+
 }
 
 

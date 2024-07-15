@@ -47,6 +47,11 @@ public class AddNewRowPage extends DataManagerPage {
         return this;
     }
 
+    public AddNewRowPage selectBrokerName(String brokerName) {
+        clickAndChoose(frameClientDetailsLocator("Broker  Name:", 2), frameDivTextLocator(brokerName), brokerName, "Broker Name");
+        return this;
+    }
+
     // Type The Account Name
     public AddNewRowPage typeAccountName(String accountName) {
         try {
@@ -287,7 +292,62 @@ public class AddNewRowPage extends DataManagerPage {
                 .typeTradeId(tradeId);
         reportPass("User successfully entered the values on the Add New Row page.");
         return this;
+    }
 
+    //Enter the Values in Add New Row Page 10 times
+    public AddNewRowPage addNewRowInformation10Times(String brokerName, String tradeDate, String accountName, String assetClass, String baseCurrency,
+                                                     String baseExpectedValue, String baseGrossCommission, String brokerCode, String cusip, String exchange,
+                                                     String executedQuantity, String fund, String fxRate, String instrumentType, String isin,
+                                                     String localCurrency, String localExecutedValue, String localGrossCommission, String localPrice,
+                                                     String masterBroker, String portfolio, String securityDescription, String securityType, String sedol,
+                                                     String settlementDate, String side, String status, String ticker, String tradeId) {
+
+        for (int i = 0; i <= 11; i++) {
+            if (i < 11) {
+
+                typeBrokerName(brokerName)
+                        .typeTradeDate(tradeDate)
+//                .typeAccountName(accountName)
+                        .typeAssetClass(assetClass)
+                        .typeBaseCurrency(baseCurrency)
+                        .typeBaseExpectedValue(baseExpectedValue)
+                        .typeBaseGrossCommission(baseGrossCommission)
+                        .typeBrokerCode(brokerCode)
+                        .typeCusip(cusip)
+                        .typeExchange(exchange)
+                        .typeExecutedQuantity(executedQuantity)
+                        .typeFund(fund)
+                        .typeFxRate(fxRate)
+                        .typeInstrumentType(instrumentType)
+                        .typeIsin(isin)
+                        .typeLocalCurrency(localCurrency)
+                        .typeLocalExecutedValue(localExecutedValue)
+                        .typeLocalGrossCommission(localGrossCommission)
+                        .typeLocalPrice(localPrice)
+                        .typeMasterBroker(masterBroker)
+                        .typePortfolio(portfolio)
+                        .typeSecurityDescription(securityDescription)
+                        .typeSecurityType(securityType)
+                        .typeSedol(sedol)
+                        .typeSettlementDate(settlementDate)
+                        .typeSide(side)
+                        .typeStatus(status)
+                        .typeTicker(ticker)
+                        .typeTradeId(tradeId);
+                clickOnAddBtn();
+            } else {
+                clickOnApplyBtn();
+                reportPass("User successfully Added 10 rows in Add New Row");
+            }
+        }
+        return this;
+    }
+
+    public AddNewRowPage addNewRow(String brokerName, String tradeDate, String SettlementDate) {
+        selectBrokerName(brokerName)
+                .typeTradeDate(tradeDate)
+                .typeSettlementDate(SettlementDate);
+        return this;
     }
 }
 

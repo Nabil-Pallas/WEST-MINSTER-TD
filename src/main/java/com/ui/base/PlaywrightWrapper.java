@@ -200,6 +200,7 @@ public class PlaywrightWrapper extends Reporter {
      */
     public boolean typeWithType(String locator, String value, String name) {
         try {
+            getPage().locator(locator).fill("");
             getPage().locator(locator).type(value);
             reportStep("The text box : " + name + " is typed with value : " + value, "info");
             return true;
@@ -474,7 +475,6 @@ public class PlaywrightWrapper extends Reporter {
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
             getPage().locator(locator).click();
             getPage().locator(locator).fill("");
-            ;
             getPage().locator(locator).fill(typeValue);
             reportStep("The text box :" + name + " is typed with value :" + typeValue, "info");
             return true;
@@ -505,7 +505,7 @@ public class PlaywrightWrapper extends Reporter {
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
             getPage().locator(locator).scrollIntoViewIfNeeded();
             getPage().locator(locator).click();
-            reportStep("The " + type + " :" + name + " is clicked", "info");
+            reportStep("The " + type + " : " + name + " is clicked", "info");
             return true;
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
@@ -1072,7 +1072,6 @@ public class PlaywrightWrapper extends Reporter {
     public boolean verifyExactText(String locator, String expectedText) {
         try {
             if (getPage().locator(locator).innerText().equals(expectedText)) {
-
                 reportStep("The element with text : " + expectedText + " displayed as expected", "pass");
                 return true;
             } else reportStep("The element with text : " + expectedText + " did not match", "warning");
@@ -1177,16 +1176,18 @@ public class PlaywrightWrapper extends Reporter {
 
     /**
      * Use this method return the List of Locators
+     *
      * @param locator The locator to identify the element
      * @return Returns the locators
      * @author Srikanth
      */
-//	public List<ElementHandle> getListElements(String locator){
-//		try {
-//			getPage().locator(locator).elementHandles();
-//		}catch (PlaywrightException e){}
-//		return getPage().locator(locator).elementHandles();
-//	}
+    public List<ElementHandle> getListElements(String locator) {
+        try {
+            getPage().locator(locator).elementHandles();
+        } catch (PlaywrightException e) {
+        }
+        return getPage().locator(locator).elementHandles();
+    }
 
 
     /**
@@ -1451,7 +1452,7 @@ public class PlaywrightWrapper extends Reporter {
 
     public void uploadFile(String fileName) {
         try {
-            getPage().setInputFiles("input[type='file']", Path.of("./src/test/resources/upload/" + fileName));
+            getPage().setInputFiles("input[type='file']", Path.of(fileName));
             /*waitForAppearance("//img[@data-testid='preview-thumbnail']");*/
             reportStep("File is Uploaded", "info");
         } catch (PlaywrightException e) {

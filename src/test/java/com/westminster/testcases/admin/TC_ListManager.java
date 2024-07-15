@@ -27,7 +27,7 @@ public class TC_ListManager extends WestMinsterPageHook {
     @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
     public void addNewList() {
         newListName.set(FakerDataFactory.getListName());
-        List<String> listItems = FakerDataFactory.getListOfItems(4);
+        listItems.set(FakerDataFactory.getListOfItems(4));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -38,15 +38,15 @@ public class TC_ListManager extends WestMinsterPageHook {
                 .clickOnAddNewListBtn()
                 .validateAddListItemPage()
                 .typeListTitle(newListName.get())
-                .typeListItems(listItems)
+                .typeListItems(listItems.get())
                 .clickOnSaveListBtn()
-                .validateListNameAndItem(newListName.get(), listItems);
+                .validateListNameAndItem(newListName.get(), listItems.get());
         System.out.println("TC-----------08");
 
     }
 
-    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User"})
-    public void editList() {
+    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
+     public void editList() {
         testcaseName = "TC_5357 " + xmlUserLevel;
         testDescription = "Edit List and Validate";
         authors = "Automation Team";
@@ -55,7 +55,7 @@ public class TC_ListManager extends WestMinsterPageHook {
         setNode();
         newListName.set(FakerDataFactory.getListName());
         String listItem = FakerDataFactory.getListItem();
-        List<String> listItems = FakerDataFactory.getListOfItems(1);
+        listItems.set(FakerDataFactory.getListOfItems(4));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -67,9 +67,9 @@ public class TC_ListManager extends WestMinsterPageHook {
                 .clickOnEditList()
                 .typeListTitle(newListName.get())
                 .editListItem(listItem)
-                .typeListItems(listItems)
+                .typeListItems(listItems.get())
                 .clickOnSaveListBtn()
-                .validateListNameAndItem(newListName.get(), listItems)
+                .validateListNameAndItem(newListName.get(), listItems.get())
                 .deleteListItem(newListName.get());
         System.out.println("TC-----------09");
 

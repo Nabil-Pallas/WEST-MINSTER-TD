@@ -9,12 +9,35 @@ import com.pages.Admin.AdminPage;
 import org.testng.Assert;
 
 public class EditDataSchemaPage extends DataManagerPage {
-    String EditDataSchemaColumnsText = "//h1[text()='Edit Data Schema Columns']";
+    private String EditDataSchemaColumnsText = "//h1[text()='Edit Data Schema Columns']";
+    private String parameterTypeText = "(//input[@class='dx-texteditor-input'])[4]";
+    private String selectParameterType = "((//input[@class='dx-texteditor-input'])[4]/following::div[@class='dx-texteditor-buttons-container'])[2]";
+    private String selectList = "//input[@name='DATA_LIST_LABEL']//..";
 
     public EditDataSchemaPage validateEditDataSchemaColumnsPage() {
         waitForElementToLoad(EditDataSchemaColumnsText);
         if (isVisible(EditDataSchemaColumnsText, "Edit Data Schema")) {
             reportPass("User successfully reached the correct Edit Data Schema Columns page.");
+        } else {
+            reportFailAndThrowException("Edit Data Schema Columns Page is not loaded.");
+        }
+        return this;
+    }
+
+    public EditDataSchemaPage validateEditFieldValidationParametersPage() {
+        waitForElementToLoad(frameDivTextLocator("Edit Field Validation Parameters"));
+        if (isVisible(frameDivTextLocator("Edit Field Validation Parameters"), "Edit Field Validation Parameters")) {
+            reportPass("User successfully reached the correct Edit Field Validation Parameters page.");
+        } else {
+            reportFailAndThrowException("Edit Data Schema Columns Page is not loaded.");
+        }
+        return this;
+    }
+
+    public EditDataSchemaPage validateAddFieldValidationParametersPage() {
+        waitForElementToLoad(frameDivTextLocator("Add Field Validation Parameters"));
+        if (isVisible(frameDivTextLocator("Add Field Validation Parameters"), "Add Field Validation Parameters")) {
+            reportPass("User successfully reached the correct Add Field Validation Parameters page.");
         } else {
             reportFailAndThrowException("Edit Data Schema Columns Page is not loaded.");
         }
@@ -55,6 +78,57 @@ public class EditDataSchemaPage extends DataManagerPage {
             }
         }
         return new AdminPage();
+    }
+
+    public EditDataSchemaPage clickOnActionIcon(String fieldName) {
+        pause("medium");
+        scrollToElement("//td[text()='" + fieldName + "']");
+        forceClick("(//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", fieldName, "Action Icon");
+        return this;
+    }
+
+    public EditDataSchemaPage clickOnEditValidation() {
+        click(frameSpanTextLocator("Edit Validation"), "Edit Validation", "Edit Validation");
+        return this;
+    }
+
+    public EditDataSchemaPage clickOnAddValidation() {
+        click(frameSpanTextLocator("Add Validation"), "Add Validation", "Add Validation");
+        return this;
+    }
+
+    public EditDataSchemaPage selectParameterType() {
+        String getParameterTypeText = getInputText(parameterTypeText);
+        if (getParameterTypeText.equals("List")) {
+            reportPass("Parameter type is already in List");
+        } else {
+            clickAndChoose(selectParameterType, frameDivTextLocator("List"), "List", "Parameter Type");
+        }
+        return this;
+    }
+
+    public EditDataSchemaPage selectAList(String list) {
+        clickAndChoose(selectList, frameUserSearchResult(list), list, "Select A List");
+        return this;
+    }
+
+    public EditDataSchemaPage clickOnApplyBtn() {
+        click(frameSpanTextLocator("Apply"), "Apply", "Button");
+        return this;
+    }
+
+    public EditDataSchemaPage clickOnExit() {
+        click(frameSpanTextLocator("< Exit"), "Exit Button");
+        pause("medium");
+        return this;
+    }
+
+    public EditDataSchemaPage addFieldValidationParameters(String list) {
+        selectParameterType()
+                .selectAList(list)
+                .clickOnApplyBtn()
+                .clickOnExit();
+        return this;
     }
 
     public EditDataSchemaPage clickOnApplyAndExitBtn() {

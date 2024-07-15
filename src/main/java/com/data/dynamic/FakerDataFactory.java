@@ -176,6 +176,13 @@ public class FakerDataFactory {
         return faker.company().industry();
     }
 
+    public static String getBrokerNameWithTimeStamp() {
+        Faker faker = new Faker();
+        String companyName = faker.company().industry().split(" ")[0]; // Get the first word of the company name
+        String timeStamp = getTimeStamp(); // Get the current timestamp
+        return companyName + timeStamp;
+    }
+
     public static String getListName() {
         String buzzword = faker.company().buzzword(); // Generate a random buzzword
         String timeStamp = getTimeStamp(); // Get the current time in HH:mm:ss format

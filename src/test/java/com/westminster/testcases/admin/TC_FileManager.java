@@ -81,7 +81,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     }
 
-
+    //Srikanth
     //TC-961 - Upload a file which already uploaded with same data but with different file name
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadSameContentFileWDiffName() {
@@ -116,7 +116,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .verifyErrorMessage();
 
     }
-
+    //Srikanth
     //TC-1603 - Test to verify whether multiple files with same name but different content can be uploaded or not. To do that we have to upload two different files with different contents in the same name. Expected outcome is, warning message should be displayed saying that "duplicate files are not allowed" and the file should not get uploaded.
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadDiffContentFileWSameName() {
@@ -264,7 +264,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(filePath.get(), fileName.get())
+                .fileUpload(filePath.get(),fileName.get())
                 .clickOnCreateNewMapping()
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
@@ -273,4 +273,39 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get());
     }
+
+    //Manoj
+    //Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page allows unlimited columns.
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void addSystemColumnsMoreThan10Rows() {
+        testcaseName = "TC_RE_1623 " + xmlUserLevel;
+        testDescription = "Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page";
+        authors = "Automation Team";
+        category = "Add System Columns More Than 10 Rows";
+        startTestCase();
+        setNode();
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
+        fileName.set("SampleFile_AU_Chrome.csv");
+        ruleName.set(FakerDataFactory.getDataMapName());
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(ruleName.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .clickOnAddNewSystemColumns()
+                .validateAddNewSystemColumnsPage()
+                .typeInformationInAddNewSystemColumns(3)
+                .validateFileMappingPage()
+                .verifyAddedColumnsInSystemColumnName(3);
+
+        System.out.println("TC-----------TC_RE_1623");
+    }
+
+
 }

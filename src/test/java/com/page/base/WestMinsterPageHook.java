@@ -22,6 +22,7 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> userMailId = new ThreadLocal<>();
     public static final ThreadLocal<String> userMailIdText = new ThreadLocal<>();
     public static final ThreadLocal<String> ruleName = new ThreadLocal<>();
+    public static final ThreadLocal<String> getFirstRuleNametext = new ThreadLocal<>();
     public static final ThreadLocal<String> newListName = new ThreadLocal<>();
     public static final ThreadLocal<List<String>> listItems = new ThreadLocal<>();
     public static final ThreadLocal<String> analysisName = new ThreadLocal<>();
@@ -29,7 +30,8 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> recipientEmail = new ThreadLocal<>();
     public static final ThreadLocal<String> titleone = new ThreadLocal<>();
     public static final ThreadLocal<String> descriptionOne = new ThreadLocal<>();
-
+    public static final ThreadLocal<String> newSystemColumnName = new ThreadLocal<>();
+    public static final ThreadLocal<List<String>> addedColumns = new ThreadLocal<>();
     public static final ThreadLocal<String> titleTwo = new ThreadLocal<>();
     public static final ThreadLocal<String> descriptionTwo = new ThreadLocal<>();
     public static final ThreadLocal<String> filePath = new ThreadLocal<>();
@@ -137,8 +139,8 @@ public class WestMinsterPageHook extends ProjectHooks {
 
             // Load the page with URL based on configuration
             navigate(ConfigurationManager.configuration().baseStagingUrl());
-            new MenuPage().doLogin(userLevel, password)
-                    .dateFormattingInPreferences();
+            new MenuPage().doLogin(userLevel, password);
+//                    .dateFormattingInPreferences();
 
 
         } catch (Exception e) {

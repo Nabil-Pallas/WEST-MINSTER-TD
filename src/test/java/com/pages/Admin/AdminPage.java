@@ -1,7 +1,6 @@
 package com.pages.Admin;
 
 import com.config.ConfigurationManager;
-import com.page.base.DashboardPage;
 import com.page.base.MenuPage;
 import com.page.base.WestMinsterPageHook;
 import com.pages.Admin.DataManagerPages.DataManagerPage;
@@ -40,7 +39,7 @@ public class AdminPage extends MenuPage {
     }
 
     public String selectRolesCheckBox(String placeholder) {
-        return "//span[contains(., '"+placeholder+"')]/ancestor::div[contains(@class, 'dx-item')]/div[contains(@class, 'dx-list-item-before-bag')]//div[contains(@class, 'dx-checkbox-container')]/span[@class='dx-checkbox-icon']";
+        return "//span[contains(., '" + placeholder + "')]/ancestor::div[contains(@class, 'dx-item')]/div[contains(@class, 'dx-list-item-before-bag')]//div[contains(@class, 'dx-checkbox-container')]/span[@class='dx-checkbox-icon']";
     }
 
     public String selectRolesCheckBox(int index) {
@@ -77,6 +76,17 @@ public class AdminPage extends MenuPage {
         pause("low");
         return "//span[contains(text(),'" + placeholder + "')]";
     }
+
+    public String frameSpanExactTextLocator(String placeholder) {
+        pause("low");
+        return "//span[text()='" + placeholder + "']";
+    }
+
+    public String frameSpanExactTextLocator(String placeholder, int index) {
+        pause("low");
+        return "(//span[text()='" + placeholder + "'])[" + index + "]";
+    }
+
     public String frameSelectMappingLocator(String placeholder) {
         return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div";
     }

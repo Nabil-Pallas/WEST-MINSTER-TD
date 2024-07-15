@@ -228,11 +228,4 @@ public class AdminPage extends MenuPage {
         return new ListManagerPage();
     }
 
-
-
-
-
-
-    public DashboardPage
-
 }

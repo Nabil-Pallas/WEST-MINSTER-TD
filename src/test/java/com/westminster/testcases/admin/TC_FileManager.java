@@ -191,6 +191,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     }
 
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void fileUpload_AddSystemColumn() {
         testcaseName = "TC_1304 " + xmlUserLevel;
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
@@ -313,5 +314,35 @@ public class TC_FileManager extends WestMinsterPageHook {
                         Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Spot Rate", "Trade ID", "Ticker", "COMMISSION", "Local Executed Value", "CURRENCY", "Instrument Type", "Fund", "Security Description", "PRICE", "QUANTITY"))
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get());
+    }
+
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void validateFileWithWrongDateFormat(){
+        testcaseName = "TC_1493 " + xmlUserLevel;
+        testDescription = "validation of wrong date format";
+        authors = "Automation Team";
+        category = "Error Validation";
+        startTestCase();
+        setNode();
+        filePath.set("./src/test/resources/upload/2019_trade_data.csv");
+        fileName.set("2019_trade_data.csv");
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .clickFilterAndSelectInvalidCells(fileName.get())
+                .validateErrorrowsAndInvalidcells();
     }
 }

@@ -3,8 +3,6 @@ package com.westminster.testcases.admin;
 import java.util.Arrays;
 import java.util.List;
 
-import com.config.ConfigurationManager;
-import com.pages.Admin.DataManagerPages.AddNewRowPage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -196,6 +194,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------02");
 
     }
+
     // Sanjay Kumar
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void mapColumns() {
@@ -222,6 +221,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .mappingFileAndSystemColumns(systemColumnNames);
         System.out.println("TC-----------01");
     }
+
     // Sanjay Kumar
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload6000DataFile() {
@@ -310,5 +310,38 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateErrorQueuePage()
                 .clickFilterAndSelectInvalidCells(fileName.get())
                 .validateErrorrowsAndInvalidcells();
+    }
+
+    //Manoj
+    //Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page allows unlimited columns.
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void addSystemColumnsMoreThan10Rows() {
+        testcaseName = "TC_RE_1623 " + xmlUserLevel;
+        testDescription = "Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page";
+        authors = "Automation Team";
+        category = "Add System Columns More Than 10 Rows";
+        startTestCase();
+        setNode();
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
+        fileName.set("SampleFile_AU_Chrome.csv");
+        ruleName.set(FakerDataFactory.getDataMapName());
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(ruleName.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .clickOnAddNewSystemColumns()
+                .validateAddNewSystemColumnsPage()
+                .typeInformationInAddNewSystemColumns(3)
+                .validateFileMappingPage()
+                .verifyAddedColumnsInSystemColumnName(3);
+
+        System.out.println("TC-----------TC_RE_1623");
     }
 }

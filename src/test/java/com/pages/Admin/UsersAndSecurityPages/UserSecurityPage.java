@@ -147,7 +147,8 @@ public class UserSecurityPage extends AdminPage {
 
     public UserSecurityPage validateRoleInformation(String roleName, String roleName2) {
         waitForLoaderToDisappear();
-        pause("low");
+        pause("medium");
+        waitForLoaderToDisappear();
         typeSearchRoles(roleName);
         String str = getInnerText(frameClientDetailsLocator(roleName));
        // waitForElementToLoad(frameUserSearchResult(roleName));
@@ -160,11 +161,8 @@ public class UserSecurityPage extends AdminPage {
             boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
             Assert.assertTrue(verifyExactText);
         }else{
-            waitForLoaderToDisappear();
-            pause("medium");
-            waitForLoaderToDisappear();
             typeSearchRoles(roleName2);
-            waitForElementToLoad(frameUserSearchResult(roleName2));
+            pause("medium");
             boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName2), roleName2);
             Assert.assertTrue(verifyExactText);
 

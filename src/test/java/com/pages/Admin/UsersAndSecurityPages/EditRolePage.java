@@ -1,6 +1,8 @@
 package com.pages.Admin.UsersAndSecurityPages;
 
-public static class EditRolePage extends UserSecurityPage {
+import org.testng.Assert;
+
+public class EditRolePage extends UserSecurityPage {
 
     private String editRoleText = "//div[text()='Edit role']";
     private String applyBtn = "//span[text()='Apply']";
@@ -15,8 +17,14 @@ public static class EditRolePage extends UserSecurityPage {
         return this;
     }
 
-    public EditRolePage clearTypeRoleName(String roleName) {
-        typeAndSpace(frameClientDetailsLocator("Role Name"), roleName, "RoleName");
+    public EditRolePage clearTypeRoleName(String roleName, String roleName2) {
+        pause("low");
+        String getInnerText = getInputText(frameClientDetailsLocator("Role Name"));
+        if (roleName.equals(getInnerText)) {
+            typeAndSpace(frameClientDetailsLocator("Role Name"), roleName2, "Role Name");
+        } else {
+            typeAndSpace(frameClientDetailsLocator("Role Name"), roleName, "Role Name");
+        }
         return this;
     }
 
@@ -47,30 +55,49 @@ public static class EditRolePage extends UserSecurityPage {
         waitForElementToLoad(frameClientDetailsLocator("Role Name"));
 
         //  waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-        clearTypeRoleName(roleName2)
+        clearTypeRoleName(roleName,roleName2)
                 .clearTypeRoleDescription(roleDescription)
 //                .clickAndselectTier(tier)
 //                .clickAndselectClient(client)
                 .clickAndselectPermissions(permission);
         reportPass("User successfully edited Role Information");
 
-        // waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-        clearTypeRoleName(roleName)
-                .clearTypeRoleDescription(roleDescription)
-//                .clickAndselectTier(tier)
-//                .clickAndselectClient(client)
-                .clickAndselectPermissions(permission);
-        reportPass("User successfully edited Role Information");
-    }
         return this;
-}
+    }
 
 //Validate Tickmark
 
-public UserSecurityPage clickOnApplyBtn() {
-    click(applyBtn, "Apply Button");
-    pause("low");
-    return new UserSecurityPage();
-}
+    public UserSecurityPage clickOnApplyBtn() {
+        click(applyBtn, "Apply Button");
+        pause("low");
+        return new UserSecurityPage();
+    }
 
+
+    public UserSecurityPage validateRoleInformation(String roleName, String roleName2) {
+        waitForLoaderToDisappear();
+        pause("low");
+        typeSearchRoles(roleName);
+        String str = getInnerText(frameClientDetailsLocator(roleName));
+        // waitForElementToLoad(frameUserSearchResult(roleName));
+        if (roleName.equals(str)) {
+//            waitForLoaderToDisappear();
+//            pause("medium");
+//            waitForLoaderToDisappear();
+//            typeSearchRoles(roleName);
+//            waitForElementToLoad(frameUserSearchResult(roleName));
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
+            Assert.assertTrue(verifyExactText);
+        } else {
+            waitForLoaderToDisappear();
+            pause("medium");
+            waitForLoaderToDisappear();
+            typeSearchRoles(roleName2);
+            waitForElementToLoad(frameUserSearchResult(roleName2));
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName2), roleName2);
+            Assert.assertTrue(verifyExactText);
+
+        }
+        return this;
+    }
 }

@@ -42,6 +42,8 @@ public class EditUserPage extends UserSecurityPage {
     public EditUserPage clickAndselectRole(int index) {
         pause("low");
         clickAndChoose(frameClientDetailsLocator("Roles", 1), selectRolesCheckBox(index), "Second", "Roles");
+        pause("low");
+        click(frameClientDetailsLocator("Roles", 1), "Roles", "Select Field");
         return this;
     }
 
@@ -56,8 +58,13 @@ public class EditUserPage extends UserSecurityPage {
     }
 
     public UserSecurityPage clickOnApplyBtn() {
-        click(applyBtn, "Apply Button");
         pause("medium");
+        click(applyBtn, "Apply Button");
+        pause("low");
+        if(isVisible(frameSpanTextLocator("YES"))){
+            pause("low");
+            click(frameSpanTextLocator("YES"),"YES");
+        }
         return new UserSecurityPage();
     }
 

@@ -43,14 +43,25 @@ public class EditRolePage extends UserSecurityPage {
     }
 
 
-    public EditRolePage editRoleInformation(String roleName, String roleDescription, String tier, String client, String permission) {
+    public EditRolePage editRoleInformation(String roleName, String roleName2, String roleDescription, String tier, String client, String permission) {
         waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-        clearTypeRoleName(roleName)
-                .clearTypeRoleDescription(roleDescription)
+        if(roleName.equals("Automation_QA_testing")) {
+          //  waitForElementToLoad(frameClientDetailsLocator("Role Name"));
+            clearTypeRoleName(roleName)
+                    .clearTypeRoleDescription(roleDescription)
 //                .clickAndselectTier(tier)
 //                .clickAndselectClient(client)
-                .clickAndselectPermissions(permission);
-        reportPass("User successfully edited Role Information");
+                    .clickAndselectPermissions(permission);
+            reportPass("User successfully edited Role Information");
+        } else{
+           // waitForElementToLoad(frameClientDetailsLocator("Role Name"));
+            clearTypeRoleName(roleName2)
+                    .clearTypeRoleDescription(roleDescription)
+//                .clickAndselectTier(tier)
+//                .clickAndselectClient(client)
+                    .clickAndselectPermissions(permission);
+            reportPass("User successfully edited Role Information");
+        }
         return this;
     }
 

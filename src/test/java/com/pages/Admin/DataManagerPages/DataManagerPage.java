@@ -101,6 +101,8 @@ public class DataManagerPage extends AdminPage {
         if (isVisible("//div[contains(text(),'Delete')]")) {
             click("//span[text()='Yes']", "Click Yes Button");
             reportPass("User successfully clicked Yes button.");
+            typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']","delete","Enter Delete in input box");
+            click("//span[text()='Confirm Delete']","Click Delete button");
         }
         return new EditDataManagerRow();
     }
@@ -133,6 +135,7 @@ public class DataManagerPage extends AdminPage {
     //Validate the Add New Row Information
     public DataManagerPage validateAddedRowInformation(String verificationValue, String verificationHeader) {
 //        waitForLoaderToDisappear();
+        List<String> list = new ArrayList<>();
         pause("medium");
         pause("medium");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
@@ -143,14 +146,16 @@ public class DataManagerPage extends AdminPage {
             if (headerText.equalsIgnoreCase(verificationHeader)) {
                 click(searchValueWithHeader(i), "Search Filter", "Search Box");
                 type(searchValueWithHeader(i), verificationValue, verificationValue);
+                pause("medium");
+                pause("medium");
                 int count = getLocatorsCount("//td[text()='" + verificationValue + "']");
-                List<String> list = new ArrayList<>();
-                for (int j = 1; j < count; j++) {
-                    list.add(getInnerText("(//td[text()='" + verificationValue + "'])[" + j + "]"));
-                }
-
-                for (String li : list) {
-                    boolean verifyExactText = verifyExactText(li, verificationValue);
+                System.out.println("Locators count: "+count);
+                for (int j = 1; j <=count; j++) {
+                    if(j<=count){
+                        list.add(getInnerText("(//td[text()='" + verificationValue + "'])[" + j + "]"));
+                    }
+                    System.out.println(list.size());
+                    boolean verifyExactText = verifyExactText("(//td[text()='" + verificationValue + "'])[" + j + "]", list.get(j-1));
                     Assert.assertTrue(verifyExactText);
                 }
                 // String brokerElement = "//td[text()='" + verificationValue + "']";
@@ -158,7 +163,9 @@ public class DataManagerPage extends AdminPage {
 //               Assert.assertTrue(verifyExactText);
 //                break;
             }
+           // System.out.println("Size of list: "+list.size());
         }
+        System.out.println("Size of list: "+list.size());
         return new DataManagerPage();
     }
 

@@ -37,7 +37,8 @@ public class TC_RulesManager extends WestMinsterPageHook {
                 .defineTheNewColumn(true, FakerDataFactory.getFieldName(), "")
                 .addFilters("Broker Name", "=")
                 .defineTheCalculation("Local Price", "*", "Local Price")
-                .validateNewRuleNameIsEnabled(ruleName.get());
+                .validateNewRuleNameIsEnabled(ruleName.get())
+                .deleteRuleName();
         System.out.println("TC-----------06");
     }
 
@@ -65,11 +66,11 @@ public class TC_RulesManager extends WestMinsterPageHook {
                 .editDefineTheNewColumn(true, FakerDataFactory.getFieldName())
                 .editAddFilters()
                 .editDefineTheCaluculation("FX Rate", "*", "FX Rate")
-                .validateEditRuleChanges(ruleName.get(), ruleDescription)
-                .deleteRuleName();
+                .validateEditRuleChanges(ruleName.get(), ruleDescription);
         System.out.println("TC-----------07");
     }
 
+    //Manoj
     //Ensure an error message appears when creating a rule with a duplicate name:
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDuplicateRuleNameError() {

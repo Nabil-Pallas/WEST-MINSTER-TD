@@ -40,12 +40,13 @@ public class TC_ListManager extends WestMinsterPageHook {
                 .typeListTitle(newListName.get())
                 .typeListItems(listItems.get())
                 .clickOnSaveListBtn()
-                .validateListNameAndItem(newListName.get(), listItems.get());
+                .validateListNameAndItem(newListName.get(), listItems.get())
+                .deleteListItem(newListName.get());
         System.out.println("TC-----------08");
 
     }
 
-    //@Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
+    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
      public void editList() {
         testcaseName = "TC_5357 " + xmlUserLevel;
         testDescription = "Edit List and Validate";
@@ -69,8 +70,7 @@ public class TC_ListManager extends WestMinsterPageHook {
                 .editListItem(listItem)
                 .typeListItems(listItems.get())
                 .clickOnSaveListBtn()
-                .validateListNameAndItem(newListName.get(), listItems.get())
-                .deleteListItem(newListName.get());
+                .validateListNameAndItem(newListName.get(), listItems.get());
         System.out.println("TC-----------09");
 
     }

@@ -22,7 +22,8 @@ public class UserSecurityPage extends AdminPage {
     private String clientActionLink = "(//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines'])[2]/td[2]//a";
     private String userActionLink = "((((//tbody[@role='presentation'])[8])//tr)//td[2])//a";
     private String userActionLinkTier2Admin = "((((//tbody[@role='presentation'])[4])//tr)//td[2])//a";
-    private String roleActionLink = "((((((//tbody[@role='presentation'])[8])//tr)[1])//td)[3])//a";
+    private String roleActionTier1Admin = "((((((//tbody[@role='presentation'])[8])//tr)[1])//td)[3])//a";
+    private String roleActionTier1User = "((((((//tbody[@role='presentation'])[7])//tr)[1])//td)[3])//a";
     private String roleActionLinkTier2Admin = "((((((//tbody[@role='presentation'])[4])//tr)[1])//td)[3])//a";
     private String applyBtn = "//span[text()='Apply']";
     private String firstName1 = "Automation_QA_testing";
@@ -251,34 +252,62 @@ public class UserSecurityPage extends AdminPage {
                //String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
                 pause("medium");
                 click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
+                pause("medium");
+                click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
             } else {
                     typeSearchRoles(firstName2);
                     pause("medium");
                     click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
+                    pause("medium");
+                    click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
+                }
+                break;
+
+            case "Tier1User":
+//                String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
+                typeSearchRoles(firstName1);
+                pause("low");
+                String firstGridName2 = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
+                if(firstName1.equals(firstGridName2)){
+                    //String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
+                    pause("medium");
+                    click(roleActionTier1User, "First Grid Action Item", "Link");
+                    pause("medium");
+                    click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
+                } else {
+                    typeSearchRoles(firstName2);
+                    pause("medium");
+                    click(roleActionTier1User, "First Grid Action Item", "Link");
+                    pause("medium");
+                    click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
                 }
                 break;
             default:
 //                String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
                 typeSearchRoles(firstName1);
-                String firstGridName2 = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
-                if(firstName1.equals(firstGridName2)){
+                String firstGridName3 = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
+                if(firstName1.equals(firstGridName3)){
                     //String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
                     pause("medium");
-                    click(roleActionLink, "First Grid Action Item", "Link");
+                    click(roleActionTier1Admin, "First Grid Action Item", "Link");
+                    pause("medium");
+                    click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
                 } else {
                     typeSearchRoles(firstName2);
                     pause("medium");
-                    click(roleActionLink, "First Grid Action Item", "Link");
+                    click(roleActionTier1Admin, "First Grid Action Item", "Link");
+                    pause("medium");
+                    click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
                 }
 //                //String firstGridName = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
 //                typeSearchRoles(firstGridName);
 //                pause("medium");
-//                click(roleActionLink, "First Grid Action Item", "Link");
+//                click(roleActionTier1Admin, "First Grid Action Item", "Link");
                 break;
         }
-        pause("medium");
+        //pause("medium");
        // waitForAppearance(frameEditClientDetailsResult("Edit Role"), "Edit Role");
-        click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
+//        click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
         return new EditRolePage();
     }
 
@@ -347,7 +376,7 @@ public class UserSecurityPage extends AdminPage {
                 click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
                 break;
             default:
-                click(roleActionLink, "First Grid Action Item", "Link");
+                click(roleActionTier1Admin, "First Grid Action Item", "Link");
                 break;
         }
         pause("low");

@@ -120,7 +120,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .searchUserAndClickFirstGrid("")
                 .clickOnEditUser()
                 .validateEditUserPage()
-                .editUserInformation(userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber())
+                .editUserInformation(userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber(), 1)
                 .clickOnApplyBtn()
                 .validateUserInformation(displayUserName, userMailIdText.get())
                 .deleteUser(displayUserName);
@@ -213,8 +213,8 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
 
     //Srikanth
     //TC_2004
-    @Test(priority = 29, groups = {"Tier1Admin", "Tier1User", "Tier2Admin",TestGroups.Type.REGRESSION})
-    public void roleCreationAndAssignRole(){
+    @Test(priority = 29, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
+    public void roleCreationAndAssignRole() {
         testcaseName = "TC_2004 " + xmlUserLevel;
         testDescription = "Create Role And Assign that Role to User";
         authors = "Automation Team";
@@ -226,7 +226,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         userLastName.set(FakerDataFactory.getLastName());
         userMailId.set(FakerDataFactory.getEmailAddress());
         String mail = userMailId.get();
-        System.out.println("---"+mail);
+        System.out.println("---" + mail);
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -240,10 +240,10 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateRoleInformation(userFirstName.get())
                 .clickOnUserTab()
                 .clickOnaddNewUsrBtn()
-                .fillUserInformation2(FakerDataFactory.getFirstName(),FakerDataFactory.getLastName(),userMailId.get(),
-                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2",userFirstName.get())
+                .fillUserInformation2(FakerDataFactory.getFirstName(), FakerDataFactory.getLastName(), userMailId.get(),
+                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", userFirstName.get())
                 .clickOnApplyBtn()
-                .validateUserRoleAndMail(userMailId.get(),userFirstName.get());
+                .validateUserRoleAndMail(userMailId.get(), userFirstName.get());
 
     }
 

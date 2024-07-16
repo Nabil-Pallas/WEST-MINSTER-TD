@@ -46,11 +46,12 @@ public class EditUserPage extends UserSecurityPage {
     }
 
 
-    public EditUserPage editUserInformation(String firstName, String lastName, String phoneNo) {
+    public EditUserPage editUserInformation(String firstName, String lastName, String phoneNo, int index) {
         waitForElementToLoad(frameClientDetailsLocator("First Name"));
         typeFirstName(firstName)
                 .typeLastName(lastName)
-                .typePhoneNo(phoneNo);
+                .typePhoneNo(phoneNo)
+                .clickAndselectRole(index);
         reportPass("User successfully edited User Information");
         return this;
     }

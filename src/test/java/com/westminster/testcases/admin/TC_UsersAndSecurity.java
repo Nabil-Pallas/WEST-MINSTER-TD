@@ -174,12 +174,12 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnUserSecurity()
                 .validateUserSecurityPage()
                 .clickOnRolesTab()
-                .searchAndEditRoleDetails("")
+                .searchAndEditRoleDetails("Automation_QA_testing","QA_Automation_testing")
                 .validateEditRolePage()
-                .editRoleInformation(userFirstName.get(), userLastName.get(), "", "", "Manage Data")
+                .editRoleInformation("QA_Automation_testing", "Automation_QA_testing",userLastName.get(), "", "", "Manage Data")
                 .clickOnApplyBtn()
-                .validateRoleInformation(userFirstName.get())
-                .deleteRole(userFirstName.get());
+                .validateRoleInformation("QA_Automation_testing","Automation_QA_testing");
+               // .deleteRole(userFirstName.get());
         System.out.println("TC-----------27");
     }
 

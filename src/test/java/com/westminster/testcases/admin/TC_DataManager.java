@@ -211,7 +211,6 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnListManager()
                 .validateListManagerPage()
                 .deleteListItem(newListName.get());
-
         System.out.println("TC-----------TC_RE_5429");
     }
 

@@ -25,6 +25,8 @@ public class UserSecurityPage extends AdminPage {
     private String roleActionLink = "((((((//tbody[@role='presentation'])[8])//tr)[1])//td)[3])//a";
     private String roleActionLinkTier2Admin = "((((((//tbody[@role='presentation'])[4])//tr)[1])//td)[3])//a";
     private String applyBtn = "//span[text()='Apply']";
+    private String firstName1 = "Automation_QA_testing";
+    private String firstName2 = "QA_Automation_testing";
 
     public UserSecurityPage validateUserSecurityPage() {
         waitForElementToLoad(userAndsecurityText);
@@ -143,6 +145,28 @@ public class UserSecurityPage extends AdminPage {
         return this;
     }
 
+    public UserSecurityPage validateRoleInformation(String roleName, String roleName2) {
+        if(roleName.equals("Automation_QA_testing")) {
+            waitForLoaderToDisappear();
+            pause("medium");
+            waitForLoaderToDisappear();
+            typeSearchRoles(roleName);
+            waitForElementToLoad(frameUserSearchResult(roleName));
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
+            Assert.assertTrue(verifyExactText);
+        }else{
+            waitForLoaderToDisappear();
+            pause("medium");
+            waitForLoaderToDisappear();
+            typeSearchRoles(roleName2);
+            waitForElementToLoad(frameUserSearchResult(roleName2));
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName2), roleName2);
+            Assert.assertTrue(verifyExactText);
+
+        }
+        return this;
+    }
+
     public UserSecurityPage validateUserRoleAndMail(String emailId,String role) {
         waitForLoaderToDisappear();
         pause("medium");
@@ -214,25 +238,46 @@ public class UserSecurityPage extends AdminPage {
 
 
 
-    public EditRolePage searchAndEditRoleDetails(String roleName) {
+    public EditRolePage searchAndEditRoleDetails(String roleName, String roleName2) {
         waitForLoaderToDisappear();
+        String firstName1 = roleName;
+        String firstName2 = roleName2;
         switch (xmlUserLevel) {
             case "Tier2Admin":
+//                String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
+                typeSearchRoles(firstName1);
                 String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
-                typeSearchRoles(firstGridName1);
+                if(firstName1.equals(firstGridName1)){
+               //String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
                 pause("medium");
                 click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
+            } else {
+                    typeSearchRoles(firstName2);
+                    pause("medium");
+                    click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
+                }
                 break;
             default:
-                String firstGridName = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
-                typeSearchRoles(firstGridName);
-                pause("medium");
-                click(roleActionLink, "First Grid Action Item", "Link");
+//                String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
+                typeSearchRoles(firstName1);
+                String firstGridName2 = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
+                if(firstName1.equals(firstGridName2)){
+                    //String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
+                    pause("medium");
+                    click(roleActionLink, "First Grid Action Item", "Link");
+                } else {
+                    typeSearchRoles(firstName2);
+                    pause("medium");
+                    click(roleActionLink, "First Grid Action Item", "Link");
+                }
+//                //String firstGridName = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
+//                typeSearchRoles(firstGridName);
+//                pause("medium");
+//                click(roleActionLink, "First Grid Action Item", "Link");
                 break;
         }
-
-
-        waitForAppearance(frameEditClientDetailsResult("Edit Role"), "Edit Role");
+        pause("medium");
+       // waitForAppearance(frameEditClientDetailsResult("Edit Role"), "Edit Role");
         click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
         return new EditRolePage();
     }

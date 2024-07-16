@@ -51,7 +51,7 @@ public class AdminPage extends MenuPage {
     }
 
     public String selectPermissionCheckBox(String placeholder) {
-        return "//div[text()='" + placeholder + "']";
+        return "//span[contains(., '"+placeholder+"')]/ancestor::div[contains(@class, 'dx-item')]/div[contains(@class, 'dx-list-item-before-bag')]//div[contains(@class, 'dx-checkbox-container')]/span[@class='dx-checkbox-icon']";
     }
 
     public String searchFieldName(String placeholder) {

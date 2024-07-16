@@ -12,8 +12,8 @@
                 <include name="Tier1User"></include>
             </run>
             <run>
-<!--                <include name="SANITY"></include>-->
-                                <include name="REGRESSION"></include>
+                <include name="SANITY"></include>
+<!--                                <include name="REGRESSION"></include>-->
             </run>
         </groups>
         <parameter name="Browser" value="chrome"></parameter>
@@ -25,17 +25,18 @@
             <!--                    <include name="promotingRows"/>-->
             <!--                </methods>-->
             <!--            </class>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
-            <!--                <methods>-->
-            <!--                    <exclude name ="createClient"/>-->
-            <!--                    <exclude name ="editClient"/>-->
-            <!--                </methods>-->
-            <!--            </class>-->
-            <class name="com.westminster.testcases.admin.TC_DataManager">
-                <methods>
-                    <include name="verifyValidRowsInDataManager"/>
-                </methods>
-            </class>
+                        <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
+                            <methods>
+<!--                                <exclude name ="createClient"/>-->
+<!--                                <exclude name ="editClient"/>-->
+                                <include name ="editRole"/>
+                            </methods>
+                        </class>
+<!--            <class name="com.westminster.testcases.admin.TC_DataManager">-->
+<!--                <methods>-->
+<!--                    <include name="verifyValidRowsInDataManager"/>-->
+<!--                </methods>-->
+<!--            </class>-->
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
             <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->

@@ -22,8 +22,7 @@ public class UserSecurityPage extends AdminPage {
     private String clientActionLink = "(//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines'])[2]/td[2]//a";
     private String userActionLink = "((((//tbody[@role='presentation'])[8])//tr)//td[2])//a";
     private String userActionLinkTier2Admin = "((((//tbody[@role='presentation'])[4])//tr)//td[2])//a";
-    private String roleActionTier1Admin = "((((((//tbody[@role='presentation'])[8])//tr)[1])//td)[3])//a";
-    private String roleActionTier1User = "((((((//tbody[@role='presentation'])[7])//tr)[1])//td)[3])//a";
+    private String roleActionLink = "((((((//tbody[@role='presentation'])[8])//tr)[1])//td)[3])//a";
     private String roleActionLinkTier2Admin = "((((((//tbody[@role='presentation'])[4])//tr)[1])//td)[3])//a";
     private String applyBtn = "//span[text()='Apply']";
 
@@ -163,15 +162,20 @@ public class UserSecurityPage extends AdminPage {
     }
 
     public UserSecurityPage validateRoleInformation(String roleName, String roleName2) {
-        if (roleName.equals("Automation_QA_testing")) {
-            waitForLoaderToDisappear();
-            pause("medium");
-            waitForLoaderToDisappear();
-            typeSearchRoles(roleName);
-            waitForElementToLoad(frameUserSearchResult(roleName));
+        waitForLoaderToDisappear();
+        pause("low");
+        typeSearchRoles(roleName);
+        String str = getInnerText(frameClientDetailsLocator(roleName));
+        // waitForElementToLoad(frameUserSearchResult(roleName));
+        if(roleName.equals(str)) {
+//            waitForLoaderToDisappear();
+//            pause("medium");
+//            waitForLoaderToDisappear();
+//            typeSearchRoles(roleName);
+//            waitForElementToLoad(frameUserSearchResult(roleName));
             boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
             Assert.assertTrue(verifyExactText);
-        } else {
+        }else{
             waitForLoaderToDisappear();
             pause("medium");
             waitForLoaderToDisappear();
@@ -255,29 +259,29 @@ public class UserSecurityPage extends AdminPage {
         return this;
     }
 
-    public UserSecurityPage searchUserAndClickFirstGrid(String userMailID, String userMailID2) {
+    public UserSecurityPage searchUserAndClickFirstGrid(String username, String username1) {
         waitForLoaderToDisappear();
         switch (xmlUserLevel) {
             case "Tier2Admin":
-                typeSearchUser(userMailID);
+                typeSearchUser(username);
                 userMailIdText.set(getInnerText("(//tr[1])[3]//td[@aria-colindex='5']"));
-                if (userMailID.equals(userMailIdText.get())) {
+                if (username.equals(userMailIdText.get())) {
                     pause("medium");
                     click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
                 } else {
-                    typeSearchRoles(userMailID2);
+                    typeSearchRoles(username1);
                     pause("medium");
                     click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
                 }
                 break;
             default:
-                typeSearchRoles(userMailID);
+                typeSearchRoles(username);
                 userMailIdText.set(getInnerText("(//tr[1])[7]//td[@aria-colindex='6']"));
-                if (userMailID.equals(userMailIdText.get())) {
+                if (username.equals(userMailIdText.get())) {
                     pause("medium");
                     click(userActionLink, "First Grid Action Item", "Link");
                 } else {
-                    typeSearchRoles(userMailID2);
+                    typeSearchRoles(username1);
                     pause("medium");
                     click(userActionLink, "First Grid Action Item", "Link");
                 }
@@ -318,8 +322,6 @@ public class UserSecurityPage extends AdminPage {
                     typeSearchRoles(roleName2);
                     pause("medium");
                     click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
-                    pause("medium");
-                    click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
                 }
                 break;
             default:
@@ -405,7 +407,7 @@ public class UserSecurityPage extends AdminPage {
                 click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
                 break;
             default:
-                click(roleActionTier1Admin, "First Grid Action Item", "Link");
+                click(roleActionLink, "First Grid Action Item", "Link");
                 break;
         }
         pause("low");

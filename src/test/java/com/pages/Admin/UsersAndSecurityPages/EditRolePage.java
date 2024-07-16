@@ -15,8 +15,14 @@ public class EditRolePage extends UserSecurityPage {
         return this;
     }
 
-    public EditRolePage clearTypeRoleName(String roleName) {
-        typeAndSpace(frameClientDetailsLocator("Role Name"), roleName, "RoleName");
+    public EditRolePage clearTypeRoleName(String roleName, String roleName2) {
+        pause("low");
+        String getInnerText = getInputText(frameClientDetailsLocator("Role Name"));
+        if (roleName.equals(getInnerText)) {
+            typeAndSpace(frameClientDetailsLocator("Role Name"), roleName2, "Role Name");
+        } else {
+            typeAndSpace(frameClientDetailsLocator("Role Name"), roleName, "Role Name");
+        }
         return this;
     }
 
@@ -45,23 +51,13 @@ public class EditRolePage extends UserSecurityPage {
 
     public EditRolePage editRoleInformation(String roleName, String roleName2, String roleDescription, String tier, String client, String permission) {
         waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-        if(roleName.equals("Automation_QA_testing")) {
           //  waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-            clearTypeRoleName(roleName)
+            clearTypeRoleName(roleName,roleName2)
                     .clearTypeRoleDescription(roleDescription)
 //                .clickAndselectTier(tier)
 //                .clickAndselectClient(client)
                     .clickAndselectPermissions(permission);
             reportPass("User successfully edited Role Information");
-        } else{
-           // waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-            clearTypeRoleName(roleName2)
-                    .clearTypeRoleDescription(roleDescription)
-//                .clickAndselectTier(tier)
-//                .clickAndselectClient(client)
-                    .clickAndselectPermissions(permission);
-            reportPass("User successfully edited Role Information");
-        }
         return this;
     }
 

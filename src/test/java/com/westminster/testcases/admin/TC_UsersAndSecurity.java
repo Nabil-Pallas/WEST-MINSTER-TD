@@ -116,12 +116,12 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnUserSecurity()
                 .validateUserSecurityPage()
                 .clickOnUserTab()
-                .searchUserAndClickFirstGrid("")
+                .searchUserAndClickFirstGrid(userName, userName1)
                 .clickOnEditUser()
                 .validateEditUserPage()
-                .editUserInformation(userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber())
+                .editUserInformation(userFirstName.get(), userLastName.get(), userLastName.get(), userFirstName.get(), FakerDataFactory.getContactNumber())
                 .clickOnApplyBtn()
-                .validateUserInformation(userName, userMailIdText.get());
+                .validateEditUserInformation(userName, userName1);
         System.out.println("TC-----------25");
 
     }

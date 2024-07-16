@@ -145,7 +145,24 @@ public class UserSecurityPage extends AdminPage {
         waitForElementToLoad(frameUserSearchResult(userName));
         boolean verifyExactText = verifyExactText(frameUserSearchResult(userName), userName);
         Assert.assertTrue(verifyExactText);
+        return this;
+    }
 
+    public UserSecurityPage validateEditUserInformation(String userName, String userName1) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        typeSearchUser(userName);
+        pause("medium");
+        String firstGridName = getInnerText(frameUserSearchResult(userName));
+        if (userName.equals(firstGridName)) {
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(userName), userName);
+            Assert.assertTrue(verifyExactText);
+        } else {
+            typeSearchUser(userName1);
+            pause("medium");
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(userName1), userName1);
+            Assert.assertTrue(verifyExactText);
+        }
         return this;
     }
 
@@ -256,10 +273,12 @@ public class UserSecurityPage extends AdminPage {
 
     public UserSecurityPage searchUserAndClickFirstGrid(String username, String username1) {
         waitForLoaderToDisappear();
+        pause("medium");
         switch (xmlUserLevel) {
             case "Tier2Admin":
                 typeSearchUser(username);
-                userMailIdText.set(getInnerText("(//tr[1])[3]//td[@aria-colindex='5']"));
+                pause("medium");
+                userMailIdText.set(getInnerText("(//tr[1])[3]//td[@aria-colindex='1']"));
                 if (username.equals(userMailIdText.get())) {
                     pause("medium");
                     click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
@@ -270,8 +289,11 @@ public class UserSecurityPage extends AdminPage {
                 }
                 break;
             default:
+                waitForLoaderToDisappear();
+                pause("medium");
                 typeSearchRoles(username);
-                userMailIdText.set(getInnerText("(//tr[1])[7]//td[@aria-colindex='6']"));
+                pause("medium");
+                userMailIdText.set(getInnerText("(//tr[1])[7]//td[@aria-colindex='1']"));
                 if (username.equals(userMailIdText.get())) {
                     pause("medium");
                     click(userActionLink, "First Grid Action Item", "Link");

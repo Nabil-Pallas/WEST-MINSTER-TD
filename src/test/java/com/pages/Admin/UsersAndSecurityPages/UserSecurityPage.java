@@ -146,12 +146,17 @@ public class UserSecurityPage extends AdminPage {
     }
 
     public UserSecurityPage validateRoleInformation(String roleName, String roleName2) {
-        if(roleName.equals("Automation_QA_testing")) {
-            waitForLoaderToDisappear();
-            pause("medium");
-            waitForLoaderToDisappear();
-            typeSearchRoles(roleName);
-            waitForElementToLoad(frameUserSearchResult(roleName));
+        waitForLoaderToDisappear();
+        pause("low");
+        typeSearchRoles(roleName);
+        String str = getInnerText(frameClientDetailsLocator(roleName));
+       // waitForElementToLoad(frameUserSearchResult(roleName));
+        if(roleName.equals(str)) {
+//            waitForLoaderToDisappear();
+//            pause("medium");
+//            waitForLoaderToDisappear();
+//            typeSearchRoles(roleName);
+//            waitForElementToLoad(frameUserSearchResult(roleName));
             boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
             Assert.assertTrue(verifyExactText);
         }else{

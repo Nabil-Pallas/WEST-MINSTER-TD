@@ -1,6 +1,6 @@
 package com.pages.Admin.UsersAndSecurityPages;
 
-public class EditRolePage extends UserSecurityPage {
+public static class EditRolePage extends UserSecurityPage {
 
     private String editRoleText = "//div[text()='Edit role']";
     private String applyBtn = "//span[text()='Apply']";
@@ -45,32 +45,32 @@ public class EditRolePage extends UserSecurityPage {
 
     public EditRolePage editRoleInformation(String roleName, String roleName2, String roleDescription, String tier, String client, String permission) {
         waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-        if(roleName.equals("Automation_QA_testing")) {
-          //  waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-            clearTypeRoleName(roleName)
-                    .clearTypeRoleDescription(roleDescription)
+
+        //  waitForElementToLoad(frameClientDetailsLocator("Role Name"));
+        clearTypeRoleName(roleName2)
+                .clearTypeRoleDescription(roleDescription)
 //                .clickAndselectTier(tier)
 //                .clickAndselectClient(client)
-                    .clickAndselectPermissions(permission);
-            reportPass("User successfully edited Role Information");
-        } else{
-           // waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-            clearTypeRoleName(roleName2)
-                    .clearTypeRoleDescription(roleDescription)
+                .clickAndselectPermissions(permission);
+        reportPass("User successfully edited Role Information");
+
+        // waitForElementToLoad(frameClientDetailsLocator("Role Name"));
+        clearTypeRoleName(roleName)
+                .clearTypeRoleDescription(roleDescription)
 //                .clickAndselectTier(tier)
 //                .clickAndselectClient(client)
-                    .clickAndselectPermissions(permission);
-            reportPass("User successfully edited Role Information");
-        }
+                .clickAndselectPermissions(permission);
+        reportPass("User successfully edited Role Information");
+    }
         return this;
-    }
+}
 
-    //Validate Tickmark
+//Validate Tickmark
 
-    public UserSecurityPage clickOnApplyBtn() {
-        click(applyBtn, "Apply Button");
-        pause("low");
-        return new UserSecurityPage();
-    }
+public UserSecurityPage clickOnApplyBtn() {
+    click(applyBtn, "Apply Button");
+    pause("low");
+    return new UserSecurityPage();
+}
 
 }

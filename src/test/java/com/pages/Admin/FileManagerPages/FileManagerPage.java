@@ -95,7 +95,7 @@ public class FileManagerPage extends AdminPage {
 
     //Selecting Existing DataMap
     public FileManagerPage selectExistingMapping(String dataMap) {
-
+        pause("low");
         //Click Select mapping DropDown
         click(frameSelectMappingLocator("Select a mapping:"), "Select Mapping DropDown", "DropDown");
         pause("low");
@@ -230,6 +230,14 @@ public class FileManagerPage extends AdminPage {
             System.out.println("---"+validRows);
         }
         return this;
+    }
+
+
+    public FileMappingPage clickOnModifyInvalidMap(){
+        pause("low");
+        click(frameSpanTextLocator("Modify Invalid Map"),"Modify Invalid Map Button");
+        pause("low");
+        return new FileMappingPage();
     }
 
 }

@@ -47,6 +47,7 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
     }
 
     public CreateNewBudgetPage typeBeginDate(String tradeDate) {
+        pause("medium");
         type(frameClientDetailsLocator("Begin Date", 2), tradeDate, "BeginDate");
         pause("medium");
         return this;

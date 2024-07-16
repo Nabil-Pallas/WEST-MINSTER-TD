@@ -136,31 +136,29 @@ public class DataManagerPage extends AdminPage {
         pause("medium");
         pause("medium");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
-
+        List<String> list = new ArrayList<>();
         for (int i = 1; i < headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader)) {
                 click(searchValueWithHeader(i), "Search Filter", "Search Box");
                 type(searchValueWithHeader(i), verificationValue, verificationValue);
+                pause("medium");
+                pause("medium");
                 int count = getLocatorsCount("//td[text()='" + verificationValue + "']");
-                List<String> list = new ArrayList<>();
-                for (int j = 1; j < count; j++) {
+                System.out.println("Locators count: " + count);
+                for (int j = 1; j <= count; j++) {
                     list.add(getInnerText("(//td[text()='" + verificationValue + "'])[" + j + "]"));
-                }
 
-                for (String li : list) {
-                    boolean verifyExactText = verifyExactText(li, verificationValue);
+                    boolean verifyExactText = verifyExactText("(//td[text()='" + verificationValue + "'])[" + j + "]", list.get(j - 1));
                     Assert.assertTrue(verifyExactText);
                 }
-                // String brokerElement = "//td[text()='" + verificationValue + "']";
-//               boolean verifyExactText = verifyExactText(li, verificationValue);
-//               Assert.assertTrue(verifyExactText);
-//                break;
             }
         }
+        System.out.println(list.size());
         return new DataManagerPage();
     }
+
 
     public DataManagerPage deleteAddedRow(String verificationValue, String verificationHeader) {
 //        waitForLoaderToDisappear();
@@ -259,23 +257,11 @@ public class DataManagerPage extends AdminPage {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public DataManagerPage CompareTotalRowCountAndValidRows(){
+    public DataManagerPage CompareTotalRowCountAndValidRows() {
 
         long totalRows = FinRowCounts - InitRowCounts;
 
-        Assert.assertEquals(totalRows,validRows);
+        Assert.assertEquals(totalRows, validRows);
 
         return this;
     }

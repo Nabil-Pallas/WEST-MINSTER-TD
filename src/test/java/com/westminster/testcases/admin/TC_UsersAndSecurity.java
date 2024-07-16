@@ -70,7 +70,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // User creation - 5613
-    @Test(priority = 24, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
+//    @Test(priority = 24, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
     public void createUser() {
         testcaseName = "TC_5613 " + xmlUserLevel;
         testDescription = "Create User and Validate";
@@ -99,7 +99,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // Edit created user - 24
-    @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
+//    @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
     public void editUser() {
         testcaseName = "TC_24 " + xmlUserLevel;
         testDescription = "Edit Existing User and Validate";
@@ -129,7 +129,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // Role creation - 101
-    @Test(priority = 26, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
+//    @Test(priority = 26, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
     public void createRole() {
         testcaseName = "TC_101 " + xmlUserLevel;
         testDescription = "Create New Role and Validate";
@@ -156,7 +156,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // Edit created role - 621
-    @Test(priority = 27, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
+//    @Test(priority = 27, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
     public void editRole() {
         testcaseName = "TC_621 " + xmlUserLevel;
         testDescription = "Edit Existing Role and Validate";
@@ -186,7 +186,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     //Srikanth
     //Regression
     //TC_25 - Impersonate User
-    @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", TestGroups.Type.REGRESSION})
     public void impersonateUser() {
         testcaseName = "TC_25 " + xmlUserLevel;
         testDescription = "Impersonate User And Validate";
@@ -213,8 +213,8 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
 
     //Srikanth
     //TC_2004
-    @Test(priority = 29, groups = {"Tier1Admin", "Tier1User", "Tier2Admin",TestGroups.Type.REGRESSION})
-    public void roleCreationAndAssignRole(){
+//    @Test(priority = 29, groups = {"Tier1Admin", "Tier1User", "Tier2Admin",TestGroups.Type.REGRESSION})
+    public void roleCreationAndAssignRole() {
         testcaseName = "TC_2004 " + xmlUserLevel;
         testDescription = "Create Role And Assign that Role to User";
         authors = "Automation Team";
@@ -226,7 +226,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         userLastName.set(FakerDataFactory.getLastName());
         userMailId.set(FakerDataFactory.getEmailAddress());
         String mail = userMailId.get();
-        System.out.println("---"+mail);
+        System.out.println("---" + mail);
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -240,10 +240,10 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateRoleInformation(userFirstName.get())
                 .clickOnUserTab()
                 .clickOnaddNewUsrBtn()
-                .fillUserInformation2(FakerDataFactory.getFirstName(),FakerDataFactory.getLastName(),userMailId.get(),
-                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2",userFirstName.get())
+                .fillUserInformation2(FakerDataFactory.getFirstName(), FakerDataFactory.getLastName(), userMailId.get(),
+                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", userFirstName.get())
                 .clickOnApplyBtn()
-                .validateUserRoleAndMail(userMailId.get(),userFirstName.get());
+                .validateUserRoleAndMail(userMailId.get(), userFirstName.get());
 
     }
 

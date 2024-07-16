@@ -349,4 +349,40 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
 
+
+
+    //srikanth
+    // TC_RE_2185 - Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.
+
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyInvalidColumnsWExistMapping() {
+        testcaseName = "TC_RE_2185 " + xmlUserLevel;
+        testDescription = "Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.";
+        authors = "Automation Team";
+        category = "invalid columns can be deleted when uploading a file using exiting mapping.";
+        startTestCase();
+        setNode();
+
+        DataMap.set("");
+//        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
+//        fileName.set("SampleFile_AU_Chrome.csv");
+        filePath2.set("./src/test/resources/upload/InvalidColumnsCase.csv");
+        fileName2.set("InvalidColumnsCase.csv");
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath2.get(),fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnModifyInvalidMap()
+                .verifyMappingError()
+                .clickOnDeleteInvalidColumns()
+                .validateMappedColumns();
+
+    }
+
 }

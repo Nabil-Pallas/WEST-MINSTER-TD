@@ -51,7 +51,6 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         category = "Edit Client";
         startTestCase();
         setNode();
-        String editClientCompanyName = clientCompanyName.get();
         clientCompanyName.set(FakerDataFactory.getCompanyNameWithoutSpace());
         new DashboardPage()
                 .validateDashBoardElements()
@@ -59,12 +58,12 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateAdminPage()
                 .clickOnUserSecurity()
                 .validateUserSecurityPage()
-                .searchAndEditClientDetails()
+                .searchAndEditClientDetails("Z_Automation_QA_testing", "QA_testing_Automation_Z")
                 .validateEditClientPage()
-                .editClientInformation(clientCompanyName.get(), FakerDataFactory.getFTPFolderAcronym(),
+                .editClientInformation("Z_Automation_QA_testing", "QA_testing_Automation_Z", FakerDataFactory.getFTPFolderAcronym(),
                         "MM/DD/YYYY", "HST: Hawaii-Aleutian Standard Time (US, Hawaii)", "12-hour", "#,##0.00", "USD")
                 .clickOnApplyBtn()
-                .validateClientInformation(clientCompanyName.get());
+                .validateClientInformation("Z_Automation_QA_testing", "QA_testing_Automation_Z");
         System.out.println("TC-----------23");
     }
 
@@ -172,12 +171,12 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnUserSecurity()
                 .validateUserSecurityPage()
                 .clickOnRolesTab()
-                .searchAndEditRoleDetails("Automation_QA_testing","QA_Automation_testing")
+                .searchAndEditRoleDetails("Automation_QA_testing", "QA_Automation_testing")
                 .validateEditRolePage()
-                .editRoleInformation("QA_Automation_testing", "Automation_QA_testing",userLastName.get(), "", "", "Manage Data")
+                .editRoleInformation("QA_Automation_testing", "Automation_QA_testing", userLastName.get(), "", "", "Manage Data")
                 .clickOnApplyBtn()
-                .validateRoleInformation("QA_Automation_testing","Automation_QA_testing");
-               // .deleteRole(userFirstName.get());
+                .validateRoleInformation("QA_Automation_testing", "Automation_QA_testing");
+        // .deleteRole(userFirstName.get());
         System.out.println("TC-----------27");
     }
 

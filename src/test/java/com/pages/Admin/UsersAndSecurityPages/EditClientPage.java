@@ -16,8 +16,14 @@ public class EditClientPage extends UserSecurityPage {
         return this;
     }
 
-    public EditClientPage clearAndTypeCompanyName(String companyName) {
-        typeAndSpace(frameClientDetailsLocator("Company Name"), companyName, "companyName");
+    public EditClientPage clearAndTypeCompanyName(String companyName, String companyName1) {
+        pause("low");
+        String getInnerText = getInputText(frameClientDetailsLocator("Company Name"));
+        if (companyName.equals(getInnerText)) {
+            typeAndSpace(frameClientDetailsLocator("Company Name"), companyName1, "companyName");
+        } else {
+            typeAndSpace(frameClientDetailsLocator("Company Name"), companyName, "companyName");
+        }
         return this;
     }
 
@@ -82,9 +88,9 @@ public class EditClientPage extends UserSecurityPage {
         return this;
     }
 
-    public EditClientPage editClientInformation(String companyName, String ftpFolderAcronym, String dateFormat, String localTimeZone,
+    public EditClientPage editClientInformation(String companyName,String companyName1, String ftpFolderAcronym, String dateFormat, String localTimeZone,
                                                 String timeFormat, String numberFormat, String masterCurrency) {
-        clearAndTypeCompanyName(companyName)
+        clearAndTypeCompanyName(companyName,companyName1)
                 .clearAndTypeFTPFolderAcronym(ftpFolderAcronym)
                 .clickAndselectDateFormating(dateFormat)
                 .clickAndselectLocalTimeZone(localTimeZone)

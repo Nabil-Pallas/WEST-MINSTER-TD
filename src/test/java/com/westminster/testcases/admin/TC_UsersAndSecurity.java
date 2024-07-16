@@ -105,9 +105,10 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         category = "Edit User";
         startTestCase();
         setNode();
-        userFirstName.set(FakerDataFactory.getFirstName());
-        userLastName.set(FakerDataFactory.getLastName());
-        String displayUserName = userFirstName.get() + " " + userLastName.get();
+        userFirstName.set("Automation");
+        userLastName.set("QA Testing");
+        String userName = userFirstName.get() + " " + userLastName.get();
+        String userName1 = userLastName.get() + " " + userFirstName.get();
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -120,7 +121,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateEditUserPage()
                 .editUserInformation(userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber())
                 .clickOnApplyBtn()
-                .validateUserInformation(displayUserName, userMailIdText.get());
+                .validateUserInformation(userName, userMailIdText.get());
         System.out.println("TC-----------25");
 
     }

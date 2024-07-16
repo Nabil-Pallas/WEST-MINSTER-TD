@@ -254,29 +254,29 @@ public class UserSecurityPage extends AdminPage {
         return this;
     }
 
-    public UserSecurityPage searchUserAndClickFirstGrid(String userMailID, String userMailID2) {
+    public UserSecurityPage searchUserAndClickFirstGrid(String username, String username1) {
         waitForLoaderToDisappear();
         switch (xmlUserLevel) {
             case "Tier2Admin":
-                typeSearchUser(userMailID);
+                typeSearchUser(username);
                 userMailIdText.set(getInnerText("(//tr[1])[3]//td[@aria-colindex='5']"));
-                if (userMailID.equals(userMailIdText.get())) {
+                if (username.equals(userMailIdText.get())) {
                     pause("medium");
                     click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
                 } else {
-                    typeSearchRoles(userMailID2);
+                    typeSearchRoles(username1);
                     pause("medium");
                     click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
                 }
                 break;
             default:
-                typeSearchRoles(userMailID);
+                typeSearchRoles(username);
                 userMailIdText.set(getInnerText("(//tr[1])[7]//td[@aria-colindex='6']"));
-                if (userMailID.equals(userMailIdText.get())) {
+                if (username.equals(userMailIdText.get())) {
                     pause("medium");
                     click(userActionLink, "First Grid Action Item", "Link");
                 } else {
-                    typeSearchRoles(userMailID2);
+                    typeSearchRoles(username1);
                     pause("medium");
                     click(userActionLink, "First Grid Action Item", "Link");
                 }

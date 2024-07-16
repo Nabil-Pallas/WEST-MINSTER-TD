@@ -64,8 +64,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .editClientInformation(clientCompanyName.get(), FakerDataFactory.getFTPFolderAcronym(),
                         "MM/DD/YYYY", "HST: Hawaii-Aleutian Standard Time (US, Hawaii)", "12-hour", "#,##0.00", "USD")
                 .clickOnApplyBtn()
-                .validateClientInformation(clientCompanyName.get())
-                .deleteClient(clientCompanyName.get());
+                .validateClientInformation(clientCompanyName.get());
         System.out.println("TC-----------23");
     }
 
@@ -120,10 +119,9 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .searchUserAndClickFirstGrid("")
                 .clickOnEditUser()
                 .validateEditUserPage()
-                .editUserInformation(userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber(), 1)
+                .editUserInformation(userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber())
                 .clickOnApplyBtn()
-                .validateUserInformation(displayUserName, userMailIdText.get())
-                .deleteUser(displayUserName);
+                .validateUserInformation(displayUserName, userMailIdText.get());
         System.out.println("TC-----------25");
 
     }
@@ -178,8 +176,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateEditRolePage()
                 .editRoleInformation(userFirstName.get(), userLastName.get(), "", "", "Manage Data")
                 .clickOnApplyBtn()
-                .validateRoleInformation(userFirstName.get())
-                .deleteRole(userFirstName.get());
+                .validateRoleInformation(userFirstName.get());
         System.out.println("TC-----------27");
     }
 

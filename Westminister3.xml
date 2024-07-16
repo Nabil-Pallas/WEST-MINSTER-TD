@@ -24,7 +24,8 @@
                 <methods>
                     <!--                    <exclude name ="createClient"/>-->
                     <!--                    <exclude name ="editClient"/>-->
-                    <include name="editUser"/>
+                    <include name="createUser"/>
+<!--                    <include name="editUser"/>-->
                 </methods>
             </class>
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->

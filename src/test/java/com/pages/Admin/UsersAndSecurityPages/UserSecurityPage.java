@@ -239,7 +239,7 @@ public class UserSecurityPage extends AdminPage {
 
 
     public UserSecurityPage clickOnApplyBtn() {
-        pause("low");
+        pause("medium");
         if(isVisible("// span[text()='Apply']")) {
             click(applyBtn, "Apply Button");
         }else{

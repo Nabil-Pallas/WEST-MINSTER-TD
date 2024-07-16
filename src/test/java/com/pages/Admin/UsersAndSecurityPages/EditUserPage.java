@@ -42,23 +42,29 @@ public class EditUserPage extends UserSecurityPage {
     public EditUserPage clickAndselectRole(int index) {
         pause("low");
         clickAndChoose(frameClientDetailsLocator("Roles", 1), selectRolesCheckBox(index), "Second", "Roles");
+        pause("low");
+        click(frameClientDetailsLocator("Roles", 1), "Roles", "Select Field");
         return this;
     }
 
 
-    public EditUserPage editUserInformation(String firstName, String lastName, String phoneNo, int index) {
+    public EditUserPage editUserInformation(String firstName, String lastName, String phoneNo) {
         waitForElementToLoad(frameClientDetailsLocator("First Name"));
         typeFirstName(firstName)
                 .typeLastName(lastName)
-                .typePhoneNo(phoneNo)
-                .clickAndselectRole(index);
+                .typePhoneNo(phoneNo);
         reportPass("User successfully edited User Information");
         return this;
     }
 
     public UserSecurityPage clickOnApplyBtn() {
-        click(applyBtn, "Apply Button");
         pause("medium");
+        click(applyBtn, "Apply Button");
+        pause("low");
+        if(isVisible(frameSpanTextLocator("YES"))){
+            pause("low");
+            click(frameSpanTextLocator("YES"),"YES");
+        }
         return new UserSecurityPage();
     }
 

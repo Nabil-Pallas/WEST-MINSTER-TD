@@ -19,30 +19,24 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <!--            <class name="com.westminster.testcases.admin.TC_FileManager">-->
-            <!--                <methods>-->
-            <!--                    <include name="fileUpload"/>-->
-            <!--                    <include name="promotingRows"/>-->
-            <!--                </methods>-->
-            <!--            </class>-->
-            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
+            <class name="com.westminster.testcases.admin.TC_FileManager">
                 <methods>
-                    <!--                                <exclude name ="createClient"/>-->
-                    <!--                                <exclude name ="editClient"/>-->
-<!--                    <include name="createUser"/>-->
-                    <include name="editUser"/>
+                    <include name="fileUpload"/>
+                    <include name="promotingRows"/>
                 </methods>
             </class>
-            <!--            <class name="com.westminster.testcases.admin.TC_DataManager">-->
-            <!--                <methods>-->
-            <!--                    <include name="verifyValidRowsInDataManager"/>-->
-            <!--                </methods>-->
-            <!--            </class>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
-            <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-            <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
+            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
+                <methods>
+                    <exclude name="createClient"/>
+                    <exclude name="editClient"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.admin.TC_DataManager"/>
+            <class name="com.westminster.testcases.admin.TC_RulesManager"/>
+            <class name="com.westminster.testcases.admin.TC_ListManager"/>
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>
+            <class name="com.westminster.testcases.analytics.TC_Analytics"/>
+            <class name="com.westminster.testcases.report.TC_Reports"/>
         </classes>
     </test>
     <!--

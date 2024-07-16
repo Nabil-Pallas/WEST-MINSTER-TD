@@ -162,6 +162,7 @@ public class UserSecurityPage extends AdminPage {
             Assert.assertTrue(verifyExactText);
         }else{
             typeSearchRoles(roleName2);
+            waitForLoaderToDisappear();
             pause("medium");
             boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName2), roleName2);
             Assert.assertTrue(verifyExactText);

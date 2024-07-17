@@ -119,7 +119,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .searchUserAndClickFirstGrid(userName, userName1)
                 .clickOnEditUser()
                 .validateEditUserPage()
-                .editUserInformation(userFirstName.get(), userLastName.get(), userLastName.get(), userFirstName.get(), FakerDataFactory.getContactNumber())
+                .editUserInformation(userFirstName.get(), userLastName.get(), userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber())
                 .clickOnApplyBtn()
                 .validateEditUserInformation(userName, userName1);
         System.out.println("TC-----------25");
@@ -177,7 +177,6 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .editRoleInformation("QA_Automation_testing", "Automation_QA_testing", userLastName.get(), "", "", "Manage Data")
                 .clickOnApplyBtn()
                 .validateRoleInformation("QA_Automation_testing", "Automation_QA_testing");
-        // .deleteRole(userFirstName.get());
         System.out.println("TC-----------27");
     }
 
@@ -186,13 +185,12 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     //TC_25 - Impersonate User
     @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", TestGroups.Type.REGRESSION})
     public void impersonateUser() {
-        testcaseName = "TC_25 " + xmlUserLevel;
+        testcaseName = "TC_RE_25 " + xmlUserLevel;
         testDescription = "Impersonate User And Validate";
         authors = "Automation Team";
         category = "Impersonate User";
         startTestCase();
         setNode();
-
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -206,7 +204,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .validateImpersonatingAsUserText()
                 .validateImpersonateInAccountSettings(userMailIdText.get());
-
+        System.out.println("TC-----------27");
     }
 
     //Srikanth

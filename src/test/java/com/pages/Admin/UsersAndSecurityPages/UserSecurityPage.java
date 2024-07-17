@@ -283,7 +283,7 @@ public class UserSecurityPage extends AdminPage {
                     pause("medium");
                     click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
                 } else {
-                    typeSearchRoles(username1);
+                    typeSearchUser(username1);
                     pause("medium");
                     click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
                 }
@@ -291,14 +291,14 @@ public class UserSecurityPage extends AdminPage {
             default:
                 waitForLoaderToDisappear();
                 pause("medium");
-                typeSearchRoles(username);
+                typeSearchUser(username);
                 pause("medium");
                 userMailIdText.set(getInnerText("(//tr[1])[7]//td[@aria-colindex='1']"));
                 if (username.equals(userMailIdText.get())) {
                     pause("medium");
                     click(userActionLink, "First Grid Action Item", "Link");
                 } else {
-                    typeSearchRoles(username1);
+                    typeSearchUser(username1);
                     pause("medium");
                     click(userActionLink, "First Grid Action Item", "Link");
                 }

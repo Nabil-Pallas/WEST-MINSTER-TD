@@ -29,11 +29,9 @@ public class EditUserPage extends UserSecurityPage {
 
     public EditUserPage typeLastName(String userLastName, String userLastName1) {
         pause("low");
-        type(frameClientDetailsLocator("Last Name"), userLastName, "UserLastName");
-        pause("low");
         String getInnerText = getInputText(frameClientDetailsLocator("Last Name"));
-        if (userFirstName.equals(getInnerText)) {
-            type(frameClientDetailsLocator("Last Name"), userLastName, "UserLastName");
+        if (userLastName.equals(getInnerText)) {
+            type(frameClientDetailsLocator("Last Name"), userLastName1, "UserLastName");
         } else {
             type(frameClientDetailsLocator("Last Name"), userLastName, "UserLastName");
         }

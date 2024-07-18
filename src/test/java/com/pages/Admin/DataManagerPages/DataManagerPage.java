@@ -167,16 +167,10 @@ public class DataManagerPage extends AdminPage {
                     if (j <= count) {
                         list.add(getInnerText("(//td[text()='" + verificationValue + "'])[" + j + "]"));
                     }
-                    System.out.println(list.size());
                     boolean verifyExactText = verifyExactText("(//td[text()='" + verificationValue + "'])[" + j + "]", list.get(j - 1));
                     Assert.assertTrue(verifyExactText);
                 }
-                // String brokerElement = "//td[text()='" + verificationValue + "']";
-//               boolean verifyExactText = verifyExactText(li, verificationValue);
-//               Assert.assertTrue(verifyExactText);
-//                break;
             }
-            // System.out.println("Size of list: "+list.size());
         }
         System.out.println("Size of list: " + list.size());
         return new DataManagerPage();

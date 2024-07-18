@@ -338,14 +338,18 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateFileMappingPage()
                 .clickOnAddNewSystemColumns()
                 .validateAddNewSystemColumnsPage()
-                .typeInformationInAddNewSystemColumns(3)
+                .typeInformationInAddNewSystemColumns(5)
                 .validateFileMappingPage()
-                .verifyAddedColumnsInSystemColumnName(3);
+                .verifyAddedColumnsInSystemColumnName(5)
+                .clickOnAdmin()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage();
+
 
         System.out.println("TC-----------TC_RE_1623");
     }
-
-
 
 
     //srikanth
@@ -373,7 +377,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(filePath2.get(),fileName2.get())
+                .fileUpload(filePath2.get(), fileName2.get())
                 .selectExistingMapping(DataMap.get())
                 .clickOnModifyInvalidMap()
                 .verifyMappingError()

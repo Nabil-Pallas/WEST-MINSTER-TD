@@ -250,7 +250,7 @@ public class DataManagerPage extends AdminPage {
         waitForLoaderToDisappear();
         pause("medium");
         click(selectAll, "Select All", "CheckBox");
-        mouseOver(addNewRowBtn, "Add New Row Btn");
+        mouseOver(frameSpanTextLocator("Edit Data Schema"), "Add New Row Btn");
         return new DataManagerPage();
     }
 
@@ -259,7 +259,7 @@ public class DataManagerPage extends AdminPage {
         waitForLoaderToDisappear();
         pause("medium");
         click(singleCheckBox, "Single Check Box", "CheckBox");
-        mouseOver(addNewRowBtn, "Add New Row Btn");
+        mouseOver(frameSpanTextLocator("Edit Data Schema"), "Add New Row Btn");
         pause("low");
         return new DataManagerPage();
     }

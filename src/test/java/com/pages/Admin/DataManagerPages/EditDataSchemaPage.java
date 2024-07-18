@@ -87,6 +87,21 @@ public class EditDataSchemaPage extends DataManagerPage {
         return this;
     }
 
+    public EditDataSchemaPage clickOnRelevantFieldNameActionIcon(String fieldName) {
+        click("//td[text()='Account Name']", "Account Name","First Field");
+        int maxAttempts = 40;
+        int attempts = 0;
+        while (!isVisible("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
+            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+            attempts++;
+        }
+        scrollToElement("//td[text()='" + fieldName + "']");
+        pause("medium");
+        forceClick("(//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", fieldName, "Action Icon");
+        pause("low");
+        return this;
+    }
+
     public EditDataSchemaPage clickOnEditValidation() {
         click(frameSpanTextLocator("Edit Validation"), "Edit Validation", "Edit Validation");
         return this;

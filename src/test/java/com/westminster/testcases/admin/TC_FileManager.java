@@ -84,7 +84,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadSameContentFileWDiffName() {
         testcaseName = "TC_961 " + xmlUserLevel;
-        testDescription = "Upload Duplicate File with Different Name";
+        testDescription = "upload Same Content File With Different Name";
         authors = "Automation Team";
         category = "uploadDpFile";
         startTestCase();
@@ -360,9 +360,9 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-        DataMap.set("");
-//        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
-//        fileName.set("SampleFile_AU_Chrome.csv");
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
+        fileName.set("SampleFile_AU_Chrome.csv");
         filePath2.set("./src/test/resources/upload/InvalidColumnsCase.csv");
         fileName2.set("InvalidColumnsCase.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -373,6 +373,14 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .validateFileNameInFileManagerGridAndDelete(fileName.get())
                 .fileUpload(filePath2.get(),fileName2.get())
                 .selectExistingMapping(DataMap.get())
                 .clickOnModifyInvalidMap()

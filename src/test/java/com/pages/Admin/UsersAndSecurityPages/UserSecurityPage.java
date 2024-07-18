@@ -366,6 +366,43 @@ public class UserSecurityPage extends AdminPage {
     }
 
 
+    public EditRolePage searchAndDeleteRole(String roleName) {
+        waitForLoaderToDisappear();
+        typeSearchRoles(roleName);
+        switch (xmlUserLevel) {
+            case "Tier2Admin":
+                typeSearchRoles(roleName);
+                String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
+                if (roleName.equals(firstGridName1)) {
+                    pause("medium");
+                    click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
+                } else {
+                    reportFail("Role Name not found");
+                }
+                break;
+            default:
+                typeSearchRoles(roleName);
+                String firstGridName2 = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
+                if (roleName.equals(firstGridName2)) {
+                    pause("medium");
+                    click(roleActionLink, "First Grid Action Item", "Link");
+                } else {
+                    reportFail("Role Name not found");
+                }
+                break;
+        }
+        pause("medium");
+        click(frameEditClientDetailsResult("Delete Role"), "Edit Role Button");
+        //click Yes popup
+        click(frameSpanTextLocator("Yes"), "Yes");
+        pause("low");
+        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+        pause("low");
+        click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete");
+        return new EditRolePage();
+    }
+
+
 
 }
 

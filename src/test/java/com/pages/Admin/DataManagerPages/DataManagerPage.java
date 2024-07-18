@@ -147,12 +147,10 @@ public class DataManagerPage extends AdminPage {
 
     //Validate the Add New Row Information
     public DataManagerPage validateAddedRowInformation(String verificationValue, String verificationHeader) {
-//        waitForLoaderToDisappear();
         List<String> list = new ArrayList<>();
         pause("medium");
         pause("medium");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
-        List<String> list = new ArrayList<>();
         for (int i = 1; i < headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
@@ -251,7 +249,7 @@ public class DataManagerPage extends AdminPage {
         waitForLoaderToDisappear();
         pause("medium");
         click(selectAll, "Select All", "CheckBox");
-        mouseOver(addNewRowBtn, "Add New Row Btn");
+        mouseOver(frameSpanTextLocator("Edit Data Schema"), "Add New Row Btn");
         return new DataManagerPage();
     }
 
@@ -260,7 +258,7 @@ public class DataManagerPage extends AdminPage {
         waitForLoaderToDisappear();
         pause("medium");
         click(singleCheckBox, "Single Check Box", "CheckBox");
-        mouseOver(addNewRowBtn, "Add New Row Btn");
+        mouseOver(frameSpanTextLocator("Edit Data Schema"), "Add New Row Btn");
         pause("low");
         return new DataManagerPage();
     }

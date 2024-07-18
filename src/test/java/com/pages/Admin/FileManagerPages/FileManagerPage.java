@@ -239,8 +239,14 @@ public class FileManagerPage extends AdminPage {
 
     public FileMappingPage clickOnModifyInvalidMap(){
         pause("low");
-        click(frameSpanTextLocator("Modify Invalid Map"),"Modify Invalid Map Button");
-        pause("low");
+        if(isVisible(frameSpanTextLocator("Modify Invalid Map"))) {
+            click(frameSpanTextLocator("Modify Invalid Map"), "Modify Invalid Map Button");
+            pause("low");
+        }
+        else if(isVisible(frameSpanTextLocator("Define Mapping"))){
+
+        }
+
         return new FileMappingPage();
     }
 

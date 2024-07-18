@@ -210,7 +210,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     //Srikanth
     //TC_2004
     @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
-    public void roleCreationAndAssignRole() {
+    public void roleCreationAndAssignRoleToUser() {
         testcaseName = "TC_2004 " + xmlUserLevel;
         testDescription = "Create Role And Assign that Role to User";
         authors = "Automation Team";

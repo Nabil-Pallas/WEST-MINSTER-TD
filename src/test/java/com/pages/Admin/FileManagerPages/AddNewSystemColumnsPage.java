@@ -15,6 +15,8 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     private String mapColumnsBtn = "//span[text()='Map Columns']";
     private String systemColumnsText = "//span[@class='ml-half']//span[@title]";
     private String newColumnBtn = "//i[@class='dx-icon dx-icon-edit-button-addrow']";
+    public static List<String> addedColumnss;
+
 
 
     public AddNewSystemColumnsPage validateAddNewSystemColumnsPage() {

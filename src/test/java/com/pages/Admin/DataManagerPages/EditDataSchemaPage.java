@@ -8,6 +8,8 @@ import java.util.List;
 import com.pages.Admin.AdminPage;
 import org.testng.Assert;
 
+import static com.pages.Admin.FileManagerPages.AddNewSystemColumnsPage.addedColumnss;
+
 public class EditDataSchemaPage extends DataManagerPage {
     private String EditDataSchemaColumnsText = "//h1[text()='Edit Data Schema Columns']";
     private String parameterTypeText = "(//input[@class='dx-texteditor-input'])[4]";
@@ -144,6 +146,39 @@ public class EditDataSchemaPage extends DataManagerPage {
                 .clickOnApplyBtn()
                 .clickOnExit();
         return this;
+    }
+
+    public EditDataSchemaPage delete10DataSchema() {
+        pause("low");
+        click("(//tr[1])[3]//td[@aria-colindex='1']", "First row \"Field Name\" cell");
+        int maxAttempts = 40;
+        int attempts = 0;
+        for(int i=1;i<=addedColumnss.size();i++) {
+            while (!isVisible("//td[text()='" + addedColumnss.get(i-1) + "']") && attempts < maxAttempts) {
+                pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+                attempts++;
+            }
+
+            scrollToElement("//td[text()='" + addedColumnss.get(i-1) + "']");
+            pause("low");
+            pause("low");
+            forceClick("(//td[text()='" + addedColumnss.get(i-1) + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Action Button", "Field Name "+addedColumnss.get(i-1));
+            pause("low");
+            click(deleteBtn, "Delete Button");
+            pause("low");
+            click(confirmDeleteBtn, "Confirm Delete");
+            pause("low");
+
+            if (getInnerText(frameSpanTextLocator("Success")).equals("Success")) {
+                reportStep("Added Data Schema is deleted successfully", "pass");
+
+            } else {
+                reportStep("Added Data Schema is not deleted", "warning");
+
+            }
+        }
+        addedColumns.remove();
+        return new EditDataSchemaPage();
     }
 
     public EditDataSchemaPage clickOnApplyAndExitBtn() {

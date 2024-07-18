@@ -343,7 +343,8 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
-                .validateEditDataSchemaColumnsPage();
+                .validateEditDataSchemaColumnsPage()
+                .delete10DataSchema();
 
 
         System.out.println("TC-----------TC_RE_1623");

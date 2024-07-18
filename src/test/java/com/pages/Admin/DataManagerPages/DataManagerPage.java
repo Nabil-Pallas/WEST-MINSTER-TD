@@ -1,14 +1,6 @@
 package com.pages.Admin.DataManagerPages;
 
-import com.microsoft.playwright.ElementHandle;
-import com.microsoft.playwright.Locator;
-import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
-import com.pages.Admin.FileManagerPages.ErrorQueuePage;
-import com.pages.Admin.FileManagerPages.FileManagerPage;
-import com.pages.Admin.UsersAndSecurityPages.AddNewUserPage;
-import com.pages.Admin.UsersAndSecurityPages.UserSecurityPage;
-import com.pages.bugeting.AllBudgetsPage;
 import org.testng.Assert;
 
 import java.util.*;
@@ -34,7 +26,13 @@ public class DataManagerPage extends AdminPage {
     private String editBtn = "//span[text()='Edit']";
 
     //Locator for Edit Button
-    private String bulkDeleteBtn = "//span[text()='Delete Rows']";
+    private String deleteRowsBtn = "//span[text()='Delete Rows']";
+
+    //Locator for Edit Button
+    private String deleteRowBtn = "//span[text()='Delete Row']";
+
+    //Locator for select single Check Box
+    private String singleCheckBox = "(//div[@class='dx-checkbox-container'])[2]";
 
     //Locator for Bulk Edit Rows
     private String bulkEditBtn = "(//span[text()='Bulk Edit Rows'])[1]";
@@ -101,16 +99,31 @@ public class DataManagerPage extends AdminPage {
         if (isVisible("//div[contains(text(),'Delete')]")) {
             click("//span[text()='Yes']", "Click Yes Button");
             reportPass("User successfully clicked Yes button.");
-            typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']","delete","Enter Delete in input box");
-            click("//span[text()='Confirm Delete']","Click Delete button");
+            typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']", "delete", "Enter Delete in input box");
+            click("//span[text()='Confirm Delete']", "Click Delete button");
         }
         return new EditDataManagerRow();
     }
 
-    //Click the Bulk Delete Button
+    //Click the Bulk Delete Button - Multiple Rows Delete
     public EditDataManagerRow clickOnBulkDeleteBtn() {
         pause("medium");
-        click(bulkDeleteBtn, "Delete button");
+        click(deleteRowsBtn, "Delete button");
+        pause("low");
+        reportPass("User successfully clicked the Delete button.");
+        if (isVisible("//div[contains(text(),'Delete')]")) {
+            click("//span[text()='Yes']", "Click Yes Button");
+            typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']", "DELETE", "Enter Delete in input box");
+            click("//span[text()='Confirm Delete']", "Click Delete button");
+            reportPass("User successfully clicked Confirm Delete button.");
+        }
+        return new EditDataManagerRow();
+    }
+
+    //Click the Delete Row Button - Single Row Delete
+    public EditDataManagerRow clickOnDeleteRowBtn() {
+        pause("medium");
+        click(deleteRowBtn, "Delete button");
         pause("low");
         reportPass("User successfully clicked the Delete button.");
         if (isVisible("//div[contains(text(),'Delete')]")) {
@@ -135,34 +148,34 @@ public class DataManagerPage extends AdminPage {
     //Validate the Add New Row Information
     public DataManagerPage validateAddedRowInformation(String verificationValue, String verificationHeader) {
 //        waitForLoaderToDisappear();
+        List<String> list = new ArrayList<>();
         pause("medium");
         pause("medium");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
-
+        List<String> list = new ArrayList<>();
         for (int i = 1; i < headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader)) {
                 click(searchValueWithHeader(i), "Search Filter", "Search Box");
                 type(searchValueWithHeader(i), verificationValue, verificationValue);
+                pause("medium");
+                pause("medium");
                 int count = getLocatorsCount("//td[text()='" + verificationValue + "']");
-                List<String> list = new ArrayList<>();
-                for (int j = 1; j < count; j++) {
-                    list.add(getInnerText("(//td[text()='" + verificationValue + "'])[" + j + "]"));
-                }
-
-                for (String li : list) {
-                    boolean verifyExactText = verifyExactText(li, verificationValue);
+                System.out.println("Locators count: " + count);
+                for (int j = 1; j <= count; j++) {
+                    if (j <= count) {
+                        list.add(getInnerText("(//td[text()='" + verificationValue + "'])[" + j + "]"));
+                    }
+                    boolean verifyExactText = verifyExactText("(//td[text()='" + verificationValue + "'])[" + j + "]", list.get(j - 1));
                     Assert.assertTrue(verifyExactText);
                 }
-                // String brokerElement = "//td[text()='" + verificationValue + "']";
-//               boolean verifyExactText = verifyExactText(li, verificationValue);
-//               Assert.assertTrue(verifyExactText);
-//                break;
             }
         }
+        System.out.println("Size of list: " + list.size());
         return new DataManagerPage();
     }
+
 
     public DataManagerPage deleteAddedRow(String verificationValue, String verificationHeader) {
 //        waitForLoaderToDisappear();
@@ -238,6 +251,17 @@ public class DataManagerPage extends AdminPage {
         waitForLoaderToDisappear();
         pause("medium");
         click(selectAll, "Select All", "CheckBox");
+        mouseOver(addNewRowBtn, "Add New Row Btn");
+        return new DataManagerPage();
+    }
+
+    //click select single Check Box
+    public DataManagerPage clickOnSingleCheckBox() {
+        waitForLoaderToDisappear();
+        pause("medium");
+        click(singleCheckBox, "Single Check Box", "CheckBox");
+        mouseOver(addNewRowBtn, "Add New Row Btn");
+        pause("low");
         return new DataManagerPage();
     }
 
@@ -261,23 +285,11 @@ public class DataManagerPage extends AdminPage {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public DataManagerPage CompareTotalRowCountAndValidRows(){
+    public DataManagerPage CompareTotalRowCountAndValidRows() {
 
         long totalRows = FinRowCounts - InitRowCounts;
 
-        Assert.assertEquals(totalRows,validRows);
+        Assert.assertEquals(totalRows, validRows);
 
         return this;
     }

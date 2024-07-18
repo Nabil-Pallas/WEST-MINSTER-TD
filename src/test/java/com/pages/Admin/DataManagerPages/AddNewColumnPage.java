@@ -133,8 +133,6 @@ public class AddNewColumnPage extends EditDataSchemaPage {
             attempts++;
         }
 
-
-
         scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
         pause("low");
         pause("low");

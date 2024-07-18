@@ -95,7 +95,7 @@ public class FileManagerPage extends AdminPage {
 
     //Selecting Existing DataMap
     public FileManagerPage selectExistingMapping(String dataMap) {
-
+        pause("low");
         //Click Select mapping DropDown
         click(frameSelectMappingLocator("Select a mapping:"), "Select Mapping DropDown", "DropDown");
         pause("low");
@@ -179,11 +179,14 @@ public class FileManagerPage extends AdminPage {
     public AddNewRowPage deleteDataMaps(String dataMapName) {
         System.out.println("dataMapName----2----" + dataMapName);
         clickOnViewDataMaps();
-
+        int maxAttempts = 200;
+        int attempts = 0;
         pause("medium");
-        click("(//tr[contains(@class,'dx-row dx-data-row dx-row-lines dx-column-lines')]//td[1])[1]", "");
-        while (!isVisible("//td[text()='" + dataMapName + "']")) {
+        click("(//td[text()='MM/dd/yyyy'])[1]/preceding-sibling::td[3]", "");
+        String textToVisible = "//td[text()='" + dataMapName + "']";
+        while (!isVisible(textToVisible) && attempts < maxAttempts) {
             pressDownArrow("(//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines'])[8]");
+            attempts++;
         }
         scrollToElement("//td[text()='" + dataMapName + "']");
         pause("low");
@@ -194,7 +197,7 @@ public class FileManagerPage extends AdminPage {
         pause("low");
         click(confirmDeleteBtn, "Confirm Delete");
         pause("low");
-        type(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+        typeAndSpace(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
         click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete button");
 //        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
         pause("low");
@@ -231,6 +234,14 @@ public class FileManagerPage extends AdminPage {
             System.out.println("---"+validRows);
         }
         return this;
+    }
+
+
+    public FileMappingPage clickOnModifyInvalidMap(){
+        pause("low");
+        click(frameSpanTextLocator("Modify Invalid Map"),"Modify Invalid Map Button");
+        pause("low");
+        return new FileMappingPage();
     }
 
 }

@@ -1,0 +1,4 @@
+TradeID,Allocation,HostCustID,Subaccount,TradeDate,EntryDate,Ticker,BuySell,CxlAdj,Shares,ReportingCcyPrice,ReportingCcyCommission,ReportingCcyCredit,ReportingCurrency,SecurityIdentifier,IssueName,TradeCurrency,GrossCommissionLocal,CurrencyRate,CommissionRate,CommissionType,Turnover,EligiblePercent
+2371362285,"arctic Investment Management Inc (P), USA",7742885,BBH,09/04/2022,09/29/2023,EMN,S,N,5360,70.923,214.4,190.28,USD,277432100,EASTMN CHEM,USD,214.4,1,4,CSA,380147.28,100
+2371362285,"arctic Investment Management Inc (P), USA",7742885,BBH,09/04/2022,09/29/2023,EMN,S,N,5360,70.923,214.4,190.28,USD,277432100,EASTMN CHEM,USD,214.4,1,4,CSA,380147.28,100
+2371362285,"angorra Investment Management Inc (P), USA",7742885,BBH,09/14/2024,09/19/2024,EMN,S,N,5360,70.923,214.4,190.28,USD,277432100,EASTMN CHEM,USD,214.4,1,4,CSA,380147.28,100

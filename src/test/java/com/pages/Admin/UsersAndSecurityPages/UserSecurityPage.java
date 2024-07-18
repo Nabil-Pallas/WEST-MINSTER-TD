@@ -119,6 +119,24 @@ public class UserSecurityPage extends AdminPage {
         return this;
     }
 
+    public UserSecurityPage validateClientInformation(String clientName, String clientName1) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        typeSearchClient(clientName);
+        pause("medium");
+        String firstGridName = getInnerText("(//table)[3]//tr[1]/td[1]");
+        if (clientName.equals(firstGridName)) {
+            boolean verifyExactText = verifyExactText(clientGridFirstRow, clientName);
+            Assert.assertTrue(verifyExactText);
+        } else {
+            typeSearchClient(clientName1);
+            pause("medium");
+            boolean verifyExactText = verifyExactText(clientGridFirstRow, clientName1);
+            Assert.assertTrue(verifyExactText);
+        }
+        return this;
+    }
+
     public UserSecurityPage validateUserInformation(String userName, String emailId) {
         waitForLoaderToDisappear();
         pause("medium");
@@ -127,7 +145,24 @@ public class UserSecurityPage extends AdminPage {
         waitForElementToLoad(frameUserSearchResult(userName));
         boolean verifyExactText = verifyExactText(frameUserSearchResult(userName), userName);
         Assert.assertTrue(verifyExactText);
+        return this;
+    }
 
+    public UserSecurityPage validateEditUserInformation(String userName, String userName1) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        typeSearchUser(userName);
+        pause("medium");
+        String firstGridName = getInnerText(frameUserSearchResult(userName));
+        if (userName.equals(firstGridName)) {
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(userName), userName);
+            Assert.assertTrue(verifyExactText);
+        } else {
+            typeSearchUser(userName1);
+            pause("medium");
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(userName1), userName1);
+            Assert.assertTrue(verifyExactText);
+        }
         return this;
     }
 
@@ -143,17 +178,39 @@ public class UserSecurityPage extends AdminPage {
         return this;
     }
 
-    public UserSecurityPage validateUserRoleAndMail(String emailId,String role) {
+    public UserSecurityPage validateRoleInformation(String roleName, String roleName2) {
+        if (roleName.equals("Automation_QA_testing")) {
+            waitForLoaderToDisappear();
+            pause("medium");
+            waitForLoaderToDisappear();
+            typeSearchRoles(roleName);
+            waitForElementToLoad(frameUserSearchResult(roleName));
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
+            Assert.assertTrue(verifyExactText);
+        } else {
+            waitForLoaderToDisappear();
+            pause("medium");
+            waitForLoaderToDisappear();
+            typeSearchRoles(roleName2);
+            waitForElementToLoad(frameUserSearchResult(roleName2));
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName2), roleName2);
+            Assert.assertTrue(verifyExactText);
+
+        }
+        return this;
+    }
+
+    public UserSecurityPage validateUserRoleAndMail(String emailId, String role) {
         waitForLoaderToDisappear();
         pause("medium");
         waitForLoaderToDisappear();
-        System.out.println("--validateUserRoleAndMail--"+emailId);
+        System.out.println("--validateUserRoleAndMail--" + emailId);
         typeSearchUser(emailId);
         waitForElementToLoad(frameUserSearchResult(emailId));
         boolean verifyExactText = verifyExactText(frameUserSearchResult(emailId), emailId);
         Assert.assertTrue(verifyExactText);
-        if(verifyExactText(frameUserSearchResult(emailId), emailId)){
-            boolean verifyExactRole = verifyExactText("//td[text()='"+role+"']", role);
+        if (verifyExactText(frameUserSearchResult(emailId), emailId)) {
+            boolean verifyExactRole = verifyExactText("//td[text()='" + role + "']", role);
             Assert.assertTrue(verifyExactRole);
         }
 
@@ -166,6 +223,25 @@ public class UserSecurityPage extends AdminPage {
         typeSearchClient(firstGridName);
         pause("low");
         click(clientActionLink, "First Grid Action Item", "Link");
+        waitForAppearance(frameEditClientDetailsResult("Edit Client Details"), "Edit Client Details");
+        click(frameEditClientDetailsResult("Edit Client Details"), "Edit Client Details Button");
+        return new EditClientPage();
+    }
+
+    public EditClientPage searchAndEditClientDetails(String clientName, String clientName2) {
+        waitForLoaderToDisappear();
+        typeSearchClient(clientName);
+        pause("medium");
+        String firstGridName = getInnerText("(//table)[3]//tr[1]/td[1]");
+        if (firstGridName.equals(clientName)) {
+            pause("medium");
+            click(clientActionLink, "First Grid Action Item", "Link");
+        } else {
+            typeSearchClient(clientName2);
+            pause("medium");
+            click(clientActionLink, "First Grid Action Item", "Link");
+        }
+        pause("medium");
         waitForAppearance(frameEditClientDetailsResult("Edit Client Details"), "Edit Client Details");
         click(frameEditClientDetailsResult("Edit Client Details"), "Edit Client Details Button");
         return new EditClientPage();
@@ -192,75 +268,121 @@ public class UserSecurityPage extends AdminPage {
                 click(userActionLink, "First Grid Action Item", "Link");
                 break;
         }
-
-      return this;
+        return this;
     }
-    public EditUserPage clickOnEditUser(){
+
+    public UserSecurityPage searchUserAndClickFirstGrid(String username, String username1) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        switch (xmlUserLevel) {
+            case "Tier2Admin":
+                typeSearchUser(username);
+                pause("medium");
+                userMailIdText.set(getInnerText("(//tr[1])[3]//td[@aria-colindex='1']"));
+                if (username.equals(userMailIdText.get())) {
+                    pause("medium");
+                    click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
+                } else {
+                    typeSearchUser(username1);
+                    pause("medium");
+                    click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
+                }
+                break;
+            default:
+                waitForLoaderToDisappear();
+                pause("medium");
+                typeSearchUser(username);
+                pause("medium");
+                userMailIdText.set(getInnerText("(//tr[1])[7]//td[@aria-colindex='1']"));
+                if (username.equals(userMailIdText.get())) {
+                    pause("medium");
+                    click(userActionLink, "First Grid Action Item", "Link");
+                } else {
+                    typeSearchUser(username1);
+                    pause("medium");
+                    click(userActionLink, "First Grid Action Item", "Link");
+                }
+                break;
+        }
+        return this;
+    }
+
+    public EditUserPage clickOnEditUser() {
         waitForAppearance(frameEditClientDetailsResult("Edit User"), "Edit User");
         click(frameEditClientDetailsResult("Edit User"), "Edit User Button");
         return new EditUserPage();
     }
 
-    public UserSecurityPage clickOnImpersonateUser(){
+    public UserSecurityPage clickOnImpersonateUser() {
         waitForAppearance(frameEditClientDetailsResult("Impersonate User"), "Impersonate User");
         click(frameEditClientDetailsResult("Impersonate User"), "Impersonate User Button");
         return this;
     }
-    public DashboardPage clickOnProceedAsUser(){
+
+    public DashboardPage clickOnProceedAsUser() {
         waitForAppearance(frameEditClientDetailsResult("Proceed as User"), "Proceed as User");
         click(frameEditClientDetailsResult("Proceed as User"), "Proceed as User Button");
         return new DashboardPage();
     }
 
 
-
-    public EditRolePage searchAndEditRoleDetails(String roleName) {
+    public EditRolePage searchAndEditRoleDetails(String roleName, String roleName2) {
         waitForLoaderToDisappear();
         switch (xmlUserLevel) {
             case "Tier2Admin":
+                typeSearchRoles(roleName);
                 String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
-                typeSearchRoles(firstGridName1);
-                pause("medium");
-                click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
+                if (roleName.equals(firstGridName1)) {
+                    pause("medium");
+                    click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
+                } else {
+                    typeSearchRoles(roleName2);
+                    pause("medium");
+                    click(roleActionLinkTier2Admin, "First Grid Action Item", "Link");
+                }
                 break;
             default:
-                String firstGridName = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
-                typeSearchRoles(firstGridName);
-                pause("medium");
-                click(roleActionLink, "First Grid Action Item", "Link");
+                typeSearchRoles(roleName);
+                String firstGridName2 = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
+                if (roleName.equals(firstGridName2)) {
+                    pause("medium");
+                    click(roleActionLink, "First Grid Action Item", "Link");
+                } else {
+                    typeSearchRoles(roleName2);
+                    pause("medium");
+                    click(roleActionLink, "First Grid Action Item", "Link");
+                }
                 break;
         }
-
-
-        waitForAppearance(frameEditClientDetailsResult("Edit Role"), "Edit Role");
+        pause("medium");
         click(frameEditClientDetailsResult("Edit Role"), "Edit Role Button");
         return new EditRolePage();
     }
 
 
     public UserSecurityPage clickOnApplyBtn() {
-        pause("low");
-        if(isVisible("// span[text()='Apply']")) {
+        pause("medium");
+        if (isVisible("// span[text()='Apply']")) {
             click(applyBtn, "Apply Button");
-        }else{
+        } else {
             click("(//span[text()='Apply'])[2]", "Apply Button");
         }
         pause("medium");
-        if(isVisible(frameSpanTextLocator("YES"))){
+        if (isVisible(frameSpanTextLocator("YES"))) {
             pause("low");
-            click(frameSpanTextLocator("YES"),"YES");
-        }else {
+            click(frameSpanTextLocator("YES"), "YES");
+        } else {
             System.out.println("Tier And Role Selected Successfully");
         }
         return new UserSecurityPage();
     }
 
-    public UserSecurityPage deleteClient(String clientName){
+    public UserSecurityPage deleteClient(String clientName) {
         waitForLoaderToDisappear();
         pause("medium");
-        click("(// tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines'])[2]/ td[2]// a","Action Link");
+        click("(// tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines'])[2]/ td[2]// a", "Action Link");
         pause("low");
-        click("//span[text()='Delete Client']","Delete Link","Action Item Popup");
+        click("//span[text()='Delete Client']", "Delete Link", "Action Item Popup");
         //click Yes popup
         click(frameSpanTextLocator("Yes"), "Yes");
         pause("low");
@@ -270,7 +392,7 @@ public class UserSecurityPage extends AdminPage {
         return this;
     }
 
-    public UserSecurityPage deleteUser(String UserName){
+    public UserSecurityPage deleteUser(String UserName) {
         waitForLoaderToDisappear();
         pause("medium");
 
@@ -283,7 +405,7 @@ public class UserSecurityPage extends AdminPage {
                 break;
         }
         pause("low");
-        click("//span[text()='Delete User']","Delete Link","Action Item Popup");
+        click("//span[text()='Delete User']", "Delete Link", "Action Item Popup");
         //click Yes popup
         click(frameSpanTextLocator("Yes"), "Yes");
         pause("low");
@@ -293,7 +415,7 @@ public class UserSecurityPage extends AdminPage {
         return this;
     }
 
-    public UserSecurityPage deleteRole(String RoleName){
+    public UserSecurityPage deleteRole(String RoleName) {
         waitForLoaderToDisappear();
         pause("medium");
 
@@ -306,7 +428,7 @@ public class UserSecurityPage extends AdminPage {
                 break;
         }
         pause("low");
-        click("//span[text()='Delete Role']","Delete Link","Action Item Popup");
+        click("//span[text()='Delete Role']", "Delete Link", "Action Item Popup");
         //click Yes popup
         click(frameSpanTextLocator("Yes"), "Yes");
         pause("low");
@@ -315,7 +437,6 @@ public class UserSecurityPage extends AdminPage {
         click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete");
         return this;
     }
-
 
 
 }

@@ -111,8 +111,8 @@ public class FileMappingPage extends FileManagerPage {
             pause("low");
 
             // Verify if the element is present
-            String element = "(//div[@class='match-names-span'])[" + (index + 2) + "]";
-            boolean isPresent = isVisible(element);
+//            String element = "(//div[@class='match-names-span'])[" + (index + 2) + "]";
+            boolean isPresent = isVisible("//li[@data-col-1='" + fileColumnValue + "']");
             Assert.assertTrue(isPresent);
             reportStep(sysColumn + " is mapped with " + fileColumnValue, "pass");
 
@@ -125,8 +125,10 @@ public class FileMappingPage extends FileManagerPage {
         click(finishMapping, "Finish Mapping");
         waitForAppearance("//div[text()='Confirm Data Mapping']", "Confirm Data Mapping");
         click(confirmAndUpload, "Confirm & Upload");
-        System.out.println("-----file name-" + fileName.get());
+//        System.out.println("-----file name-" + fileName.get());
         if (fileName.get().contains("500kFile.csv")) {
+            pause("high");
+            pause("high");
             pause("high");
             pause("high");
             pause("high");

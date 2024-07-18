@@ -70,47 +70,42 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     }
 
 
-    public FileMappingPage typeInformationInAddNewSystemColumns(boolean uniqueTradeIdentifierCheckbox, boolean calculatedCheckbox, boolean readOnlyCheckbox) {
+    public FileMappingPage typeInformationInAddNewSystemColumns() {
         clientCompanyName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
-        for (int i = 0; i < 1; i++) {
-            System.out.println("clientCompanyName--------" + clientCompanyName.get());
-            typeFieldName(clientCompanyName.get());
-            selectFieldDataType(i);
-            pause("medium");
-            pause("medium");
-            switch (i) {
-//                case 0:
-//                    calculatedCheckbox(calculatedCheckbox);
-//                    break;
-//                case 1:
-//                    uniqueTradeIdentifierCheckbox(uniqueTradeIdentifierCheckbox);
-//                    break;
-                case 0:
-                    readOnlyCheckbox(readOnlyCheckbox);
-                    break;
-//                case 3:
-//                    requiredCheckbox(requiredCheckbox)
-//                            .clickOnConfirmBtn();
-//                    break;
-            }
 
-            clickOnApplyBtn();
-        }
+        System.out.println("clientCompanyName--------" + clientCompanyName.get());
+        pause("medium");
+        pause("medium");
+        typeFieldName(clientCompanyName.get());
+        pause("medium");
+        pause("medium");
+        selectFieldDataType(1);
+        pause("medium");
+        pause("medium");
+        pause("medium");
+        pause("medium");
+
+        clickOnApplyBtn();
+
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
-
         pause("medium");
+
         //Mapping the Values
         // File Column Count
         click(frameSpanTextLocator(clientCompanyName.get()), "System Column :" + clientCompanyName.get(), "System Column");
+
         pause("low");
 
         click("(//tbody[@role='presentation']//tr[td='Broker Code'])", "File Column :Broker Code", "File Column");
+
         pause("low");
         //verifying MapColumns Enabled
         Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
         pause("low");
+
         click(mapColumnsBtn, "Map Columns");
+
         pause("low");
 
         reportPass("User successfully mapped file and system columns.");

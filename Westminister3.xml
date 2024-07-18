@@ -12,7 +12,7 @@
                 <include name="Tier2Admin"></include>
             </run>
             <run>
-                <!--                <include name="SANITY"></include>-->
+                <!--                                <include name="SANITY"></include>-->
                 <include name="REGRESSION"></include>
             </run>
         </groups>

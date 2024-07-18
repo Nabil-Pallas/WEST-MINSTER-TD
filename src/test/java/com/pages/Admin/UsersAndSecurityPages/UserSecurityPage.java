@@ -190,9 +190,6 @@ public class UserSecurityPage extends AdminPage {
         } else {
             waitForLoaderToDisappear();
             pause("medium");
-            waitForLoaderToDisappear();
-            typeSearchRoles(roleName2);
-            waitForElementToLoad(frameUserSearchResult(roleName2));
             boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName2), roleName2);
             Assert.assertTrue(verifyExactText);
 

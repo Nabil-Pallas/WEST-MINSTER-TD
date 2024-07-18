@@ -81,10 +81,10 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Srikanth
     //TC-961 - Upload a file which already uploaded with same data but with different file name
-//    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadSameContentFileWDiffName() {
         testcaseName = "TC_961 " + xmlUserLevel;
-        testDescription = "Upload Duplicate File with Different Name";
+        testDescription = "upload Same Content File With Different Name";
         authors = "Automation Team";
         category = "uploadDpFile";
         startTestCase();
@@ -117,7 +117,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Srikanth
     //TC-1603 - Test to verify whether multiple files with same name but different content can be uploaded or not. To do that we have to upload two different files with different contents in the same name. Expected outcome is, warning message should be displayed saying that "duplicate files are not allowed" and the file should not get uploaded.
-//    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadDiffContentFileWSameName() {
         testcaseName = "TC_1603 " + xmlUserLevel;
         testDescription = "Upload Different Content File with Same Name";
@@ -363,9 +363,9 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-        DataMap.set("");
-//        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
-//        fileName.set("SampleFile_AU_Chrome.csv");
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
+        fileName.set("SampleFile_AU_Chrome.csv");
         filePath2.set("./src/test/resources/upload/InvalidColumnsCase.csv");
         fileName2.set("InvalidColumnsCase.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -376,7 +376,15 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(filePath2.get(), fileName2.get())
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .validateFileNameInFileManagerGridAndDelete(fileName.get())
+                .fileUpload(filePath2.get(),fileName2.get())
                 .selectExistingMapping(DataMap.get())
                 .clickOnModifyInvalidMap()
                 .verifyMappingError()

@@ -183,7 +183,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     //Srikanth
     //Regression
     //TC_25 - Impersonate User
-//    @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", TestGroups.Type.REGRESSION})
+    @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", TestGroups.Type.REGRESSION})
     public void impersonateUser() {
         testcaseName = "TC_RE_25 " + xmlUserLevel;
         testDescription = "Impersonate User And Validate";
@@ -209,7 +209,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
 
     //Srikanth
     //TC_2004
-    @Test(priority = 29, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
+    @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
     public void roleCreationAndAssignRole() {
         testcaseName = "TC_2004 " + xmlUserLevel;
         testDescription = "Create Role And Assign that Role to User";
@@ -231,7 +231,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateUserSecurityPage()
                 .clickOnRolesTab()
                 .clickOnaddNewRoleBtn()
-                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "my-new-test-environment", "Select All")
+                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "LandoLandoLando", "Select All")
                 .clickOnApplyBtn()
                 .validateRoleInformation(userFirstName.get())
                 .clickOnUserTab()
@@ -239,7 +239,8 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .fillUserInformation2(FakerDataFactory.getFirstName(), FakerDataFactory.getLastName(), userMailId.get(),
                         FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", userFirstName.get())
                 .clickOnApplyBtn()
-                .validateUserRoleAndMail(userMailId.get(), userFirstName.get());
+                .validateUserRoleAndMail(userMailId.get(), userFirstName.get())
+                .deleteUser(userMailId.get());
 
     }
 

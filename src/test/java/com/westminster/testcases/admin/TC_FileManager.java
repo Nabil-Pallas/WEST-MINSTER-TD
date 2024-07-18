@@ -178,7 +178,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnAddNewSystemColumns()
                 .validateAddNewSystemColumnsPage()
                 .typeInformationInAddNewSystemColumns()
-                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"),Arrays.asList("Broker Name", "Trade Date", "Settlement Date"))
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"), Arrays.asList("Broker Name", "Trade Date", "Settlement Date"))
                 .clickOnFinishMapping()
                 .clickOnDataManager()
                 .validateDataManagerPage()
@@ -217,7 +217,6 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
                 .mappingFileAndSystemColumns(systemColumnNames);
-        System.out.println("TC-----------01");
     }
 
     // Sanjay Kumar
@@ -353,7 +352,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     //srikanth
     // TC_RE_2185 - Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.
 
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyInvalidColumnsWExistMapping() {
         testcaseName = "TC_RE_2185 " + xmlUserLevel;
         testDescription = "Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.";

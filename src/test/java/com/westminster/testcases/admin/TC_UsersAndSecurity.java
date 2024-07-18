@@ -105,9 +105,10 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
         category = "Edit User";
         startTestCase();
         setNode();
-        userFirstName.set(FakerDataFactory.getFirstName());
-        userLastName.set(FakerDataFactory.getLastName());
-        String displayUserName = userFirstName.get() + " " + userLastName.get();
+        userFirstName.set("Automation");
+        userLastName.set("QA Testing");
+        String userName = userFirstName.get() + " " + userLastName.get();
+        String userName1 = userLastName.get() + " " + userFirstName.get();
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -115,12 +116,12 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnUserSecurity()
                 .validateUserSecurityPage()
                 .clickOnUserTab()
-                .searchUserAndClickFirstGrid("")
+                .searchUserAndClickFirstGrid(userName, userName1)
                 .clickOnEditUser()
                 .validateEditUserPage()
-                .editUserInformation(userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber())
+                .editUserInformation(userFirstName.get(), userLastName.get(), userFirstName.get(), userLastName.get(), FakerDataFactory.getContactNumber())
                 .clickOnApplyBtn()
-                .validateUserInformation(displayUserName, userMailIdText.get());
+                .validateEditUserInformation(userName, userName1);
         System.out.println("TC-----------25");
 
     }
@@ -173,10 +174,9 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnRolesTab()
                 .searchAndEditRoleDetails("Automation_QA_testing", "QA_Automation_testing")
                 .validateEditRolePage()
-                .editRoleInformation("Automation_QA_testing","QA_Automation_testing",userLastName.get(), "", "", "Manage Data")
+                .editRoleInformation("QA_Automation_testing", "Automation_QA_testing", userLastName.get(), "", "", "Manage Data")
                 .clickOnApplyBtn()
-                .validateRoleInformation("Automation_QA_testing","QA_Automation_testing");
-               // .deleteRole(userFirstName.get());
+                .validateRoleInformation("QA_Automation_testing", "Automation_QA_testing");
         System.out.println("TC-----------27");
     }
 
@@ -185,13 +185,12 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     //TC_25 - Impersonate User
     @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", TestGroups.Type.REGRESSION})
     public void impersonateUser() {
-        testcaseName = "TC_25 " + xmlUserLevel;
+        testcaseName = "TC_RE_25 " + xmlUserLevel;
         testDescription = "Impersonate User And Validate";
         authors = "Automation Team";
         category = "Impersonate User";
         startTestCase();
         setNode();
-
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -205,12 +204,12 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .validateImpersonatingAsUserText()
                 .validateImpersonateInAccountSettings(userMailIdText.get());
-
+        System.out.println("TC-----------27");
     }
 
     //Srikanth
     //TC_2004
-    @Test(priority = 29, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
+    @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
     public void roleCreationAndAssignRole() {
         testcaseName = "TC_2004 " + xmlUserLevel;
         testDescription = "Create Role And Assign that Role to User";
@@ -232,7 +231,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateUserSecurityPage()
                 .clickOnRolesTab()
                 .clickOnaddNewRoleBtn()
-                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "my-new-test-environment", "Select All")
+                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "LandoLandoLando", "Select All")
                 .clickOnApplyBtn()
                 .validateRoleInformation(userFirstName.get())
                 .clickOnUserTab()
@@ -240,7 +239,8 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .fillUserInformation2(FakerDataFactory.getFirstName(), FakerDataFactory.getLastName(), userMailId.get(),
                         FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", userFirstName.get())
                 .clickOnApplyBtn()
-                .validateUserRoleAndMail(userMailId.get(), userFirstName.get());
+                .validateUserRoleAndMail(userMailId.get(), userFirstName.get())
+                .deleteUser(userMailId.get());
 
     }
 

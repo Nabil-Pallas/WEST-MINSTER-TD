@@ -26,7 +26,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     // Adding the new row in the data manager
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewRow() {
-        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
+        clientCompanyName.set(FakerDataFactory.getNameWithTimeStamp(""));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -42,17 +42,17 @@ public class TC_DataManager extends WestMinsterPageHook {
                         FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
                 .clickOnAddBtn()
                 .clickOnApplyBtn()
-                .validateAddedRowInformation(clientCompanyName.get(), "Broker Name")
-                .clickOnActionsBtn()
-                .clickOnDeleteBtn();
+                .validateAddedRowInformation(clientCompanyName.get(), "Broker Name");
+//                .clickOnActionsBtn();
+//                .clickOnDeleteBtn();
 //                .deleteAddedRow(clientCompanyName.get(), "Broker Name");
         System.out.println("TC-----------03");
     }
 
-    //    Editing the new row in the Data manager
+    // Editing the new row in the Data manager
     @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void editRow() {
-        ruleName.set(FakerDataFactory.getCompanyName());
+        ruleName.set(FakerDataFactory.getNameWithTimeStamp(""));
         reportName.set(FakerDataFactory.getReportsName());
         titleone.set(FakerDataFactory.getTitle());
         titleTwo.set(FakerDataFactory.getTitle());
@@ -106,7 +106,6 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .deleteDataSchema();
         System.out.println("TC-----------05");
     }
-
 
     //Manoj
     //Ensure the "Add" button is disabled when there is an error in the required field, Trade Date.
@@ -196,7 +195,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
-                .clickOnActionIcon("Broker Name")
+                .clickOnRelevantFieldNameActionIcon("Broker Name")
                 .clickOnAddValidation()
                 .validateAddFieldValidationParametersPage()
                 .addFieldValidationParameters(newListName.get())
@@ -205,9 +204,13 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .addNewRow(listItems.get().get(1), FakerDataFactory.getPastDate(), FakerDataFactory.getFutureDate())
                 .clickOnAddBtn()
                 .clickOnApplyBtn()
+                .clickOnDataManager()
+                .clickOnDataManager()
                 .validateAddedRowInformation(listItems.get().get(1), "Broker Name")
-                .clickOnActionsBtn()
-                .clickOnDeleteBtn()
+//                .clickOnActionsBtn()
+//                .clickOnDeleteBtn()
+                .clickOnSingleCheckBox()
+                .clickOnDeleteRowBtn()
                 .clickOnListManager()
                 .validateListManagerPage()
                 .deleteListItem(newListName.get());
@@ -244,7 +247,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkApplyAndCancelBtnForEditAndBulkedit() {
         testcaseName = "TC_RE_4622 " + xmlUserLevel;
         testDescription = "Adding Adhoc Rows Data Manager";
@@ -282,7 +285,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     //Manoj
-    //    Verify if more than 10 rows can be added at once using the 'Add New Row' option in Data Manager.
+    //Verify if more than 10 rows can be added at once using the 'Add New Row' option in Data Manager.
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addMoreThan10Rows() {
         testcaseName = "TC_RE_5229 " + xmlUserLevel;
@@ -329,8 +332,8 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
-                .setClient()
                 .clickOnDataManager()
+                .setClient()
                 .getTotalRowCount("Initial")
                 .clickOnFileManager()
                 .validateFileManagerPage()

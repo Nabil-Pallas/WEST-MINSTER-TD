@@ -15,6 +15,8 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     private String mapColumnsBtn = "//span[text()='Map Columns']";
     private String systemColumnsText = "//span[@class='ml-half']//span[@title]";
     private String newColumnBtn = "//i[@class='dx-icon dx-icon-edit-button-addrow']";
+    public static List<String> addedColumnss;
+
 
 
     public AddNewSystemColumnsPage validateAddNewSystemColumnsPage() {
@@ -70,47 +72,42 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     }
 
 
-    public FileMappingPage typeInformationInAddNewSystemColumns(boolean uniqueTradeIdentifierCheckbox, boolean calculatedCheckbox, boolean readOnlyCheckbox) {
+    public FileMappingPage typeInformationInAddNewSystemColumns() {
         clientCompanyName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
-        for (int i = 0; i < 1; i++) {
-            System.out.println("clientCompanyName--------" + clientCompanyName.get());
-            typeFieldName(clientCompanyName.get());
-            selectFieldDataType(i);
-            pause("medium");
-            pause("medium");
-            switch (i) {
-//                case 0:
-//                    calculatedCheckbox(calculatedCheckbox);
-//                    break;
-//                case 1:
-//                    uniqueTradeIdentifierCheckbox(uniqueTradeIdentifierCheckbox);
-//                    break;
-                case 0:
-                    readOnlyCheckbox(readOnlyCheckbox);
-                    break;
-//                case 3:
-//                    requiredCheckbox(requiredCheckbox)
-//                            .clickOnConfirmBtn();
-//                    break;
-            }
 
-            clickOnApplyBtn();
-        }
+        System.out.println("clientCompanyName--------" + clientCompanyName.get());
+        pause("medium");
+        pause("medium");
+        typeFieldName(clientCompanyName.get());
+        pause("medium");
+        pause("medium");
+        selectFieldDataType(1);
+        pause("medium");
+        pause("medium");
+        pause("medium");
+        pause("medium");
+
+        clickOnApplyBtn();
+
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
-
         pause("medium");
+
         //Mapping the Values
         // File Column Count
         click(frameSpanTextLocator(clientCompanyName.get()), "System Column :" + clientCompanyName.get(), "System Column");
+
         pause("low");
 
         click("(//tbody[@role='presentation']//tr[td='Broker Code'])", "File Column :Broker Code", "File Column");
+
         pause("low");
         //verifying MapColumns Enabled
         Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
         pause("low");
+
         click(mapColumnsBtn, "Map Columns");
+
         pause("low");
 
         reportPass("User successfully mapped file and system columns.");
@@ -122,20 +119,21 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     public FileMappingPage typeInformationInAddNewSystemColumns(int noOfColumn) {
         newSystemColumnName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
         List<String> addedColumns = new ArrayList<>();
-        for (int i = 0; i < noOfColumn; i++) {
+        for (int i = 1; i <= noOfColumn; i++) {
             pause("medium");
-            waitForAppearance(frameSpanExactTextLocator("Delete", (i + 1)), "Delete");
-            if (isVisible(frameSpanExactTextLocator("Delete", (i + 1)))) {
-                System.out.println("clientCompanyName--------" + newSystemColumnName.get());
+            waitForAppearance(frameSpanExactTextLocator("Delete", i), "Delete");
+            pause("medium");
+            if (isVisible(frameSpanExactTextLocator("Delete", i))) {
+                System.out.println("Field Name --------" + i);
                 String columnName = newSystemColumnName.get() + "_" + i;
                 addedColumns.add(columnName);
                 typeFieldName(columnName);
                 pause("medium");
-                selectFieldDataType(new Random().nextInt(4));
+                selectFieldDataType(new Random().nextInt(3));
                 pause("medium");
-                if (i < noOfColumn - 1) { // Change the condition to < noOfColumn - 1
+                if (i < noOfColumn) { // Change the condition to < noOfColumn - 1
                     clickOnNewColumn();
-                    System.out.println("New column Clicked");
+                    System.out.println("New column Clicked --- " + i);
                     pause("medium");
                 }
             }

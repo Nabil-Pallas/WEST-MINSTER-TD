@@ -1,6 +1,8 @@
 package com.data.dynamic;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -105,7 +107,10 @@ public class FakerDataFactory {
 
 
     public static String getEmailAddress() {
-        return faker.internet().emailAddress();
+        String email = faker.internet().emailAddress();
+        String timestamp = DateTimeFormatter.ofPattern("HHmm").format(LocalDateTime.now());
+        String[] emailParts = email.split("@");
+        return emailParts[0] + timestamp + "@" + emailParts[1];
     }
 
 
@@ -217,7 +222,7 @@ public class FakerDataFactory {
     }
 
     public static List<String> getSystemColumns() {
-        String[] columns = {"Broker Name", "Trade Date", "Settlement Date"}; //"Base Gross Commission","Local Gross Commission","Base Executed Value","Trade ID","Account Name"
+        String[] columns = {"Broker Name", "Trade Date", "Settlement Date","Trade ID"}; //"Base Gross Commission","Local Gross Commission","Base Executed Value","Trade ID","Account Name"
         List<String> Items = new ArrayList<>(List.of(columns));
         return Items;
     }

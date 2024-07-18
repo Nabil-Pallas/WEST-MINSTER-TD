@@ -145,7 +145,24 @@ public class UserSecurityPage extends AdminPage {
         waitForElementToLoad(frameUserSearchResult(userName));
         boolean verifyExactText = verifyExactText(frameUserSearchResult(userName), userName);
         Assert.assertTrue(verifyExactText);
+        return this;
+    }
 
+    public UserSecurityPage validateEditUserInformation(String userName, String userName1) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        typeSearchUser(userName);
+        pause("medium");
+        String firstGridName = getInnerText(frameUserSearchResult(userName));
+        if (userName.equals(firstGridName)) {
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(userName), userName);
+            Assert.assertTrue(verifyExactText);
+        } else {
+            typeSearchUser(userName1);
+            pause("medium");
+            boolean verifyExactText = verifyExactText(frameUserSearchResult(userName1), userName1);
+            Assert.assertTrue(verifyExactText);
+        }
         return this;
     }
 
@@ -162,22 +179,15 @@ public class UserSecurityPage extends AdminPage {
     }
 
     public UserSecurityPage validateRoleInformation(String roleName, String roleName2) {
-        waitForLoaderToDisappear();
-        pause("medium");
-        waitForLoaderToDisappear();
-        typeSearchRoles(roleName);
-        String str = getInnerText(frameClientDetailsLocator(roleName));
-       // waitForElementToLoad(frameUserSearchResult(roleName));
-        if(roleName.equals(str)) {
-//            waitForLoaderToDisappear();
-//            pause("medium");
-//            waitForLoaderToDisappear();
-//            typeSearchRoles(roleName);
-//            waitForElementToLoad(frameUserSearchResult(roleName));
+        if (roleName.equals("Automation_QA_testing")) {
+            waitForLoaderToDisappear();
+            pause("medium");
+            waitForLoaderToDisappear();
+            typeSearchRoles(roleName);
+            waitForElementToLoad(frameUserSearchResult(roleName));
             boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
             Assert.assertTrue(verifyExactText);
-        }else{
-            typeSearchRoles(roleName2);
+        } else {
             waitForLoaderToDisappear();
             pause("medium");
             boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName2), roleName2);
@@ -260,27 +270,32 @@ public class UserSecurityPage extends AdminPage {
 
     public UserSecurityPage searchUserAndClickFirstGrid(String username, String username1) {
         waitForLoaderToDisappear();
+        pause("medium");
         switch (xmlUserLevel) {
             case "Tier2Admin":
                 typeSearchUser(username);
-                userMailIdText.set(getInnerText("(//tr[1])[3]//td[@aria-colindex='5']"));
+                pause("medium");
+                userMailIdText.set(getInnerText("(//tr[1])[3]//td[@aria-colindex='1']"));
                 if (username.equals(userMailIdText.get())) {
                     pause("medium");
                     click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
                 } else {
-                    typeSearchRoles(username1);
+                    typeSearchUser(username1);
                     pause("medium");
                     click(userActionLinkTier2Admin, "First Grid Action Item", "Link");
                 }
                 break;
             default:
-                typeSearchRoles(username);
-                userMailIdText.set(getInnerText("(//tr[1])[7]//td[@aria-colindex='6']"));
+                waitForLoaderToDisappear();
+                pause("medium");
+                typeSearchUser(username);
+                pause("medium");
+                userMailIdText.set(getInnerText("(//tr[1])[7]//td[@aria-colindex='1']"));
                 if (username.equals(userMailIdText.get())) {
                     pause("medium");
                     click(userActionLink, "First Grid Action Item", "Link");
                 } else {
-                    typeSearchRoles(username1);
+                    typeSearchUser(username1);
                     pause("medium");
                     click(userActionLink, "First Grid Action Item", "Link");
                 }

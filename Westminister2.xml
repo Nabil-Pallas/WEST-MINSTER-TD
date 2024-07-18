@@ -12,45 +12,21 @@
                 <include name="Tier1User"></include>
             </run>
             <run>
-<<<<<<< HEAD
-                <include name="SANITY"></include>
-                <!--                <include name="REGRESSION"></include>-->
-=======
                 <!--                <include name="SANITY"></include>-->
                 <include name="REGRESSION"></include>
->>>>>>> e2b4de61a9e4b168773ae0076a16758303a7957e
             </run>
         </groups>
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-<<<<<<< HEAD
-            <class name="com.westminster.testcases.admin.TC_FileManager">
-                <methods>
-                    <include name="fileUpload"/>
-                    <include name="promotingRows"/>
-                </methods>
-            </class>
-            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
-                <methods>
-                    <exclude name="createClient"/>
-                    <exclude name="editClient"/>
-                </methods>
-            </class>
-=======
             <class name="com.westminster.testcases.admin.TC_FileManager"/>
             <class name="com.westminster.testcases.admin.TC_UsersAndSecurity"/>
->>>>>>> e2b4de61a9e4b168773ae0076a16758303a7957e
             <class name="com.westminster.testcases.admin.TC_DataManager"/>
             <class name="com.westminster.testcases.admin.TC_RulesManager"/>
             <class name="com.westminster.testcases.admin.TC_ListManager"/>
             <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>
             <class name="com.westminster.testcases.analytics.TC_Analytics"/>
             <class name="com.westminster.testcases.report.TC_Reports"/>
-<<<<<<< HEAD
-=======
-
->>>>>>> e2b4de61a9e4b168773ae0076a16758303a7957e
         </classes>
     </test>
     <!--

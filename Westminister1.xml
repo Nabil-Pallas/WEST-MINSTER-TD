@@ -12,29 +12,15 @@
                 <include name="Tier1Admin"></include>
             </run>
             <run>
-<<<<<<< HEAD
-                <include name="SANITY"></include>
-                <!--                <include name="REGRESSION"></include>-->
-=======
                 <!--                          <include name="SANITY"></include>-->
                 <include name="REGRESSION"></include>
->>>>>>> e2b4de61a9e4b168773ae0076a16758303a7957e
             </run>
         </groups>
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
 
-<<<<<<< HEAD
-            <class name="com.westminster.testcases.admin.TC_FileManager">
-                <!--                <methods>-->
-                <!--                    <include name="fileUpload"/>-->
-                <!--                    <include name="promotingRows"/>-->
-                <!--                </methods>-->
-            </class>
-=======
             <class name="com.westminster.testcases.admin.TC_FileManager"/>
->>>>>>> e2b4de61a9e4b168773ae0076a16758303a7957e
             <class name="com.westminster.testcases.admin.TC_UsersAndSecurity"/>
             <class name="com.westminster.testcases.admin.TC_DataManager"/>
             <class name="com.westminster.testcases.admin.TC_RulesManager"/>

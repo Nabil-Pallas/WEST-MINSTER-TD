@@ -12,13 +12,8 @@
                 <include name="Tier2User"></include>
             </run>
             <run>
-<<<<<<< HEAD
-                <include name="SANITY"></include>
-                <!--                <include name="REGRESSION"></include>-->
-=======
                 <!--                                <include name="SANITY"></include>-->
                 <include name="REGRESSION"></include>
->>>>>>> e2b4de61a9e4b168773ae0076a16758303a7957e
             </run>
         </groups>
         <parameter name="Browser" value="chrome"></parameter>

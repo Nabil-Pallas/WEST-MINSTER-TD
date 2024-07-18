@@ -51,7 +51,7 @@ public class AdminPage extends MenuPage {
     }
 
     public String selectPermissionCheckBox(String placeholder) {
-        return "//div[text()='" + placeholder + "']";
+        return "//span[contains(., '"+placeholder+"')]/ancestor::div[contains(@class, 'dx-item')]/div[contains(@class, 'dx-list-item-before-bag')]//div[contains(@class, 'dx-checkbox-container')]/span[@class='dx-checkbox-icon']";
     }
 
     public String searchFieldName(String placeholder) {
@@ -92,7 +92,7 @@ public class AdminPage extends MenuPage {
     }
 
     public String frameRowCountText(String placeholder) {
-        return "//span[text()='"+placeholder+"']/following-sibling::span";
+        return "//span[text()='" + placeholder + "']/following-sibling::span";
     }
 
 
@@ -246,22 +246,18 @@ public class AdminPage extends MenuPage {
     }
 
 
-
-
-
-
-    public DataManagerPage getTotalRowCount(String state){
+    public DataManagerPage getTotalRowCount(String state) {
         pause("low");
         String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
-        String replacedRowCount = rowCount.replaceAll("Total Row Count: ","");
-        if(state.equalsIgnoreCase("Initial")) {
+        String replacedRowCount = rowCount.replaceAll("Total Row Count: ", "");
+        if (state.equalsIgnoreCase("Initial")) {
             InitRowCounts = Long.parseLong(replacedRowCount);
             //InitRowCounts.set(Long.parseLong(replacedRowCount));
-            System.out.println("InitRowCounts: "+ InitRowCounts);
-        }else {
-           // FinRowCounts.set(Long.parseLong(replacedRowCount));
+            System.out.println("InitRowCounts: " + InitRowCounts);
+        } else {
+            // FinRowCounts.set(Long.parseLong(replacedRowCount));
             FinRowCounts = Long.parseLong(replacedRowCount);
-            System.out.println("FinRowCounts: "+ FinRowCounts);
+            System.out.println("FinRowCounts: " + FinRowCounts);
         }
         return new DataManagerPage();
     }

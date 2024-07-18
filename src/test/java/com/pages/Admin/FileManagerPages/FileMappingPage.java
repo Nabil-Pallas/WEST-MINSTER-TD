@@ -1,10 +1,13 @@
 package com.pages.Admin.FileManagerPages;
 
 import com.microsoft.playwright.ElementHandle;
+import com.page.base.DashboardPage;
+import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.AddNewColumnPage;
 import org.testng.Assert;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +19,9 @@ public class FileMappingPage extends FileManagerPage {
     private String mapColumnsBtn = "//span[text()='Map Columns']";
     private String finishMapping = "//span[text()='Finish mapping']";
     private String confirmAndUpload = "//span[text()='Confirm & Upload']";
+    private String mappingErrorText = "//div[text()='Mapping Error'] ";
+    private String errorList = "//ul[@class='error-list']";
+    private List<String> invalidColumnList = new ArrayList<>();
 
 
     public FileMappingPage validateFileMappingPage() {
@@ -145,7 +151,7 @@ public class FileMappingPage extends FileManagerPage {
 
 
     // Method to verify added columns in the system column name
-    public FileManagerPage verifyAddedColumnsInSystemColumnName(int noOfSysColumn) {
+    public DashboardPage verifyAddedColumnsInSystemColumnName(int noOfSysColumn) {
         pause("low");
         List<ElementHandle> systemColumnNames = getListElements(systemColumnsText);// Replace with the actual selector
 
@@ -163,11 +169,69 @@ public class FileMappingPage extends FileManagerPage {
 
         Assert.assertEquals(systemColumnCount, noOfSysColumn);
         if (systemColumnCount == noOfSysColumn) {
-            reportPass("The number of added columns are displayed in System column Name for mapping ");
+            reportPass("Newly added system column (" + noOfSysColumn + " )is displayed on the System Column Names(" + systemColumnCount + " ) page.");
         } else {
-            reportFail("The number of added columns does not match.");
+            reportFail("Number of added columns does not match");
+        }
+        return new DashboardPage();
+    }
+
+    public FileMappingPage verifyMappingError() {
+        //Mapping Error popup
+        waitForElementToLoad(mappingErrorText);
+        if (isVisible(mappingErrorText, "mapping Error Text")) {
+            reportPass("User is able to view Mapping Error popup");
+        } else {
+            reportFailAndThrowException("User is unable to view Mapping Error popup");
+        }
+        //Error column list
+        if (isVisible(errorList, "error List")) {
+            reportPass("User is able to view the Error listed Columns");
+        } else {
+            reportFailAndThrowException("User is unable to view the Error listed Columns");
+        }
+
+        int errorCount = getLocatorsCount("// ul[@class='error-list']//li");
+
+
+        for (int i = 1; i <= errorCount; i++) {
+            String innerText = getInnerText("(// ul[@class='error-list']//li)[" + i + "]");
+
+            String[] columnList = innerText.split(":");
+            invalidColumnList.add(columnList[1]);
+        }
+
+
+        return this;
+    }
+
+    public FileMappingPage clickOnDeleteInvalidColumns() {
+        pause("low");
+        click(frameSpanTextLocator("Delete Invalid Columns"), "Delete Invalid Columns");
+        pause("low");
+        return this;
+    }
+
+    public FileMappingPage validateMappedColumns() {
+        pause("low");
+        if (isVisible("//span[@class='system-column-name-span']")) {
+            int sysColumnCount = getLocatorsCount("//span[@class='system-column-name-span']");
+            for (int i = 1; i <= sysColumnCount; i++) {
+                String innerText = getInnerText("(//span[@class='system-column-name-span'])[" + i + "]");
+
+                for (String a : invalidColumnList) {
+                    if (!innerText.equals(a)) {
+                        reportPass("Column not listed in Error list");
+                    } else {
+                        reportFail("Invalid Column is listed in Error list");
+                    }
+                }
+            }
+        } else {
+            reportPass("No Currently Mapped Columns");
         }
         return this;
     }
+
 
 }

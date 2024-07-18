@@ -338,6 +338,7 @@ public class AddNewRowPage extends DataManagerPage {
             } else {
                 clickOnApplyBtn();
                 reportPass("User successfully Added 10 rows in Add New Row");
+                pause("low");
             }
         }
         return this;

@@ -1,5 +1,6 @@
 package com.pages.Admin.FileManagerPages;
 
+import com.data.dynamic.FakerDataFactory;
 import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.AddNewRowPage;
@@ -7,6 +8,7 @@ import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.testng.Assert;
 import org.xml.sax.Locator;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 
@@ -20,6 +22,11 @@ public class FileManagerPage extends AdminPage {
 
     //Locator For Create Button
     private String createNewDataMapBtn = "//span[text()='Create']";
+
+    private static int size;
+    private static int size2;
+
+
 
 
     //Locator For Date Format
@@ -88,7 +95,7 @@ public class FileManagerPage extends AdminPage {
 
     //Selecting Existing DataMap
     public FileManagerPage selectExistingMapping(String dataMap) {
-
+        pause("low");
         //Click Select mapping DropDown
         click(frameSelectMappingLocator("Select a mapping:"), "Select Mapping DropDown", "DropDown");
         pause("low");
@@ -146,7 +153,8 @@ public class FileManagerPage extends AdminPage {
             click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]", "Invalid Row", "Invalid RowLink");
             pause("low");
             waitForElementToLoad(frameSpanTextLocator("Amend Errors"));
-            //Amend Errors
+
+            //click Amend Errors
             click(frameSpanTextLocator("Amend Errors"), "Amend Errors");
             pause("low");
         } else {
@@ -158,7 +166,6 @@ public class FileManagerPage extends AdminPage {
         reportPass("User successfully amended the errors.");
         return new ErrorQueuePage();
     }
-
 
     public FileManagerPage validateRowPromote(String fileName) {
         waitForLoaderToDisappear();
@@ -226,6 +233,14 @@ public class FileManagerPage extends AdminPage {
             System.out.println("---"+validRows);
         }
         return this;
+    }
+
+
+    public FileMappingPage clickOnModifyInvalidMap(){
+        pause("low");
+        click(frameSpanTextLocator("Modify Invalid Map"),"Modify Invalid Map Button");
+        pause("low");
+        return new FileMappingPage();
     }
 
 }

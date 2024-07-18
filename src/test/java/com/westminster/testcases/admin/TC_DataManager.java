@@ -205,12 +205,13 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnAddBtn()
                 .clickOnApplyBtn()
                 .validateAddedRowInformation(listItems.get().get(1), "Broker Name")
-                .clickOnActionsBtn()
-                .clickOnDeleteBtn()
+//                .clickOnActionsBtn()
+//                .clickOnDeleteBtn()
+                .clickOnSingleCheckBox()
+                .clickOnDeleteRowBtn()
                 .clickOnListManager()
                 .validateListManagerPage()
                 .deleteListItem(newListName.get());
-
         System.out.println("TC-----------TC_RE_5429");
     }
 

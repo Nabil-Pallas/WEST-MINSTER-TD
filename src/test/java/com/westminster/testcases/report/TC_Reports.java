@@ -50,7 +50,8 @@ public class TC_Reports extends WestMinsterPageHook {
                 .validateBudgetingPage("This is Budget Page", "Budget Name")
                 .clickOnViewReport()
                 .clickOnExitBtn()
-                .validateMyReportTitle(reportName.get());
+                .validateMyReportTitle(reportName.get())
+                .deleteReport(reportName.get());
         System.out.println("TC-----------19");
 
     }
@@ -86,8 +87,7 @@ public class TC_Reports extends WestMinsterPageHook {
                 .validateAnalyticsPage(titleTwo.get(), descriptionTwo.get())
                 .clickOnViewReport()
                 .clickOnExitBtn()
-                .validateMyReportTitle(reportName.get())
-                .deleteReport(reportName.get());
+                .validateMyReportTitle(reportName.get());
         System.out.println("TC-----------20");
 
     }

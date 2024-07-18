@@ -11,8 +11,7 @@ public class ErrorQueuePage extends FileManagerPage {
     private String selectAll = "//div[@aria-label='Select all']";
     private static long invalidCellCount;
     private static long errorRows;
-
-
+    
     public ErrorQueuePage validateErrorQueuePage() {
         waitForElementToLoad(ErrorQueueText);
         if (isVisible(ErrorQueueText, "Error Queue Text")) {
@@ -63,8 +62,6 @@ public class ErrorQueuePage extends FileManagerPage {
         pause("low");
         return new FileManagerPage();
     }
-
-
 
     public ErrorQueuePage clickFilterAndSelectInvalidCells(String fileName) {
         pause("medium");

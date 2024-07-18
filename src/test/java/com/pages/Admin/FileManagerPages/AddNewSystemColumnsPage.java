@@ -117,20 +117,21 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     public FileMappingPage typeInformationInAddNewSystemColumns(int noOfColumn) {
         newSystemColumnName.set(FakerDataFactory.getFieldNameWithTimeStamp(""));
         List<String> addedColumns = new ArrayList<>();
-        for (int i = 0; i < noOfColumn; i++) {
+        for (int i = 1; i <= noOfColumn; i++) {
             pause("medium");
-            waitForAppearance(frameSpanExactTextLocator("Delete", (i + 1)), "Delete");
-            if (isVisible(frameSpanExactTextLocator("Delete", (i + 1)))) {
-                System.out.println("clientCompanyName--------" + newSystemColumnName.get());
+            waitForAppearance(frameSpanExactTextLocator("Delete", i), "Delete");
+            pause("medium");
+            if (isVisible(frameSpanExactTextLocator("Delete", i))) {
+                System.out.println("Field Name --------" + i);
                 String columnName = newSystemColumnName.get() + "_" + i;
                 addedColumns.add(columnName);
                 typeFieldName(columnName);
                 pause("medium");
-                selectFieldDataType(new Random().nextInt(4));
+                selectFieldDataType(new Random().nextInt(3));
                 pause("medium");
-                if (i < noOfColumn - 1) { // Change the condition to < noOfColumn - 1
+                if (i < noOfColumn) { // Change the condition to < noOfColumn - 1
                     clickOnNewColumn();
-                    System.out.println("New column Clicked");
+                    System.out.println("New column Clicked --- " + i);
                     pause("medium");
                 }
             }

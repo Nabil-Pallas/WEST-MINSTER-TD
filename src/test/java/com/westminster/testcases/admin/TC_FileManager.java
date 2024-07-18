@@ -24,7 +24,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         category = "File Upload";
     }
 
-    //    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void fileUpload() {
         filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
         fileName.set("SampleFile_AU_Chrome.csv");
@@ -46,7 +46,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------01");
     }
 
-    //    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void promotingRows() {
         testcaseName = "TC_4460 " + xmlUserLevel;
         testDescription = "Promoting Rows and Validate";
@@ -178,7 +178,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnAddNewSystemColumns()
                 .validateAddNewSystemColumnsPage()
                 .typeInformationInAddNewSystemColumns()
-                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"),Arrays.asList("Broker Name", "Trade Date", "Settlement Date"))
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"), Arrays.asList("Broker Name", "Trade Date", "Settlement Date"))
                 .clickOnFinishMapping()
                 .clickOnDataManager()
                 .validateDataManagerPage()
@@ -353,7 +353,6 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //srikanth
     // TC_RE_2185 - Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.
-
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyInvalidColumnsWExistMapping() {
         testcaseName = "TC_RE_2185 " + xmlUserLevel;
@@ -384,7 +383,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get())
                 .validateFileNameInFileManagerGridAndDelete(fileName.get())
-                .fileUpload(filePath2.get(),fileName2.get())
+                .fileUpload(filePath2.get(), fileName2.get())
                 .selectExistingMapping(DataMap.get())
                 .clickOnModifyInvalidMap()
                 .verifyMappingError()

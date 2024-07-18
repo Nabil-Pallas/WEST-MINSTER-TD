@@ -147,7 +147,6 @@ public class DataManagerPage extends AdminPage {
 
     //Validate the Add New Row Information
     public DataManagerPage validateAddedRowInformation(String verificationValue, String verificationHeader) {
-//        waitForLoaderToDisappear();
         List<String> list = new ArrayList<>();
         pause("medium");
         pause("medium");

@@ -222,7 +222,7 @@ public class FakerDataFactory {
     }
 
     public static List<String> getSystemColumns() {
-        String[] columns = {"Broker Name", "Trade Date", "Settlement Date"}; //"Base Gross Commission","Local Gross Commission","Base Executed Value","Trade ID","Account Name"
+        String[] columns = {"Broker Name", "Trade Date", "Settlement Date","Trade ID"}; //"Base Gross Commission","Local Gross Commission","Base Executed Value","Trade ID","Account Name"
         List<String> Items = new ArrayList<>(List.of(columns));
         return Items;
     }

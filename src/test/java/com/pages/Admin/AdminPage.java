@@ -9,6 +9,9 @@ import com.pages.Admin.ListManagerPages.ListManagerPage;
 import com.pages.Admin.RulesManagerPages.RulesManagerPage;
 import com.pages.Admin.UsersAndSecurityPages.UserSecurityPage;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AdminPage extends MenuPage {
 
     protected String userAndSecurity = "//span[contains(text(),'Users & Security')]";
@@ -51,7 +54,11 @@ public class AdminPage extends MenuPage {
     }
 
     public String selectPermissionCheckBox(String placeholder) {
-        return "//span[contains(., '"+placeholder+"')]/ancestor::div[contains(@class, 'dx-item')]/div[contains(@class, 'dx-list-item-before-bag')]//div[contains(@class, 'dx-checkbox-container')]/span[@class='dx-checkbox-icon']";
+        if (placeholder.equals("Select All")) {
+            return "//div[contains(@class,'dx-list-select-all-checkbox')]";
+        } else {
+            return "//span[contains(., '" + placeholder + "')]/ancestor::div[contains(@class, 'dx-item')]/div[contains(@class, 'dx-list-item-before-bag')]//div[contains(@class, 'dx-checkbox-container')]/span[@class='dx-checkbox-icon']";
+        }
     }
 
     public String searchFieldName(String placeholder) {
@@ -245,21 +252,49 @@ public class AdminPage extends MenuPage {
         return new ListManagerPage();
     }
 
-
     public DataManagerPage getTotalRowCount(String state) {
-        pause("low");
+        pause("medium");
         String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
-        String replacedRowCount = rowCount.replaceAll("Total Row Count: ", "");
-        if (state.equalsIgnoreCase("Initial")) {
-            InitRowCounts = Long.parseLong(replacedRowCount);
-            //InitRowCounts.set(Long.parseLong(replacedRowCount));
-            System.out.println("InitRowCounts: " + InitRowCounts);
+
+        // Regex to extract the main number part (ignoring the filtered part if present)
+        String regex = "Total Row Count: ([\\d,]+)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(rowCount);
+
+        if (matcher.find()) {
+            String numberString = matcher.group(1); // Get the matched number part
+            String cleanNumberString = numberString.replaceAll(",", ""); // Remove commas
+
+            if (state.equalsIgnoreCase("Initial")) {
+                InitRowCounts = Long.parseLong(cleanNumberString);
+                System.out.println("InitRowCounts: " + InitRowCounts);
+            } else {
+                FinRowCounts = Long.parseLong(cleanNumberString);
+                System.out.println("FinRowCounts: " + FinRowCounts);
+            }
         } else {
-            // FinRowCounts.set(Long.parseLong(replacedRowCount));
-            FinRowCounts = Long.parseLong(replacedRowCount);
-            System.out.println("FinRowCounts: " + FinRowCounts);
+            System.out.println("No matching row count found.");
         }
+
         return new DataManagerPage();
     }
+
+//    public DataManagerPage getTotalRowCount(String state) {
+//        pause("low");
+//        String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
+//        String replacedRowCount = rowCount.replaceAll("Total Row Count: ", "");
+//        String reReplaceRowCount = replacedRowCount.replaceAll(",","");
+//        if (state.equalsIgnoreCase("Initial")) {
+//            InitRowCounts = Long.parseLong(reReplaceRowCount);
+//            //InitRowCounts.set(Long.parseLong(replacedRowCount));
+//            System.out.println("InitRowCounts: " + InitRowCounts);
+//        } else {
+//            // FinRowCounts.set(Long.parseLong(replacedRowCount));
+//            FinRowCounts = Long.parseLong(reReplaceRowCount);
+//            System.out.println("FinRowCounts: " + FinRowCounts);
+//        }
+//
+//        return new DataManagerPage();
+//    }
 
 }

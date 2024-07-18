@@ -78,7 +78,8 @@ public class RulesManagerPage extends AdminPage {
                     .defineTheNewColumn(true, FakerDataFactory.getFieldName(), "")
                     .addFilters("Broker Name", "=")
                     .defineTheCalculation("Local Price", "*", "Local Price")
-                    .validateNewRuleNameIsEnabled(ruleName.get());
+                    .validateNewRuleNameIsEnabled(ruleName.get())
+                    .getFirstRuleNametext();
         }
         return new AddNewRulePage();
     }

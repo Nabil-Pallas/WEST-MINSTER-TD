@@ -294,7 +294,6 @@ public class PlaywrightWrapper extends Reporter {
     public boolean typeAndSpace(String locator, String value, String name) {
         try {
             getPage().locator(locator).fill("");
-            ;
             getPage().locator(locator).fill(value);
             pause("low");
             getPage().locator(locator).press("Space");

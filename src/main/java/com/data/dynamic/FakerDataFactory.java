@@ -1,6 +1,8 @@
 package com.data.dynamic;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -105,7 +107,10 @@ public class FakerDataFactory {
 
 
     public static String getEmailAddress() {
-        return faker.internet().emailAddress();
+        String email = faker.internet().emailAddress();
+        String timestamp = DateTimeFormatter.ofPattern("HHmm").format(LocalDateTime.now());
+        String[] emailParts = email.split("@");
+        return emailParts[0] + timestamp + "@" + emailParts[1];
     }
 
 

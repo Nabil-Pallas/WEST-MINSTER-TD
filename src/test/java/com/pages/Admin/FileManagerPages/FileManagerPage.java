@@ -143,6 +143,7 @@ public class FileManagerPage extends AdminPage {
                 Assert.assertTrue(verifyExactText);
             }
         }
+        
         return this;
     }
 

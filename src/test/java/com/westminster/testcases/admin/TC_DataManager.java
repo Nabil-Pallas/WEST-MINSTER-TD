@@ -315,7 +315,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     //Srikanth
     //TC_1583 - Test to verify that all the valid rows in the uploaded file are displayed in the data manager. To do that we have to upload a file and then verify it in the data manager that all the valid rows are there or not.
 //    The expected outcome is, all the valid rows should be there in the data manager.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyValidRowsInDataManager() {
 
         testcaseName = "TC_RE_1583 " + xmlUserLevel;

@@ -179,6 +179,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateAddNewSystemColumnsPage()
                 .typeInformationInAddNewSystemColumns()
                 .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"), Arrays.asList("Broker Name", "Trade Date", "Settlement Date"))
+                .clickOnFinishMapping()
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .validateAddedNewColumn(clientCompanyName.get())
@@ -310,7 +311,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Manoj
     //Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page allows unlimited columns.
-//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addSystemColumnsMoreThan10Rows() {
         testcaseName = "TC_RE_1623 " + xmlUserLevel;
         testDescription = "Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page";

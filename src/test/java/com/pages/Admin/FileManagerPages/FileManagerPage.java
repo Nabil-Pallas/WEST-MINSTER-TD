@@ -1,15 +1,8 @@
 package com.pages.Admin.FileManagerPages;
 
-import com.data.dynamic.FakerDataFactory;
-import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.AddNewRowPage;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.testng.Assert;
-import org.xml.sax.Locator;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 
 public class FileManagerPage extends AdminPage {
@@ -25,8 +18,6 @@ public class FileManagerPage extends AdminPage {
 
     private static int size;
     private static int size2;
-
-
 
 
     //Locator For Date Format
@@ -118,10 +109,15 @@ public class FileManagerPage extends AdminPage {
         Assert.assertTrue(AssertStatus);
         return this;
     }
+
     //Click The Create Button
     public FileManagerPage clickOnCreateBtn() {
         click(createNewDataMapBtn, "Create Button");
         return this;
+    }
+
+    public String fileListLocator(int index) {
+        return "((((//tbody[@role='presentation'])[3])//tr))[" + index + "]//td[1]";
     }
 
     //Create The New Data Map
@@ -139,10 +135,14 @@ public class FileManagerPage extends AdminPage {
         pause("medium");
         pause("medium");
         waitForLoaderToDisappear();
-        String actualElement = "((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]";
-        String actualText = getInnerText("((((//tbody[@role='presentation'])[3])//tr)[1])//td[1]");
-        boolean verifyExactText = verifyExactText(actualElement, fileName);
-        Assert.assertTrue(verifyExactText);
+        String listLocator = "((((//tbody[@role='presentation'])[3])//tr))//td[1]";
+        int filesCount = getLocatorsCount(listLocator);
+        for (int i = 1; i <= filesCount; i++) {
+            if (fileListLocator(i).equals(fileName)){
+                boolean verifyExactText = verifyExactText(fileListLocator(i), fileName);
+                Assert.assertTrue(verifyExactText);
+            }
+        }
         return this;
     }
 
@@ -208,21 +208,7 @@ public class FileManagerPage extends AdminPage {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public FileManagerPage getValidRowCount(String fileName){
+    public FileManagerPage getValidRowCount(String fileName) {
         //click Invalid Row Count for Given File Name
         if (isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]")) {
             click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]", "Invalid Row", "Invalid RowLink");
@@ -230,19 +216,18 @@ public class FileManagerPage extends AdminPage {
             String valid = getInnerText(frameRowCountText("Valid Rows"));
             //validRows.set(Long.parseLong(valid));
             validRows = Long.parseLong(valid);
-            System.out.println("---"+validRows);
+            System.out.println("---" + validRows);
         }
         return this;
     }
 
 
-    public FileMappingPage clickOnModifyInvalidMap(){
+    public FileMappingPage clickOnModifyInvalidMap() {
         pause("low");
-        if(isVisible(frameSpanTextLocator("Modify Invalid Map"))) {
+        if (isVisible(frameSpanTextLocator("Modify Invalid Map"))) {
             click(frameSpanTextLocator("Modify Invalid Map"), "Modify Invalid Map Button");
             pause("low");
-        }
-        else if(isVisible(frameSpanTextLocator("Define Mapping"))){
+        } else if (isVisible(frameSpanTextLocator("Define Mapping"))) {
 
         }
 

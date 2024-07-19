@@ -37,7 +37,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         pause("low");
         click("//td[@class='dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler']", "selectFieldDataType");
         pause("low");
-        clickAndChoose("(//div[@class='dx-texteditor-buttons-container'])[3]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
+        clickAndChoose("(//div[@aria-label='Select'])[last()]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
         pause("medium");
         return this;
     }
@@ -128,7 +128,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         int maxAttempts = 40;
         int attempts = 0;
 
-        while (!isVisible("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
+        while (!isVisibleWithMinimumTime("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
             pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
             attempts++;
         }

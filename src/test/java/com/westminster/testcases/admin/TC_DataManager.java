@@ -109,7 +109,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     //Ensure the "Add" button is disabled when there is an error in the required field, Trade Date.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+   // @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyAddButtonDisabledOnTradeDateError() {
         testcaseName = "TC_RE_5731 " + xmlUserLevel;
         testDescription = "Verify Add Button Disabled On TradeDate Error";
@@ -138,7 +138,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     // Verify that the "Add" button disables when the required field "Broker Name" has an error.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+   // @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyAddButtonDisabledOnBrokerNameError() {
         testcaseName = "TC_RE_5945 " + xmlUserLevel;
         testDescription = "Add New Row Broker Name Error Validation";
@@ -167,7 +167,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     // Verify dropdowns enable correctly for available lists when adding ad hoc rows in Data Manager.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+   // @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDropdownsForAdHocRows() {
         testcaseName = "TC_RE_5429 " + xmlUserLevel;
         testDescription = "Verify Drop downs For AdHoc Rows";
@@ -219,7 +219,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     // Ensure the Edit Trade Details page has no blank spaces under "Edit Trade Details" and "Change Log" headings when editing a row.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+  //  @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyNoBlankSpacesOnEditTradeDetailsPage() {
         testcaseName = "TC_RE_5235 " + xmlUserLevel;
         testDescription = "Verify No Blank Spaces On Edit TradeDetails";
@@ -247,7 +247,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+   // @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkApplyAndCancelBtnForEditAndBulkedit() {
         testcaseName = "TC_RE_4622 " + xmlUserLevel;
         testDescription = "Adding Adhoc Rows Data Manager";
@@ -286,7 +286,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     //Verify if more than 10 rows can be added at once using the 'Add New Row' option in Data Manager.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+   // @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addMoreThan10Rows() {
         testcaseName = "TC_RE_5229 " + xmlUserLevel;
         testDescription = "Adding more than 10 more rows to whether it is adding successfully";

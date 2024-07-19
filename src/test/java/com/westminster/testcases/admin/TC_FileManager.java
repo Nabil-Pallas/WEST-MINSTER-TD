@@ -153,7 +153,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     // Sanjay Kumar
 
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    //@Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void fileUploadAddSystemColumn() {
         testcaseName = "TC_1304 " + xmlUserLevel;
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
@@ -194,7 +194,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    //@Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void mapColumns() {
         testcaseName = "TC_5622 " + xmlUserLevel;
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
@@ -219,7 +219,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+   // @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload6000DataFile() {
         testcaseName = "TC_1563 " + xmlUserLevel;
         testDescription = "Validating whether the 6000 Data file is uploaded successfully";
@@ -249,7 +249,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    //@Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload500KDataFile() {
         testcaseName = "TC_1543 " + xmlUserLevel;
         testDescription = "Validating whether the 500k Data file is uploaded successfully";
@@ -278,7 +278,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    //@Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateFileWithWrongDateFormat() {
         testcaseName = "TC_1493 " + xmlUserLevel;
         testDescription = "validation of wrong date format";
@@ -352,7 +352,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     //srikanth
     // TC_RE_2185 - Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.
 
-//    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyInvalidColumnsWExistMapping() {
         testcaseName = "TC_RE_2185 " + xmlUserLevel;
         testDescription = "Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.";

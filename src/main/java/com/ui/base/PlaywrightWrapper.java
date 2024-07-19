@@ -143,6 +143,16 @@ public class PlaywrightWrapper extends Reporter {
         }
         return bVisible;
     }
+    public boolean isVisibleWithMinimumTime(String locator) {
+        boolean bVisible = false;
+        try {
+            bVisible = getPage().isVisible(locator);
+
+        } catch (PlaywrightException e) {
+            e.printStackTrace();
+        }
+        return bVisible;
+    }
 
     /**
      * Check if the given selector of the element is not visible or not after 2 seconds

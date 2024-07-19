@@ -40,7 +40,7 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     public AddNewSystemColumnsPage selectFieldDataType(int i) {
         int index = i + 1;
         click("//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines dx-row-inserted']//td[2]", "selectFieldDataType");
-        clickAndChoose("(//div[@aria-label='Select'])[5]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
+        clickAndChoose("(//div[@aria-label='Select'])[last()]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
         pause("medium");
         return this;
     }

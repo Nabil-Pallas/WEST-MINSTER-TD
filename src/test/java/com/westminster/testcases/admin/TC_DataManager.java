@@ -103,7 +103,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnAddNewColumn()
                 .validateAddNewColumnPage()
                 .typeInformationInAddNewColumnsAndValidate(true, true, true)
-                .deleteDataSchema();
+                .deleteDataSchema(clientCompanyName.get());
         System.out.println("TC-----------05");
     }
 

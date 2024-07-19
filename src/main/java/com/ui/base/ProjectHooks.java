@@ -53,7 +53,7 @@ public class ProjectHooks extends PlaywrightWrapper {
      *
      * @author Srikanth
      */
-    @BeforeSuite(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
+    @BeforeSuite(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void initSuite() {
         videoFolderName = createFolder("videos");
         tracesFolderName = createFolder("traces");
@@ -74,7 +74,7 @@ public class ProjectHooks extends PlaywrightWrapper {
      *
      * @author Srikanth
      */
-    @AfterClass(alwaysRun = true, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @AfterClass(alwaysRun = true, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void tearDown() {
         try {
             System.out.println("tear down start");
@@ -101,7 +101,7 @@ public class ProjectHooks extends PlaywrightWrapper {
         }
     }
 
-    @AfterSuite(alwaysRun = true, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @AfterSuite(alwaysRun = true, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void endReport() {
         try {
             endResult();

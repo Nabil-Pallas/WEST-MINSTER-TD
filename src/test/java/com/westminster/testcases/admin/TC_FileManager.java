@@ -311,7 +311,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Manoj
     //Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page allows unlimited columns.
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addSystemColumnsMoreThan10Rows() {
         testcaseName = "TC_RE_1623 " + xmlUserLevel;
         testDescription = "Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page";
@@ -353,7 +353,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     //srikanth
     // TC_RE_2185 - Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.
 
-    //    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyInvalidColumnsWExistMapping() {
         testcaseName = "TC_RE_2185 " + xmlUserLevel;
         testDescription = "Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.";

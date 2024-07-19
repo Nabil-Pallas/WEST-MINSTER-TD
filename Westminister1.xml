@@ -19,7 +19,6 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-
             <class name="com.westminster.testcases.admin.TC_FileManager"/>
             <class name="com.westminster.testcases.admin.TC_UsersAndSecurity"/>
             <class name="com.westminster.testcases.admin.TC_DataManager"/>
@@ -28,7 +27,6 @@
             <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>
             <class name="com.westminster.testcases.analytics.TC_Analytics"/>
             <class name="com.westminster.testcases.report.TC_Reports"/>
-
         </classes>
 
     </test>

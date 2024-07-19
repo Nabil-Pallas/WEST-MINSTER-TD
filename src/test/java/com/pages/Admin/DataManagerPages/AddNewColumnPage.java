@@ -37,7 +37,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         pause("low");
         click("//td[@class='dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler']", "selectFieldDataType");
         pause("low");
-        clickAndChoose("(//div[@class='dx-texteditor-buttons-container'])[3]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
+        clickAndChoose("(//div[@aria-label='Select'])[last()]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
         pause("medium");
         return this;
     }

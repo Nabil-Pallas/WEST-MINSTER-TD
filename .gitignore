@@ -28,3 +28,4 @@ traces/
 videos/
 .idea/
 PlutoUIAutomation.iml
+src/test/resources/upload/500kFile.csv

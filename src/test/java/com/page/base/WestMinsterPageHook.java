@@ -90,7 +90,7 @@ public class WestMinsterPageHook extends ProjectHooks {
      * @author Srikanth
      */
     @Parameters("Browser")
-    @BeforeClass(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser"})
+    @BeforeClass(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
 //beforemethod
     public void initBrowserAndDoLogin(@Optional("chrome") String browser) {
         try {

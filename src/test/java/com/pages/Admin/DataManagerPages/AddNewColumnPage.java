@@ -128,7 +128,7 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         int maxAttempts = 40;
         int attempts = 0;
 
-        while (!isVisible("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
+        while (!isVisibleWithMinimumTime("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
             pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
             attempts++;
         }

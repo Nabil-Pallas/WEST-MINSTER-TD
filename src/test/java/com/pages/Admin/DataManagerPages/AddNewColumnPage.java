@@ -7,7 +7,6 @@ public class AddNewColumnPage extends EditDataSchemaPage {
     String confirmBtn = "//span[text()='Confirm']";
 
 
-
     public AddNewColumnPage validateAddNewColumnPage() {
         waitForElementToLoad(AddNewColumnText);
         if (isVisible(AddNewColumnText, "Add New Column(s)")) {
@@ -20,9 +19,9 @@ public class AddNewColumnPage extends EditDataSchemaPage {
 
 
     public AddNewColumnPage typeFieldName(String fieldName) {
-//        click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler')])[1]", "Field Name");
+        click("(//table)[6]//tr[1]//td[1]", "Field Name");
         pause("medium");
-        click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator')])[1]", "Field Name");
+//        click("(//td[contains(@class,'dx-required-field-heading dx-datagrid-validator')])[1]", "Field Name");
         pause("medium");
         pause("low");
         typeAndSpace("(//input[@class='dx-texteditor-input'])[3]", fieldName, "Field Name");
@@ -34,8 +33,11 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         String fieldDataTypeElement = "//div[contains(@class,'dx-item dx-list-item')]";
 
         int index = i + 1;
-        pause("low");
-        click("//td[@class='dx-required-field-heading dx-datagrid-validator dx-validator dx-visibility-change-handler']", "selectFieldDataType");
+        pause("medium");
+        pause("medium");
+        pause("medium");
+        pause("medium");
+        click("(//table)[6]//tr[1]//td[2]", "selectFieldDataType");
         pause("low");
         clickAndChoose("(//div[@aria-label='Select'])[last()]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
         pause("medium");
@@ -121,36 +123,36 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         return this;
     }
 
-    public AddNewRowPage deleteDataSchema() {
-        clickOnEditDataSchema();
+//    public AddNewRowPage deleteDataSchema() {
+//        clickOnEditDataSchema();
+////        pause("low");
+//        click("//td[text()='Account Name']", "");
+//        int maxAttempts = 40;
+//        int attempts = 0;
+//
+//        while (!isVisibleWithMinimumTime("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
+//            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+//            attempts++;
+//        }
+//
+//        scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
 //        pause("low");
-        click("//td[text()='Account Name']", "");
-        int maxAttempts = 40;
-        int attempts = 0;
-
-        while (!isVisibleWithMinimumTime("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
-            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
-            attempts++;
-        }
-
-        scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
-        pause("low");
-        pause("low");
-        forceClick("(//td[text()='" + clientCompanyName.get() + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
-        pause("low");
-        click(deleteBtn, "Delete Button");
-        pause("low");
-        click(confirmDeleteBtn, "Confirm Delete");
-        pause("low");
-
-        if (getInnerText(frameSpanTextLocator("Success")).equals("Success")) {
-            reportStep("Added Data Schema is deleted successfully", "pass");
-
-        } else {
-            reportStep("Added Data Schema is not deleted", "warning");
-
-        }
-        return new AddNewRowPage();
-    }
+//        pause("low");
+//        forceClick("(//td[text()='" + clientCompanyName.get() + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
+//        pause("low");
+//        click(deleteBtn, "Delete Button");
+//        pause("low");
+//        click(confirmDeleteBtn, "Confirm Delete");
+//        pause("low");
+//
+//        if (getInnerText(frameSpanTextLocator("Success")).equals("Success")) {
+//            reportStep("Added Data Schema is deleted successfully", "pass");
+//
+//        } else {
+//            reportStep("Added Data Schema is not deleted", "warning");
+//
+//        }
+//        return new AddNewRowPage();
+//    }
 
 }

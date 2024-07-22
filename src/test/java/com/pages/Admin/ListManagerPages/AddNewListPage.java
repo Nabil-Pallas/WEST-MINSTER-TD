@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public class AddNewListPage extends ListManagerPage {
-    private final String addNewListBtn = "//div[@id='add-list-item-button']//i";
+    public static final String addNewListBtn = "//div[@id='add-list-item-button']//i";
     private final String listTable = "(//div[@class='dx-datagrid-content']/table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[2]/tbody/tr[2]/td[2]";
 
     public AddNewListPage validateAddListItemPage() {
@@ -19,7 +19,7 @@ public class AddNewListPage extends ListManagerPage {
 
     public AddNewListPage typeListTitle(String listTitle) {
         pause("low");
-        typeWithType(frameInputLocator("List Title…", 1), listTitle, "listTitle");
+        typeWithType(frameInputLocator("List Title…", 1), listTitle, "List Title");
         pause("low");
         return this;
     }
@@ -27,7 +27,7 @@ public class AddNewListPage extends ListManagerPage {
     public AddNewListPage clickOnAddListItem() {
         try {
             pause("low");
-            click(addNewListBtn, "Add list item", "Button");
+            forceClick(addNewListBtn, "Add list item", "Button");
         } catch (Exception e) {
             pause("medium");
             programmaticClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
@@ -38,7 +38,7 @@ public class AddNewListPage extends ListManagerPage {
     public AddNewListPage typeListItems(List<String> listItems) {
         for (String listItem : listItems) {
             clickOnAddListItem();
-            typeWithType(frametextareaLocator(2), listItem, "List Item " + listItem);
+            typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
             pause("low");
             click(listTable, "Next Row", "Empty Row");
         }

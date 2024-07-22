@@ -17,16 +17,22 @@ public class TC_Reports extends WestMinsterPageHook {
 
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
-        testcaseName = "TC_5785 " + xmlUserLevel;
-        testDescription = "Create New Report and Validate";
+        testcaseName = "Login with " + xmlUserLevel;
+        testDescription = "Login with " + xmlUserLevel;
         authors = "Automation Team";
-        category = "Create Report";
+        category = "Login for Report Module";
 
     }
 
     //Create Report - 5785
     @Test(priority = 19, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createReports() {
+        testcaseName = "TC_5785";
+        testDescription = "Create New Report and Validate";
+        authors = "Automation Team";
+        category = "Create Report";
+        startTestCase();
+        setNode();
 
         reportName.set(FakerDataFactory.getNameWithTimeStamp("Report"));
         new DashboardPage()
@@ -52,19 +58,20 @@ public class TC_Reports extends WestMinsterPageHook {
                 .clickOnExitBtn()
                 .validateMyReportTitle(reportName.get())
                 .deleteReport(reportName.get());
-        System.out.println("TC-----------19");
+        System.out.println("TC-----------TC_5785");
 
     }
 
 
     @Test(priority = 20, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void editReports() {
-        testcaseName = "TC_133 " + xmlUserLevel;
+        testcaseName = "TC_133";
         testDescription = "Edit a report and validate";
         authors = "Automation Team";
         category = "Edit Reports";
         startTestCase();
         setNode();
+
         reportName.set(FakerDataFactory.getNameWithTimeStamp("Report"));
         titleone.set(FakerDataFactory.getTitle());
         titleTwo.set(FakerDataFactory.getTitle());
@@ -88,19 +95,20 @@ public class TC_Reports extends WestMinsterPageHook {
                 .clickOnViewReport()
                 .clickOnExitBtn()
                 .validateMyReportTitle(reportName.get());
-        System.out.println("TC-----------20");
+        System.out.println("TC-----------TC_133");
 
     }
 
     //Report Delivery -5674
     @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void reportDelivery() {
-        testcaseName = "TC_5674 " + xmlUserLevel;
+        testcaseName = "TC_5674";
         testDescription = "Report Delivery";
         authors = "Automation Team";
         category = "Report Delivery";
         startTestCase();
         setNode();
+
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnReports()
@@ -117,6 +125,6 @@ public class TC_Reports extends WestMinsterPageHook {
                 .clickOnHistory()
                 .validateReportDeliveryHistoryPage()
                 .validateRecipients();
-        System.out.println("TC-----------21");
+        System.out.println("TC-----------TC_5674");
     }
 }

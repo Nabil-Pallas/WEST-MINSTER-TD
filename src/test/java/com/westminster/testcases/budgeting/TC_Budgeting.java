@@ -84,7 +84,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .validateAllBudgetsPage()
                 .setClient()
                 .clickOnImportNewBudget()
-                .importBudget("Budget_Import_Chrome.csv")
+                .importBudget("./src/test/resources/upload/Budget_Import_Chrome.csv")
                 .clickImportBtn()
                 .searchValueOfImportedBudget("Name")
                 .validateImportedBudget()

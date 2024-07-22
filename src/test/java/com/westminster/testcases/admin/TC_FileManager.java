@@ -198,9 +198,9 @@ public class TC_FileManager extends WestMinsterPageHook {
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void mapColumns() {
         testcaseName = "TC_5622 " + xmlUserLevel;
-        testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
+        testDescription = "Validating whether the System column and File Column is mapped successfully";
         authors = "Automation Team";
-        category = "Add data schema";
+        category = "Map the System column and File Column";
         startTestCase();
         setNode();
         fileName.set("SampleFile_AU_Chrome.csv");

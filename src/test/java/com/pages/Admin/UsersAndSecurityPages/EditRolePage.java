@@ -73,31 +73,4 @@ public class EditRolePage extends UserSecurityPage {
         return new UserSecurityPage();
     }
 
-
-    public UserSecurityPage validateRoleInformation(String roleName, String roleName2) {
-        waitForLoaderToDisappear();
-        pause("low");
-        typeSearchRoles(roleName);
-        String str = getInnerText(frameClientDetailsLocator(roleName));
-        // waitForElementToLoad(frameUserSearchResult(roleName));
-        if (roleName.equals(str)) {
-//            waitForLoaderToDisappear();
-//            pause("medium");
-//            waitForLoaderToDisappear();
-//            typeSearchRoles(roleName);
-//            waitForElementToLoad(frameUserSearchResult(roleName));
-            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
-            Assert.assertTrue(verifyExactText);
-        } else {
-            waitForLoaderToDisappear();
-            pause("medium");
-            waitForLoaderToDisappear();
-            typeSearchRoles(roleName2);
-            waitForElementToLoad(frameUserSearchResult(roleName2));
-            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName2), roleName2);
-            Assert.assertTrue(verifyExactText);
-
-        }
-        return this;
-    }
 }

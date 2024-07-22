@@ -1,13 +1,10 @@
 package com.pages.Admin.DataManagerPages;
 
 
-import com.page.base.DashboardPage;
-
-import java.util.List;
-
-import com.pages.Admin.AdminPage;
 import org.testng.Assert;
 
+import com.page.base.DashboardPage;
+import com.pages.Admin.AdminPage;
 import static com.pages.Admin.FileManagerPages.AddNewSystemColumnsPage.addedColumnss;
 
 public class EditDataSchemaPage extends DataManagerPage {

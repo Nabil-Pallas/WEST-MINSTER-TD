@@ -139,7 +139,7 @@ public class AllBudgetsPage extends MenuPage {
 
     public AllBudgetsPage validateImportedBudget() {
         String name = ImportBudgetPage.updatedCsvValue;
-        String budgetNameElement = "//div[@class='wdx-interactive-cell dx-command-view-budget-cell']";
+        String budgetNameElement = "(//div[@class='wdx-interactive-cell dx-command-view-budget-cell'])[1]";
         boolean verifyExactBudgetNameText = verifyExactText(budgetNameElement, name);
         Assert.assertTrue(verifyExactBudgetNameText);
         return new AllBudgetsPage();

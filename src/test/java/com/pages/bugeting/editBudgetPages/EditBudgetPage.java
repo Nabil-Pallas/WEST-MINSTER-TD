@@ -68,8 +68,8 @@ public class EditBudgetPage extends AllBudgetsPage {
     public AllBudgetsPage validateEditedBudget(String budgetName, String beginDate, String endDate, String targetColumn) {
         waitForLoaderToDisappear();
         String budgetNameElement = "//h2[text()='" + budgetName + "']";
-        String beginDateElement = frameSpanTextLocator(beginDate);
-        String endDateElement = frameSpanTextLocator(endDate);
+        String beginDateElement = "//span[text()='Start Date:']/following-sibling::span/time";
+        String endDateElement = "//span[text()='End Date:']/following-sibling::span/time";
         String targetColumnElement = frameSpanTextLocator(targetColumn);
 
         boolean verifyExactBudgetNameText = verifyExactText(budgetNameElement, budgetName);

@@ -3,6 +3,8 @@ package com.pages.Admin.ListManagerPages;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pages.Admin.ListManagerPages.AddNewListPage.addNewListBtn;
+
 public class EditListPage extends ListManagerPage {
     private final String deleteIcon = "//a[@title='Delete List Item']";
 
@@ -27,7 +29,7 @@ public class EditListPage extends ListManagerPage {
     public EditListPage clickOnAddListItem() {
         try {
             pause("low");
-            click("//div[@id='add-list-item-button']//i", "Add list item", "Button");
+            forceClick(addNewListBtn, "Add list item", "Button");
         } catch (Exception e) {
             pause("medium");
             programmaticClick(frameSpanTextLocator("Add list item"), "Add list item", "Button");
@@ -36,7 +38,7 @@ public class EditListPage extends ListManagerPage {
     }
 
     public EditListPage typeListItems(String listItem) {
-        typeWithType(frametextareaLocator(2), listItem, "List Item " + listItem);
+        typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
         return this;
     }
 
@@ -83,7 +85,7 @@ public class EditListPage extends ListManagerPage {
         pause("low");
         for (String listItem : listItems) {
             clickOnAddListItem();
-            typeWithType(frametextareaLocator(2), listItem, "List Item " + listItem);
+            typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
             pause("low");
         }
         return this;

@@ -19,14 +19,21 @@ public class TC_Budgeting extends WestMinsterPageHook {
 
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void setReportValues() {
-        testcaseName = "TC_127 " + xmlUserLevel;
+        testcaseName = "Login with " + xmlUserLevel;
+        testDescription = "Login with " + xmlUserLevel;
+        authors = "Automation Team";
+        category = "Login for Budgeting Module";
+    }
+
+    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    public void createNewBudget() {
+        testcaseName = "TC_127";
         testDescription = "Create New Budget and validate";
         authors = "Automation Team";
         category = "Create New Budget";
-    }
+        startTestCase();
+        setNode();
 
-    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY})
-    public void createNewBudget() {
         clientCompanyName.set(FakerDataFactory.getCompanyNameWithoutSpace());
         new DashboardPage()
                 .validateDashBoardElements()
@@ -40,17 +47,18 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .validateViewBudget()
                 .validateCreatedBudget(clientCompanyName.get(), "05/21/2024", "05/27/2024", "FX Rate")
                 .deleteBudget(clientCompanyName.get());
-        System.out.println("TC-----------10");
+        System.out.println("TC-----------TC_127");
     }
 
-    @Test(priority = 11, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY})
+    @Test(priority = 11, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void editBudget() {
-        testcaseName = "TC_14 " + xmlUserLevel;
+        testcaseName = "TC_14";
         testDescription = "Edit budget and validate";
         authors = "Automation Team";
         category = "Edit Budget";
         startTestCase();
         setNode();
+
         ruleName.set(FakerDataFactory.getCompanyNameWithoutSpace());
         new DashboardPage()
                 .validateDashBoardElements()
@@ -64,19 +72,19 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .clickSaveBudgetBtn()
                 .validateEditedBudget(ruleName.get(), "05/01/2024", "05/29/2024", "Local Price")
                 .deleteBudget(ruleName.get());
-        System.out.println("TC-----------11");
+        System.out.println("TC-----------TC_14");
 
     }
 
-    @Test(priority = 12, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY})
+    @Test(priority = 12, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void importNewBudget() {
-
-        testcaseName = "TC_126 " + xmlUserLevel;
+        testcaseName = "TC_126";
         testDescription = "Import new budget and validate";
         authors = "Automation Team";
         category = "Import New Budget";
         startTestCase();
         setNode();
+
         ruleName.set(FakerDataFactory.getCompanyNameWithoutSpace());
         new DashboardPage()
                 .validateDashBoardElements()
@@ -84,12 +92,12 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .validateAllBudgetsPage()
                 .setClient()
                 .clickOnImportNewBudget()
-                .importBudget("Budget_Import_Chrome.csv")
+                .importBudget("./src/test/resources/upload/Budget_Import_Chrome.csv")
                 .clickImportBtn()
                 .searchValueOfImportedBudget("Name")
                 .validateImportedBudget()
                 .deleteImportedBudget();
-        System.out.println("TC-----------12");
+        System.out.println("TC-----------TC_126");
 
     }
 

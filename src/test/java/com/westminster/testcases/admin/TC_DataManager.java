@@ -24,7 +24,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Adding the new row in the data manager
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewRow() {
         clientCompanyName.set(FakerDataFactory.getNameWithTimeStamp(""));
         new DashboardPage()
@@ -50,7 +50,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Editing the new row in the Data manager
-//    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void editRow() {
         ruleName.set(FakerDataFactory.getNameWithTimeStamp(""));
         reportName.set(FakerDataFactory.getReportsName());
@@ -103,13 +103,13 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnAddNewColumn()
                 .validateAddNewColumnPage()
                 .typeInformationInAddNewColumnsAndValidate(true, true, true)
-                .deleteDataSchema();
+                .deleteDataSchema(clientCompanyName.get());
         System.out.println("TC-----------05");
     }
 
     //Manoj
     //Ensure the "Add" button is disabled when there is an error in the required field, Trade Date.
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyAddButtonDisabledOnTradeDateError() {
         testcaseName = "TC_RE_5731 " + xmlUserLevel;
         testDescription = "Verify Add Button Disabled On TradeDate Error";
@@ -138,7 +138,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     // Verify that the "Add" button disables when the required field "Broker Name" has an error.
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyAddButtonDisabledOnBrokerNameError() {
         testcaseName = "TC_RE_5945 " + xmlUserLevel;
         testDescription = "Add New Row Broker Name Error Validation";
@@ -167,7 +167,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     // Verify dropdowns enable correctly for available lists when adding ad hoc rows in Data Manager.
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDropdownsForAdHocRows() {
         testcaseName = "TC_RE_5429 " + xmlUserLevel;
         testDescription = "Verify Drop downs For AdHoc Rows";
@@ -219,7 +219,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     // Ensure the Edit Trade Details page has no blank spaces under "Edit Trade Details" and "Change Log" headings when editing a row.
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyNoBlankSpacesOnEditTradeDetailsPage() {
         testcaseName = "TC_RE_5235 " + xmlUserLevel;
         testDescription = "Verify No Blank Spaces On Edit TradeDetails";
@@ -250,9 +250,9 @@ public class TC_DataManager extends WestMinsterPageHook {
 //    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkApplyAndCancelBtnForEditAndBulkedit() {
         testcaseName = "TC_RE_4622 " + xmlUserLevel;
-        testDescription = "Adding Adhoc Rows Data Manager";
+        testDescription = "Check Apply And Cancel Btn For Edit And Bulk edit";
         authors = "Automation Team";
-        category = "Adding Adhoc Rows Data Manager";
+        category = "Check Apply And Cancel Btn For Edit And Bulk edit";
         startTestCase();
         setNode();
         ruleName.set(FakerDataFactory.getCompanyName());
@@ -262,6 +262,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
+                .setClient()
                 .clickOnDataManager()
                 .clickOnDataManager()
                 .validateDataManagerPage()
@@ -286,7 +287,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     //Verify if more than 10 rows can be added at once using the 'Add New Row' option in Data Manager.
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addMoreThan10Rows() {
         testcaseName = "TC_RE_5229 " + xmlUserLevel;
         testDescription = "Adding more than 10 more rows to whether it is adding successfully";
@@ -299,6 +300,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
+                .setClient()
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnAddNewRowBtn()
@@ -315,7 +317,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     //Srikanth
     //TC_1583 - Test to verify that all the valid rows in the uploaded file are displayed in the data manager. To do that we have to upload a file and then verify it in the data manager that all the valid rows are there or not.
 //    The expected outcome is, all the valid rows should be there in the data manager.
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyValidRowsInDataManager() {
 
         testcaseName = "TC_RE_1583 " + xmlUserLevel;

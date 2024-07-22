@@ -1,13 +1,10 @@
 package com.pages.Admin.DataManagerPages;
 
 
-import com.page.base.DashboardPage;
-
-import java.util.List;
-
-import com.pages.Admin.AdminPage;
 import org.testng.Assert;
 
+import com.page.base.DashboardPage;
+import com.pages.Admin.AdminPage;
 import static com.pages.Admin.FileManagerPages.AddNewSystemColumnsPage.addedColumnss;
 
 public class EditDataSchemaPage extends DataManagerPage {
@@ -189,6 +186,33 @@ public class EditDataSchemaPage extends DataManagerPage {
         click(frameSpanTextLocator("< Exit"), "Exit Button");
         waitForLoaderToDisappear();
         pause("medium");
+        return new EditDataSchemaPage();
+    }
+
+
+    public EditDataSchemaPage deleteDataSchema(String str) {
+
+        pause("medium");
+        waitForLoaderToDisappear();
+        getPage().evaluate("document.body.style.zoom='0.9'");
+
+        while (!isVisible("//td[text()='" + str + "']") ) {
+            scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-container'])[1]");
+        }
+        forceClick("(//td[text()='" + str + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
+        pause("low");
+        click(deleteBtn, "Delete Button");
+        pause("low");
+        click(confirmDeleteBtn, "Confirm Delete");
+        pause("low");
+
+        if (getInnerText(frameSpanTextLocator("Success")).equals("Success")) {
+            reportStep("Added Data Schema is deleted successfully", "pass");
+
+        } else {
+            reportStep("Added Data Schema is not deleted", "warning");
+
+        }
         return new EditDataSchemaPage();
     }
 }

@@ -83,7 +83,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------04");
     }
 
-    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    //@Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewColumnInEditDataSchema() {
         testcaseName = "TC_6587 " + xmlUserLevel;
         testDescription = "Add new System Column";

@@ -250,9 +250,9 @@ public class TC_DataManager extends WestMinsterPageHook {
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkApplyAndCancelBtnForEditAndBulkedit() {
         testcaseName = "TC_RE_4622 " + xmlUserLevel;
-        testDescription = "Adding Adhoc Rows Data Manager";
+        testDescription = "Check Apply And Cancel Btn For Edit And Bulk edit";
         authors = "Automation Team";
-        category = "Adding Adhoc Rows Data Manager";
+        category = "Check Apply And Cancel Btn For Edit And Bulk edit";
         startTestCase();
         setNode();
         ruleName.set(FakerDataFactory.getCompanyName());
@@ -262,6 +262,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
+                .setClient()
                 .clickOnDataManager()
                 .clickOnDataManager()
                 .validateDataManagerPage()
@@ -299,6 +300,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
+                .setClient()
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnAddNewRowBtn()

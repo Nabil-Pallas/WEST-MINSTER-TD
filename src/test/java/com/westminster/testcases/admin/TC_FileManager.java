@@ -18,14 +18,21 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
-        testcaseName = "TC_5588 " + xmlUserLevel;
-        testDescription = "Upload a file and validate";
+        testcaseName = "Login with " + xmlUserLevel;
+        testDescription = "Login with " + xmlUserLevel;
         authors = "Automation Team";
-        category = "File Upload";
+        category = "Login for File Manager Module";
     }
 
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void fileUpload() {
+        testcaseName = "TC_5588";
+        testDescription = "Upload a file and validate";
+        authors = "Automation Team";
+        category = "File Upload";
+        startTestCase();
+        setNode();
+
         filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
         fileName.set("SampleFile_AU_Chrome.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -43,17 +50,18 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .mappingFileAndSystemColumns(systemColumnNames)
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get());
-        System.out.println("TC-----------01");
+        System.out.println("TC-----------TC_5588");
     }
 
     @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void promotingRows() {
-        testcaseName = "TC_4460 " + xmlUserLevel;
+        testcaseName = "TC_4460";
         testDescription = "Promoting Rows and Validate";
         authors = "Automation Team";
         category = "Promoting Rows";
         startTestCase();
         setNode();
+
         fileName.set("SampleFile_AU_Chrome.csv");
         new DashboardPage()
                 .validateDashBoardElements()
@@ -75,7 +83,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnExitBtn()
                 .validateFileManagerPage()
                 .validateRowPromote(fileName.get());
-        System.out.println("TC-----------02");
+        System.out.println("TC-----------TC_4460");
 
     }
 
@@ -83,12 +91,13 @@ public class TC_FileManager extends WestMinsterPageHook {
     //TC-961 - Upload a file which already uploaded with same data but with different file name
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadSameContentFileWDiffName() {
-        testcaseName = "TC_961 " + xmlUserLevel;
+        testcaseName = "TC_RE_961";
         testDescription = "upload Same Content File With Different Name";
         authors = "Automation Team";
         category = "uploadDpFile";
         startTestCase();
         setNode();
+
         DataMap.set(FakerDataFactory.getDataMapName());
         filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
         filePath2.set("./src/test/resources/upload/SampleFile_AU_Chrome2.csv");
@@ -112,6 +121,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .selectExistingMapping(DataMap.get())
                 .clickOnApplyMapping()
                 .verifyErrorMessage();
+        System.out.println("TC-----------TC_RE_961");
 
     }
 
@@ -119,16 +129,16 @@ public class TC_FileManager extends WestMinsterPageHook {
     //TC-1603 - Test to verify whether multiple files with same name but different content can be uploaded or not. To do that we have to upload two different files with different contents in the same name. Expected outcome is, warning message should be displayed saying that "duplicate files are not allowed" and the file should not get uploaded.
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadDiffContentFileWSameName() {
-        testcaseName = "TC_1603 " + xmlUserLevel;
+        testcaseName = "TC_RE_1603";
         testDescription = "Upload Different Content File with Same Name";
         authors = "Automation Team";
-        category = "upload Different File SameName";
+        category = "Upload Different File SameName";
         startTestCase();
         setNode();
+
         DataMap.set(FakerDataFactory.getDataMapName());
         filePath.set("./src/test/resources/upload/SampleFile_AU_Edge.csv");
         filePath2.set("./src/test/resources/upload/upload2/SampleFile_AU_Edge.csv");
-
         fileName.set("SampleFile_AU_Edge.csv");
         fileName2.set("SampleFile_AU_Edge(1).csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -149,18 +159,20 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .selectExistingMapping(DataMap.get())
                 .clickOnApplyMapping()
                 .validateFileUpload(fileName2.get());
+        System.out.println("TC-----------TC_RE_1603");
     }
 
     // Sanjay Kumar
-
+    //Validate the addition of a new system field to an existing file mapping process/screen.
     @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void fileUploadAddSystemColumn() {
-        testcaseName = "TC_1304 " + xmlUserLevel;
+        testcaseName = "TC_RE_1304";
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
         authors = "Automation Team";
-        category = "Add data schema";
+        category = "File Upload Add System Column";
         startTestCase();
         setNode();
+
         filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
         fileName.set("SampleFile_AU_Chrome.csv");
         ruleName.set(FakerDataFactory.getDataMapName());
@@ -190,14 +202,14 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnEditDataSchema()
                 .deleteDataSchema(clientCompanyName.get());
 
-        System.out.println("TC-----------02");
+        System.out.println("TC-----------TC_RE_1304");
 
     }
 
     // Sanjay Kumar
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void mapColumns() {
-        testcaseName = "TC_5622 " + xmlUserLevel;
+        testcaseName = "TC_RE_5622";
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
         authors = "Automation Team";
         category = "Add data schema";
@@ -217,17 +229,19 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
                 .mappingFileAndSystemColumns(systemColumnNames);
+        System.out.println("TC-----------TC_RE_5622");
     }
 
     // Sanjay Kumar
     @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload6000DataFile() {
-        testcaseName = "TC_1563 " + xmlUserLevel;
+        testcaseName = "TC_RE_1563";
         testDescription = "Validating whether the 6000 Data file is uploaded successfully";
         authors = "Automation Team";
         category = "Upload 6000 Data File";
         startTestCase();
         setNode();
+
         filePath.set("./src/test/resources/upload/6000DataFile.csv");
         fileName.set("6000DataFile.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -246,21 +260,21 @@ public class TC_FileManager extends WestMinsterPageHook {
                         Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Spot Rate", "Trade ID", "Ticker", "COMMISSION", "Local Executed Value", "CURRENCY", "Instrument Type", "Fund", "Security Description", "PRICE", "QUANTITY"))
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get());
-        System.out.println("TC-----------01");
+        System.out.println("TC-----------TC_RE_1563");
     }
 
     // Sanjay Kumar
     @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload500KDataFile() {
-        testcaseName = "TC_1543 " + xmlUserLevel;
+        testcaseName = "TC_RE_1543";
         testDescription = "Validating whether the 500k Data file is uploaded successfully";
         authors = "Automation Team";
         category = "Upload 500k Data File";
         startTestCase();
         setNode();
+
         filePath.set("./src/test/resources/upload/500kFile.csv");
         fileName.set("500kFile.csv");
-        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -276,17 +290,19 @@ public class TC_FileManager extends WestMinsterPageHook {
                         Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Spot Rate", "Trade ID", "Ticker", "COMMISSION", "Local Executed Value", "CURRENCY", "Instrument Type", "Fund", "Security Description", "PRICE", "QUANTITY"))
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get());
+        System.out.println("TC-----------TC_RE_1543");
     }
 
     // Sanjay Kumar
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateFileWithWrongDateFormat() {
-        testcaseName = "TC_1493 " + xmlUserLevel;
+        testcaseName = "TC_RE_1493";
         testDescription = "validation of wrong date format";
         authors = "Automation Team";
         category = "Error Validation";
         startTestCase();
         setNode();
+
         filePath.set("./src/test/resources/upload/2019_trade_data.csv");
         fileName.set("2019_trade_data.csv");
         List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
@@ -307,22 +323,23 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateErrorQueuePage()
                 .clickFilterAndSelectInvalidCells(fileName.get())
                 .validateErrorrowsAndInvalidcells();
+        System.out.println("TC-----------TC_RE_1493");
     }
 
     //Manoj
     //Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page allows unlimited columns.
 //    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addSystemColumnsMoreThan10Rows() {
-        testcaseName = "TC_RE_1623 " + xmlUserLevel;
+        testcaseName = "TC_RE_1623";
         testDescription = "Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page";
         authors = "Automation Team";
         category = "Add System Columns More Than 10 Rows";
         startTestCase();
         setNode();
+
         filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
         fileName.set("SampleFile_AU_Chrome.csv");
         ruleName.set(FakerDataFactory.getDataMapName());
-        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -345,20 +362,18 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateEditDataSchemaColumnsPage()
                 .delete10DataSchema();
 
-
         System.out.println("TC-----------TC_RE_1623");
     }
 
 
     //srikanth
     // TC_RE_2185 - Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.
-
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyInvalidColumnsWExistMapping() {
-        testcaseName = "TC_RE_2185 " + xmlUserLevel;
+        testcaseName = "TC_RE_2185";
         testDescription = "Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.";
         authors = "Automation Team";
-        category = "invalid columns can be deleted when uploading a file using exiting mapping.";
+        category = "Invalid columns can be deleted when uploading a file using exiting mapping.";
         startTestCase();
         setNode();
 
@@ -390,6 +405,6 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnDeleteInvalidColumns()
                 .validateMappedColumns();
 
+        System.out.println("TC-----------TC_RE_2185");
     }
-
 }

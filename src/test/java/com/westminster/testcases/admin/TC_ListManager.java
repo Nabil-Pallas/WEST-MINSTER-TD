@@ -32,6 +32,7 @@ public class TC_ListManager extends WestMinsterPageHook {
         category = "Add New List";
         startTestCase();
         setNode();
+
         newListName.set(FakerDataFactory.getListName());
         listItems.set(FakerDataFactory.getListOfItems(4));
         new DashboardPage()
@@ -60,6 +61,7 @@ public class TC_ListManager extends WestMinsterPageHook {
         category = "Edit List";
         startTestCase();
         setNode();
+
         newListName.set(FakerDataFactory.getListName());
         listItems.set(FakerDataFactory.getListOfItems(2));
         new DashboardPage()

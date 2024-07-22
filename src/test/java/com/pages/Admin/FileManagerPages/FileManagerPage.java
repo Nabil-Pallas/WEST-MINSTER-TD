@@ -175,37 +175,37 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
-    public AddNewRowPage deleteDataMaps(String dataMapName) {
-        System.out.println("dataMapName----2----" + dataMapName);
-        clickOnViewDataMaps();
-        int maxAttempts = 200;
-        int attempts = 0;
-        pause("medium");
-        click("(//td[text()='MM/dd/yyyy'])[1]/preceding-sibling::td[3]", "");
-        String textToVisible = "//td[text()='" + dataMapName + "']";
-        while (!isVisible(textToVisible) && attempts < maxAttempts) {
-            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines'])[8]");
-            attempts++;
-        }
-        scrollToElement("//td[text()='" + dataMapName + "']");
-        pause("low");
-        pause("low");
-        forceClick("(//td[text()='" + dataMapName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
-        pause("low");
-        click(deleteBtn, "Delete Button");
-        pause("low");
-        click(confirmDeleteBtn, "Confirm Delete");
-        pause("low");
-        typeAndSpace(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
-        click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete button");
-//        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
-        pause("low");
-
-        boolean verifyExactText = verifyExactText(frameSpanTextLocator("Success"), "Success");
-        Assert.assertTrue(verifyExactText);
-        click(closeIcon, "Close icon");
-        return new AddNewRowPage();
-    }
+//    public AddNewRowPage deleteDataMaps(String dataMapName) {
+//        System.out.println("dataMapName----2----" + dataMapName);
+//        clickOnViewDataMaps();
+//        int maxAttempts = 200;
+//        int attempts = 0;
+//        pause("medium");
+//        click("(//td[text()='MM/dd/yyyy'])[1]/preceding-sibling::td[3]", "");
+//        String textToVisible = "//td[text()='" + dataMapName + "']";
+//        while (!isVisible(textToVisible) && attempts < maxAttempts) {
+//            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-row-lines dx-column-lines'])[8]");
+//            attempts++;
+//        }
+//        scrollToElement("//td[text()='" + dataMapName + "']");
+//        pause("low");
+//        pause("low");
+//        forceClick("(//td[text()='" + dataMapName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
+//        pause("low");
+//        click(deleteBtn, "Delete Button");
+//        pause("low");
+//        click(confirmDeleteBtn, "Confirm Delete");
+//        pause("low");
+//        typeAndSpace(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+//        click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete button");
+////        typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+//        pause("low");
+//
+//        boolean verifyExactText = verifyExactText(frameSpanTextLocator("Success"), "Success");
+//        Assert.assertTrue(verifyExactText);
+//        click(closeIcon, "Close icon");
+//        return new AddNewRowPage();
+//    }
 
 
     public FileManagerPage getValidRowCount(String fileName) {
@@ -232,6 +232,29 @@ public class FileManagerPage extends AdminPage {
         }
 
         return new FileMappingPage();
+    }
+
+
+    public AddNewRowPage deleteDataMaps(String dataMapName) {
+        System.out.println("dataMapName----2----" + dataMapName);
+        // clickOnViewDataMaps();
+        while(!isVisible("//td[text()='"+dataMapName+"']")){
+            scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-container'])[4]");
+        }
+
+        forceClick("(//td[text()='" + dataMapName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Action Button", "Matched Data Map");
+        pause("low");
+        click(deleteBtn, "Delete Button","");
+        pause("low");
+        click(confirmDeleteBtn, "Confirm Delete");
+        pause("low");
+        typeAndSpace(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
+        click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete button");
+
+        boolean verifyExactText = verifyExactText(frameSpanTextLocator("Success"), "Success");
+        Assert.assertTrue(verifyExactText);
+        click(closeIcon, "Close icon");
+        return new AddNewRowPage();
     }
 
 }

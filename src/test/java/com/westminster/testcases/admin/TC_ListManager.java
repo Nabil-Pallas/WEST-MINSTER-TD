@@ -18,14 +18,21 @@ public class TC_ListManager extends WestMinsterPageHook {
 
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void setReportValues() {
-        testcaseName = "TC_5591 " + xmlUserLevel;
-        testDescription = "Create New List and Validate";
+        testcaseName = "Login with  " + xmlUserLevel;
+        testDescription = "Login with  " + xmlUserLevel;
         authors = "Automation Team";
-        category = "Add New List";
+        category = "Login for List Manager Module";
     }
 
     @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewList() {
+        testcaseName = "TC_5591";
+        testDescription = "Create New List and Validate";
+        authors = "Automation Team";
+        category = "Add New List";
+        startTestCase();
+        setNode();
+
         newListName.set(FakerDataFactory.getListName());
         listItems.set(FakerDataFactory.getListOfItems(4));
         new DashboardPage()
@@ -42,18 +49,19 @@ public class TC_ListManager extends WestMinsterPageHook {
                 .clickOnSaveListBtn()
                 .validateListNameAndItem(newListName.get(), listItems.get())
                 .deleteListItem(newListName.get());
-        System.out.println("TC-----------08");
+        System.out.println("TC-----------TC_5591");
 
     }
 
-    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY})
-     public void editList() {
-        testcaseName = "TC_5357 " + xmlUserLevel;
+    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    public void editList() {
+        testcaseName = "TC_5357 ";
         testDescription = "Edit List and Validate";
         authors = "Automation Team";
         category = "Edit List";
         startTestCase();
         setNode();
+
         newListName.set(FakerDataFactory.getListName());
         listItems.set(FakerDataFactory.getListOfItems(2));
         new DashboardPage()
@@ -70,7 +78,10 @@ public class TC_ListManager extends WestMinsterPageHook {
                 .typeListItems(listItems.get())
                 .clickOnSaveListBtn()
                 .validateListNameAndItem(newListName.get(), listItems.get());
-        System.out.println("TC-----------09");
+        System.out.println("TC-----------TC_5357");
 
     }
 }
+
+
+

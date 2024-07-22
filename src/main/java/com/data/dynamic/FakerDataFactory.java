@@ -56,17 +56,28 @@ public class FakerDataFactory {
     public static String getFirstName() {
         String firstName;
         do {
-            firstName = faker.name().firstName().replaceAll("[^a-zA-Z ]", "");
+            firstName = faker.name().firstName();
+            firstName = firstName.replaceAll("[^\\x00-\\x7F]", ""); // Remove non-ASCII characters
+            firstName = firstName.replaceAll("[^a-zA-Z ]", ""); // Remove non-alphabetic characters
         } while (!generatedNames.add(firstName));
         return firstName;
     }
 
     public static String getRoleName() {
-        return faker.name().firstName().replaceAll("[^a-zA-Z ]", "") + getTimeStamp();
+        String name = faker.name().firstName();
+        name = name.replaceAll("[^\\x00-\\x7F]", ""); // Remove non-ASCII characters
+        name = name.replaceAll("[^a-zA-Z ]", ""); // Remove non-alphabetic characters
+        return name + getTimeStamp();
     }
 
     public static String getMiddleName() {
-        return faker.name().nameWithMiddle();
+        String middleName;
+        do {
+            middleName = faker.name().nameWithMiddle();
+            middleName = middleName.replaceAll("[^\\x00-\\x7F]", ""); // Remove non-ASCII characters
+            middleName = middleName.replaceAll("[^a-zA-Z ]", ""); // Remove non-alphabetic characters
+        } while (!generatedNames.add(middleName));
+        return middleName;
     }
 
     public static String getTimeStamp() {
@@ -95,16 +106,17 @@ public class FakerDataFactory {
 
     public static String getAnalysisName() {
         String name = faker.name().firstName();
+        name = name.replaceAll("[^\\x00-\\x7F]", "");
         String analysis = "Analysis";
         return name + analysis.replaceAll("[^a-zA-Z ]", "");
     }
 
     public static String getReportsName() {
         String name = faker.name().firstName();
+        name = name.replaceAll("[^\\x00-\\x7F]", "");
         String reports = "Reports";
         return name + reports.replaceAll("[^a-zA-Z ]", "");
     }
-
 
     public static String getEmailAddress() {
         String email = faker.internet().emailAddress();
@@ -112,7 +124,6 @@ public class FakerDataFactory {
         String[] emailParts = email.split("@");
         return emailParts[0] + timestamp + "@" + emailParts[1];
     }
-
 
     public static String getContactNumber() {
         return faker.phoneNumber().cellPhone();
@@ -139,7 +150,6 @@ public class FakerDataFactory {
         }
         return description.toString().trim();
     }
-
 
     public static String get12DigitsBankAccountNumber() {
         return "" + faker.number().randomNumber(12, false);
@@ -194,7 +204,6 @@ public class FakerDataFactory {
         return buzzword + "-" + timeStamp;
     }
 
-
     public static List<String> getListOfItems(int count) {
         List<String> listItems = new ArrayList<>();
         String timeStamp = getTimeStamp(); // Get timestamp once
@@ -222,22 +231,23 @@ public class FakerDataFactory {
     }
 
     public static List<String> getSystemColumns() {
-        String[] columns = {"Broker Name", "Trade Date", "Settlement Date","Trade ID"}; //"Base Gross Commission","Local Gross Commission","Base Executed Value","Trade ID","Account Name"
+        String[] columns = {"Broker Name", "Trade Date", "Settlement Date", "Trade ID"}; //"Base Gross Commission","Local Gross Commission","Base Executed Value","Trade ID","Account Name"
         List<String> Items = new ArrayList<>(List.of(columns));
         return Items;
     }
 
     public static String getNameWithTimeStamp(String type) {
         String name = faker.name().firstName();
+        name = name.replaceAll("[^\\x00-\\x7F]", ""); // Remove non-ASCII characters
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
         String formattedTime = sdf.format(date);
         return name + "-" + type + "-" + formattedTime;
-
     }
 
     public static String getFieldNameWithTimeStamp(String type) {
         String name = faker.name().firstName();
+        name = name.replaceAll("[^\\x00-\\x7F]", "");
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
         String formattedTime = sdf.format(date);

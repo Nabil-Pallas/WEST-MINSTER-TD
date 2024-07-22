@@ -104,7 +104,7 @@ public interface Configuration extends Config {
 	String oauthUrl();	
 
 	@Key("timeout")
-	int timeout();
+	double timeout();
 	
 	@Key("beneficiaryTimeout")
 	int beneficiaryTimeout();

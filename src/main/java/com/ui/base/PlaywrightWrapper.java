@@ -53,7 +53,6 @@ import org.testng.asserts.SoftAssert;
 public class PlaywrightWrapper extends Reporter {
 
     int retry = 0;
-    double timeOut = 40000;
     String attachment = "";
 
     /**
@@ -1487,7 +1486,7 @@ public class PlaywrightWrapper extends Reporter {
      * @author Srikanth
      */
     public void waitForElementToLoad(String locator) {
-        getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(timeOut));
+        getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().timeout()));
     }
 
     /**

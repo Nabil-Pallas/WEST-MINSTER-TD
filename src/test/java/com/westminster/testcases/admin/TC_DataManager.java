@@ -84,9 +84,9 @@ public class TC_DataManager extends WestMinsterPageHook {
                         Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
                 .clickOnApplyBtn()
                 .searchValueToValidate(ruleName.get(), "Broker Name")
-                .validateEditedRowInformation((ruleName.get()), ("Broker Name"))
-                .clickOnActionsBtn()
-                .clickOnDeleteBtn();
+                .validateEditedRowInformation((ruleName.get()), ("Broker Name"));
+//                .clickOnActionsBtn()
+//                .clickOnDeleteBtn();
         // .deleteAddedRow((ruleName.get()), "Broker Name");
         System.out.println("TC-----------TC_4937");
     }
@@ -260,7 +260,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkApplyAndCancelBtnForEditAndBulkedit() {
         testcaseName = "TC_RE_4622";
         testDescription = "Check Apply And Cancel Btn For Edit And Bulk edit";

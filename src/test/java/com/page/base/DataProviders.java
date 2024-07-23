@@ -1,4 +1,4 @@
-package com.westminster.testcases;
+package com.page.base;
 
 import org.testng.annotations.DataProvider;
 

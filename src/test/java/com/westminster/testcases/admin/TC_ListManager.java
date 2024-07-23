@@ -63,7 +63,7 @@ public class TC_ListManager extends WestMinsterPageHook {
         setNode();
 
         newListName.set(FakerDataFactory.getListName());
-        listItems.set(FakerDataFactory.getListOfItems(2));
+        listItems.set(FakerDataFactory.getListOfItems(1));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()

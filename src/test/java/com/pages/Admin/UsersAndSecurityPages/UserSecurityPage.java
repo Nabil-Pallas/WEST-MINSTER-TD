@@ -253,10 +253,10 @@ public class UserSecurityPage extends AdminPage {
 //        String firstGridName = getInnerText("(//tr[1])[7]//td[@aria-colindex='1']");
         switch (xmlUserLevel) {
             case "Tier2Admin":
-                userMailIdText.set(getInnerText("(//tr[1])[3]//td[@aria-colindex='5']"));
+                userMailIdText.set(getInnerText("(//tr[5])//td[5]"));
                 break;
             default:
-                userMailIdText.set(getInnerText("(//tr[1])[7]//td[@aria-colindex='6']"));
+                userMailIdText.set(getInnerText("(//tr[5])//td[6]"));
                 break;
         }
         typeSearchUser(userMailIdText.get());

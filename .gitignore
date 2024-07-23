@@ -28,9 +28,4 @@ videos/
 .idea/
 PlutoUIAutomation.iml
 src/test/resources/upload/500kFile.csv
-Westminister1.xml
-Westminister2.xml
-Westminister3.xml
-Westminister4.xml
-Westminister5.xml
-WestministerSuite.xml
+

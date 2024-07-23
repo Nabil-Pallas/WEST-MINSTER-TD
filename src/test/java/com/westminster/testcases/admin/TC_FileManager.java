@@ -200,7 +200,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .deleteDataMaps(ruleName.get())
                 .clickOnDataManager()
                 .clickOnEditDataSchema()
-                .deleteDataSchema(clientCompanyName.get());
+                .deleteDataSchema();
 
         System.out.println("TC-----------TC_RE_1304");
 

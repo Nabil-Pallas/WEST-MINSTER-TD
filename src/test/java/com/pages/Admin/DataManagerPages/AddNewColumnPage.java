@@ -7,7 +7,6 @@ public class AddNewColumnPage extends EditDataSchemaPage {
     String confirmBtn = "//span[text()='Confirm']";
 
 
-
     public AddNewColumnPage validateAddNewColumnPage() {
         waitForElementToLoad(AddNewColumnText);
         if (isVisible(AddNewColumnText, "Add New Column(s)")) {
@@ -34,7 +33,10 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         String fieldDataTypeElement = "//div[contains(@class,'dx-item dx-list-item')]";
 
         int index = i + 1;
-        pause("low");
+        pause("medium");
+        pause("medium");
+        pause("medium");
+        pause("medium");
         click("(//table)[6]//tr[1]//td[2]", "selectFieldDataType");
         pause("low");
         clickAndChoose("(//div[@aria-label='Select'])[last()]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");

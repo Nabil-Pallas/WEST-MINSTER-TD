@@ -91,7 +91,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_4937");
     }
 
-    //@Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewColumnInEditDataSchema() {
         testcaseName = "TC_6587";
         testDescription = "Add new System Column";
@@ -112,7 +112,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnAddNewColumn()
                 .validateAddNewColumnPage()
                 .typeInformationInAddNewColumnsAndValidate(true, true, true)
-                .deleteDataSchema(clientCompanyName.get());
+                .deleteDataSchema();
         System.out.println("TC-----------TC_6587");
     }
 
@@ -260,7 +260,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkApplyAndCancelBtnForEditAndBulkedit() {
         testcaseName = "TC_RE_4622";
         testDescription = "Check Apply And Cancel Btn For Edit And Bulk edit";

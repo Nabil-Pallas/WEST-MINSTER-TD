@@ -190,16 +190,22 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
 
-    public EditDataSchemaPage deleteDataSchema(String str) {
+    public AddNewRowPage deleteDataSchema() {
+        clickOnEditDataSchema();
+//        pause("low");
+        click("//td[text()='Account Name']", "");
+        int maxAttempts = 40;
+        int attempts = 0;
 
-        pause("medium");
-        waitForLoaderToDisappear();
-        getPage().evaluate("document.body.style.zoom='0.9'");
-
-        while (!isVisible("//td[text()='" + str + "']") ) {
-            scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-container'])[1]");
+        while (!isVisibleWithMinimumTime("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
+            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+            attempts++;
         }
-        forceClick("(//td[text()='" + str + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
+
+//        scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
+        pause("low");
+        pause("low");
+        forceClick("(//td[text()='" + clientCompanyName.get() + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
         pause("low");
         click(deleteBtn, "Delete Button");
         pause("low");
@@ -213,7 +219,7 @@ public class EditDataSchemaPage extends DataManagerPage {
             reportStep("Added Data Schema is not deleted", "warning");
 
         }
-        return new EditDataSchemaPage();
+        return new AddNewRowPage();
     }
 }
 

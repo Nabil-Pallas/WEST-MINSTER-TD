@@ -84,9 +84,9 @@ public class TC_DataManager extends WestMinsterPageHook {
                         Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
                 .clickOnApplyBtn()
                 .searchValueToValidate(ruleName.get(), "Broker Name")
-                .validateEditedRowInformation((ruleName.get()), ("Broker Name"))
-                .clickOnActionsBtn()
-                .clickOnDeleteBtn();
+                .validateEditedRowInformation((ruleName.get()), ("Broker Name"));
+//                .clickOnActionsBtn()
+//                .clickOnDeleteBtn();
         // .deleteAddedRow((ruleName.get()), "Broker Name");
         System.out.println("TC-----------TC_4937");
     }

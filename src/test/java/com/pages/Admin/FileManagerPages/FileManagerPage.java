@@ -135,14 +135,11 @@ public class FileManagerPage extends AdminPage {
         pause("medium");
         pause("medium");
         waitForLoaderToDisappear();
-        String listLocator = "((((//tbody[@role='presentation'])[3])//tr))//td[1]";
-        int filesCount = getLocatorsCount(listLocator);
-        for (int i = 1; i <= filesCount; i++) {
-            if (fileListLocator(i).equals(fileName)){
-                boolean verifyExactText = verifyExactText(fileListLocator(i), fileName);
-                Assert.assertTrue(verifyExactText);
-            }
-        }
+        String fileLocator = "//a[text()='" + fileName + "']";
+        waitForElementToLoadWithHighTime(fileLocator);
+
+        boolean verifyExactText = verifyExactText(fileLocator, fileName);
+        Assert.assertTrue(verifyExactText);
 
         return this;
     }
@@ -239,13 +236,13 @@ public class FileManagerPage extends AdminPage {
     public AddNewRowPage deleteDataMaps(String dataMapName) {
         System.out.println("dataMapName----2----" + dataMapName);
         // clickOnViewDataMaps();
-        while(!isVisible("//td[text()='"+dataMapName+"']")){
+        while (!isVisible("//td[text()='" + dataMapName + "']")) {
             scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-container'])[4]");
         }
 
         forceClick("(//td[text()='" + dataMapName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Action Button", "Matched Data Map");
         pause("low");
-        click(deleteBtn, "Delete Button","");
+        click(deleteBtn, "Delete Button", "");
         pause("low");
         click(confirmDeleteBtn, "Confirm Delete");
         pause("low");

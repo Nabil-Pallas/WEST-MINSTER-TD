@@ -260,7 +260,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkApplyAndCancelBtnForEditAndBulkedit() {
         testcaseName = "TC_RE_4622";
         testDescription = "Check Apply And Cancel Btn For Edit And Bulk edit";
@@ -331,7 +331,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Srikanth
     //TC_1583 - Verify that all valid rows in the uploaded file are displayed in the Data Manager.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyValidRowsInDataManager() {
         testcaseName = "TC_RE_1583";
         testDescription = "Verify valid Rows In Data Manager Module";

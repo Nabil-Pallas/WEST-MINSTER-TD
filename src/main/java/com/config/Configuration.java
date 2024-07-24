@@ -105,6 +105,8 @@ public interface Configuration extends Config {
 
 	@Key("timeout")
 	double timeout();
+	@Key("bigTimeout")
+	double highTimeout();
 	
 	@Key("beneficiaryTimeout")
 	int beneficiaryTimeout();

@@ -38,8 +38,8 @@ public class FileMappingPage extends FileManagerPage {
 
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
-
-        pause("medium");
+        waitForElementToLoad("//span[text()='Exit']");
+        pause("low");
         //Mapping the Values
         // File Column Count
         int fileColumnCount = getLocatorsCount("((//tbody[@role='presentation'])[6])/tr");
@@ -59,7 +59,8 @@ public class FileMappingPage extends FileManagerPage {
                 pause("low");
                 // Verifying MapColumns Enabled
                 Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
-                pause("low");
+//                pause("low");
+                waitForElementToLoad(mapColumnsBtn);
                 click(mapColumnsBtn, "Map Columns");
                 pause("low");
 
@@ -127,15 +128,7 @@ public class FileMappingPage extends FileManagerPage {
         waitForAppearance("//div[text()='Confirm Data Mapping']", "Confirm Data Mapping");
         click(confirmAndUpload, "Confirm & Upload");
 //        System.out.println("-----file name-" + fileName.get());
-        if (fileName.get().contains("500kFile.csv")) {
-            pause("high");
-            pause("high");
-            pause("high");
-            pause("high");
-            pause("high");
-        } else {
-            pause("medium");
-        }
+        pause("medium");
         return new FileManagerPage();
     }
 

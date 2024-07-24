@@ -1489,6 +1489,10 @@ public class PlaywrightWrapper extends Reporter {
         getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().timeout()));
     }
 
+    public void waitForElementToLoadWithHighTime(String locator) {
+        getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().highTimeout()));
+    }
+
     /**
      * Use this method to random number between the given range
      *

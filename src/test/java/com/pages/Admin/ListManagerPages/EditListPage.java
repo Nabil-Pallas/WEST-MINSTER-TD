@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pages.Admin.ListManagerPages.AddNewListPage.addNewListBtn;
+import static com.pages.Admin.ListManagerPages.AddNewListPage.listTable;
 
 public class EditListPage extends ListManagerPage {
     private final String deleteIcon = "//a[@title='Delete List Item']";
@@ -87,6 +88,7 @@ public class EditListPage extends ListManagerPage {
             clickOnAddListItem();
             typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
             pause("low");
+            click(listTable, "Next Row", "Empty Row");
         }
         return this;
     }

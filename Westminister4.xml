@@ -19,14 +19,32 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <class name="com.westminster.testcases.admin.TC_FileManager"/>
-            <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity"/>-->
-            <class name="com.westminster.testcases.admin.TC_DataManager"/>
-            <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
-            <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-            <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
+            <class name="com.westminster.testcases.admin.TC_FileManager">
+                <methods>
+                    <include name="uploadSameContentFileWDiffName"/>
+                    <include name="uploadDiffContentFileWSameName"/>
+                    <include name="verifyInvalidColumnsWExistMapping"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
+                <methods>
+                    <exclude name="impersonateUser"/>
+                    <exclude name="roleCreationAndAssignRoleToUser"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.admin.TC_DataManager">
+                <methods>
+                    <include name="verifyValidRowsInDataManager"/>
+                    <include name="addMoreThan10Rows"/>
+                    <include name="verifyNoBlankSpacesOnEditTradeDetailsPage"/>
+                    <include name="verifyDropdownsForAdHocRows"/>
+                    <include name="verifyAddButtonDisabledOnBrokerNameError"/>
+                    <include name="verifyAddButtonDisabledOnTradeDateError"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.admin.TC_RulesManager"/>
+
+
         </classes>
     </test>
     <!--

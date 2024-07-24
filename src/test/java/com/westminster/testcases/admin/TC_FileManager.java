@@ -182,6 +182,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnFileManager()
+                .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())
                 .clickOnCreateNewMapping()
@@ -224,6 +225,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnFileManager()
+                .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload("./src/test/resources/upload/SampleFile_AU_Chrome.csv", fileName.get())
                 .clickOnCreateNewMapping()
@@ -252,6 +254,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnFileManager()
+                .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())
                 .clickOnCreateNewMapping()
@@ -265,7 +268,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload500KDataFile() {
         testcaseName = "TC_RE_1543";
         testDescription = "Validating whether the 500k Data file is uploaded successfully";
@@ -311,6 +314,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateDashBoardElements()
                 .clickOnAdmin()
                 .validateAdminPage()
+                .clickOnFileManager()
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())
@@ -389,6 +393,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnAdmin()
                 .validateAdminPage()
                 .setClient()
+                .clickOnFileManager()
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())

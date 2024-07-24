@@ -35,18 +35,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.config.ConfigurationManager;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.BoundingBox;
-import com.microsoft.playwright.options.RequestOptions;
 import com.microsoft.playwright.options.SelectOption;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 import com.ui.utilities.Reporter;
-import org.apache.commons.lang3.BooleanUtils;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -1639,4 +1635,5 @@ public class PlaywrightWrapper extends Reporter {
         Assert.assertTrue(result);
 
     }
+
 }

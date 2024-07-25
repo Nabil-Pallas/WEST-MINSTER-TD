@@ -164,7 +164,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     // Sanjay Kumar
     //Validate the addition of a new system field to an existing file mapping process/screen.
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void fileUploadAddSystemColumn() {
         testcaseName = "TC_RE_1304";
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";

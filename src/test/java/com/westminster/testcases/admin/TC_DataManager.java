@@ -283,20 +283,24 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnActionsBtn()
                 .clickOnEditBtn()
+                .validateEditRowPage()
                 .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
                         Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
                 .clickOnApplyBtn()
                 .clickOnActionsBtn()
                 .clickOnEditBtn()
+                .validateEditRowPage()
                 .clickOnCancelBtn()
                 .clickOnSelectAll()
                 .clickOnBulkEditBtn()
+                .validateBulkEditRowsPage()
                 .editRowInformation(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
                         FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
                         FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
                 .clickOnApplyBtn()
                 .clickOnSelectAll()
                 .clickOnBulkEditBtn()
+                .validateBulkEditRowsPage()
                 .clickOnCancelBtn();
         System.out.println("TC-----------TC_RE_4622");
     }

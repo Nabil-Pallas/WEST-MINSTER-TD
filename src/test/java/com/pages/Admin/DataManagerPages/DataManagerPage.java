@@ -263,6 +263,28 @@ public class DataManagerPage extends AdminPage {
         return new DataManagerPage();
     }
 
+    //validate Edit row page
+    public EditDataManagerRow validateEditRowPage(){
+        waitForLoaderToDisappear();
+        if(isVisible("//div[text()='Edit Trade Details']","Edit Trade Details Page")){
+            reportPass("Successfully navigated to Edit Row Page");
+        }else{
+            reportFail("Failed");
+        }
+        return new EditDataManagerRow();
+    }
+
+    //validate Bulk Edit rows page
+    public EditDataManagerRow validateBulkEditRowsPage(){
+        waitForLoaderToDisappear();
+        if(isVisible("//div[text()='Bulk Edit Rows']","Bulk Edit Rows Page")){
+            reportPass("Successfully navigated to Bulk edit rows page");
+        }else{
+            reportFail("failed to navigate to bulk edit rows page");
+        }
+        return new EditDataManagerRow();
+    }
+
     //Validate The Edited Row Information
     public DataManagerPage validateEditedRowInformation(String verificationValues, String verificationHeaders) {
         waitForLoaderToDisappear();

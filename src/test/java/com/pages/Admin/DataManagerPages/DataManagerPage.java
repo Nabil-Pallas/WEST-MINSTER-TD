@@ -225,7 +225,7 @@ public class DataManagerPage extends AdminPage {
 
     //Click The Apply Button
     public DataManagerPage clickOnApplyBtn() {
-//        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
         pause("medium//");
         click(applyBtn, "Apply Button");
         pause("medium");

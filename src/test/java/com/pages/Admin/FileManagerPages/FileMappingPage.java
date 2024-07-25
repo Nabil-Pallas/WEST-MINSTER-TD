@@ -82,7 +82,7 @@ public class FileMappingPage extends FileManagerPage {
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
 
-        pause("medium");
+        pause("low");
         //Mapping the Values
         // File Column Count
         int fileColumnCount = getLocatorsCount("((//tbody[@role='presentation'])[6])/tr");
@@ -98,7 +98,7 @@ public class FileMappingPage extends FileManagerPage {
 
             // Click on the system column
             click(frameSpanTextLocator(sysColumn), "System Column: " + sysColumn, "System Column");
-            pause("low");
+//            pause("low");
 
             // Click on the corresponding file column
             click("(//tbody[@role='presentation']//tr[td='" + fileColumnValue + "'])", "File Column: " + fileColumnValue, "File Column");
@@ -106,15 +106,15 @@ public class FileMappingPage extends FileManagerPage {
 
             // Verifying MapColumns Enabled
             Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
-            pause("low");
+//            pause("low");
 
             // Click on Map Columns button
             click(mapColumnsBtn, "Map Columns");
-            pause("low");
+//            pause("low");
 
             // Verify if the element is present
 //            String element = "(//div[@class='match-names-span'])[" + (index + 2) + "]";
-            boolean isPresent = isVisible("//li[@data-col-1='" + fileColumnValue + "']");
+            boolean isPresent = isVisibleWithMinimumTime("//li[@data-col-1='" + fileColumnValue + "']");
             Assert.assertTrue(isPresent);
             reportStep(sysColumn + " is mapped with " + fileColumnValue, "pass");
 

@@ -136,7 +136,8 @@ public class FileManagerPage extends AdminPage {
         pause("medium");
         waitForLoaderToDisappear();
         String fileLocator = "//a[text()='" + fileName + "']";
-        waitForElementToLoadWithHighTime(fileLocator);
+        waitForElementToDisappear("//p[text()='Uploading…']");
+//        waitForElementToLoadWithHighTime(fileLocator);
 
         boolean verifyExactText = verifyExactText(fileLocator, fileName);
         Assert.assertTrue(verifyExactText);
@@ -236,8 +237,9 @@ public class FileManagerPage extends AdminPage {
     public AddNewRowPage deleteDataMaps(String dataMapName) {
         System.out.println("dataMapName----2----" + dataMapName);
         // clickOnViewDataMaps();
-        while (!isVisible("//td[text()='" + dataMapName + "']")) {
-            scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-container'])[4]");
+        forceClick("(//table)[last()]//tr[1]/td[2]", "View data map","Action Button");
+        while (!isVisibleWithMinimumTime("//td[text()='" + dataMapName + "']")) {
+            pressDownArrow("(//div[@class='dx-scrollable-container'])[4]");
         }
 
         forceClick("(//td[text()='" + dataMapName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Action Button", "Matched Data Map");

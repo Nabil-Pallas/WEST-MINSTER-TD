@@ -1024,6 +1024,18 @@ public class PlaywrightWrapper extends Reporter {
         return false;
     }
 
+    public boolean waitForDisappearanceWithHighTime(String locator, String element) {
+        try {
+            getPage().locator(locator).waitFor(new Locator.WaitForOptions().setTimeout(ConfigurationManager.configuration().highTimeout()).setState(WaitForSelectorState.HIDDEN));
+            reportStep("Waiting for the element " + element + " to disappear.", "info");
+            return true;
+        } catch (PlaywrightException e) {
+            reportStep("The element " + element + " is not  disappeared for the provided timeline.", "fail");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /**
      * Use this method to wait for the element to appear
      *

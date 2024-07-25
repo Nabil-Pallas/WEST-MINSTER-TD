@@ -269,6 +269,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         ruleName.set(FakerDataFactory.getCompanyName());
         reportName.set(FakerDataFactory.getReportsName());
         titleone.set(FakerDataFactory.getTitle());
@@ -290,8 +291,9 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnCancelBtn()
                 .clickOnSelectAll()
                 .clickOnBulkEditBtn()
-                .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
-                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
+                .editRowInformation(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
+                        FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFutureDate(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric())
                 .clickOnApplyBtn()
                 .clickOnSelectAll()
                 .clickOnBulkEditBtn()

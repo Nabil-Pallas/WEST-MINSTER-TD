@@ -38,7 +38,7 @@ public class FileMappingPage extends FileManagerPage {
 
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
-
+        waitForElementToLoad("//span[text()='Exit']");
         pause("medium");
         //Mapping the Values
         // File Column Count
@@ -59,7 +59,8 @@ public class FileMappingPage extends FileManagerPage {
                 pause("low");
                 // Verifying MapColumns Enabled
                 Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
-                pause("low");
+//                pause("low");
+                waitForElementToLoad(mapColumnsBtn);
                 click(mapColumnsBtn, "Map Columns");
                 pause("low");
 
@@ -97,7 +98,7 @@ public class FileMappingPage extends FileManagerPage {
 
             // Click on the system column
             click(frameSpanTextLocator(sysColumn), "System Column: " + sysColumn, "System Column");
-            pause("low");
+//            pause("low");
 
             // Click on the corresponding file column
             click("(//tbody[@role='presentation']//tr[td='" + fileColumnValue + "'])", "File Column: " + fileColumnValue, "File Column");
@@ -105,11 +106,11 @@ public class FileMappingPage extends FileManagerPage {
 
             // Verifying MapColumns Enabled
             Assert.assertTrue(isEnabled(mapColumnsBtn, "Map Column"));
-            pause("low");
+//            pause("low");
 
             // Click on Map Columns button
             click(mapColumnsBtn, "Map Columns");
-            pause("low");
+//            pause("low");
 
             // Verify if the element is present
 //            String element = "(//div[@class='match-names-span'])[" + (index + 2) + "]";
@@ -127,15 +128,7 @@ public class FileMappingPage extends FileManagerPage {
         waitForAppearance("//div[text()='Confirm Data Mapping']", "Confirm Data Mapping");
         click(confirmAndUpload, "Confirm & Upload");
 //        System.out.println("-----file name-" + fileName.get());
-        if (fileName.get().contains("500kFile.csv")) {
-            pause("high");
-            pause("high");
-            pause("high");
-            pause("high");
-            pause("high");
-        } else {
-            pause("medium");
-        }
+        pause("medium");
         return new FileManagerPage();
     }
 

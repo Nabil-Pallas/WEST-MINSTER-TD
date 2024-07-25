@@ -35,18 +35,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.config.ConfigurationManager;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.BoundingBox;
-import com.microsoft.playwright.options.RequestOptions;
 import com.microsoft.playwright.options.SelectOption;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 import com.ui.utilities.Reporter;
-import org.apache.commons.lang3.BooleanUtils;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -1028,6 +1024,18 @@ public class PlaywrightWrapper extends Reporter {
         return false;
     }
 
+    public boolean waitForDisappearanceWithHighTime(String locator, String element) {
+        try {
+            getPage().locator(locator).waitFor(new Locator.WaitForOptions().setTimeout(ConfigurationManager.configuration().highTimeout()).setState(WaitForSelectorState.HIDDEN));
+            reportStep("Waiting for the element " + element + " to disappear.", "info");
+            return true;
+        } catch (PlaywrightException e) {
+            reportStep("The element " + element + " is not  disappeared for the provided timeline.", "fail");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /**
      * Use this method to wait for the element to appear
      *
@@ -1489,6 +1497,10 @@ public class PlaywrightWrapper extends Reporter {
         getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().timeout()));
     }
 
+    public void waitForElementToLoadWithHighTime(String locator) {
+        getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().highTimeout()));
+    }
+
     /**
      * Use this method to random number between the given range
      *
@@ -1639,4 +1651,5 @@ public class PlaywrightWrapper extends Reporter {
         Assert.assertTrue(result);
 
     }
+
 }

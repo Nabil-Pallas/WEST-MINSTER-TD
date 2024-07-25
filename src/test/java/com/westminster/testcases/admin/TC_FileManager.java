@@ -24,7 +24,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         category = "Login for File Manager Module";
     }
 
-//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void fileUpload() {
         testcaseName = "TC_5588";
         testDescription = "Upload a file and validate";
@@ -53,7 +53,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_5588");
     }
 
-    //    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void promotingRows() {
         testcaseName = "TC_4460";
         testDescription = "Promoting Rows and Validate";

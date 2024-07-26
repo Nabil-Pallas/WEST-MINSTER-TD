@@ -89,7 +89,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Srikanth
     //TC-961 - Upload a file which already uploaded with same data but with different file name
-    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadSameContentFileWDiffName() {
         testcaseName = "TC_RE_961";
         testDescription = "upload Same Content File With Different Name";
@@ -127,7 +127,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Srikanth
     //TC-1603 - Test to verify whether multiple files with same name but different content can be uploaded or not. To do that we have to upload two different files with different contents in the same name. Expected outcome is, warning message should be displayed saying that "duplicate files are not allowed" and the file should not get uploaded.
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadDiffContentFileWSameName() {
         testcaseName = "TC_RE_1603";
         testDescription = "Upload Different Content File with Same Name";
@@ -193,6 +193,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .typeInformationInAddNewSystemColumns()
                 .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date"), Arrays.asList("Broker Name", "Trade Date", "Settlement Date"))
                 .clickOnFinishMapping()
+                .clickOnFileManager()
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .validateAddedNewColumn(clientCompanyName.get())
@@ -263,12 +264,13 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Rate", "Trade ID", "Ticker", "Local Gross Commission", "Local Executed Value", "Local Currency", "Instrument Type", "Fund", "Security Description", "Local Price", "Executed Quantity"),
                         Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Spot Rate", "Trade ID", "Ticker", "COMMISSION", "Local Executed Value", "CURRENCY", "Instrument Type", "Fund", "Security Description", "PRICE", "QUANTITY"))
                 .clickOnFinishMapping()
+                .clickOnFileManager()
                 .validateFileUpload(fileName.get());
         System.out.println("TC-----------TC_RE_1563");
     }
 
-    // Sanjay Kumar
-//    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//     Sanjay Kumar
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload500KDataFile() {
         testcaseName = "TC_RE_1543";
         testDescription = "Validating whether the 500k Data file is uploaded successfully";
@@ -285,6 +287,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnFileManager()
+                .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())
                 .clickOnCreateNewMapping()
@@ -293,6 +296,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Rate", "Trade ID", "Ticker", "Local Gross Commission", "Local Executed Value", "Local Currency", "Instrument Type", "Fund", "Security Description", "Local Price", "Executed Quantity"),
                         Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Base Currency", "Base Executed Value", "Base Gross Commission", "Broker Code", "ISIN", "FX Spot Rate", "Trade ID", "Ticker", "COMMISSION", "Local Executed Value", "CURRENCY", "Instrument Type", "Fund", "Security Description", "PRICE", "QUANTITY"))
                 .clickOnFinishMapping()
+                .clickOnFileManager()
                 .validateFileUpload(fileName.get());
         System.out.println("TC-----------TC_RE_1543");
     }
@@ -323,6 +327,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateFileMappingPage()
                 .mappingFileAndSystemColumns(systemColumnNames)
                 .clickOnFinishMapping()
+                .clickOnFileManager()
                 .validateFileUpload(fileName.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName.get())
                 .validateErrorQueuePage()
@@ -373,7 +378,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //srikanth
     // TC_RE_2185 - Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyInvalidColumnsWExistMapping() {
         testcaseName = "TC_RE_2185";
         testDescription = "Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.";

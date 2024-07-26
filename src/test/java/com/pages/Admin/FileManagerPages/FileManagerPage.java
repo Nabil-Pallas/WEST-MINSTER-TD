@@ -237,7 +237,7 @@ public class FileManagerPage extends AdminPage {
     public AddNewRowPage deleteDataMaps(String dataMapName) {
         System.out.println("dataMapName----2----" + dataMapName);
         // clickOnViewDataMaps();
-        forceClick("(//table)[last()]//tr[1]/td[2]", "View data map","Action Button");
+        forceClick("(//table)[last()-1]//tr[1]/td[1]", "View data map","Action Button");
         while (!isVisibleWithMinimumTime("//td[text()='" + dataMapName + "']")) {
             pressDownArrow("(//div[@class='dx-scrollable-container'])[4]");
         }

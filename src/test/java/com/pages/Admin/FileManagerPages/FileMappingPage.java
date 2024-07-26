@@ -82,7 +82,7 @@ public class FileMappingPage extends FileManagerPage {
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
 
-        pause("low");
+        pause("medium");
         //Mapping the Values
         // File Column Count
         int fileColumnCount = getLocatorsCount("((//tbody[@role='presentation'])[6])/tr");
@@ -110,7 +110,7 @@ public class FileMappingPage extends FileManagerPage {
 
             // Click on Map Columns button
             click(mapColumnsBtn, "Map Columns");
-//            pause("low");
+            pause("low");
 
             // Verify if the element is present
 //            String element = "(//div[@class='match-names-span'])[" + (index + 2) + "]";

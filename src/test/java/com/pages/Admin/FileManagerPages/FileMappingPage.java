@@ -35,7 +35,7 @@ public class FileMappingPage extends FileManagerPage {
     }
 
     public FileMappingPage mappingFileAndSystemColumns(List<String> sysColumns) {
-
+        pause("medium");
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
         waitForElementToLoad("//span[text()='Exit']");

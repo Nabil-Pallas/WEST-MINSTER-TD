@@ -35,11 +35,11 @@ public class FileMappingPage extends FileManagerPage {
     }
 
     public FileMappingPage mappingFileAndSystemColumns(List<String> sysColumns) {
-
+        pause("medium");
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
         waitForElementToLoad("//span[text()='Exit']");
-        pause("low");
+        pause("medium");
         //Mapping the Values
         // File Column Count
         int fileColumnCount = getLocatorsCount("((//tbody[@role='presentation'])[6])/tr");
@@ -114,7 +114,7 @@ public class FileMappingPage extends FileManagerPage {
 
             // Verify if the element is present
 //            String element = "(//div[@class='match-names-span'])[" + (index + 2) + "]";
-            boolean isPresent = isVisibleWithMinimumTime("//li[@data-col-1='" + fileColumnValue + "']");
+            boolean isPresent = isVisible("//li[@data-col-1='" + fileColumnValue + "']");
             Assert.assertTrue(isPresent);
             reportStep(sysColumn + " is mapped with " + fileColumnValue, "pass");
 

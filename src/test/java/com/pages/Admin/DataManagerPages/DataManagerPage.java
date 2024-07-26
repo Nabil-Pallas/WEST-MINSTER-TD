@@ -225,7 +225,7 @@ public class DataManagerPage extends AdminPage {
 
     //Click The Apply Button
     public DataManagerPage clickOnApplyBtn() {
-//        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
         pause("medium//");
         click(applyBtn, "Apply Button");
         pause("medium");
@@ -261,6 +261,28 @@ public class DataManagerPage extends AdminPage {
         mouseOver(frameSpanTextLocator("Edit Data Schema"), "Edit Data Schema");
         pause("low");
         return new DataManagerPage();
+    }
+
+    //validate Edit row page
+    public EditDataManagerRow validateEditRowPage(){
+        waitForLoaderToDisappear();
+        if(isVisible("//div[text()='Edit Trade Details']","Edit Trade Details Page")){
+            reportPass("Successfully navigated to Edit Row Page");
+        }else{
+            reportFail("Failed");
+        }
+        return new EditDataManagerRow();
+    }
+
+    //validate Bulk Edit rows page
+    public EditDataManagerRow validateBulkEditRowsPage(){
+        waitForLoaderToDisappear();
+        if(isVisible("//div[text()='Bulk Edit Rows']","Bulk Edit Rows Page")){
+            reportPass("Successfully navigated to Bulk edit rows page");
+        }else{
+            reportFail("failed to navigate to bulk edit rows page");
+        }
+        return new EditDataManagerRow();
     }
 
     //Validate The Edited Row Information

@@ -62,9 +62,9 @@ public class AddNewUserPage extends UserSecurityPage {
         return this;
     }
 
-    public AddNewUserPage clickAndselectRole(String role) {
+    public AddNewUserPage clickAndselectRole(String tier,String role) {
         pause("low");
-        clickAndChoose(frameClientDetailsLocator("Roles", 1), selectRolesCheckBox(role), role, "Roles");
+        clickAndChoose(frameClientDetailsLocator("Roles", 1), selectRolesCheckBox(tier,role), role, "Roles");
         return this;
     }
 
@@ -75,26 +75,26 @@ public class AddNewUserPage extends UserSecurityPage {
     }
 
 
-    public AddNewUserPage fillUserInformation(String firstName, String lastName, String email, String phoneNo, String tier, String tier1, String role) {
+    public AddNewUserPage fillUserInformation(String firstName, String lastName, String email, String phoneNo, String tier, String tier1,String roleTier , String role) {
         waitForElementToLoad(frameClientDetailsLocator("First Name"));
         typeFirstName(firstName)
                 .typeLastName(lastName)
                 .typeUserEmail(email)
                 .typePhoneNo(phoneNo)
                 .clickAndselectTier(tier, tier1)
-                .clickAndselectRole(role);
+                .clickAndselectRole(roleTier,role);
         reportPass("User successfully filled User Information");
         return this;
     }
 
-    public AddNewUserPage fillUserInformation2(String firstName, String lastName, String email, String phoneNo, String tier, String tier1, String role) {
+    public AddNewUserPage fillUserInformation2(String firstName, String lastName, String email, String phoneNo, String tier, String tier1,String roleTier, String role) {
         waitForElementToLoad(frameClientDetailsLocator("First Name"));
         typeFirstName(firstName)
                 .typeLastName(lastName)
                 .typeUserEmail(email)
                 .typePhoneNo(phoneNo)
                 .clickAndselectTier2(tier, tier1)
-                .clickAndselectRole(role);
+                .clickAndselectRole(roleTier,role);
         reportPass("User successfully filled User Information");
         return this;
     }

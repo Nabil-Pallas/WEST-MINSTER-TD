@@ -194,15 +194,25 @@ public class EditDataSchemaPage extends DataManagerPage {
         clickOnEditDataSchema();
 //        pause("low");
         click("//td[text()='Account Name']", "");
-        int maxAttempts = 40;
+        int maxAttempts = 200;
         int attempts = 0;
 
         while (!isVisibleWithMinimumTime("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
             pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
             attempts++;
         }
+        switch (xmlUserLevel) {
+            case "Tier1Admin":
+            case "Tier1User":
 
-//        scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
+                scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
+                System.out.println("scrollToElement is done");
+                break;
+            default:
+                System.out.println("scrollToElement is not found");
+                break;
+        }
+//
         pause("low");
         pause("low");
         forceClick("(//td[text()='" + clientCompanyName.get() + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");

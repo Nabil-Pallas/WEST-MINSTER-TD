@@ -31,14 +31,8 @@ public class AddNewColumnPage extends EditDataSchemaPage {
 
     public AddNewColumnPage selectFieldDataType(int i) {
         String fieldDataTypeElement = "//div[contains(@class,'dx-item dx-list-item')]";
-
         int index = i + 1;
-        pause("medium");
-        pause("medium");
-        pause("medium");
-        pause("medium");
         click("(//table)[6]//tr[1]//td[2]", "selectFieldDataType");
-        pause("low");
         clickAndChoose("(//div[@aria-label='Select'])[last()]", frameClientDetailsLocator(index), "fieldDataType", "Field Data Type");
         pause("medium");
         return this;
@@ -92,10 +86,11 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         for (int i = 0; i < 1; i++) {
 
             typeFieldName(clientCompanyName.get());
+            pause("medium");
             selectFieldDataType(i);
-            pause("medium");
-            pause("medium");
-            pause("medium");
+//            pause("medium");
+//            pause("medium");
+//            pause("medium");
             switch (i) {
 //                case 0:
 //                    calculatedCheckbox(calculatedCheckbox);

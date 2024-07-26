@@ -21,10 +21,10 @@
         <classes>
             <class name="com.westminster.testcases.admin.TC_FileManager"/>
             <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
-            <methods>
-                <exclude name="impersonateUser"/>
-            </methods>
-        </class>
+                <methods>
+                    <exclude name="impersonateUser"/>
+                </methods>
+            </class>
             <class name="com.westminster.testcases.admin.TC_DataManager"/>
             <class name="com.westminster.testcases.admin.TC_RulesManager"/>
             <class name="com.westminster.testcases.admin.TC_ListManager"/>

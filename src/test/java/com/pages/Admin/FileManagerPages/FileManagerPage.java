@@ -47,7 +47,7 @@ public class FileManagerPage extends AdminPage {
         validateFileNameInFileManagerGridAndDelete(fileName);
         //upload
         uploadFile(filePath);
-        reportPass("User successfully Uploaded the File.");
+        reportPass("User successfully Uploaded the File Before Mapping.");
         return this;
     }
 
@@ -91,7 +91,7 @@ public class FileManagerPage extends AdminPage {
         click(frameSelectMappingLocator("Select a mapping:"), "Select Mapping DropDown", "DropDown");
         pause("low");
         //click Existing Map From DropDown
-        click("//div[contains(@title,'" + dataMap + "')]", "Existing DataMap");
+        forceClick("//div[contains(@title,'" + dataMap + "')]", "Existing DataMap","Drop down Value");
         pause("low");
         return this;
     }
@@ -215,6 +215,7 @@ public class FileManagerPage extends AdminPage {
             String valid = getInnerText(frameRowCountText("Valid Rows"));
             //validRows.set(Long.parseLong(valid));
             validRows = Long.parseLong(valid);
+            reportPass("Valid Rows Counts :"+validRows);
             System.out.println("---" + validRows);
         }
         return this;
@@ -237,7 +238,7 @@ public class FileManagerPage extends AdminPage {
     public AddNewRowPage deleteDataMaps(String dataMapName) {
         System.out.println("dataMapName----2----" + dataMapName);
         // clickOnViewDataMaps();
-        forceClick("(//table)[last()]//tr[1]/td[2]", "View data map","Action Button");
+        forceClick("(//table)[last()-1]//tr[1]/td[1]", "View data map","Action Button");
         while (!isVisibleWithMinimumTime("//td[text()='" + dataMapName + "']")) {
             pressDownArrow("(//div[@class='dx-scrollable-container'])[4]");
         }

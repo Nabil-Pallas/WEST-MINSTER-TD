@@ -65,11 +65,12 @@ public class DataManagerPage extends AdminPage {
 
     //Click the Action Button
     public DataManagerPage clickOnActionsBtn() {
-//        waitForLoaderToDisappear();
-        pause("medium");
-        pause("medium");
+        waitForLoaderToDisappear();
+//        pause("medium");
+//        pause("medium");
+        waitForElementToLoad(actionBtn);
         click(actionBtn, "Action button");
-//        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
         return new DataManagerPage();
     }
 
@@ -235,7 +236,7 @@ public class DataManagerPage extends AdminPage {
 
     //click the Cancel Button
     public DataManagerPage clickOnCancelBtn() {
-//        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
         pause("medium//");
         click(cancelBtn, "Cancel Button");
         pause("medium");
@@ -251,6 +252,20 @@ public class DataManagerPage extends AdminPage {
         click(selectAll, "Select All", "CheckBox");
         mouseOver(frameSpanTextLocator("Edit Data Schema"), "Edit Data Schema");
         return new DataManagerPage();
+    }
+
+    //click row select option on Data Manager Grid
+    public DataManagerPage clickOnSelectRow(){
+        waitForLoaderToDisappear();
+//        pause("medium");
+        for(int i=1;i<9;i++){
+            System.out.println(i);
+            waitForLoaderToDisappear();
+            forceClick("(//div[@aria-label='Select row'])["+i+"]","select option","`checkbox");
+//            pause("medium");
+
+        }
+        return this;
     }
 
     //click select single Check Box

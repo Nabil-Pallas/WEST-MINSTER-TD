@@ -18,6 +18,7 @@
             </run>
         </groups>
         <parameter name="Browser" value="chrome"></parameter>
+
         <classes>
             <class name="com.westminster.testcases.admin.TC_FileManager">
                 <methods>

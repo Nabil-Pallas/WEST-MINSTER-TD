@@ -5,7 +5,7 @@ import java.util.List;
 
 public class AddNewListPage extends ListManagerPage {
     public static final String addNewListBtn = "//div[@id='add-list-item-button']//i";
-    private final String listTable = "(//div[@class='dx-datagrid-content']/table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[2]/tbody/tr[2]/td[2]";
+    public static final String listTable = "(//div[@class='dx-datagrid-content']/table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[2]/tbody/tr[2]/td[2]";
 
     public AddNewListPage validateAddListItemPage() {
         waitForElementToLoad(frameSpanTextLocator("Add list item"));

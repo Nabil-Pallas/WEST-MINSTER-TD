@@ -35,6 +35,13 @@ public class MenuPage extends WestMinsterPageHook {
             reportFail("Loader is not disappeared");
         }
     }
+    public void waitForElementToDisappear(String locator) {
+        if (waitForDisappearanceWithHighTime(locator, "Loader Icon")) {
+            reportStep("Loader is disappeared", "info");
+        } else {
+            reportFail("Loader is not disappeared");
+        }
+    }
 
     //Verify whether the UserName Is Visible
     public MenuPage userNameIsVisible() {

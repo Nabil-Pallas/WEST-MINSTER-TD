@@ -204,13 +204,14 @@ public class FakerDataFactory {
         return buzzword + "-" + timeStamp;
     }
 
+
     public static List<String> getListOfItems(int count) {
-        List<String> listItems = new ArrayList<>();
+        Set<String> setItems = new HashSet<>();
         String timeStamp = getTimeStamp(); // Get timestamp once
-        for (int i = 0; i < count; i++) {
-            listItems.add(FakerDataFactory.getListItem() + "_" + timeStamp); // Append timestamp
+        while (setItems.size() < count) {
+            setItems.add(FakerDataFactory.getListItem() + "_" + timeStamp); // Append timestamp
         }
-        return listItems;
+        return new ArrayList<>(setItems);
     }
 
     public static List<String> recipientNames(int count) {

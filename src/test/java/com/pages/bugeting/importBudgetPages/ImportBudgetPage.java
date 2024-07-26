@@ -45,7 +45,7 @@ public class ImportBudgetPage extends AllBudgetsPage {
             while ((line = reader.readNext()) != null) {
                 if (line.length >= 2 && line[0].equalsIgnoreCase("BUDGET NAME")) {
                     String originalBudgetName = line[1];
-                    String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+                    String timeStamp = new SimpleDateFormat("ddHHmmss").format(new Date());
                     updatedBudgetName = clientCompanyName.get() + timeStamp;
                     line[1] = updatedBudgetName;
                 }

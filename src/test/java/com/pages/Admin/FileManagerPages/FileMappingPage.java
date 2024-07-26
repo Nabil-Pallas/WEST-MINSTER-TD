@@ -35,7 +35,7 @@ public class FileMappingPage extends FileManagerPage {
     }
 
     public FileMappingPage mappingFileAndSystemColumns(List<String> sysColumns) {
-
+        pause("medium");
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
 
@@ -136,6 +136,7 @@ public class FileMappingPage extends FileManagerPage {
         } else {
             pause("medium");
         }
+        reportPass("User Successfully Uploaded the file Completely.");
         return new FileManagerPage();
     }
 

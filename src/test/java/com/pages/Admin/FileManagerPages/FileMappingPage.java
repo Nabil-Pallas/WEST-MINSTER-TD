@@ -35,7 +35,7 @@ public class FileMappingPage extends FileManagerPage {
     }
 
     public FileMappingPage mappingFileAndSystemColumns(List<String> sysColumns) {
-
+        pause("medium");
         //Verifying Map column button disable
         Assert.assertTrue(isDisabled(mapColumnsBtn, "Map Column"));
         waitForElementToLoad("//span[text()='Exit']");
@@ -110,7 +110,7 @@ public class FileMappingPage extends FileManagerPage {
 
             // Click on Map Columns button
             click(mapColumnsBtn, "Map Columns");
-//            pause("low");
+            pause("low");
 
             // Verify if the element is present
 //            String element = "(//div[@class='match-names-span'])[" + (index + 2) + "]";

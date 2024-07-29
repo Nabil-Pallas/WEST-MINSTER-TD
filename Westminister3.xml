@@ -22,8 +22,7 @@
             <class name="com.westminster.testcases.admin.TC_FileManager"/>
             <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
                 <methods>
-                    <exclude name="createClient"/>
-                    <exclude name="editClient"/>
+                    <exclude name="impersonateUser"/>
                 </methods>
             </class>
             <class name="com.westminster.testcases.admin.TC_DataManager"/>

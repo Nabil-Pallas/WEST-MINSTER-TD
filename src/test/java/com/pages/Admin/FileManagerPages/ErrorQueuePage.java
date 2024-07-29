@@ -74,7 +74,7 @@ public class ErrorQueuePage extends FileManagerPage {
         pause("low");
         //select Invalid date value/format option from drop down
         waitForElementToLoad("//div[text()='Invalid date value/format']");
-        click("//div[text()='Invalid date value/format']", "click Invalid date value");
+        forceClick("//div[text()='Invalid date value/format']", "click Invalid date value","Select Option");
         pause("low");
         waitForLoaderToDisappear();
         //get the Row Count value

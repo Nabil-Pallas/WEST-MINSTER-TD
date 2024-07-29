@@ -65,11 +65,12 @@ public class DataManagerPage extends AdminPage {
 
     //Click the Action Button
     public DataManagerPage clickOnActionsBtn() {
-//        waitForLoaderToDisappear();
-        pause("medium");
-        pause("medium");
+        waitForLoaderToDisappear();
+//        pause("medium");
+//        pause("medium");
+        waitForElementToLoad(actionBtn);
         click(actionBtn, "Action button");
-//        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
         return new DataManagerPage();
     }
 
@@ -225,7 +226,7 @@ public class DataManagerPage extends AdminPage {
 
     //Click The Apply Button
     public DataManagerPage clickOnApplyBtn() {
-//        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
         pause("medium//");
         click(applyBtn, "Apply Button");
         pause("medium");
@@ -235,7 +236,7 @@ public class DataManagerPage extends AdminPage {
 
     //click the Cancel Button
     public DataManagerPage clickOnCancelBtn() {
-//        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
         pause("medium//");
         click(cancelBtn, "Cancel Button");
         pause("medium");
@@ -253,6 +254,20 @@ public class DataManagerPage extends AdminPage {
         return new DataManagerPage();
     }
 
+    //click row select option on Data Manager Grid
+    public DataManagerPage clickOnSelectRow(){
+        waitForLoaderToDisappear();
+//        pause("medium");
+        for(int i=1;i<9;i++){
+            System.out.println(i);
+            waitForLoaderToDisappear();
+            forceClick("(//div[@aria-label='Select row'])["+i+"]","select option","`checkbox");
+//            pause("medium");
+
+        }
+        return this;
+    }
+
     //click select single Check Box
     public DataManagerPage clickOnSingleCheckBox() {
         waitForLoaderToDisappear();
@@ -261,6 +276,28 @@ public class DataManagerPage extends AdminPage {
         mouseOver(frameSpanTextLocator("Edit Data Schema"), "Edit Data Schema");
         pause("low");
         return new DataManagerPage();
+    }
+
+    //validate Edit row page
+    public EditDataManagerRow validateEditRowPage(){
+        waitForLoaderToDisappear();
+        if(isVisible("//div[text()='Edit Trade Details']","Edit Trade Details Page")){
+            reportPass("Successfully navigated to Edit Row Page");
+        }else{
+            reportFail("Failed");
+        }
+        return new EditDataManagerRow();
+    }
+
+    //validate Bulk Edit rows page
+    public EditDataManagerRow validateBulkEditRowsPage(){
+        waitForLoaderToDisappear();
+        if(isVisible("//div[text()='Bulk Edit Rows']","Bulk Edit Rows Page")){
+            reportPass("Successfully navigated to Bulk edit rows page");
+        }else{
+            reportFail("failed to navigate to bulk edit rows page");
+        }
+        return new EditDataManagerRow();
     }
 
     //Validate The Edited Row Information

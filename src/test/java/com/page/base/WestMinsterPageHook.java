@@ -153,6 +153,8 @@ public class WestMinsterPageHook extends ProjectHooks {
 //        System.out.println("redirectToDashboard------------------------");
         navigate("https://sakthivel.murugesan%40mojopsg.com:sb%5EyCCM6pieJ@gct-app.qa.cwi.studio/Dashboard");
         pause("medium");
+        getContext().clearCookies();
+        System.out.println("Cookies Got cleared");
 
     }
 }

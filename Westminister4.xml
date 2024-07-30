@@ -28,7 +28,7 @@
 <!--            </class>-->
             <class name="com.westminster.testcases.admin.TC_DataManager">
             <methods>
-                <include name="impersonateUser"/>
+                <include name="checkApplyAndCancelBtnForEditAndBulkedit"/>
 
             </methods>
             </class>

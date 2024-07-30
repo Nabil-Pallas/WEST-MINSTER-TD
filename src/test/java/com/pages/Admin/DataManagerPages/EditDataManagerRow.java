@@ -296,9 +296,11 @@ public class EditDataManagerRow extends DataManagerPage {
         return this;
     }
 
-    public EditDataManagerRow validateChangeLog(List<String> details) {
-        for (String detail : details) {
-            boolean verifyExactText = verifyPartialText("//td[text()='" + detail + "']", detail);
+    public EditDataManagerRow validateChangeLog(int changeLog) {
+
+        for (int i = 1; i <= changeLog; i++) {
+            String getInnerText = getInnerText("(//table)[last()-1]//tbody//tr[" + i + "]//td[1]");
+            boolean verifyExactText = verifyPartialText("//td[text()='" + getInnerText + "']", getInnerText);
             Assert.assertTrue(verifyExactText);
         }
         reportPass("User successfully verified that edited fields are displayed in change logs.");

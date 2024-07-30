@@ -3,6 +3,7 @@ package com.page.base;
 import com.pages.Admin.UsersAndSecurityPages.AddNewClientPage;
 import org.testng.annotations.AfterMethod;
 
+
 public class MenuPage extends WestMinsterPageHook {
 
     //Locator For UserName Field

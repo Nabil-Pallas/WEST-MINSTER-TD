@@ -154,5 +154,6 @@ public class WestMinsterPageHook extends ProjectHooks {
         navigate("https://sakthivel.murugesan%40mojopsg.com:sb%5EyCCM6pieJ@gct-app.qa.cwi.studio/Dashboard");
         pause("medium");
         getContext().clearCookies();
+
     }
 }

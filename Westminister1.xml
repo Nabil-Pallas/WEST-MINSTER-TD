@@ -5,6 +5,7 @@
     <listeners>
         <listener class-name="com.listener.TestListener"></listener>
     </listeners>
+.
 
     <test thread-count="1" name="WestminsterTest1">
         <groups>
@@ -30,6 +31,5 @@
             <class name="com.westminster.testcases.report.TC_Reports"/>
 
         </classes>
-
     </test>
 </suite>

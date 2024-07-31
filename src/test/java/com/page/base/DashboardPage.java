@@ -42,9 +42,7 @@ public class DashboardPage extends MenuPage {
         return new MenuPage();
     }
 
-
-    //     Validate Dashboard Element in Dashboard Page
-
+    //Validate Dashboard Element in Dashboard Page
     public DashboardPage validateDashBoardElements() {
         waitForLoaderToDisappear();
         waitForElementToLoad(dashboardHover);
@@ -56,6 +54,7 @@ public class DashboardPage extends MenuPage {
         return this;
 
     }
+
     public DashboardPage validateImpersonatingAsUserText() {
         waitForLoaderToDisappear();
         waitForElementToLoad(impersonatingAsUserText);
@@ -79,6 +78,7 @@ public class DashboardPage extends MenuPage {
         return this;
 
     }
+
     // Click the Admin Option
     public AdminPage clickOnAdmin() {
         mouseHoverOnDashboard();

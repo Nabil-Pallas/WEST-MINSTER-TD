@@ -1,6 +1,8 @@
 package com.page.base;
 
+import com.config.ConfigurationManager;
 import com.pages.Admin.UsersAndSecurityPages.AddNewClientPage;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 
 
@@ -27,6 +29,9 @@ public class MenuPage extends WestMinsterPageHook {
 
     protected String impersonatingAsUserText = "//div[@id='impersonating-user-banner']";
 
+    public String frameDivTextLocator(String placeholder) {
+        return "//div[contains(text(),'" + placeholder + "')]";
+    }
 
     //Wait For Loader To Disappear
     public void waitForLoaderToDisappear() {
@@ -36,6 +41,7 @@ public class MenuPage extends WestMinsterPageHook {
             reportFail("Loader is not disappeared");
         }
     }
+
     public void waitForElementToDisappear(String locator) {
         if (waitForDisappearanceWithHighTime(locator, "Loader Icon")) {
             reportStep("Loader is disappeared", "info");
@@ -174,6 +180,22 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
+    //Navigate to the application URL
+    public DashboardPage navigateURL() {
+        waitForAppearance("//span[contains(text(),'OK')]", "OK");
+        click("//span[contains(text(),'OK')]", "OK", "Button");
+        navigate(ConfigurationManager.configuration().baseStagingUrl());
+        return new DashboardPage();
+    }
+
+    public DashboardPage validateLoginErrorMsg(String errorMsg) {
+        String errorMsgText = getInnerText(frameDivTextLocator(errorMsg));
+        Assert.assertEquals(errorMsgText, errorMsg);
+        String error = getInnerText("//p[contains(text(),'Sorry')]");
+        reportPass("Oops! Login failed with error message : " + errorMsgText + "  " + error);
+        return new DashboardPage();
+    }
+
     public DashboardPage dateFormattingInPreferences() {
         mouseHoverOnProfile()
                 .clickAccountSettingsBtn()
@@ -185,7 +207,6 @@ public class MenuPage extends WestMinsterPageHook {
 
         return new DashboardPage();
     }
-
 
 
 }

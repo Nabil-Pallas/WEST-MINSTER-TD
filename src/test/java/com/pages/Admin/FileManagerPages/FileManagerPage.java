@@ -141,7 +141,6 @@ public class FileManagerPage extends AdminPage {
         String fileLocator = "//a[text()='" + fileName + "']";
         waitForElementToDisappear("//p[text()='Uploading…']");
 //        waitForElementToLoadWithHighTime(fileLocator);
-
         boolean verifyExactText = verifyExactText(fileLocator, fileName);
         Assert.assertTrue(verifyExactText);
 
@@ -234,6 +233,17 @@ public class FileManagerPage extends AdminPage {
 
         }
 
+        return new FileMappingPage();
+    }
+
+
+    public FileMappingPage clickOnDefineMapping() {
+        waitForAppearance(frameSpanTextLocator("Define Mapping"),"Define Mapping Button");
+        if (isVisible(frameSpanTextLocator("Define Mapping"))) {
+            click(frameSpanTextLocator("Define Mapping"), "Define Mapping Button");
+        } else {
+            reportFail("Define Mapping is not Visible to Perform Click Action");
+        }
         return new FileMappingPage();
     }
 

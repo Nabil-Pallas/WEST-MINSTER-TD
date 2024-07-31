@@ -461,4 +461,55 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
 
+
+    // TC_RE_1665 - Verify that data mapping columns refresh accurately after deleting invalid entries, maintaining data integrity and user confidence.
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyDataMappingRefreshAfterInvalidEntryDeletion() {
+        testcaseName = "TC_RE_1665";
+        testDescription = "Verify Data Mapping Refresh After Invalid Entry Deletion";
+        authors = "Automation Team";
+        category = "Data Mapping Refresh";
+        startTestCase();
+        setNode();
+
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/SampleFile_AU_Chrome.csv");
+        fileName.set("SampleFile_AU_Chrome.csv");
+        filePath2.set("./src/test/resources/upload/InvalidColumnsCase.csv");
+        fileName2.set("InvalidColumnsCase.csv");
+        List<String> systemColumnNames = FakerDataFactory.getSystemColumns();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(systemColumnNames)
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .validateFileNameInFileManagerGridAndDelete(fileName.get())
+                .fileUpload(filePath2.get(), fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnModifyInvalidMap()
+                .verifyMappingError()
+                .clickOnDeleteInvalidColumns()
+                .validateMappedColumns()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date", "Trade ID"), Arrays.asList("Allocation", "TradeDate", "EntryDate", "TradeID"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName2.get())
+                .fileUpload(filePath2.get(), fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnDefineMapping()
+                .validateFileMappingPage()
+                .validateMappedColumns(Arrays.asList("Allocation", "TradeDate", "EntryDate", "TradeID"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName2.get());
+        System.out.println("TC-----------TC_RE_1665");
+    }
 }

@@ -783,9 +783,9 @@ public class PlaywrightWrapper extends Reporter {
      */
     public boolean clickAndChoose(String ddLocator, String optionLocator, String option, String name) {
         try {
-            getPage().locator(ddLocator).click();
+            getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
             pause("low");
-            getPage().locator(optionLocator).click();
+            getPage().locator(optionLocator).click(new Locator.ClickOptions().setForce(true));
             reportStep("The drop down : " + name + " is selected with value : " + option, "info");
             return true;
         } catch (PlaywrightException e) {

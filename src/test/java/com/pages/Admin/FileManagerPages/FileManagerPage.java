@@ -16,6 +16,9 @@ public class FileManagerPage extends AdminPage {
     //Locator For Create Button
     private String createNewDataMapBtn = "//span[text()='Create']";
 
+    //Locator For Open Error Queue
+    private String openErrorQueueBtn = "//span[text()='Open Error Queue']";
+
     private static int size;
     private static int size2;
 
@@ -256,6 +259,12 @@ public class FileManagerPage extends AdminPage {
         Assert.assertTrue(verifyExactText);
         click(closeIcon, "Close icon");
         return new AddNewRowPage();
+    }
+
+    public ErrorQueuePage clickOnOpenErrorQueue(){
+        waitForElementToLoad(openErrorQueueBtn);
+        click(openErrorQueueBtn,"Click Open Error Queue");
+        return new ErrorQueuePage();
     }
 
 }

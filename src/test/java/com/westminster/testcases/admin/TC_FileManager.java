@@ -456,8 +456,17 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnModifyInvalidMap()
                 .verifyMappingError()
                 .clickOnDeleteInvalidColumns()
-                .validateMappedColumns();
-
+                .validateMappedColumns()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date", "Trade ID"), Arrays.asList("Allocation", "TradeDate", "EntryDate", "TradeID"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName2.get())
+                .fileUpload(filePath2.get(), fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnDefineMapping()
+                .validateFileMappingPage()
+                .validateMappedColumns(Arrays.asList("Allocation", "TradeDate", "EntryDate", "TradeID"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName2.get());
         System.out.println("TC-----------TC_RE_1665");
     }
 }

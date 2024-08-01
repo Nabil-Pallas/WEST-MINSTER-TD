@@ -419,6 +419,49 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_2185");
     }
 
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void validateErrorQueueWSingleEdit(){
+        testcaseName = "TC_RE_720";
+        testDescription = "validation of Single Edit Row in Error Queue Page";
+        authors = "Automation Team";
+        category = "Error Validation";
+        startTestCase();
+        setNode();
+
+        getTradeDate.set(FakerDataFactory.getPastDate());
+        getSettlementDate.set(FakerDataFactory.getFutureDate());
+        filePath.set("./src/test/resources/upload/2019_trade_data.csv");
+        fileName.set("2019_trade_data.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID","Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .clickOnFileManager()
+                .validateFileUpload(fileName.get())
+                .clickOnOpenErrorQueue()
+                .validateErrorQueuePage()
+                .errorQueuePageRowCount()
+                .clickActionBtn()
+                .clickOnEdit()
+                .editInformation("Trade Date","Settlement Date",getTradeDate.get(),getSettlementDate.get())
+                .selectEditedRow(getTradeDate.get())
+                .clickOnPromoteRows()
+                .errorQueuePageRowCountAfterPromote()
+                .validateRowCount();
+    }
+
+
+
     // TC_RE_1665 - Verify that data mapping columns refresh accurately after deleting invalid entries, maintaining data integrity and user confidence.
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDataMappingRefreshAfterInvalidEntryDeletion() {
@@ -456,8 +499,17 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnModifyInvalidMap()
                 .verifyMappingError()
                 .clickOnDeleteInvalidColumns()
-                .validateMappedColumns();
-
+                .validateMappedColumns()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date", "Trade ID"), Arrays.asList("Allocation", "TradeDate", "EntryDate", "TradeID"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName2.get())
+                .fileUpload(filePath2.get(), fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnDefineMapping()
+                .validateFileMappingPage()
+                .validateMappedColumns(Arrays.asList("Allocation", "TradeDate", "EntryDate", "TradeID"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName2.get());
         System.out.println("TC-----------TC_RE_1665");
     }
 }

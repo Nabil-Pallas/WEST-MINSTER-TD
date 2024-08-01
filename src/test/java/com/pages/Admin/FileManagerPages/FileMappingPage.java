@@ -22,6 +22,7 @@ public class FileMappingPage extends FileManagerPage {
     private String mappingErrorText = "//div[text()='Mapping Error'] ";
     private String errorList = "//ul[@class='error-list']";
     private List<String> invalidColumnList = new ArrayList<>();
+    private List<String> validColumnList = new ArrayList<>();
 
 
     public FileMappingPage validateFileMappingPage() {
@@ -215,6 +216,21 @@ public class FileMappingPage extends FileManagerPage {
                     }
                 }
             }
+        } else {
+            reportPass("No Currently Mapped Columns");
+        }
+        return this;
+    }
+
+    public FileMappingPage validateMappedColumns(List<String> mappedColumns) {
+        pause("low");
+        if (isVisible("//span[@class='file-column-name-span']")) {
+            //span[@class='file-column-name-span' and text()='TradeID']
+            for (String mappedColumn : mappedColumns) {
+                boolean verifyExactText = verifyPartialText("//span[@class='file-column-name-span' and text()='" + mappedColumn + "']", mappedColumn);
+                Assert.assertTrue(verifyExactText);
+            }
+
         } else {
             reportPass("No Currently Mapped Columns");
         }

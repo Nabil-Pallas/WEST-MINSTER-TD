@@ -16,6 +16,9 @@ public class FileManagerPage extends AdminPage {
     //Locator For Create Button
     private String createNewDataMapBtn = "//span[text()='Create']";
 
+    //Locator For Open Error Queue
+    private String openErrorQueueBtn = "//span[text()='Open Error Queue']";
+
     private static int size;
     private static int size2;
 
@@ -138,7 +141,6 @@ public class FileManagerPage extends AdminPage {
         String fileLocator = "//a[text()='" + fileName + "']";
         waitForElementToDisappear("//p[text()='Uploading…']");
 //        waitForElementToLoadWithHighTime(fileLocator);
-
         boolean verifyExactText = verifyExactText(fileLocator, fileName);
         Assert.assertTrue(verifyExactText);
 
@@ -236,6 +238,17 @@ public class FileManagerPage extends AdminPage {
     }
 
 
+    public FileMappingPage clickOnDefineMapping() {
+        waitForAppearance(frameSpanTextLocator("Define Mapping"),"Define Mapping Button");
+        if (isVisible(frameSpanTextLocator("Define Mapping"))) {
+            click(frameSpanTextLocator("Define Mapping"), "Define Mapping Button");
+        } else {
+            reportFail("Define Mapping is not Visible to Perform Click Action");
+        }
+        return new FileMappingPage();
+    }
+
+
     public AddNewRowPage deleteDataMaps(String dataMapName) {
         System.out.println("dataMapName----2----" + dataMapName);
         // clickOnViewDataMaps();
@@ -257,6 +270,12 @@ public class FileManagerPage extends AdminPage {
         Assert.assertTrue(verifyExactText);
         click(closeIcon, "Close icon");
         return new AddNewRowPage();
+    }
+
+    public ErrorQueuePage clickOnOpenErrorQueue(){
+        waitForElementToLoad(openErrorQueueBtn);
+        click(openErrorQueueBtn,"Click Open Error Queue");
+        return new ErrorQueuePage();
     }
 
 }

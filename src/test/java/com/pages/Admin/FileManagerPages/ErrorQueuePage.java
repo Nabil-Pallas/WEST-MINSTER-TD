@@ -11,6 +11,11 @@ public class ErrorQueuePage extends FileManagerPage {
     private String selectAll = "//div[@aria-label='Select all']";
     private static long invalidCellCount;
     private static long errorRows;
+    private String editRow = "//span[text()='Edit']";
+    private String actionBtn = "(//table)[4]//tr[1]//td[last()]";
+    private long rCount;
+    private long rowCount;
+
 
     public ErrorQueuePage validateErrorQueuePage() {
         waitForElementToLoad(ErrorQueueText);
@@ -106,4 +111,97 @@ public class ErrorQueuePage extends FileManagerPage {
         return new ErrorQueuePage();
     }
 
+    public ErrorQueuePage clickActionBtn(){
+//        waitForElementToLoad(actionBtn);
+        pause("low");
+        click(actionBtn,"Action Button");
+        return this;
+    }
+
+    public ErrorQueuePage clickOnEdit(){
+        waitForElementToLoad(editRow);
+        click(editRow,"Edit");
+        return this;
+    }
+
+    public ErrorQueuePage editInformation(String verificationHeaders, String verificationHeaders1,String tradeDate, String settlementDate){
+        waitForLoaderToDisappear();
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+
+        for (int i = 1; i <= headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+
+            if (verificationHeaders.contains(headerText)) {
+            click("(//table)[3]//tr[1]//td["+(i+3)+"]","Field");
+            pause("low");
+            typeWithType("(//table)[3]//tr[1]//td["+(i+3)+"]//input",tradeDate,"Field");
+                reportPass("successfully edited Trade date");
+            }
+            if(verificationHeaders1.contains(headerText)){
+                click("(//table)[3]//tr[1]//td["+(i+3)+"]","Field");
+                pause("low");
+                typeAndEnter("(//table)[3]//tr[1]//td["+(i+3)+"]//input",settlementDate,"Field");
+                reportPass("successfully edited Settlement date");
+            }
+        }
+        return this;
+    }
+
+    public ErrorQueuePage selectEditedRow(String date){
+//        waitForElementToLoad("(//span[@class='dx-checkbox-icon'])[2]");
+        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
+        click("//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']", "Drop Down");
+//        waitForElementToLoad("");
+        forceClick("//div[text()='Validated Rows']", "Validated Rows","Select Option");
+//        int maxAttempts = 20000;
+//        int attempts = 0;
+//        click("(//table)[3]//tr[1]//td[3]","click on first field");
+//
+//        while (!isVisibleWithMinimumTime("//td[text()='" + getTradeDate.get() + "']") && attempts < maxAttempts) {
+//            pressDownArrow("(//table)[3]//tr[6]");
+//            attempts++;
+//        }
+        pause("low");
+        forceClick("(//td[text()='"+date+"']//preceding-sibling::td[last()])[1]","checkbox","Select Check box");
+        return this;
+    }
+
+    public ErrorQueuePage errorQueuePageRowCount(){
+        waitForLoaderToDisappear();
+        pause("low");
+        waitForElementToLoad("//div[@id='error-queue-row-count']");
+        pause("low");
+        waitForLoaderToDisappear();
+       String rowCount = getInnerText("//div[@id='error-queue-row-count']");
+        System.out.println(rowCount);
+       String rowCountNum = rowCount.replaceAll("Row Count: ","");
+       rCount = Long.parseLong(rowCountNum);
+        System.out.println(rCount);
+       return this;
+    }
+
+    public ErrorQueuePage errorQueuePageRowCountAfterPromote(){
+        waitForLoaderToDisappear();
+        click("//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']", "Drop Down");
+//        waitForElementToLoad("");
+        forceClick("//div[text()='Show All']", "Show All","Select Option");
+        waitForLoaderToDisappear();
+        String rCount = getInnerText("//div[@id='error-queue-row-count']");
+        String rowCountNum = rCount.replaceAll("Row Count: ","");
+        rowCount = Long.parseLong(rowCountNum);
+        System.out.println(rowCount);
+        return this;
+    }
+
+    public ErrorQueuePage validateRowCount(){
+        if(rowCount==(rCount-1)){
+            reportPass("Successfully edited and promoted the row");
+        }
+        else {
+            reportFail("failed to validate. please check whether row has been promoted or not");
+        }
+        return this;
+    }
 }

@@ -1,4 +1,4 @@
-package com.pages.Report.myReportPages;
+package com.pages.Report.myReportsPages;
 
 import com.pages.Report.ReportsPage;
 import org.testng.Assert;

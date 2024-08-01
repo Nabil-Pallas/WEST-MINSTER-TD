@@ -1,7 +1,7 @@
-package com.pages.Report;
+package com.pages.Report.allReportsPages;
 
-import com.page.base.MenuPage;
-import com.pages.Admin.AdminPage;
+import com.pages.Report.ReportsPage;
+import com.pages.Report.myReportsPages.ViewReportPage;
 import org.testng.Assert;
 
 public class AllReportsPage extends ReportsPage {

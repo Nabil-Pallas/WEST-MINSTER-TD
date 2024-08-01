@@ -1,8 +1,6 @@
 package com.westminster.testcases.report;
 
-import com.config.Configuration;
-import com.config.ConfigurationManager;
-import com.pages.Report.ViewReportPage;
+import com.pages.Report.myReportsPages.ViewReportPage;
 import com.ui.utilities.TestGroups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;

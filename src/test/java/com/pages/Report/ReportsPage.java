@@ -1,10 +1,11 @@
 package com.pages.Report;
 
 import com.config.ConfigurationManager;
-import com.microsoft.playwright.Locator;
-import com.page.base.DashboardPage;
 import com.page.base.MenuPage;
-import com.pages.Admin.AdminPage;
+import com.pages.Report.allReportsPages.AllReportsPage;
+import com.pages.Report.myReportsPages.CreateNewReportPage;
+import com.pages.Report.myReportsPages.EditReportPage;
+import com.pages.Report.myReportsPages.ViewReportPage;
 import org.testng.Assert;
 
 public class ReportsPage extends MenuPage {

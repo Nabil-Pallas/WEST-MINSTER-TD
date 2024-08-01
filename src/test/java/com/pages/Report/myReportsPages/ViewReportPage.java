@@ -1,9 +1,10 @@
-package com.pages.Report;
+package com.pages.Report.myReportPages;
 
 import java.util.List;
 
 import com.microsoft.playwright.PlaywrightException;
 import com.page.base.DashboardPage;
+import com.pages.Report.ReportsPage;
 import org.testng.Assert;
 
 public class ViewReportPage extends ReportsPage {

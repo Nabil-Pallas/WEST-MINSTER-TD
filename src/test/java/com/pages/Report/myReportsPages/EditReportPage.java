@@ -1,6 +1,6 @@
-package com.pages.Report;
+package com.pages.Report.myReportPages;
 
-import com.page.base.DashboardPage;
+import com.pages.Report.ReportsPage;
 import org.testng.Assert;
 
 public class EditReportPage extends ReportsPage {

@@ -16,10 +16,6 @@ public class ViewReportPage extends ReportsPage {
 
     public String recipient = getInnerText("(//div[@class='wdx-custom-dropdown__secondary'])[1]");
 
-    //Tier_2_admin@AutomationQA.com
-    //Srikanth@arjun.com
-    //tier_2_user@AutomationQA.com
-
 
     public ViewReportPage validateViewReportPage() {
         waitForElementToLoad(frameh1TextLocator("View Report"));
@@ -52,6 +48,8 @@ public class ViewReportPage extends ReportsPage {
         pause("low");
         if (onOrOff) {
             click("//div[@class='dx-switch-inner']", "Schedule automatic delivery");
+            boolean isChecked = isEnabled("//div[@class='dx-switch-inner']","Schedule automatic delivery");
+            Assert.assertTrue(isChecked);
         }
         return this;
     }

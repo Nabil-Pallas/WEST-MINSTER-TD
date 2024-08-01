@@ -2,6 +2,7 @@ package com.westminster.testcases.report;
 
 import com.config.Configuration;
 import com.config.ConfigurationManager;
+import com.pages.Report.ViewReportPage;
 import com.ui.utilities.TestGroups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
@@ -139,6 +140,7 @@ public class TC_Reports extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
+        reportName.set(FakerDataFactory.getNameWithTimeStamp("Report"));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnReports()
@@ -148,8 +150,24 @@ public class TC_Reports extends WestMinsterPageHook {
                 .validateNewReportsPage()
                 .fillReportDetail(reportName.get(), "Mosaic", "Blue")
                 .selectSlideTemplate("Intro")
-                .fillIntroPage("SanityTesting", "Sanity Test Description")
-                .validateIntroPage("SanityTesting", "Sanity Test Description");
+                .fillIntroPage("RegressionTesting", "Automatic Delivery Schedule")
+                .validateIntroPage("RegressionTesting", "Automatic Delivery Schedule");
+        new ViewReportPage()
+                .clickOnDeliveryBtn()
+                .validateReportDeliverySettingsPage()
+                .checkScheduleAutomaticDelivery(true)
+                .clickOnCCCheckBox()
+                .chooseRecipient(false)
+                .clickRepeatOn("Sun")
+                .clickOnSaveBtn()
+                .clickOnAllReports()
+                .validateAllReportsPage()
+                .searchReportTitle(reportName.get())
+                .validateReportTitle(reportName.get())
+                .validateScheduledDeliveryContent("No")
+                .clickOnReportTitle(reportName.get())
+                .validateViewReportPage();
+
         System.out.println("TC-----------TC_RE_4690");
     }
 }

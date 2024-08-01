@@ -10,6 +10,8 @@ import org.testng.Assert;
 public class ReportsPage extends MenuPage {
 
     protected String reportsText = "//h1[text()='Reports']";
+    protected String allReportsTab = "//span[normalize-space()='All Reports']";
+    protected String allReportsText = "//h2[normalize-space()='All Reports']";
     private String clientSelectDrpDown = "(//div[@class='dx-dropdowneditor-icon'])[1]";
     protected String listOfReportName = "(//h2[contains(text(),'My Reports')]/following::a[@class='dataviz__card'])[1]";
 
@@ -53,6 +55,10 @@ public class ReportsPage extends MenuPage {
 
     public String frameAddBudgeOrAnalysisLocator(String placeholder, int index) {
         return "(//div//p[text()='" + placeholder + "']//following::div[2]//li//button)[" + index + "]";
+    }
+
+    public String frameAnchorTag(String Placeholder) {
+        return "//a[text()='" + Placeholder + "']";
     }
 
     public String frameScheduleAutomaticDeliveryLocator(String placeholder) {
@@ -107,6 +113,13 @@ public class ReportsPage extends MenuPage {
         waitForLoaderToDisappear();
         return new CreateNewReportPage();
     }
+
+    public AllReportsPage clickOnAllReports() {
+        click(allReportsTab, "All Reports");
+        waitForLoaderToDisappear();
+        return new AllReportsPage();
+    }
+
 
     public ReportsPage validateMyReportTitle(String reportTitle) {
         waitForLoaderToDisappear();

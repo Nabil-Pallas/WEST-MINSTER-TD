@@ -228,7 +228,9 @@ public class FakerDataFactory {
     }
 
     public static String getDataMapName() {
-        return faker.name().title().replaceAll("[^a-zA-Z ]", "");
+        String baseName = faker.name().title().replaceAll("[^a-zA-Z ]", "");
+        String timeStamp = getTimeStamp();
+        return baseName + "_" + timeStamp;
     }
 
     public static List<String> getSystemColumns() {

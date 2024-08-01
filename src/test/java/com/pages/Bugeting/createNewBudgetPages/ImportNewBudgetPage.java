@@ -1,6 +1,6 @@
-package com.pages.bugeting.createNewBudgetPages;
+package com.pages.Bugeting.createNewBudgetPages;
 
-import com.pages.bugeting.AllBudgetsPage;
+import com.pages.Bugeting.AllBudgetsPage;
 
 public class ImportNewBudgetPage extends AllBudgetsPage {
     String importBudgetText = "//div[text()='Import Budget']";

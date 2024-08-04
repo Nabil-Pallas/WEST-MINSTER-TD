@@ -15,6 +15,7 @@ public class ErrorQueuePage extends FileManagerPage {
     private String actionBtn = "(//table)[4]//tr[1]//td[last()]";
     private long rCount;
     private long rowCount;
+    private static long duplicateRowCount;
 
 
     public ErrorQueuePage validateErrorQueuePage() {
@@ -193,7 +194,7 @@ public class ErrorQueuePage extends FileManagerPage {
         return this;
     }
 
-    public ErrorQueuePage validateRowCount(){
+    public ErrorQueuePage validateSingleEditRowCount(){
         if(rowCount==(rCount-1)){
             reportPass("Successfully edited and promoted the row");
         }
@@ -202,4 +203,34 @@ public class ErrorQueuePage extends FileManagerPage {
         }
         return this;
     }
+
+    public  ErrorQueuePage clickFilterAndSelectDuplicateRows(){
+        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
+        click("//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']", "Click Drop Down");
+        pause("low");
+        //select Invalid date value/format option from drop down
+        waitForElementToLoad("//div[text()='Duplicate Rows']");
+        forceClick("//div[text()='Duplicate Rows']", "click Invalid date value","Select Option");
+        pause("low");
+        waitForLoaderToDisappear();
+        //get the Row Count value
+        String rowCount = getInnerText("//div[@id='error-queue-row-count']");
+        String replaceRowCount = rowCount.replaceAll("Row Count: ", "");
+        duplicateRowCount = Long.parseLong(replaceRowCount);
+        System.out.println("Duplicate Rows count: " + duplicateRowCount);
+        return this;
+    }
+
+    public ErrorQueuePage validateDuplicateRowCount(){
+        if(notificationDuplicateRowCount==duplicateRowCount){
+            reportPass("Successfully validated duplicate rows count");
+        }
+        else {
+            reportFail("Failed to validate duplicate rows count");
+        }
+        return this;
+    }
+
+
 }

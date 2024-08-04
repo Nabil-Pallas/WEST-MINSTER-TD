@@ -19,8 +19,10 @@ public class FileManagerPage extends AdminPage {
     //Locator For Open Error Queue
     private String openErrorQueueBtn = "//span[text()='Open Error Queue']";
 
-    private static int size;
-    private static int size2;
+    //xpath for Duplicate Rows in Notification page
+    private String duplicateCount = "//div[@id='current-notification-message__text']//ul//li[1]";
+
+    public static long notificationDuplicateRowCount;
 
 
     //Locator For Date Format
@@ -275,6 +277,31 @@ public class FileManagerPage extends AdminPage {
         waitForElementToLoad(openErrorQueueBtn);
         click(openErrorQueueBtn,"Click Open Error Queue");
         return new ErrorQueuePage();
+    }
+
+    public FileManagerPage clickNotificationBadge(){
+        waitForLoaderToDisappear();
+        click("//div[@id='header_notifications']","Notification");
+        reportPass("Successfully clicked notification Badge");
+        return this;
+    }
+
+    public FileManagerPage validateNotificationPage(){
+        waitForLoaderToDisappear();
+        if(isVisible("//h1[text()='Notifications']")){
+            reportPass("Successfully navigated to Notification page");
+        }else{
+            reportFailAndThrowException("failed to Navigate");
+        }
+        return new FileManagerPage();
+    }
+
+    public FileManagerPage getDuplicateRowsCount(){
+        waitForLoaderToDisappear();
+        String count = getInnerText(duplicateCount);
+        String dCount = count.replaceAll("Duplicate Rows: ","");
+        notificationDuplicateRowCount = Long.parseLong(dCount);
+        return new FileManagerPage();
     }
 
 }

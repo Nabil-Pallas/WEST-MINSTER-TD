@@ -457,7 +457,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .selectEditedRow(getTradeDate.get())
                 .clickOnPromoteRows()
                 .errorQueuePageRowCountAfterPromote()
-                .validateRowCount();
+                .validateSingleEditRowCount();
     }
 
 
@@ -511,5 +511,51 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName2.get());
         System.out.println("TC-----------TC_RE_1665");
+    }
+
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void validateDuplicateRowsInErrorQueue(){
+        testcaseName = "TC_RE_5162";
+        testDescription = "Validate duplicate rows in error queue page";
+        authors = "Automation Team";
+        category = "Error Queue";
+        startTestCase();
+        setNode();
+
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/100_rows_file.csv");
+        filePath2.set("./src/test/resources/upload/50_rows_file.csv");
+        fileName.set("100_rows_file.csv");
+        fileName2.set("50_rows_file.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date", "Trade ID"), Arrays.asList("BROKER", "Trade Date", "Settle Date", "Trade ID"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .fileUpload(filePath2.get(),fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnApplyMapping()
+                .validateFileUpload(fileName2.get())
+                .clickNotificationBadge()
+                .validateNotificationPage()
+                .getDuplicateRowsCount();
+                new DashboardPage()
+                        .clickOnAdmin()
+                        .validateAdminPage()
+                        .clickOnFileManager()
+                        .validateFileManagerPage()
+                        .clickOnInvalidRowCountAndAmendErrors(fileName2.get())
+                        .clickFilterAndSelectDuplicateRows()
+                        .validateDuplicateRowCount();
     }
 }

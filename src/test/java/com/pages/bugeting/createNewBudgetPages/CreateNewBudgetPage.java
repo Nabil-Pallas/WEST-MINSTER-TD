@@ -126,6 +126,7 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
     }
 
     public CreateNewBudgetPage addNewBudget(String budgetName, String beginDate, String endDate, String targetColumn, String budgetBy, String brokerCode, String targetAmount) {
+        pause("medium");
         clickAndSelectTargetColumn(targetColumn)
                 .selectBudgetBy(budgetBy)
                 .selectBrokerNameSection(budgetBy, brokerCode, targetAmount)

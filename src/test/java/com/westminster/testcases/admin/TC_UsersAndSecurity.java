@@ -98,7 +98,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnUserTab()
                 .clickOnaddNewUsrBtn()
                 .fillUserInformation(userFirstName.get(), userLastName.get(), userMailId.get(),
-                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2","Tier 2" ,"Sri_Role")
+                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2","Tier 2" ,"SriTesting Administrator")
                 .clickOnApplyBtn()
                 .validateUserInformation(displayUserName, userMailId.get())
                 .deleteUser(displayUserName);

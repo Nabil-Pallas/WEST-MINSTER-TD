@@ -143,6 +143,8 @@ public class UserSecurityPage extends AdminPage {
         waitForLoaderToDisappear();
         typeSearchUser(emailId);
         waitForElementToLoad(frameUserSearchResult(userName));
+        waitForLoaderToDisappear();
+        pause("medium");
         boolean verifyExactText = verifyExactText(frameUserSearchResult(userName), userName);
         Assert.assertTrue(verifyExactText);
         return this;

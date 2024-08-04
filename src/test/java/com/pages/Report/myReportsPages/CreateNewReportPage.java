@@ -1,5 +1,6 @@
-package com.pages.Report;
+package com.pages.Report.myReportsPages;
 
+import com.pages.Report.ReportsPage;
 import org.testng.Assert;
 
 public class CreateNewReportPage extends ReportsPage {

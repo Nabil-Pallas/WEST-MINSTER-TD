@@ -1,7 +1,6 @@
 package com.pages.Admin.RulesManagerPages;
 
 import com.page.base.DashboardPage;
-import com.pages.Report.CreateNewReportPage;
 import org.testng.Assert;
 
 public class EditRulePage extends RulesManagerPage {

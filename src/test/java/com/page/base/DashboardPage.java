@@ -3,7 +3,7 @@ package com.page.base;
 import com.pages.Admin.AdminPage;
 import com.pages.Analytics.AnalyticsPage;
 import com.pages.Report.ReportsPage;
-import com.pages.bugeting.AllBudgetsPage;
+import com.pages.Bugeting.AllBudgetsPage;
 import org.testng.Assert;
 
 public class DashboardPage extends MenuPage {

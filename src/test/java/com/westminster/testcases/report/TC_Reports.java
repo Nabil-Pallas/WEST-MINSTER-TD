@@ -1,7 +1,6 @@
 package com.westminster.testcases.report;
 
-import com.config.Configuration;
-import com.config.ConfigurationManager;
+import com.pages.Report.myReportsPages.ViewReportPage;
 import com.ui.utilities.TestGroups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
@@ -15,7 +14,7 @@ import com.page.base.WestMinsterPageHook;
 @Listeners(TestListener.class)
 public class TC_Reports extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "Login with " + xmlUserLevel;
         testDescription = "Login with " + xmlUserLevel;
@@ -84,6 +83,7 @@ public class TC_Reports extends WestMinsterPageHook {
                 .setClient()
                 .clickOnReport()
                 .clickOnEditReport()
+                .validateEditReportsPage()
                 .editReportTitle(reportName.get())
                 .changeTheme("Simple")
                 .changePalette("Cobalt")
@@ -126,5 +126,46 @@ public class TC_Reports extends WestMinsterPageHook {
                 .validateReportDeliveryHistoryPage()
                 .validateRecipients();
         System.out.println("TC-----------TC_5674");
+    }
+
+    //Verify whether a automatic delivery schedule for an report can be cancelled or disabled.
+    @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
+    public void disableReportSchedule() {
+        testcaseName = "TC_RE_4690";
+        testDescription = "Report Delivery";
+        authors = "Automation Team";
+        category = "Report Delivery";
+        startTestCase();
+        setNode();
+
+        reportName.set(FakerDataFactory.getNameWithTimeStamp("Report"));
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnReports()
+                .validateReportsPage()
+                .setClient()
+                .clickOnCreateNewReport()
+                .validateNewReportsPage()
+                .fillReportDetail(reportName.get(), "Mosaic", "Blue")
+                .selectSlideTemplate("Intro")
+                .fillIntroPage("RegressionTesting", "Automatic Delivery Schedule")
+                .validateIntroPage("RegressionTesting", "Automatic Delivery Schedule");
+        new ViewReportPage()
+                .clickOnDeliveryBtn()
+                .validateReportDeliverySettingsPage()
+                .checkScheduleAutomaticDelivery(true)
+                .clickOnCCCheckBox()
+                .chooseRecipient(false)
+                .clickRepeatOn("Sun")
+                .clickOnSaveBtn()
+                .clickOnAllReports()
+                .validateAllReportsPage()
+                .searchReportTitle(reportName.get())
+                .validateReportTitle(reportName.get())
+                .validateScheduledDeliveryContent("No")
+                .clickOnReportTitle(reportName.get())
+                .validateViewReportPage();
+
+        System.out.println("TC-----------TC_RE_4690");
     }
 }

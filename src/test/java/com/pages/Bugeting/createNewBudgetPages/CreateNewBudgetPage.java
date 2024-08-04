@@ -1,9 +1,8 @@
-package com.pages.bugeting.createNewBudgetPages;
+package com.pages.Bugeting.createNewBudgetPages;
 
 import org.testng.Assert;
 
-import com.page.base.DashboardPage;
-import com.pages.bugeting.AllBudgetsPage;
+import com.pages.Bugeting.AllBudgetsPage;
 
 public class CreateNewBudgetPage extends AllBudgetsPage {
 

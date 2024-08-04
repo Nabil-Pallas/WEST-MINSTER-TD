@@ -1,15 +1,18 @@
 package com.pages.Report;
 
 import com.config.ConfigurationManager;
-import com.microsoft.playwright.Locator;
-import com.page.base.DashboardPage;
 import com.page.base.MenuPage;
-import com.pages.Admin.AdminPage;
+import com.pages.Report.allReportsPages.AllReportsPage;
+import com.pages.Report.myReportsPages.CreateNewReportPage;
+import com.pages.Report.myReportsPages.EditReportPage;
+import com.pages.Report.myReportsPages.ViewReportPage;
 import org.testng.Assert;
 
 public class ReportsPage extends MenuPage {
 
     protected String reportsText = "//h1[text()='Reports']";
+    protected String allReportsTab = "//span[normalize-space()='All Reports']";
+    protected String allReportsText = "//h2[normalize-space()='All Reports']";
     private String clientSelectDrpDown = "(//div[@class='dx-dropdowneditor-icon'])[1]";
     protected String listOfReportName = "(//h2[contains(text(),'My Reports')]/following::a[@class='dataviz__card'])[1]";
 
@@ -53,6 +56,10 @@ public class ReportsPage extends MenuPage {
 
     public String frameAddBudgeOrAnalysisLocator(String placeholder, int index) {
         return "(//div//p[text()='" + placeholder + "']//following::div[2]//li//button)[" + index + "]";
+    }
+
+    public String frameAnchorTag(String Placeholder) {
+        return "//a[text()='" + Placeholder + "']";
     }
 
     public String frameScheduleAutomaticDeliveryLocator(String placeholder) {
@@ -107,6 +114,13 @@ public class ReportsPage extends MenuPage {
         waitForLoaderToDisappear();
         return new CreateNewReportPage();
     }
+
+    public AllReportsPage clickOnAllReports() {
+        click(allReportsTab, "All Reports");
+        waitForLoaderToDisappear();
+        return new AllReportsPage();
+    }
+
 
     public ReportsPage validateMyReportTitle(String reportTitle) {
         waitForLoaderToDisappear();

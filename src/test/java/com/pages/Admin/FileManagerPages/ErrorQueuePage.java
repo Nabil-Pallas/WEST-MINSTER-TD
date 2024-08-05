@@ -29,8 +29,10 @@ public class ErrorQueuePage extends FileManagerPage {
     }
 
     public ErrorQueuePage clickOnSelectAll() {
-        waitForLoaderToDisappear();
+//        waitForLoaderToDisappear();
         pause("medium");
+        pause("medium");
+        waitForElementToLoad(selectAll);
         click(selectAll, "Select All", "CheckBox");
         return new ErrorQueuePage();
     }

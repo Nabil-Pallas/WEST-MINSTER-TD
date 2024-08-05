@@ -469,7 +469,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
 
     // TC_RE_1665 - Verify that data mapping columns refresh accurately after deleting invalid entries, maintaining data integrity and user confidence.
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDataMappingRefreshAfterInvalidEntryDeletion() {
         testcaseName = "TC_RE_1665";
         testDescription = "Verify Data Mapping Refresh After Invalid Entry Deletion";

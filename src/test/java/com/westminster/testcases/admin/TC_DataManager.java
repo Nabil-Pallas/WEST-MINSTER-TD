@@ -15,7 +15,7 @@ import com.ui.utilities.TestGroups;
 
 @Listeners(TestListener.class)
 public class TC_DataManager extends WestMinsterPageHook {
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "Login with " + xmlUserLevel;
         testDescription = "Login with " + xmlUserLevel;

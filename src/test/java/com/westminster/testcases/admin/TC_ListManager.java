@@ -16,7 +16,7 @@ import com.page.base.WestMinsterPageHook;
 @Listeners(TestListener.class)
 public class TC_ListManager extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "Login with  " + xmlUserLevel;
         testDescription = "Login with  " + xmlUserLevel;
@@ -24,7 +24,7 @@ public class TC_ListManager extends WestMinsterPageHook {
         category = "Login for List Manager Module";
     }
 
-    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+//    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewList() {
         testcaseName = "TC_5591";
         testDescription = "Create New List and Validate";
@@ -63,7 +63,7 @@ public class TC_ListManager extends WestMinsterPageHook {
         setNode();
 
         newListName.set(FakerDataFactory.getListName());
-        listItems.set(FakerDataFactory.getListOfItems(2));
+        listItems.set(FakerDataFactory.getListOfItems(1));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()

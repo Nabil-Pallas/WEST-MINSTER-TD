@@ -15,6 +15,7 @@ public class ListManagerPage extends AdminPage {
     private final String listNameText = "(// table[@role='presentation'])[3]/ tbody/ tr[1]/ td[1]";
     private final String listItemText = "(// table[@role='presentation'])[3]/ tbody/ tr[1]/ td[2]";
     private final String actionIcon = "(//td[@class='action-edit-delete-column']/a)[1]";
+    private final String actionIcon_2 = "(//td[@class='action-edit-delete-column']/a)[2]";
 
 
     public String frameInputLocator(String placeholder, int index) {
@@ -74,11 +75,20 @@ public class ListManagerPage extends AdminPage {
 
     //Edit List
     public ListManagerPage clickOnActionIcon() {
-        pause("medium");
-        if (isVisible(actionIcon, "Action Icon")) {
-            click(actionIcon, "Action Icon");
+        waitForLoaderToDisappear();
+        waitForElementToLoad(listNameText);
+        if (getInnerText(listNameText).contains("Timezones")) {
+            if (isVisible(actionIcon_2, "Action Icon 2")) {
+                click(actionIcon_2, "Action Icon 2");
+            } else {
+                reportStep("The Action Icon 2 is not visible ", "warning");
+            }
         } else {
-            reportStep("The WebElement is not visible ", "warning");
+            if (isVisible(actionIcon, "Action Icon 1")) {
+                click(actionIcon, "Action Icon 1");
+            } else {
+                reportStep("The Action Icon 1 is not visible ", "warning");
+            }
         }
         return this;
     }

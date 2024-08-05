@@ -173,6 +173,7 @@ public class FileManagerPage extends AdminPage {
     public FileManagerPage validateRowPromote(String fileName) {
         waitForLoaderToDisappear();
         pause("medium");
+        pause("low");
         Assert.assertFalse(isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]"));
         reportPass("User successfully validated the promoted rows.");
         return this;

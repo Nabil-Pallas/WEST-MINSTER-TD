@@ -17,7 +17,7 @@ import com.page.base.WestMinsterPageHook;
 public class TC_Budgeting extends WestMinsterPageHook {
 
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY})
     public void setReportValues() {
         testcaseName = "Login with " + xmlUserLevel;
         testDescription = "Login with " + xmlUserLevel;

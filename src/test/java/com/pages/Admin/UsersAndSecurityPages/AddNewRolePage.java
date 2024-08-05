@@ -35,12 +35,16 @@ public class AddNewRolePage extends UserSecurityPage {
 
     public AddNewRolePage clickAndselectClient(String client) {
         clickAndChoose(frameClientDetailsLocator("Client", 4), frameUserSelectDropDownLocator(client), client, "Client");
+        if(isVisible("//div[text()='Invalid Field']") || isVisible("(//div[text()='Must have a client.'])[1]")){
+            clickAndChoose(frameClientDetailsLocator("Client", 4), frameUserSelectDropDownLocator(client), client, "Client");
+        }
         return this;
     }
 
     public AddNewRolePage clickAndselectPermissions(String permission) {
         pause("low");
         clickAndChoose(frameClientDetailsLocator("Permissions", 1), selectPermissionCheckBox(permission), permission, "Permissions");
+
         return this;
     }
 

@@ -56,6 +56,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     }
 
     public NewAnalysisPage clickOnNextBtn() {
+        waitForLoaderToDisappear();
         click(frameSpanTextLocator("Next"), "Next");
         return this;
     }
@@ -110,6 +111,9 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
         pause("low");
+        if(isVisible("//div[text()='Invalid Field'")){
+            clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
+        }
         typeWithType(frameAnalysisFieldLocator("Define the maximum number of items appearing in this chart:", 2), numOfItems, "number of items appearing in this chart");
         reportPass("User successfully entered the plot details.");
         return this;
@@ -120,6 +124,10 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
+        if(isVisible("//div[text()='Invalid Field'")){
+            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
+            pause("low");
+        }
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField1,2), multipleSeriesValueField2, "Multiple Series Value Field 2");
         reportPass("User successfully entered the plot details.");
         return this;
@@ -144,6 +152,10 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
         pause("low");
+        if(isVisible("//div[text()='Invalid Field'")){
+            clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
+            pause("low");
+        }
         reportPass("User successfully entered the plot details.");
         return this;
     }
@@ -153,15 +165,25 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
+        if(isVisible("//div[text()='Invalid Field'")){
+            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
+            pause("low");
+        }
         reportPass("User successfully entered the plot details.");
         return this;
     }
 
     public NewAnalysisPage plotDetailsSummaryTable(String mainField, String multipleSeriesValueField1, String multipleSeriesValueField2) {
+        waitForLoaderToDisappear();
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
+        if(isVisible("//div[text()='Invalid Field'")){
+            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
+            pause("low");
+        }
+
         reportPass("User successfully entered the plot details.");
         return this;
     }

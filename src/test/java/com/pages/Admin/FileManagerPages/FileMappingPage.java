@@ -54,7 +54,7 @@ public class FileMappingPage extends FileManagerPage {
         for (String sysColumn : sysColumns) {
             click(frameSpanTextLocator(sysColumn), "System Column :" + sysColumn, "System Column");
             pause("low");
-            int i = 2; // Initialize i outside the if block, but inside the loop to reset it for each sysColumn
+            // Initialize i outside the if block, but inside the loop to reset it for each sysColumn
             if (fileColumn.contains(sysColumn)) {
                 click("(//tbody[@role='presentation']//tr[td='" + sysColumn + "'])", "File Column :" + sysColumn, "File Column");
                 pause("low");

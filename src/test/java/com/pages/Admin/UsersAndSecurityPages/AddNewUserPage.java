@@ -65,6 +65,10 @@ public class AddNewUserPage extends UserSecurityPage {
     public AddNewUserPage clickAndselectRole(String tier,String role) {
         pause("low");
         clickAndChoose(frameClientDetailsLocator("Roles", 1), selectRolesCheckBox(tier,role), role, "Roles");
+        if(isVisible("(//div[text()='Please select a role.'])[1]")){
+            pause("low");
+            clickAndChoose(frameClientDetailsLocator("Roles", 1), selectRolesCheckBox(tier,role), role, "Roles");
+        }
         return this;
     }
 

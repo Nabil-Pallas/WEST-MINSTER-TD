@@ -140,7 +140,7 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .clickOnNextBtn()
                 .selectVisualizationType("Scatter Plot")
                 .clickOnNextBtn()
-                .plotDetailsScatterPlot("Trade Date", "Base Gross Commission")
+                .plotDetailsScatterPlot("Trade Date", "Executed Quantity")
                 .clickOnNextBtn()
                 .reviewYourAnalysis(analysisName.get(), "Green")
                 .clickOnSaveBtn()

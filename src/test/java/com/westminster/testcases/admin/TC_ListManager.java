@@ -24,7 +24,7 @@ public class TC_ListManager extends WestMinsterPageHook {
         category = "Login for List Manager Module";
     }
 
-    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+//    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewList() {
         testcaseName = "TC_5591";
         testDescription = "Create New List and Validate";

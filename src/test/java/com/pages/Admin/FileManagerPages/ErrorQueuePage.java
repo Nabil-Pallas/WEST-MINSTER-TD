@@ -222,11 +222,11 @@ public class ErrorQueuePage extends FileManagerPage {
     public  ErrorQueuePage clickFilterAndSelectDuplicateRows(){
         waitForLoaderToDisappear();
         waitForLoaderToDisappear();
-        click("//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']", "Click Drop Down");
+        click("//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']", "Drop Down");
         pause("low");
         //select Invalid date value/format option from drop down
         waitForElementToLoad("//div[text()='Duplicate Rows']");
-        forceClick("//div[text()='Duplicate Rows']", "click Invalid date value","Select Option");
+        forceClick("//div[text()='Duplicate Rows']", "Duplicate Rows","Option");
         pause("low");
         waitForLoaderToDisappear();
         //get the Row Count value

@@ -166,6 +166,7 @@ public class FileMappingPage extends FileManagerPage {
     }
 
     public FileMappingPage verifyMappingError() {
+        waitForLoaderToDisappear();
         //Mapping Error popup
         waitForElementToLoad(mappingErrorText);
         if (isVisible(mappingErrorText, "mapping Error Text")) {

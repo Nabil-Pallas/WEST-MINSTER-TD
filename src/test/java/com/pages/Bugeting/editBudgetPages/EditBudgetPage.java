@@ -1,9 +1,6 @@
-package com.pages.bugeting.editBudgetPages;
+package com.pages.Bugeting.editBudgetPages;
 
-import com.page.base.DashboardPage;
-import com.pages.Admin.DataManagerPages.EditDataManagerRow;
-import com.pages.bugeting.AllBudgetsPage;
-import com.pages.bugeting.createNewBudgetPages.CreateNewBudgetPage;
+import com.pages.Bugeting.AllBudgetsPage;
 import org.testng.Assert;
 
 import java.util.List;

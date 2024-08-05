@@ -1,17 +1,14 @@
-package com.pages.bugeting;
+package com.pages.Bugeting;
 
 import com.config.ConfigurationManager;
 import com.page.base.DashboardPage;
 import com.page.base.MenuPage;
-import com.pages.Admin.AdminPage;
-import com.pages.Admin.DataManagerPages.DataManagerPage;
-import com.pages.Admin.DataManagerPages.EditDataManagerRow;
-import com.pages.bugeting.createNewBudgetPages.CreateNewBudgetPage;
-import com.pages.bugeting.editBudgetPages.EditBudgetPage;
-import com.pages.bugeting.importBudgetPages.ImportBudgetPage;
+import com.pages.Bugeting.createNewBudgetPages.CreateNewBudgetPage;
+import com.pages.Bugeting.editBudgetPages.EditBudgetPage;
+import com.pages.Bugeting.importBudgetPages.ImportBudgetPage;
 import org.testng.Assert;
 
-import static com.pages.bugeting.importBudgetPages.ImportBudgetPage.readUpdatedValueInCsv;
+import static com.pages.Bugeting.importBudgetPages.ImportBudgetPage.readUpdatedValueInCsv;
 
 public class AllBudgetsPage extends MenuPage {
     protected String allBudgetsText = "//h1[text()='All Budgets']";

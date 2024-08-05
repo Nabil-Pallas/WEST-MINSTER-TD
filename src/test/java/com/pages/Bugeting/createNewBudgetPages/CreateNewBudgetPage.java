@@ -1,9 +1,8 @@
-package com.pages.bugeting.createNewBudgetPages;
+package com.pages.Bugeting.createNewBudgetPages;
 
 import org.testng.Assert;
 
-import com.page.base.DashboardPage;
-import com.pages.bugeting.AllBudgetsPage;
+import com.pages.Bugeting.AllBudgetsPage;
 
 public class CreateNewBudgetPage extends AllBudgetsPage {
 
@@ -62,11 +61,15 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
 
     public CreateNewBudgetPage clickAndSelectTargetColumn(String targetColumn) {
         try {
-            clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(targetColumn, 2), targetColumn, targetColumn);
-
+//            clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(targetColumn, 2), targetColumn, targetColumn);
+            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input","drop down");
+            pause("low");
+            click(frameDivTextLocator(targetColumn, 2),"option");
         } catch (Exception e) {
-
-            clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(targetColumn), targetColumn, targetColumn);
+//            clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(targetColumn), targetColumn, targetColumn);
+            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input","drop down");
+            pause("low");
+            click(frameDivTextLocator(targetColumn),"option");
         }
 
         pause("medium");
@@ -74,6 +77,7 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
     }
 
     public CreateNewBudgetPage selectBudgetBy(String budgetBy) {
+
         click(selectBudgetByCheckBox(budgetBy, 1), "Budget By");
         pause("medium");
         return new CreateNewBudgetPage();
@@ -126,6 +130,7 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
     }
 
     public CreateNewBudgetPage addNewBudget(String budgetName, String beginDate, String endDate, String targetColumn, String budgetBy, String brokerCode, String targetAmount) {
+        pause("medium");
         clickAndSelectTargetColumn(targetColumn)
                 .selectBudgetBy(budgetBy)
                 .selectBrokerNameSection(budgetBy, brokerCode, targetAmount)

@@ -1,4 +1,4 @@
-package com.pages.bugeting.importBudgetPages;
+package com.pages.Bugeting.importBudgetPages;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,7 +10,7 @@ import com.data.dynamic.FakerDataFactory;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
-import com.pages.bugeting.AllBudgetsPage;
+import com.pages.Bugeting.AllBudgetsPage;
 
 public class ImportBudgetPage extends AllBudgetsPage {
     String importBudgetText = "//div[text()='Import Budget']";

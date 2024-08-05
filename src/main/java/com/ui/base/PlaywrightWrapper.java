@@ -786,6 +786,7 @@ public class PlaywrightWrapper extends Reporter {
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
             pause("low");
             getPage().locator(optionLocator).click(new Locator.ClickOptions().setForce(true));
+            pause("low");
             reportStep("The drop down : " + name + " is selected with value : " + option, "info");
             return true;
         } catch (PlaywrightException e) {
@@ -967,6 +968,29 @@ public class PlaywrightWrapper extends Reporter {
             reportStep("The WebElement : " + elementName + " is not visible ", "fail");
         }
         return bEditable;
+    }
+
+    /**
+     * Use this method to check if the element is isChecked
+     *
+     * @param locator The locator to identify the element
+     * @param name    The name of the element (label)
+     * @return true if the element is isChecked else false
+     * @author Srikanth
+     */
+
+    public boolean isChecked(String locator, String name) {
+        boolean isChecked = false;
+        try {
+            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+            isChecked = getPage().isChecked(locator);
+            reportStep("The '" + name + "' is Checked ", "info");
+            return isChecked;
+        } catch (Exception e) {
+            e.printStackTrace();
+            reportStep("The '" + name + "' is not Checked ", "fail");
+        }
+        return isChecked;
     }
 
     /**

@@ -20,11 +20,11 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-<!--            <class name="com.westminster.testcases.admin.TC_FileManager">-->
-<!--                <methods>&ndash;&gt;-->
-<!--                    <include name="validateErrorQueueWSingleEdit"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <class name="com.westminster.testcases.admin.TC_FileManager">
+                <methods>-->
+                    <include name="validateFileWithWrongDateFormat"/>
+                </methods>
+            </class>
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
             <!--                <methods>-->
             <!--                    <exclude name="impersonateUser"/>-->
@@ -40,11 +40,11 @@
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
             <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
-                <methods>-->
-                    <include name="createNewBudget"/>
-                </methods>
-            </class>
+<!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
+<!--                <methods>&ndash;&gt;-->
+<!--                    <include name="createNewBudget"/>-->
+<!--                </methods>-->
+<!--            </class>-->
             <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
         </classes>
     </test>

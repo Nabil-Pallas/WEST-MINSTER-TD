@@ -13,8 +13,8 @@ public class ErrorQueuePage extends FileManagerPage {
     private static long errorRows;
     private String editRow = "//span[text()='Edit']";
     private String actionBtn = "(//table)[4]//tr[1]//td[last()]";
-    private long rCount;
-    private long rowCount;
+    private static long rCount;
+    private static long rowCount;
     private static long duplicateRowCount;
 
 
@@ -69,7 +69,7 @@ public class ErrorQueuePage extends FileManagerPage {
         return new FileManagerPage();
     }
 
-    public ErrorQueuePage clickFilterAndSelectInvalidCells(String fileName) {
+    public ErrorQueuePage clickFilterAndSelectInvalidCells() {
         waitForLoaderToDisappear();
         waitForLoaderToDisappear();
         pause("low");
@@ -81,6 +81,11 @@ public class ErrorQueuePage extends FileManagerPage {
         forceClick("//div[text()='Invalid date value/format']", "click Invalid date value","Select Option");
         pause("low");
         waitForLoaderToDisappear();
+        return new ErrorQueuePage();
+    }
+
+        public ErrorQueuePage getRowCountInErrorQueuePage(){
+        waitForLoaderToDisappear();
         //get the Row Count value
         String rowCount = getInnerText("//div[@id='error-queue-row-count']");
         String replaceRowCount = rowCount.replaceAll("Row Count: ", "");
@@ -89,6 +94,11 @@ public class ErrorQueuePage extends FileManagerPage {
         //click on exit
         clickOnExitBtn();
         pause("low");
+        waitForLoaderToDisappear();
+        return new ErrorQueuePage();
+    }
+
+    public ErrorQueuePage getAmendErrorRowCount(String filename) {
         waitForLoaderToDisappear();
         //Get error rows count from File Manager Page
         if (isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]")) {
@@ -100,8 +110,9 @@ public class ErrorQueuePage extends FileManagerPage {
             System.out.println("Error row count: " + errorRows);
 
         }
-        return new ErrorQueuePage();
+        return this;
     }
+
 
     public ErrorQueuePage validateErrorrowsAndInvalidcells() {
         if (invalidCellCount == errorRows) {
@@ -195,6 +206,8 @@ public class ErrorQueuePage extends FileManagerPage {
     }
 
     public ErrorQueuePage validateSingleEditRowCount(){
+        System.out.println("final count: "+rowCount);
+        System.out.println("initial count: "+rCount);
         if(rowCount==(rCount-1)){
             reportPass("Successfully edited and promoted the row");
         }

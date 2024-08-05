@@ -325,13 +325,16 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnCreateNewMapping()
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
-                .mappingFileAndSystemColumns(systemColumnNames)
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID","Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
                 .clickOnFinishMapping()
                 .clickOnFileManager()
                 .validateFileUpload(fileName.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName.get())
                 .validateErrorQueuePage()
-                .clickFilterAndSelectInvalidCells(fileName.get())
+                .clickFilterAndSelectInvalidCells()
+                .getRowCountInErrorQueuePage()
+                .getAmendErrorRowCount(fileName.get())
                 .validateErrorrowsAndInvalidcells();
         System.out.println("TC-----------TC_RE_1493");
     }
@@ -418,7 +421,9 @@ public class TC_FileManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_2185");
     }
-
+    //Phase -02 --Nabil
+    //TC_RE_720 - In Error Queue Select single row and  edit the row to any particular column which indicates error.
+    //            This validation is done to ensure that the 'single edit' of a row in error queue is working as expected or  not.
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateErrorQueueWSingleEdit(){
         testcaseName = "TC_RE_720";
@@ -451,6 +456,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnOpenErrorQueue()
                 .validateErrorQueuePage()
                 .errorQueuePageRowCount()
+                .clickFilterAndSelectInvalidCells()
                 .clickActionBtn()
                 .clickOnEdit()
                 .editInformation("Trade Date","Settlement Date",getTradeDate.get(),getSettlementDate.get())
@@ -513,6 +519,8 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_1665");
     }
 
+    //Phase -02 --Nabil
+    //TC_RE_5162
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateDuplicateRowsInErrorQueue(){
         testcaseName = "TC_RE_5162";

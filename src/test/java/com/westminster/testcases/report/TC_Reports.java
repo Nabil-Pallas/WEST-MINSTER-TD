@@ -128,8 +128,9 @@ public class TC_Reports extends WestMinsterPageHook {
         System.out.println("TC-----------TC_5674");
     }
 
-    //Verify whether a automatic delivery schedule for an report can be cancelled or disabled.
-    @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
+    //Phase -02 --Manoj
+    //TC_RE_4690 - Verify whether a automatic delivery schedule for an report can be cancelled or disabled.
+    @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void disableReportSchedule() {
         testcaseName = "TC_RE_4690";
         testDescription = "Report Delivery";

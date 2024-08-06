@@ -12,7 +12,7 @@
                 <include name="Tier2Admin"></include>
             </run>
             <run>
-                <!--                                                                <include name="SANITY"></include>-->
+<!--                <include name="SANITY"></include>-->
                 <include name="REGRESSION"></include>
             </run>
         </groups>
@@ -21,7 +21,7 @@
         <classes>
             <class name="com.westminster.testcases.admin.TC_FileManager">
                 <methods>-->
-                    <include name="validateDuplicateRowsInErrorQueue"/>
+                    <include name="validateBulkEditAndPromote"/>
                 </methods>
             </class>
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
@@ -38,7 +38,7 @@
 <!--            </class>-->
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
-            <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
+<!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
 <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
 <!--                <methods>&ndash;&gt;-->
 <!--                    <include name="createNewBudget"/>-->

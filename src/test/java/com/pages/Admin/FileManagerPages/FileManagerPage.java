@@ -150,7 +150,8 @@ public class FileManagerPage extends AdminPage {
     }
 
     public ErrorQueuePage clickOnInvalidRowCountAndAmendErrors(String fileName) {
-
+        pause("low");
+        waitForLoaderToDisappear();
         //click Invalid Row Count for Given File Name
         if (isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]")) {
             click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]", "Invalid Row", "Invalid RowLink");

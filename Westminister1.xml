@@ -12,7 +12,7 @@
                 <include name="Tier1Admin"></include>
             </run>
             <run>
-                <!--                                <include name="SANITY"></include>-->
+<!--                                                <include name="SANITY"></include>-->
                 <include name="REGRESSION"></include>
             </run>
         </groups>
@@ -21,7 +21,7 @@
         <classes>
                         <class name="com.westminster.testcases.admin.TC_FileManager">
                             <methods>
-                                <include name="validateDuplicateRowsInErrorQueue"/>
+                                <include name="validateBulkEditAndPromote"/>
                             </methods>
                         </class>
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->

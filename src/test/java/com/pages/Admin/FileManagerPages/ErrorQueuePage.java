@@ -196,12 +196,12 @@ public class ErrorQueuePage extends FileManagerPage {
             String headerText = getInnerText(headerElement);
 
             if (verificationHeaders.contains(headerText)) {
-//                click("(//table)[3]//tr[1]//td[" + (i + 3) + "]", "Field");
-//                pause("low");
                 isVisible("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input/preceding::div[@aria-label='add']//i", "Account Name plus Icon");
                 click("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input/preceding::div[@aria-label='add']//i", "Account Name plus Icon");
                 click(frameSpanTextLocator("Yes"), "Yes");
-                String getAccounttextName = getInnerText("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input");
+//                String getAccounttextName = getInputText("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input");
+                String getAccounttextName = getInputText("(//table)[3]//tr[1]//td[" + (i + 3) + "]//div//input//..");
+                System.out.println("NAME :" + (i + 3));
                 System.out.println("NAME :" + getAccounttextName);
                 List<String> list = Collections.singletonList(getAccounttextName);
                 listItems.set(list);

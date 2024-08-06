@@ -64,14 +64,15 @@ public class ErrorQueuePage extends FileManagerPage {
         return this;
     }
 
-    public FileManagerPage clickOnExitBtn() {
+    public ErrorQueuePage clickOnExitBtn() {
         pause("low");
+        waitForLoaderToDisappear();
         click(frameSpanTextLocator("Exit"), "Exit");
         pause("low");
-        return new FileManagerPage();
+        return new ErrorQueuePage();
     }
 
-    public ErrorQueuePage clickFilterAndSelectInvalidCells() {
+    public ErrorQueuePage clickFilterAndSelectInvalidDateFormat() {
         waitForLoaderToDisappear();
         waitForLoaderToDisappear();
         pause("low");
@@ -86,6 +87,36 @@ public class ErrorQueuePage extends FileManagerPage {
         return new ErrorQueuePage();
     }
 
+    public ErrorQueuePage clickFilterAndSelectValidationErrors() {
+        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
+        pause("low");
+        //click Filter drop down
+        click("//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']", "Click Drop Down");
+        pause("low");
+        //select Invalid date value/format option from drop down
+        waitForElementToLoad("//div[text()='Validation errors']");
+        forceClick("//div[text()='Validation errors']", "Validation errors","Select Option");
+        pause("low");
+        waitForLoaderToDisappear();
+        return new ErrorQueuePage();
+    }
+
+    public ErrorQueuePage clickFilterAndSelectValidatedRows() {
+        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
+        pause("low");
+        //click Filter drop down
+        click("//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']", "Click Drop Down");
+        pause("low");
+        //select Invalid date value/format option from drop down
+        waitForElementToLoad("//div[text()='Validated Rows']");
+        forceClick("//div[text()='Validated Rows']", "Validated Rows","Select Option");
+        pause("low");
+        waitForLoaderToDisappear();
+        return new ErrorQueuePage();
+    }
+
         public ErrorQueuePage getRowCountInErrorQueuePage(){
         waitForLoaderToDisappear();
         //get the Row Count value
@@ -93,14 +124,12 @@ public class ErrorQueuePage extends FileManagerPage {
         String replaceRowCount = rowCount.replaceAll("Row Count: ", "");
         invalidCellCount = Long.parseLong(replaceRowCount);
         System.out.println("Invalid cell count: " + invalidCellCount);
-        //click on exit
-        clickOnExitBtn();
-        pause("low");
         waitForLoaderToDisappear();
         return new ErrorQueuePage();
     }
 
     public ErrorQueuePage getAmendErrorRowCount(String filename) {
+        waitForLoaderToDisappear();
         waitForLoaderToDisappear();
         //Get error rows count from File Manager Page
         if (isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]")) {
@@ -246,6 +275,15 @@ public class ErrorQueuePage extends FileManagerPage {
         }
         return this;
     }
+public ErrorQueuePage validateRowCountForValidationError(){
 
+        if(invalidCellCount==0){
+reportPass("Successfully promoted rows. Now row count in Validation errors: "+invalidCellCount);
+        }else {
+            reportFail("failed to promote. Now row count in Validation errors: "+invalidCellCount);
+        }
+
+        return this;
+}
 
 }

@@ -332,8 +332,9 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateFileUpload(fileName.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName.get())
                 .validateErrorQueuePage()
-                .clickFilterAndSelectInvalidCells()
+                .clickFilterAndSelectInvalidDateFormat()
                 .getRowCountInErrorQueuePage()
+                .clickOnExitBtn()
                 .getAmendErrorRowCount(fileName.get())
                 .validateErrorrowsAndInvalidcells();
         System.out.println("TC-----------TC_RE_1493");
@@ -456,7 +457,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnOpenErrorQueue()
                 .validateErrorQueuePage()
                 .errorQueuePageRowCount()
-                .clickFilterAndSelectInvalidCells()
+                .clickFilterAndSelectInvalidDateFormat()
                 .clickActionBtn()
                 .clickOnEdit()
                 .editInformation("Trade Date","Settlement Date",getTradeDate.get(),getSettlementDate.get())
@@ -565,5 +566,200 @@ public class TC_FileManager extends WestMinsterPageHook {
                         .clickOnInvalidRowCountAndAmendErrors(fileName2.get())
                         .clickFilterAndSelectDuplicateRows()
                         .validateDuplicateRowCount();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Phase -02 --Nabil
+    //TC_RE_6089
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void validateBulkEditAndPromote(){
+        testcaseName = "TC_RE_6089";
+        testDescription = "Validate bulk Edit in error queue page and promote";
+        authors = "Automation Team";
+        category = "Error Queue";
+        startTestCase();
+        setNode();
+
+
+        filePath.set("./src/test/resources/upload/1000_rows_file_mapping.csv");
+        fileName.set("1000_rows_file_mapping.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateTradeSettlementDateValidation()
+                .clickOnExit()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(),fileName.get())
+                .selectExistingMapping("TestCaseMap")
+                .clickOnDefineMapping()
+                .clickOnFinishMapping()
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .clickFilterAndSelectValidationErrors()
+                .getRowCountInErrorQueuePage()
+                .clickOnSelectAll()
+                .clickOnBulkEditRows()
+                .validateBulkEditRowsPage()
+                .editInvalidRowInfo("07/10/2023", "07/15/2023")
+                .clickOnApplyBtn()
+                .validateErrorQueuePage()
+                .clickFilterAndSelectValidatedRows()
+                .clickOnSelectAll()
+                .clickOnPromoteRows()
+                .clickFilterAndSelectValidationErrors()
+                .getRowCountInErrorQueuePage()
+                .validateRowCountForValidationError();
+
+
+
+
+
+
+
     }
 }

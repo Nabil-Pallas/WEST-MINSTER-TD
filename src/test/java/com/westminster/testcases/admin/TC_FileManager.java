@@ -569,6 +569,69 @@ public class TC_FileManager extends WestMinsterPageHook {
                         .validateDuplicateRowCount();
     }
 
+    // Phase -2 - Manoj
+// TC_RE_5863 - In the Error Queue screen, the 'Plus' symbol appears in the assigned list field for users with 'Manage Schema' permission, indicating available actions.
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void showPlusSymbolForSchemaManagers() {
+        testcaseName = "TC_RE_5863";
+        testDescription = "Show Plus Symbol For Schema Managers";
+        authors = "Automation Team";
+        category = "Error Queue";
+        startTestCase();
+        setNode();
+
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/100_rows_file.csv");
+        fileName.set("100_rows_file.csv");
+        newListName.set(FakerDataFactory.getListName());
+        listItems.set(FakerDataFactory.getListOfItems(3));
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnListManager()
+                .validateListManagerPage()
+                .clickOnAddNewListBtn()
+                .validateAddListItemPage()
+                .typeListTitle(newListName.get())
+                .typeListItems(listItems.get())
+                .clickOnSaveListBtn()
+                .validateListNameAndItem(newListName.get(), listItems.get())
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnRelevantFieldNameActionIcon("Account Name")
+                .clickOnAddValidation()
+                .validateAddFieldValidationParametersPage()
+                .addFieldValidationParameters(newListName.get())
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"), Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .clickFilterAndSelectValidationErrors()
+                .clickActionBtn()
+                .clickOnEdit()
+                .addAccountNameAsList("Account Name")
+                .clickOnSaveBtn()
+                .clickOnExitBtn()
+                .clickOnListManager()
+                .validateListManagerPage()
+                .validateListNameAndItem(newListName.get(), listItems.get())
+                .deleteListItem(newListName.get());
+
+
+        System.out.println("TC-----------TC_RE_5863");
+    }
 
 
 
@@ -720,7 +783,6 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-
         filePath.set("./src/test/resources/upload/1000_rows_file_mapping.csv");
         fileName.set("1000_rows_file_mapping.csv");
         new DashboardPage()
@@ -755,12 +817,5 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickFilterAndSelectValidationErrors()
                 .getRowCountInErrorQueuePage()
                 .validateRowCountForValidationError();
-
-
-
-
-
-
-
     }
 }

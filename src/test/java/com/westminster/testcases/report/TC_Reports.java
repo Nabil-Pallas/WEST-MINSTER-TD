@@ -140,6 +140,8 @@ public class TC_Reports extends WestMinsterPageHook {
         setNode();
 
         reportName.set(FakerDataFactory.getNameWithTimeStamp("Report"));
+        titleTwo.set(FakerDataFactory.getTitle());
+        descriptionTwo.set(FakerDataFactory.getDescription());
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnReports()
@@ -150,7 +152,11 @@ public class TC_Reports extends WestMinsterPageHook {
                 .fillReportDetail(reportName.get(), "Mosaic", "Blue")
                 .selectSlideTemplate("Intro")
                 .fillIntroPage("RegressionTesting", "Automatic Delivery Schedule")
-                .validateIntroPage("RegressionTesting", "Automatic Delivery Schedule");
+                .validateIntroPage("RegressionTesting", "Automatic Delivery Schedule")
+                .clickOnAddNewPageAndValidate("Add a budget or analysis", 1)
+                .selectSlideTemplate("1-Column")
+                .fillAnalyticsPage(titleTwo.get(), descriptionTwo.get())
+                .validateAnalyticsPage(titleTwo.get(), descriptionTwo.get());
         new ViewReportPage()
                 .clickOnDeliveryBtn()
                 .validateReportDeliverySettingsPage()

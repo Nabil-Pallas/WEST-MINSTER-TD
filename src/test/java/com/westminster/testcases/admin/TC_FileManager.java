@@ -325,7 +325,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnCreateNewMapping()
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
-                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID","Settlement Date"),
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
                         Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
                 .clickOnFinishMapping()
                 .clickOnFileManager()
@@ -422,11 +422,12 @@ public class TC_FileManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_2185");
     }
+
     //Phase -02 --Nabil
     //TC_RE_720 - In Error Queue Select single row and  edit the row to any particular column which indicates error.
     //            This validation is done to ensure that the 'single edit' of a row in error queue is working as expected or  not.
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void validateErrorQueueWSingleEdit(){
+    public void validateErrorQueueWSingleEdit() {
         testcaseName = "TC_RE_720";
         testDescription = "validation of Single Edit Row in Error Queue Page";
         authors = "Automation Team";
@@ -449,7 +450,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnCreateNewMapping()
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
-                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID","Settlement Date"),
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
                         Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
                 .clickOnFinishMapping()
                 .clickOnFileManager()
@@ -460,7 +461,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickFilterAndSelectInvalidDateFormat()
                 .clickActionBtn()
                 .clickOnEdit()
-                .editInformation("Trade Date","Settlement Date",getTradeDate.get(),getSettlementDate.get())
+                .editInformation("Trade Date", "Settlement Date", getTradeDate.get(), getSettlementDate.get())
                 .selectEditedRow(getTradeDate.get())
                 .clickOnPromoteRows()
                 .errorQueuePageRowCountAfterPromote()
@@ -468,9 +469,9 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
 
-
+    // Phase - 2 -Manoj
     // TC_RE_1665 - Verify that data mapping columns refresh accurately after deleting invalid entries, maintaining data integrity and user confidence.
-//    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDataMappingRefreshAfterInvalidEntryDeletion() {
         testcaseName = "TC_RE_1665";
         testDescription = "Verify Data Mapping Refresh After Invalid Entry Deletion";
@@ -523,7 +524,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     //Phase -02 --Nabil
     //TC_RE_5162
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void validateDuplicateRowsInErrorQueue(){
+    public void validateDuplicateRowsInErrorQueue() {
         testcaseName = "TC_RE_5162";
         testDescription = "Validate duplicate rows in error queue page";
         authors = "Automation Team";
@@ -551,7 +552,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Settlement Date", "Trade ID"), Arrays.asList("BROKER", "Trade Date", "Settle Date", "Trade ID"))
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get())
-                .fileUpload(filePath2.get(),fileName2.get())
+                .fileUpload(filePath2.get(), fileName2.get())
                 .selectExistingMapping(DataMap.get())
                 .clickOnApplyMapping()
                 .validateFileUpload(fileName2.get())

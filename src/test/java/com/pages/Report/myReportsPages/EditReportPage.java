@@ -15,8 +15,8 @@ public class EditReportPage extends ReportsPage {
     }
 
     public EditReportPage validateEditReportsPage() {
-        waitForElementToLoad(reportsText);
-        if (isVisible(reportsText, "Reports Text")) {
+        waitForElementToLoad(editReportText);
+        if (isVisible(editReportText, "Reports Text")) {
             reportPass("User reaches to the right Reports page");
         } else {
             reportFailAndThrowException("Report Page is not loaded.");

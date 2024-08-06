@@ -5,6 +5,7 @@ import org.testng.Assert;
 
 import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
+
 import static com.pages.Admin.FileManagerPages.AddNewSystemColumnsPage.addedColumnss;
 
 public class EditDataSchemaPage extends DataManagerPage {
@@ -87,7 +88,7 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     public EditDataSchemaPage clickOnRelevantFieldNameActionIcon(String fieldName) {
-        click("//td[text()='Account Name']", "Account Name","First Field");
+        click("//td[text()='Account Name']", "Account Name", "First Field");
         int maxAttempts = 40;
         int attempts = 0;
         while (!isVisible("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
@@ -112,6 +113,7 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     public EditDataSchemaPage selectParameterType() {
+        waitForElementToLoad(parameterTypeText);
         String getParameterTypeText = getInputText(parameterTypeText);
         if (getParameterTypeText.equals("List")) {
             reportPass("Parameter type is already in List");
@@ -150,16 +152,16 @@ public class EditDataSchemaPage extends DataManagerPage {
         click("(//tr[1])[3]//td[@aria-colindex='1']", "First row \"Field Name\" cell");
         int maxAttempts = 40;
         int attempts = 0;
-        for(int i=1;i<=addedColumnss.size();i++) {
-            while (!isVisible("//td[text()='" + addedColumnss.get(i-1) + "']") && attempts < maxAttempts) {
+        for (int i = 1; i <= addedColumnss.size(); i++) {
+            while (!isVisible("//td[text()='" + addedColumnss.get(i - 1) + "']") && attempts < maxAttempts) {
                 pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
                 attempts++;
             }
 
-            scrollToElement("//td[text()='" + addedColumnss.get(i-1) + "']");
+            scrollToElement("//td[text()='" + addedColumnss.get(i - 1) + "']");
             pause("low");
             pause("low");
-            forceClick("(//td[text()='" + addedColumnss.get(i-1) + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Action Button", "Field Name "+addedColumnss.get(i-1));
+            forceClick("(//td[text()='" + addedColumnss.get(i - 1) + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Action Button", "Field Name " + addedColumnss.get(i - 1));
             pause("low");
             click(deleteBtn, "Delete Button");
             pause("low");

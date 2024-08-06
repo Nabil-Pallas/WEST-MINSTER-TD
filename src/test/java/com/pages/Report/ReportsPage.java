@@ -11,6 +11,7 @@ import org.testng.Assert;
 public class ReportsPage extends MenuPage {
 
     protected String reportsText = "//h1[text()='Reports']";
+    protected String editReportText = "//h1[text()='Edit Report']";
     protected String allReportsTab = "//span[normalize-space()='All Reports']";
     protected String allReportsText = "//h2[normalize-space()='All Reports']";
     private String clientSelectDrpDown = "(//div[@class='dx-dropdowneditor-icon'])[1]";

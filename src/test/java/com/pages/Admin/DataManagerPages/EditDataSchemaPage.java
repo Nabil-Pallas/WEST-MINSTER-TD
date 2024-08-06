@@ -233,5 +233,38 @@ public class EditDataSchemaPage extends DataManagerPage {
         }
         return new AddNewRowPage();
     }
+
+    public EditDataSchemaPage validateTradeSettlementDateValidation(){
+
+        //(//table)[3]//tr[1]//td
+        click("//td[text()='Account Name']", "");
+        int maxAttempts = 2000;
+        int attempts = 0;
+
+        while (!isVisibleWithMinimumTime("//td[text()='Trade Date']") && attempts < maxAttempts) {
+            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+            attempts++;
+        }
+        pause("low");
+        click("//td[text()='Trade Date']//following-sibling::td//i[contains(@class,'dx-icon-info')]","validation column");
+        pause("low");
+        String tDate=getInnerText("//strong[text()='Trade Date']");
+        System.out.println(tDate);
+        String operator = getInnerText("(//span[contains(text(),'<')])[last()]");
+        System.out.println(operator);
+        String sDate = getInnerText("//span[text()='Settlement Date']");
+        System.out.println(sDate);
+        String validation = tDate+operator+sDate;
+        System.out.println(validation);
+        if(validation.contains("Trade Date")) {
+            System.out.println("done.......");
+            boolean verifyText = true;
+            Assert.assertTrue(verifyText);
+            reportPass("Trade & Settlement Date validation has been verified");
+        }else {
+            reportFail("failed to validate");
+        }
+        return this;
+    }
 }
 

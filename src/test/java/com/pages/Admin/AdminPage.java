@@ -43,8 +43,8 @@ public class AdminPage extends MenuPage {
 
     public String selectRolesCheckBox(String tier, String role) {
         // return "//span[contains(., '" + placeholder + "')]/ancestor::div[contains(@class, 'dx-item')]/div[contains(@class, 'dx-list-item-before-bag')]//div[contains(@class, 'dx-checkbox-container')]/span[@class='dx-checkbox-icon']";
-       // return "//span[text()='"+tier+" | ' and strong='"+role+"']";
-        return "//span[contains(text(),'"+tier+" | ') and contains(strong/text(),'"+role+"')]";
+        // return "//span[text()='"+tier+" | ' and strong='"+role+"']";
+        return "//span[contains(text(),'" + tier + " | ') and contains(strong/text(),'" + role + "')]";
     }
 
     public String selectRolesCheckBox(int index) {
@@ -67,7 +67,6 @@ public class AdminPage extends MenuPage {
         waitForLoaderToDisappear();
         return "//td[text()='" + placeholder + "']";
     }
-
 
     public String frameUserSelectDropDownLocator(String placeholder) {
         return "//div[@class='dx-item dx-list-item']/div[text()='" + placeholder + "']";
@@ -269,11 +268,11 @@ public class AdminPage extends MenuPage {
 
             if (state.equalsIgnoreCase("Initial")) {
                 InitRowCounts = Long.parseLong(cleanNumberString);
-                reportPass("Initial Row Counts : "+InitRowCounts +"Noted.");
+                reportPass("Initial Row Counts : " + InitRowCounts + "Noted.");
                 System.out.println("InitRowCounts: " + InitRowCounts);
             } else {
                 FinRowCounts = Long.parseLong(cleanNumberString);
-                reportPass("Final Row Counts : "+FinRowCounts+"Noted.");
+                reportPass("Final Row Counts : " + FinRowCounts + "Noted.");
                 System.out.println("FinRowCounts: " + FinRowCounts);
             }
         } else {

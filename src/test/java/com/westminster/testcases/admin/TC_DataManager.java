@@ -19,7 +19,7 @@ import com.ui.utilities.TestGroups;
 
 @Listeners(TestListener.class)
 public class TC_DataManager extends WestMinsterPageHook {
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User",TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "Login with " + xmlUserLevel;
         testDescription = "Login with " + xmlUserLevel;
@@ -453,6 +453,57 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAddedRowWDecimalPrecision(clientCompanyName.get(),"Broker Name","Base Gross Commission");
 
     }
+
+    //Phase - 2 - Manoj
+    //TC_RE_5913 - Ensure adding a non-existing broker name via single row editing updates the list and assigns correctly to the validation field.
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void addNonExistingBrokerNameAndValidate() {
+        testcaseName = "TC_RE_5913";
+        testDescription = "Add Non Existing Broker Name And Validate";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        newListName.set(FakerDataFactory.getListName());
+        listItems.set(FakerDataFactory.getListOfItems(3));
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnListManager()
+                .validateListManagerPage()
+                .clickOnAddNewListBtn()
+                .validateAddListItemPage()
+                .typeListTitle(newListName.get())
+                .typeListItems(listItems.get())
+                .clickOnSaveListBtn()
+                .validateListNameAndItem(newListName.get(), listItems.get())
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnRelevantFieldNameActionIcon("Broker Name")
+                .clickOnAddValidation()
+                .validateAddFieldValidationParametersPage()
+                .addFieldValidationParameters(newListName.get())
+                .clickOnEllipsisBtn()
+                .clickOnEditBtn()
+                .validateEditRowPage()
+                .clickOnAddSymbolButton()
+                .getBrokerNameText()
+                .clickOnCancelBtn()
+                .clickOnDataManager()
+                .clickOnListManager()
+                .validateListManagerPage()
+                .validateListNameAndItem(newListName.get(), getTexts.get())
+                .deleteListItem(newListName.get());
+        System.out.println("TC-----------TC_RE_5913");
+    }
+
+
 }
 
 

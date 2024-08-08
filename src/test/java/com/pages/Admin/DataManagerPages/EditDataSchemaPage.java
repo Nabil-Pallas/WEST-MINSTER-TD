@@ -14,6 +14,7 @@ public class EditDataSchemaPage extends DataManagerPage {
     private String selectParameterType = "((//input[@class='dx-texteditor-input'])[4]/following::div[@class='dx-texteditor-buttons-container'])[2]";
     private String selectList = "//input[@name='DATA_LIST_LABEL']//..";
 
+
     public EditDataSchemaPage validateEditDataSchemaColumnsPage() {
         waitForElementToLoad(EditDataSchemaColumnsText);
         if (isVisible(EditDataSchemaColumnsText, "Edit Data Schema")) {

@@ -21,7 +21,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
         category = "Login for Rules Manager Module";
     }
 
-    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewRule() {
         testcaseName = "TC_5587";
         testDescription = "Add New Rule and validate";
@@ -50,7 +50,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
     }
 
 
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void editRule() {
         testcaseName = "TC_50";
         testDescription = "Edit Rule and Validate";
@@ -80,7 +80,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
 
     //Phase - 2 --> Manoj
     //TC_RE_2825 - Ensure an error message appears when creating a rule with a duplicate name:
-    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDuplicateRuleNameError() {
         testcaseName = "TC_RE_2825";
         testDescription = "Verify Duplicate Rule Name Error";

@@ -24,7 +24,7 @@ public class TC_ListManager extends WestMinsterPageHook {
         category = "Login for List Manager Module";
     }
 
-    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewList() {
         testcaseName = "TC_5591";
         testDescription = "Create New List and Validate";
@@ -53,7 +53,7 @@ public class TC_ListManager extends WestMinsterPageHook {
 
     }
 
-    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void editList() {
         testcaseName = "TC_5357 ";
         testDescription = "Edit List and Validate";

@@ -17,7 +17,7 @@ public class TC_Login extends WestMinsterPageHook {
 
     // Phase -2 - Manoj
     // Validate invalid login attempts.
-    @Test(priority = 3, groups = {"Tier1Admin", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", TestGroups.Type.REGRESSION})
     public void validateInvalidLogin() {
         testcaseName = "TC_RE_34";
         testDescription = "Validate invalid login";

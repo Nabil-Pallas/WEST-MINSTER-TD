@@ -23,7 +23,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     }
 
     //Ring chart - 5774
-    @Test(priority = 13, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createRingChart() {
         testcaseName = "TC_5774";
         testDescription = "Create New Analytics - Ring chart and validate";
@@ -55,7 +55,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     }
 
     //Bar chart - 6044
-    @Test(priority = 14, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createBarChart() {
         testcaseName = "TC_6044";
         testDescription = "Create New Analytics - Bar chart and validate";
@@ -87,7 +87,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     }
 
     //Pivot table - 6045
-    @Test(priority = 15, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createPivotTable() {
         testcaseName = "TC_6045";
         testDescription = "Create New Analytics - Pivot table and validate";
@@ -119,7 +119,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     }
 
     //Scatter plot - 4734
-    @Test(priority = 16, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createScatterPlot() {
         testcaseName = "TC_4734";
         testDescription = "Create New Analytics - Scatter plot and validate";
@@ -151,7 +151,7 @@ public class TC_Analytics extends WestMinsterPageHook {
     }
 
     //Line chart - 5594
-    @Test(priority = 17, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createLineChart() {
         testcaseName = "TC_5594";
         testDescription = "Create New Analytics - Line chart and validate";
@@ -184,7 +184,7 @@ public class TC_Analytics extends WestMinsterPageHook {
 
 
     //Summary table - 5773
-    @Test(priority = 18, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createSummaryTable() {
         testcaseName = "TC_5773";
         testDescription = "Create New Analytics - Summary Table and validate";

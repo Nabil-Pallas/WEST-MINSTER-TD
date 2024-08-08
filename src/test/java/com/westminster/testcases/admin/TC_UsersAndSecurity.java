@@ -22,7 +22,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // Client creation - 2136
-    @Test(priority = 22, groups = {"Tier1Admin", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", TestGroups.Type.SANITY})
     public void createClient() {
         testcaseName = "TC_2136";
         testDescription = "Create New User and Validate";
@@ -50,7 +50,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // Edit created client - 23
-    @Test(priority = 23, groups = {"Tier1Admin", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", TestGroups.Type.SANITY})
     public void editClient() {
         testcaseName = "TC_23";
         testDescription = "Edit Client and Validate";
@@ -76,7 +76,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // User creation - 5613
-    @Test(priority = 24, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
     public void createUser() {
         testcaseName = "TC_5613";
         testDescription = "Create User and Validate";
@@ -98,7 +98,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnUserTab()
                 .clickOnaddNewUsrBtn()
                 .fillUserInformation(userFirstName.get(), userLastName.get(), userMailId.get(),
-                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2","Tier 2" ,"SriTesting Administrator")
+                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", "Tier 2", "SriTesting Administrator")
                 .clickOnApplyBtn()
                 .validateUserInformation(displayUserName, userMailId.get())
                 .deleteUser(displayUserName);
@@ -106,7 +106,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // Edit created user - 24
-    @Test(priority = 25, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
     public void editUser() {
         testcaseName = "TC_24";
         testDescription = "Edit User and Validate";
@@ -137,7 +137,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // Role creation - 101
-    @Test(priority = 26, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
     public void createRole() {
         testcaseName = "TC_101";
         testDescription = "Create New Role and Validate";
@@ -165,7 +165,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     }
 
     // Edit created role - 621
-    @Test(priority = 27, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.SANITY})
     public void editRole() {
         testcaseName = "TC_621";
         testDescription = "Edit Role and Validate";
@@ -194,7 +194,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
     //Srikanth
     //Regression
     //TC_25 - Impersonate User
-//    @Test(priority = 29, groups = {"Tier1Admin", "Tier1User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", TestGroups.Type.REGRESSION})
     public void impersonateUser() {
         testcaseName = "TC_RE_25";
         testDescription = "Impersonate User And Validate";
@@ -221,7 +221,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
 
     //Srikanth
     //TC_2004
-//    @Test(priority = 28, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
+//    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
     public void roleCreationAndAssignRoleToUser() {
         testcaseName = "TC_RE_2004";
         testDescription = "Create Role And Assign that Role to User";
@@ -249,7 +249,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .clickOnUserTab()
                 .clickOnaddNewUsrBtn()
                 .fillUserInformation2(FakerDataFactory.getFirstName(), FakerDataFactory.getLastName(), userMailId.get(),
-                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2","Tier 2", userFirstName.get())
+                        FakerDataFactory.getContactNumber(), "Tier 1", "Tier 2", "Tier 2", userFirstName.get())
                 .clickOnApplyBtn()
                 .validateUserRoleAndMail(userMailId.get(), userFirstName.get())
                 .deleteUser(userMailId.get());

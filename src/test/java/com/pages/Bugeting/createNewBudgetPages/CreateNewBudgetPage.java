@@ -62,14 +62,14 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
     public CreateNewBudgetPage clickAndSelectTargetColumn(String targetColumn) {
         try {
 //            clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(targetColumn, 2), targetColumn, targetColumn);
-            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input","drop down");
+            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input", "drop down");
             pause("low");
-            click(frameDivTextLocator(targetColumn, 2),"option");
+            click(frameDivTextLocator(targetColumn, 2), "option");
         } catch (Exception e) {
 //            clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(targetColumn), targetColumn, targetColumn);
-            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input","drop down");
+            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input", "drop down");
             pause("low");
-            click(frameDivTextLocator(targetColumn),"option");
+            click(frameDivTextLocator(targetColumn), "option");
         }
 
         pause("medium");

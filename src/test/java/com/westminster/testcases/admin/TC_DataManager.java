@@ -1,7 +1,11 @@
 package com.westminster.testcases.admin;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
@@ -24,7 +28,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Adding the new row in the data manager
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewRow() {
         testcaseName = "TC_5577";
         testDescription = "Add New Row And validate";
@@ -57,7 +61,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Editing the new row in the Data manager
-    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void editRow() {
         testcaseName = "TC_4937";
         testDescription = "Edit a row and validate";
@@ -91,7 +95,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_4937");
     }
 
-    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY})
     public void addNewColumnInEditDataSchema() {
         testcaseName = "TC_6587";
         testDescription = "Add new System Column";
@@ -118,7 +122,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     //Ensure the "Add" button is disabled when there is an error in the required field, Trade Date.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyAddButtonDisabledOnTradeDateError() {
         testcaseName = "TC_RE_5731";
         testDescription = "Verify Add Button Disabled On TradeDate Error";
@@ -148,7 +152,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     // Verify that the "Add" button disables when the required field "Broker Name" has an error.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyAddButtonDisabledOnBrokerNameError() {
         testcaseName = "TC_RE_5945";
         testDescription = "Add New Row Broker Name Error Validation";
@@ -231,7 +235,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     // Ensure the Edit Trade Details page has no blank spaces under "Edit Trade Details" and "Change Log" headings when editing a row.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyNoBlankSpacesOnEditTradeDetailsPage() {
         testcaseName = "TC_RE_5235";
         testDescription = "Verify No Blank Spaces On Edit TradeDetails";
@@ -261,7 +265,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkApplyAndCancelBtnForEditAndBulkedit() {
         testcaseName = "TC_RE_4622";
         testDescription = "Check Apply And Cancel Btn For Edit And Bulk edit";
@@ -308,7 +312,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Manoj
     //Verify if more than 10 rows can be added at once using the 'Add New Row' option in Data Manager.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addMoreThan10Rows() {
         testcaseName = "TC_RE_5229";
         testDescription = "Adding more than 10 more rows to whether it is adding successfully";
@@ -338,7 +342,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Srikanth
     //TC_1583 - Verify that all valid rows in the uploaded file are displayed in the Data Manager.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyValidRowsInDataManager() {
         testcaseName = "TC_RE_1583";
         testDescription = "Verify valid Rows In Data Manager Module";
@@ -375,10 +379,9 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_1583");
     }
 
-
     //Phase - 2 - Manoj
     //TC_RE_5913 - Ensure adding a non-existing broker name via single row editing updates the list and assigns correctly to the validation field.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addNonExistingBrokerNameAndValidate() {
         testcaseName = "TC_RE_5913";
         testDescription = "Add Non Existing Broker Name And Validate";

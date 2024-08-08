@@ -88,9 +88,9 @@ public class EditClientPage extends UserSecurityPage {
         return this;
     }
 
-    public EditClientPage editClientInformation(String companyName,String companyName1, String ftpFolderAcronym, String dateFormat, String localTimeZone,
+    public EditClientPage editClientInformation(String companyName, String companyName1, String ftpFolderAcronym, String dateFormat, String localTimeZone,
                                                 String timeFormat, String numberFormat, String masterCurrency) {
-        clearAndTypeCompanyName(companyName,companyName1)
+        clearAndTypeCompanyName(companyName, companyName1)
                 .clearAndTypeFTPFolderAcronym(ftpFolderAcronym)
                 .clickAndselectDateFormating(dateFormat)
                 .clickAndselectLocalTimeZone(localTimeZone)

@@ -24,7 +24,7 @@ public class TC_Reports extends WestMinsterPageHook {
     }
 
     //Create Report - 5785
-    @Test(priority = 19, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createReports() {
         testcaseName = "TC_5785";
         testDescription = "Create New Report and Validate";
@@ -62,7 +62,7 @@ public class TC_Reports extends WestMinsterPageHook {
     }
 
 
-    @Test(priority = 20, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void editReports() {
         testcaseName = "TC_133";
         testDescription = "Edit a report and validate";
@@ -100,7 +100,7 @@ public class TC_Reports extends WestMinsterPageHook {
     }
 
     //Report Delivery -5674
-    @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void reportDelivery() {
         testcaseName = "TC_5674";
         testDescription = "Report Delivery";
@@ -130,7 +130,7 @@ public class TC_Reports extends WestMinsterPageHook {
 
     //Phase -02 --Manoj
     //TC_RE_4690 - Verify whether a automatic delivery schedule for an report can be cancelled or disabled.
-//    @Test(priority = 21, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void disableReportSchedule() {
         testcaseName = "TC_RE_4690";
         testDescription = "Report Delivery";

@@ -29,6 +29,12 @@ public class MenuPage extends WestMinsterPageHook {
 
     protected String impersonatingAsUserText = "//div[@id='impersonating-user-banner']";
 
+    //    Decimal Precision value
+    public static String decimalPrecision;
+
+    // Number format value
+    public static String numberFormat = "";
+
     public String frameDivTextLocator(String placeholder) {
         return "//div[contains(text(),'" + placeholder + "')]";
     }
@@ -109,8 +115,8 @@ public class MenuPage extends WestMinsterPageHook {
         return this;
     }
 
-    public MenuPage clickSaveBtn() {
-        click("//span[text()='Save']", "click on Save Button", "Save Button");
+    public MenuPage clickPreferenceSaveBtn() {
+        click("//div[@id='preferences-view']//span[text()='Save']", "click on Save Button", "Save Button");
         return this;
     }
 
@@ -153,7 +159,75 @@ public class MenuPage extends WestMinsterPageHook {
             click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
         } else {
             clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
-            clickSaveBtn();
+            clickPreferenceSaveBtn();
+        }
+        return this;
+    }
+
+    public MenuPage clickAndselectDecimalPrecision() {
+        pause("low");
+        String innerText = getInputText("//input[contains(@id,'NUMBER_FORMAT')]");
+        if (innerText.equals("# ##0,00")) {
+            numberFormat = "# ##0,00";
+        } else {
+            numberFormat = "#,##0.00";
+        }
+        String innerText2 = getInputText("//input[contains(@id,'DECIMAL_PRECISION')]");
+        switch (innerText2) {
+            case "2 decimals":
+                clickAndChoose("//input[contains(@id,'DECIMAL_PRECISION')]", "//div[text()='3 decimals']", "3 decimals", "Decimal Precision");
+                decimalPrecision = "3 decimals";
+                pause("low");
+                clickPreferenceSaveBtn();
+                reportPass("User successfully edited decimal preference" + decimalPrecision);
+                break;
+            case "3 decimals":
+                clickAndChoose("//input[contains(@id,'DECIMAL_PRECISION')]", "//div[text()='4 decimals']", "4 decimals", "Decimal Precision");
+                decimalPrecision = "4 decimals";
+                pause("low");
+                clickPreferenceSaveBtn();
+                reportPass("User successfully edited decimal preference" + decimalPrecision);
+                break;
+            case "4 decimals":
+                clickAndChoose("//input[contains(@id,'DECIMAL_PRECISION')]", "//div[text()='5 decimals']", "5 decimals", "Decimal Precision");
+                decimalPrecision = "5 decimals";
+                pause("low");
+                clickPreferenceSaveBtn();
+                reportPass("User successfully edited decimal preference" + decimalPrecision);
+                break;
+            case "5 decimals":
+                clickAndChoose("//input[contains(@id,'DECIMAL_PRECISION')]", "//div[text()='1 decimal']", "1 decimal", "Decimal Precision");
+                decimalPrecision = "1 decimal";
+                pause("low");
+                clickPreferenceSaveBtn();
+                reportPass("User successfully edited decimal preference" + decimalPrecision);
+                break;
+            default:
+                decimalPrecision = innerText2;
+                click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
+                break;
+        }
+        return this;
+    }
+
+    public MenuPage clickAndSelectNumberFormat() {
+        pause("low");
+        String innerText = getInputText("//input[contains(@id,'NUMBER_FORMAT')]");
+        if (innerText.equals("#,##0.00")) {
+//            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
+            clickAndChoose("//input[contains(@id,'NUMBER_FORMAT')]", "//div[text()='# ##0,00']", "# ##0,00", "Number Format");
+            numberFormat = "# ##0,00";
+            pause("low");
+            clickPreferenceSaveBtn();
+            reportPass("User successfully edited number format " + numberFormat);
+        } else {
+            pause("low");
+            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
+//            clickAndChoose("//input[contains(@id,'NUMBER_FORMAT')]", "//div[text()='#,##0.00']", "#,##0.00", "Number Format");
+//            numberFormat= "#,##0.00";
+//            pause("low");
+//            clickPreferenceSaveBtn();
+//            reportPass("User successfully edited number format "+ numberFormat);
         }
         return this;
     }
@@ -208,5 +282,73 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
+    public DashboardPage setDecicalPrecisionInPreferences() {
+        mouseHoverOnProfile()
+                .clickAccountSettingsBtn()
+                .waitForLoaderToDisappear();
+        clickPreferencesBtn()
+                .clickEditPreferencesBtn()
+                .clickAndselectDecimalPrecision();
+        return new DashboardPage();
+    }
 
+    public DashboardPage validateDecimalPrecision() {
+        pause("low");
+        String str = getAttribute("//input[@type='hidden' and @name='DECIMAL_PRECISION']", "value");
+        if (decimalPrecision.equals("1 decimal")) {
+            boolean result = verifyInnerText(str, "1");
+            Assert.assertTrue(result);
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
+        } else if (decimalPrecision.equals("2 decimals")) {
+            boolean result = verifyInnerText(str, "2");
+            Assert.assertTrue(result);
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
+        } else if (decimalPrecision.equals("3 decimals")) {
+            boolean result = verifyInnerText(str, "3");
+            Assert.assertTrue(result);
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
+        } else if (decimalPrecision.equals("4 decimals")) {
+            boolean result = verifyInnerText(str, "4");
+            Assert.assertTrue(result);
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
+        } else {
+            boolean result = verifyInnerText(str, "5");
+            Assert.assertTrue(result);
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
+        }
+
+        return new DashboardPage();
+    }
+
+    public DashboardPage setNumberFormatInPreferences() {
+
+        if (isVisible("//span[text()='Edit Preferences']")) {
+            clickEditPreferencesBtn()
+                    .clickAndSelectNumberFormat();
+        } else {
+            mouseHoverOnProfile()
+                    .clickAccountSettingsBtn()
+                    .waitForLoaderToDisappear();
+            clickPreferencesBtn()
+                    .clickEditPreferencesBtn()
+                    .clickAndSelectNumberFormat();
+        }
+
+        return new DashboardPage();
+    }
+
+    public DashboardPage validateNumberFormat() {
+        pause("low");
+        String str = getAttribute("//input[@type='hidden' and @name='NUMBER_FORMAT']", "value");
+        if (numberFormat.equals("# ##0,00")) {
+            boolean result = verifyInnerText(str, "fr-FR");
+            Assert.assertTrue(result);
+            reportPass("Successfully validated number format. Option selected is: " + str);
+        } else {
+            boolean result = verifyInnerText(str, "en-US");
+            Assert.assertTrue(result);
+            reportPass("Successfully validated number format. Option selected is: " + str);
+        }
+        return new DashboardPage();
+    }
 }

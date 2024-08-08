@@ -86,7 +86,7 @@ public class AddNewRowPage extends DataManagerPage {
 
     // Type The Base Gross Commission
     public AddNewRowPage typeBaseGrossCommission(String BaseGrossCommission) {
-        type(frameClientDetailsLocator("Base  Gross  Commission:", 2), BaseGrossCommission, "BaseGrossCommission");
+        typeWithType(frameClientDetailsLocator("Base  Gross  Commission:", 2), BaseGrossCommission, "BaseGrossCommission");
         return this;
     }
 
@@ -352,6 +352,19 @@ public class AddNewRowPage extends DataManagerPage {
         selectBrokerName(brokerName)
                 .typeTradeDate(tradeDate)
                 .typeSettlementDate(SettlementDate);
+        return this;
+    }
+
+    public AddNewRowPage addNewRow(String brokerName, String tradeDate, String SettlementDate, String baseGrossCommission) {
+        pause("medium");
+        typeBrokerName(brokerName);
+        pause("low");
+        typeTradeDate(tradeDate);
+        pause("low");
+        typeBaseGrossCommission(baseGrossCommission);
+        pause("low");
+        typeSettlementDate(SettlementDate);
+
         return this;
     }
 }

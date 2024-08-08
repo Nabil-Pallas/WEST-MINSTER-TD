@@ -89,7 +89,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Srikanth
     //TC-961 - Upload a file which already uploaded with same data but with different file name
-    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadSameContentFileWDiffName() {
         testcaseName = "TC_RE_961";
         testDescription = "upload Same Content File With Different Name";
@@ -127,7 +127,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Srikanth
     //TC-1603 - Test to verify whether multiple files with same name but different content can be uploaded or not. To do that we have to upload two different files with different contents in the same name. Expected outcome is, warning message should be displayed saying that "duplicate files are not allowed" and the file should not get uploaded.
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void uploadDiffContentFileWSameName() {
         testcaseName = "TC_RE_1603";
         testDescription = "Upload Different Content File with Same Name";
@@ -164,7 +164,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     // Sanjay Kumar
     //Validate the addition of a new system field to an existing file mapping process/screen.
-//    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void fileUploadAddSystemColumn() {
         testcaseName = "TC_RE_1304";
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
@@ -210,7 +210,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void mapColumns() {
         testcaseName = "TC_RE_5622";
         testDescription = "Validating whether the new system field can be added to an existing file mapping process/screen";
@@ -237,7 +237,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload6000DataFile() {
         testcaseName = "TC_RE_1563";
         testDescription = "Validating whether the 6000 Data file is uploaded successfully";
@@ -270,7 +270,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     //     Sanjay Kumar
-//    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload500KDataFile() {
         testcaseName = "TC_RE_1543";
         testDescription = "Validating whether the 500k Data file is uploaded successfully";
@@ -302,7 +302,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     // Sanjay Kumar
-    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateFileWithWrongDateFormat() {
         testcaseName = "TC_RE_1493";
         testDescription = "validation of wrong date format";
@@ -342,7 +342,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Manoj
     //Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page allows unlimited columns.
-//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+//    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void addSystemColumnsMoreThan10Rows() {
         testcaseName = "TC_RE_1623";
         testDescription = "Verify adding more than 10 rows in 'Add New System Columns' on the file mapping page";
@@ -382,7 +382,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //srikanth
     // TC_RE_2185 - Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyInvalidColumnsWExistMapping() {
         testcaseName = "TC_RE_2185";
         testDescription = "Verify whether the invalid columns can be deleted when uploading a file using exiting mapping.";
@@ -426,7 +426,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     //Phase -02 --Nabil
     //TC_RE_720 - In Error Queue Select single row and  edit the row to any particular column which indicates error.
     //            This validation is done to ensure that the 'single edit' of a row in error queue is working as expected or  not.
-    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateErrorQueueWSingleEdit() {
         testcaseName = "TC_RE_720";
         testDescription = "validation of Single Edit Row in Error Queue Page";
@@ -471,7 +471,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     // Phase - 2 -Manoj
     // TC_RE_1665 - Verify that data mapping columns refresh accurately after deleting invalid entries, maintaining data integrity and user confidence.
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 11, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDataMappingRefreshAfterInvalidEntryDeletion() {
         testcaseName = "TC_RE_1665";
         testDescription = "Verify Data Mapping Refresh After Invalid Entry Deletion";
@@ -523,7 +523,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Phase -02 --Nabil
     //TC_RE_5162
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 12, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateDuplicateRowsInErrorQueue() {
         testcaseName = "TC_RE_5162";
         testDescription = "Validate duplicate rows in error queue page";
@@ -571,7 +571,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     // Phase -2 - Manoj
     // TC_RE_5863 - In the Error Queue screen, the 'Plus' symbol appears in the assigned list field for users with 'Manage Schema' permission, indicating available actions.
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 13, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void showPlusSymbolForSchemaManagers() {
         testcaseName = "TC_RE_5863";
         testDescription = "Show Plus Symbol For Schema Managers";
@@ -629,15 +629,13 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateListManagerPage()
                 .validateListNameAndItem(newListName.get(), listItems.get())
                 .deleteListItem(newListName.get());
-
-
         System.out.println("TC-----------TC_RE_5863");
     }
 
 
     //Phase -02 --Nabil
     //TC_RE_6089
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 14, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateBulkEditAndPromote() {
         testcaseName = "TC_RE_6089";
         testDescription = "Validate bulk Edit in error queue page and promote";
@@ -646,6 +644,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
+        DataMap.set(FakerDataFactory.getDataMapName());
         filePath.set("./src/test/resources/upload/1000_rows_file_mapping.csv");
         fileName.set("1000_rows_file_mapping.csv");
         new DashboardPage()
@@ -664,6 +663,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .selectExistingMapping("TestCaseMap")
                 .clickOnDefineMapping()
                 .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName.get())
                 .validateErrorQueuePage()
                 .clickFilterAndSelectValidationErrors()
@@ -685,7 +685,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     // Phase - 2 - Manoj
     // TC_RE_5827 - Verify the correct conversion of manually provided input to random input in date column fields during bulk editing in the error queue.
-    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 15, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDateConversionInBulkEditErrorQueue() {
         testcaseName = "TC_RE_5827";
         testDescription = "Verify Date Conversion In Bulk Edit ErrorQueue";
@@ -694,8 +694,8 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-        filePath.set("./src/test/resources/upload/100_rows_file.csv");
-        fileName.set("100_rows_file.csv");
+        filePath.set("./src/test/resources/upload/550_rows_file_mapping.csv");
+        fileName.set("550_rows_file_mapping.csv");
         DataMap.set(FakerDataFactory.getDataMapName());
         new DashboardPage()
                 .validateDashBoardElements()
@@ -712,7 +712,16 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName.get())
-                .validateErrorQueuePage();
+                .validateErrorQueuePage()
+                .clickOnSelectAll()
+                .clickOnBulkEditRows()
+                .validateBulkEditRowsPage()
+                .typeTradeDate("08/08/2024")
+                .typeSettlementDate("08/30/2024")
+                .clickOnApplyBtn()
+                .validateErrorQueuePage()
+                .clickFilterAndValidateChanges("Trade Date", "2024-08-08")
+                .clickFilterAndValidateChanges("Settlement Date", "2024-08-30");
 
 
         System.out.println("TC-----------TC_RE_5827");

@@ -29,11 +29,11 @@ public class MenuPage extends WestMinsterPageHook {
 
     protected String impersonatingAsUserText = "//div[@id='impersonating-user-banner']";
 
-//    Decimal Precision value
+    //    Decimal Precision value
     public static String decimalPrecision;
 
     // Number format value
-    public static String numberFormat="";
+    public static String numberFormat = "";
 
     public String frameDivTextLocator(String placeholder) {
         return "//div[contains(text(),'" + placeholder + "')]";
@@ -164,12 +164,12 @@ public class MenuPage extends WestMinsterPageHook {
         return this;
     }
 
-    public MenuPage clickAndselectDecimalPrecision(){
+    public MenuPage clickAndselectDecimalPrecision() {
         pause("low");
         String innerText = getInputText("//input[contains(@id,'NUMBER_FORMAT')]");
         if (innerText.equals("# ##0,00")) {
             numberFormat = "# ##0,00";
-        }else {
+        } else {
             numberFormat = "#,##0.00";
         }
         String innerText2 = getInputText("//input[contains(@id,'DECIMAL_PRECISION')]");
@@ -216,11 +216,11 @@ public class MenuPage extends WestMinsterPageHook {
         if (innerText.equals("#,##0.00")) {
 //            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
             clickAndChoose("//input[contains(@id,'NUMBER_FORMAT')]", "//div[text()='# ##0,00']", "# ##0,00", "Number Format");
-            numberFormat= "# ##0,00";
+            numberFormat = "# ##0,00";
             pause("low");
             clickPreferenceSaveBtn();
-            reportPass("User successfully edited number format "+ numberFormat);
-        }else {
+            reportPass("User successfully edited number format " + numberFormat);
+        } else {
             pause("low");
             click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
 //            clickAndChoose("//input[contains(@id,'NUMBER_FORMAT')]", "//div[text()='#,##0.00']", "#,##0.00", "Number Format");
@@ -282,7 +282,7 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
-    public DashboardPage setDecicalPrecisionInPreferences(){
+    public DashboardPage setDecicalPrecisionInPreferences() {
         mouseHoverOnProfile()
                 .clickAccountSettingsBtn()
                 .waitForLoaderToDisappear();
@@ -292,40 +292,40 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
-    public DashboardPage validateDecimalPrecision(){
+    public DashboardPage validateDecimalPrecision() {
         pause("low");
-        String str = getAttribute("//input[@type='hidden' and @name='DECIMAL_PRECISION']","value");
-        if(decimalPrecision.equals("1 decimal")){
-        boolean result = verifyInnerText(str,"1");
-        Assert.assertTrue(result);
-        reportPass("Successfully validated decimal precision. Option selected is: "+str);
-        }else if(decimalPrecision.equals("2 decimals")){
-            boolean result = verifyInnerText(str,"2");
+        String str = getAttribute("//input[@type='hidden' and @name='DECIMAL_PRECISION']", "value");
+        if (decimalPrecision.equals("1 decimal")) {
+            boolean result = verifyInnerText(str, "1");
             Assert.assertTrue(result);
-            reportPass("Successfully validated decimal precision. Option selected is: "+str);
-        }else if(decimalPrecision.equals("3 decimals")){
-            boolean result = verifyInnerText(str,"3");
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
+        } else if (decimalPrecision.equals("2 decimals")) {
+            boolean result = verifyInnerText(str, "2");
             Assert.assertTrue(result);
-            reportPass("Successfully validated decimal precision. Option selected is: "+str);
-        }else if(decimalPrecision.equals("4 decimals")){
-            boolean result = verifyInnerText(str,"4");
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
+        } else if (decimalPrecision.equals("3 decimals")) {
+            boolean result = verifyInnerText(str, "3");
             Assert.assertTrue(result);
-            reportPass("Successfully validated decimal precision. Option selected is: "+str);
-        }else {
-            boolean result = verifyInnerText(str,"5");
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
+        } else if (decimalPrecision.equals("4 decimals")) {
+            boolean result = verifyInnerText(str, "4");
             Assert.assertTrue(result);
-            reportPass("Successfully validated decimal precision. Option selected is: "+str);
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
+        } else {
+            boolean result = verifyInnerText(str, "5");
+            Assert.assertTrue(result);
+            reportPass("Successfully validated decimal precision. Option selected is: " + str);
         }
 
         return new DashboardPage();
     }
 
-    public DashboardPage setNumberFormatInPreferences(){
+    public DashboardPage setNumberFormatInPreferences() {
 
-        if(isVisible("//span[text()='Edit Preferences']")){
+        if (isVisible("//span[text()='Edit Preferences']")) {
             clickEditPreferencesBtn()
-                    . clickAndSelectNumberFormat();
-        }else {
+                    .clickAndSelectNumberFormat();
+        } else {
             mouseHoverOnProfile()
                     .clickAccountSettingsBtn()
                     .waitForLoaderToDisappear();
@@ -336,17 +336,18 @@ public class MenuPage extends WestMinsterPageHook {
 
         return new DashboardPage();
     }
+
     public DashboardPage validateNumberFormat() {
         pause("low");
         String str = getAttribute("//input[@type='hidden' and @name='NUMBER_FORMAT']", "value");
-        if(numberFormat.equals("# ##0,00")){
-            boolean result = verifyInnerText(str,"fr-FR");
+        if (numberFormat.equals("# ##0,00")) {
+            boolean result = verifyInnerText(str, "fr-FR");
             Assert.assertTrue(result);
-            reportPass("Successfully validated number format. Option selected is: "+str);
-        }else{
-            boolean result = verifyInnerText(str,"en-US");
+            reportPass("Successfully validated number format. Option selected is: " + str);
+        } else {
+            boolean result = verifyInnerText(str, "en-US");
             Assert.assertTrue(result);
-            reportPass("Successfully validated number format. Option selected is: "+str);
+            reportPass("Successfully validated number format. Option selected is: " + str);
         }
         return new DashboardPage();
     }

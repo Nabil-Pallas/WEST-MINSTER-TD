@@ -107,6 +107,9 @@ public class AdminPage extends MenuPage {
         return "//span[text()='" + placeholder + "']/following-sibling::span";
     }
 
+    public String frameFieldFilterLocator(String placeholder) {
+        return "//span[@aria-label=\"Show filter options for column '" + placeholder + "'\"]";
+    }
 
     public String frameDivTextLocator(String placeholder) {
         return "//div[contains(text(),'" + placeholder + "')]";

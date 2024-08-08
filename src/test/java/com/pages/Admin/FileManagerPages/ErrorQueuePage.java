@@ -335,4 +335,14 @@ public class ErrorQueuePage extends FileManagerPage {
         return this;
     }
 
+
+    public ErrorQueuePage clickFilterAndValidateChanges(String filterFieldName, String expectedValues) {
+        click(frameFieldFilterLocator(filterFieldName), filterFieldName, "Filter Icon");
+        waitForElementToLoad(frameDivTextLocator(expectedValues));
+        boolean verifyExactText = verifyExactText(frameDivTextLocator(expectedValues), expectedValues);
+        Assert.assertTrue(verifyExactText);
+        click(frameSpanExactTextLocator("Cancel", 2), "Cancel");
+        return this;
+    }
+
 }

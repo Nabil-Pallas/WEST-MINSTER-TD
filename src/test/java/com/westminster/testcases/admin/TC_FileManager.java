@@ -694,8 +694,8 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-        filePath.set("./src/test/resources/upload/100_rows_file.csv");
-        fileName.set("100_rows_file.csv");
+        filePath.set("./src/test/resources/upload/550_rows_file_mapping.csv");
+        fileName.set("550_rows_file_mapping.csv");
         DataMap.set(FakerDataFactory.getDataMapName());
         new DashboardPage()
                 .validateDashBoardElements()
@@ -712,7 +712,16 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName.get())
-                .validateErrorQueuePage();
+                .validateErrorQueuePage()
+                .clickOnSelectAll()
+                .clickOnBulkEditRows()
+                .validateBulkEditRowsPage()
+                .typeTradeDate("08/08/2024")
+                .typeSettlementDate("08/30/2024")
+                .clickOnApplyBtn()
+                .validateErrorQueuePage()
+                .clickFilterAndValidateChanges("Trade Date","2024-08-08")
+                .clickFilterAndValidateChanges("Settlement Date","2024-08-30");
 
 
         System.out.println("TC-----------TC_RE_5827");

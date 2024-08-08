@@ -559,18 +559,18 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickNotificationBadge()
                 .validateNotificationPage()
                 .getDuplicateRowsCount();
-                new DashboardPage()
-                        .clickOnAdmin()
-                        .validateAdminPage()
-                        .clickOnFileManager()
-                        .validateFileManagerPage()
-                        .clickOnInvalidRowCountAndAmendErrors(fileName2.get())
-                        .clickFilterAndSelectDuplicateRows()
-                        .validateDuplicateRowCount();
+        new DashboardPage()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .clickOnInvalidRowCountAndAmendErrors(fileName2.get())
+                .clickFilterAndSelectDuplicateRows()
+                .validateDuplicateRowCount();
     }
 
     // Phase -2 - Manoj
-// TC_RE_5863 - In the Error Queue screen, the 'Plus' symbol appears in the assigned list field for users with 'Manage Schema' permission, indicating available actions.
+    // TC_RE_5863 - In the Error Queue screen, the 'Plus' symbol appears in the assigned list field for users with 'Manage Schema' permission, indicating available actions.
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void showPlusSymbolForSchemaManagers() {
         testcaseName = "TC_RE_5863";
@@ -635,24 +635,10 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //Phase -02 --Nabil
     //TC_RE_6089
     @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void validateBulkEditAndPromote(){
+    public void validateBulkEditAndPromote() {
         testcaseName = "TC_RE_6089";
         testDescription = "Validate bulk Edit in error queue page and promote";
         authors = "Automation Team";
@@ -674,7 +660,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnExit()
                 .clickOnFileManager()
                 .validateFileManagerPage()
-                .fileUpload(filePath.get(),fileName.get())
+                .fileUpload(filePath.get(), fileName.get())
                 .selectExistingMapping("TestCaseMap")
                 .clickOnDefineMapping()
                 .clickOnFinishMapping()
@@ -694,5 +680,41 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickFilterAndSelectValidationErrors()
                 .getRowCountInErrorQueuePage()
                 .validateRowCountForValidationError();
+    }
+
+
+    // Phase - 2 - Manoj
+    // TC_RE_5827 - Verify the correct conversion of manually provided input to random input in date column fields during bulk editing in the error queue.
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyDateConversionInBulkEditErrorQueue() {
+        testcaseName = "TC_RE_5827";
+        testDescription = "Verify Date Conversion In Bulk Edit ErrorQueue";
+        authors = "Automation Team";
+        category = "Error Queue";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/upload/100_rows_file.csv");
+        fileName.set("100_rows_file.csv");
+        DataMap.set(FakerDataFactory.getDataMapName());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"), Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage();
+
+
+        System.out.println("TC-----------TC_RE_5827");
     }
 }

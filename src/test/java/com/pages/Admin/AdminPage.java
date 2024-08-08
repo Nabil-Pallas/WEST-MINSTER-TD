@@ -33,6 +33,10 @@ public class AdminPage extends MenuPage {
         return "(//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div//input)[" + index + "]";
     }
 
+    public String frameAddButtonSymbol(String placeholder, int index) {
+        return "((//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div//input)[" + index + "]/preceding::i[@class='dx-icon dx-icon-add'])[2]";
+    }
+
     public String frameClientDetailsLocator(int index) {
         return "(//div[contains(@class,'dx-item dx-list-item')])[" + index + "]";
     }

@@ -13,6 +13,9 @@ public class DataManagerPage extends AdminPage {
     //Locator for  Add New Row Button
     private String addNewRowBtn = "//span[text()='Add new row']";
 
+    //Locator for  Edit Row Button
+    private String editRowBtn = "//div[text()='Edit Trade Details']";
+
     //Locator for Apply Button
     protected String applyBtnForDataSchema = "//div[@id='apply-new-col-changes-save']//span";
 
@@ -66,11 +69,15 @@ public class DataManagerPage extends AdminPage {
     //Click the Action Button
     public DataManagerPage clickOnActionsBtn() {
         waitForLoaderToDisappear();
-//        pause("medium");
-//        pause("medium");
         waitForElementToLoad(actionBtn);
         click(actionBtn, "Action button");
         waitForLoaderToDisappear();
+        return new DataManagerPage();
+    }
+
+    public DataManagerPage clickOnEllipsisBtn() {
+        waitForElementToLoad(actionBtn);
+        click(actionBtn, "Action button");
         return new DataManagerPage();
     }
 
@@ -175,6 +182,35 @@ public class DataManagerPage extends AdminPage {
         return new DataManagerPage();
     }
 
+    //Validate the Add New Row Information
+    public DataManagerPage getInnerTextOfTheField(String verificationValue, String verificationHeader) {
+        List<String> list = new ArrayList<>();
+        pause("medium");
+        pause("medium");
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i < headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader)) {
+                click(searchValueWithHeader(i), "Search Filter", "Search Box");
+                type(searchValueWithHeader(i), verificationValue, verificationValue);
+                pause("medium");
+                pause("medium");
+                int count = getLocatorsCount("//td[text()='" + verificationValue + "']");
+                System.out.println("Locators count: " + count);
+                for (int j = 1; j <= count; j++) {
+                    if (j <= count) {
+                        list.add(getInnerText("(//td[text()='" + verificationValue + "'])[" + j + "]"));
+                    }
+                    boolean verifyExactText = verifyExactText("(//td[text()='" + verificationValue + "'])[" + j + "]", list.get(j - 1));
+                    Assert.assertTrue(verifyExactText);
+                }
+            }
+        }
+        System.out.println("Size of list: " + list.size());
+        return new DataManagerPage();
+    }
+
 
     public DataManagerPage deleteAddedRow(String verificationValue, String verificationHeader) {
 //        waitForLoaderToDisappear();
@@ -236,7 +272,7 @@ public class DataManagerPage extends AdminPage {
 
     //click the Cancel Button
     public DataManagerPage clickOnCancelBtn() {
-        waitForLoaderToDisappear();
+        waitForElementToLoad(cancelBtn);
         pause("medium//");
         click(cancelBtn, "Cancel Button");
         pause("medium");
@@ -255,13 +291,13 @@ public class DataManagerPage extends AdminPage {
     }
 
     //click row select option on Data Manager Grid
-    public DataManagerPage clickOnSelectRow(){
+    public DataManagerPage clickOnSelectRow() {
         waitForLoaderToDisappear();
 //        pause("medium");
-        for(int i=1;i<9;i++){
+        for (int i = 1; i < 9; i++) {
             System.out.println(i);
             waitForLoaderToDisappear();
-            forceClick("(//div[@aria-label='Select row'])["+i+"]","select option","`checkbox");
+            forceClick("(//div[@aria-label='Select row'])[" + i + "]", "select option", "`checkbox");
 //            pause("medium");
 
         }
@@ -279,22 +315,22 @@ public class DataManagerPage extends AdminPage {
     }
 
     //validate Edit row page
-    public EditDataManagerRow validateEditRowPage(){
-        waitForLoaderToDisappear();
-        if(isVisible("//div[text()='Edit Trade Details']","Edit Trade Details Page")){
+    public EditDataManagerRow validateEditRowPage() {
+        waitForElementToLoad(editRowBtn);
+        if (isVisible(editRowBtn, "Edit Trade Details Page")) {
             reportPass("Successfully navigated to Edit Row Page");
-        }else{
+        } else {
             reportFail("Failed");
         }
         return new EditDataManagerRow();
     }
 
     //validate Bulk Edit rows page
-    public EditDataManagerRow validateBulkEditRowsPage(){
+    public EditDataManagerRow validateBulkEditRowsPage() {
         waitForLoaderToDisappear();
-        if(isVisible("//div[text()='Bulk Edit Rows']","Bulk Edit Rows Page")){
+        if (isVisible("//div[text()='Bulk Edit Rows']", "Bulk Edit Rows Page")) {
             reportPass("Successfully navigated to Bulk edit rows page");
-        }else{
+        } else {
             reportFail("failed to navigate to bulk edit rows page");
         }
         return new EditDataManagerRow();
@@ -328,7 +364,6 @@ public class DataManagerPage extends AdminPage {
 
         return this;
     }
-
 
 
 }

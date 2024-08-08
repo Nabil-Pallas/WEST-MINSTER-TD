@@ -3,9 +3,12 @@ package com.pages.Admin.DataManagerPages;
 import com.page.base.DashboardPage;
 import org.testng.Assert;
 
+import java.util.Collections;
 import java.util.List;
 
 public class EditDataManagerRow extends DataManagerPage {
+
+    private String brokerNameAddBtn = "((//span[text()='Broker  Name:']/ancestor::label/following-sibling::div//input)[2]/preceding::i[@class='dx-icon dx-icon-add'])[2]";
 
 
     //Edit The Data Manager Row
@@ -27,6 +30,25 @@ public class EditDataManagerRow extends DataManagerPage {
         isVisible(frameClientDetailsLocator("Broker  Name:"), "Broker Name");
         clear(frameClientDetailsLocator("Broker  Name:"));
         typeWithType(frameClientDetailsLocator("Broker  Name:"), brokerName, "Broker Name");
+        return this;
+    }
+
+    public EditDataManagerRow clickOnAddSymbolButton() {
+        isVisible(frameAddButtonSymbol("Broker  Name:", 2), "Plus Symbol Button");
+        click(frameAddButtonSymbol("Broker  Name:", 2), "Add Symbol Button");
+        click(frameSpanTextLocator("Yes"), "Yes");
+        pause("low");
+        return this;
+    }
+
+    public EditDataManagerRow getBrokerNameText() {
+        click(frameClientDetailsLocator("Broker  Name:", 2), "Broker Name", "Select Drop Down");
+        pause("low");
+        String getTextContent = getInnerText("//div[@aria-selected='true']");
+        List<String> list = Collections.singletonList(getTextContent);
+        getTexts.set(list);
+        System.out.println("NAME :" + list);
+        click("//div[@aria-selected='true']", getTextContent, "Select Drop Down");
         return this;
     }
 

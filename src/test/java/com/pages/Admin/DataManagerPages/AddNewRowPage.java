@@ -3,6 +3,9 @@ package com.pages.Admin.DataManagerPages;
 
 import org.testng.Assert;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AddNewRowPage extends DataManagerPage {
 
     //Locator For Add New Row Button
@@ -13,7 +16,7 @@ public class AddNewRowPage extends DataManagerPage {
 
     //Validate the Add New Row Page
     public AddNewRowPage validateAddNewRowPage() {
-//        waitForElementToLoad(addNewRowText);
+        waitForElementToLoad(addNewRowText);
         if (isVisible(addNewRowText, "AddNewRowPage")) {
             reportPass("User reaches to the right Add New Row Page");
         } else {
@@ -51,6 +54,7 @@ public class AddNewRowPage extends DataManagerPage {
         clickAndChoose(frameClientDetailsLocator("Broker  Name:", 2), frameDivTextLocator(brokerName), brokerName, "Broker Name");
         return this;
     }
+
 
     // Type The Account Name
     public AddNewRowPage typeAccountName(String accountName) {
@@ -219,12 +223,12 @@ public class AddNewRowPage extends DataManagerPage {
     }
 
     //Click  the Add Button
-    public AddNewRowPage clickOnAddBtn() {
+    public DataManagerPage clickOnAddBtn() {
         click(addBtn, "Add Button");
         pause("low");
 //        waitForLoaderToDisappear();
 //        waitForAppearance(addBtn);
-        return this;
+        return new DataManagerPage();
     }
 
     //Validate the trade date error message

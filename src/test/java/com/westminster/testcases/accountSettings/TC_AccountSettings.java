@@ -21,7 +21,7 @@ public class TC_AccountSettings extends WestMinsterPageHook {
 
     //Phase -02 --Nabil
     //TC_RE_5813
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void userPreferenceDecimalCheck() {
         testcaseName = "TC_RE_5813";
         testDescription = "Set user preference Decimal Precision";
@@ -57,7 +57,7 @@ public class TC_AccountSettings extends WestMinsterPageHook {
 
     //Phase -02 --Nabil
     //TC_RE_5814
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void userPreferenceNumberFormat() {
         testcaseName = "TC_RE_5814";
         testDescription = "Set user preference Number Format";

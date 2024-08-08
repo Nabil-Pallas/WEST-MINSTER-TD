@@ -158,6 +158,9 @@ public class FakerDataFactory {
     public static String getFTPFolderAcronym() {
         return "" + faker.number().randomNumber(4, false);
     }
+    public static String getNumericWDecimal() {
+        return "" +faker.number().randomDouble(8,50,100);
+    }
 
     public static String getTaxNumber() {
         return "" + faker.number().randomNumber(7, false);

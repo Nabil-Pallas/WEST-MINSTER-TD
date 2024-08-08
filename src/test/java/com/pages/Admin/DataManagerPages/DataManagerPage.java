@@ -3,9 +3,14 @@ package com.pages.Admin.DataManagerPages;
 import com.pages.Admin.AdminPage;
 import org.testng.Assert;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.*;
 
 public class DataManagerPage extends AdminPage {
+    public static String valuee;
 
     //Locator for Data Manager
     private String dataManagerText = "//h1[text()='Data Manager']";
@@ -51,7 +56,7 @@ public class DataManagerPage extends AdminPage {
 
     //Click the Add New Row Button
     public AddNewRowPage clickOnAddNewRowBtn() {
-//        waitForLoaderToDisappear();
+//       waitForLoaderToDisappear();
 //        waitForElementToLoad(addNewRowBtn);
         pause("medium");
         pause("medium");
@@ -226,10 +231,11 @@ public class DataManagerPage extends AdminPage {
 
     //Click The Apply Button
     public DataManagerPage clickOnApplyBtn() {
-        waitForLoaderToDisappear();
-        pause("medium//");
+//        waitForLoaderToDisappear();
+        pause("medium");
         click(applyBtn, "Apply Button");
         pause("medium");
+        pause("low");
         reportPass("User successfully clicked the Apply button.");
         return new DataManagerPage();
     }
@@ -329,6 +335,113 @@ public class DataManagerPage extends AdminPage {
         return this;
     }
 
+    public DataManagerPage validateAddedRowWDecimalPrecision(String VerificationValues,String verificationHeader1,String verificationHeader2) {
+        pause("medium");
+        pause("medium");
+        System.out.println("printing:---->"+decimalPrecision);
+        switch (decimalPrecision) {
+            case "3 decimals":
+                if (numberFormat.equals("# ##0,00")) {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                    symbols.setDecimalSeparator(',');
+                    DecimalFormat df = new DecimalFormat("####.###", symbols);
+                    valuee = df.format(d);
+                } else {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormat df = new DecimalFormat("####.###");
+                    valuee = df.format(d);
+                }
+                break;
+            case "4 decimals":
+                if (numberFormat.equals("# ##0,00")) {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                    symbols.setDecimalSeparator(',');
+                    DecimalFormat df = new DecimalFormat("####.####", symbols);
+                    valuee = df.format(d);
+                } else {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormat df = new DecimalFormat("####.####");
+                    valuee = df.format(d);
+                }
+                break;
+            case "5 decimals":
+                if (numberFormat.equals("# ##0,00")) {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                    symbols.setDecimalSeparator(',');
+                    DecimalFormat df = new DecimalFormat("####.#####", symbols);
+                    valuee = df.format(d);
+                } else {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormat df = new DecimalFormat("####.#####");
+                    valuee = df.format(d);
+                }
+                break;
+            case "2 decimals":
+                if (numberFormat.equals("# ##0,00")) {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                    symbols.setDecimalSeparator(',');
+                    DecimalFormat df = new DecimalFormat("####.##", symbols);
+                    valuee = df.format(d);
+                } else {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormat df = new DecimalFormat("####.##");
+                    valuee = df.format(d);
+                }
+                break;
+            default:
+                if (numberFormat.equals("# ##0,00")) {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                    symbols.setDecimalSeparator(',');
+                    DecimalFormat df = new DecimalFormat("####.#", symbols);
+                    valuee = df.format(d);
+                } else {
+                    double d = Double.parseDouble(number.get());
+                    DecimalFormat df = new DecimalFormat("####.#");
+                    valuee = df.format(d);
+                }
+                break;
+        }
+
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i < headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader1)) {
+//                click(searchValueWithHeader(i), "Search Filter", "Search Box");
+//                typeAndEnter(searchValueWithHeader(i), VerificationValues, VerificationValues);
+                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]","//div[text()='"+VerificationValues+"']",VerificationValues,VerificationValues);
+                pause("low");
+                click("//span[text()='OK']","filter OK button");
+                pause("medium");
+                pause("medium");
+                for ( i = 1; i < headerCount; i++) {
+                    String header2Element = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+                    String header2Text = getInnerText(header2Element);
+                    if (header2Text.equalsIgnoreCase(verificationHeader2)) {
+//                    click("//div[text()='"+verificationHeader2+"']",verificationHeader2);
+                        scrollToElement("//div[text()='"+verificationHeader2+"']");
+                        pause("low");
+                        String value = getInnerText("//td[text()='" + valuee + "']");
+                        boolean verifyExactText = verifyInnerText(value,valuee);
+                        Assert.assertTrue(verifyExactText);
+                        reportPass("Successfully validated Decimal Precision");
+
+                    }
+                }
+
+            }
+        }
+        pause("medium");
+        click("//span[text()='Clear All Filters']","Clear All Filters");
+        pause("medium");
+        reportPass("Successfully cleared all filters for Broker Name column");
+        return new DataManagerPage();
+    }
 
 
 }

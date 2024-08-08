@@ -628,8 +628,6 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateListManagerPage()
                 .validateListNameAndItem(newListName.get(), listItems.get())
                 .deleteListItem(newListName.get());
-
-
         System.out.println("TC-----------TC_RE_5863");
     }
 
@@ -783,6 +781,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
+        DataMap.set(FakerDataFactory.getDataMapName());
         filePath.set("./src/test/resources/upload/1000_rows_file_mapping.csv");
         fileName.set("1000_rows_file_mapping.csv");
         new DashboardPage()
@@ -798,9 +797,16 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(),fileName.get())
-                .selectExistingMapping("TestCaseMap")
-                .clickOnDefineMapping()
+//                .selectExistingMapping("TestCaseMap")
+//                .clickOnDefineMapping()
+//                .clickOnFinishMapping()
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
                 .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName.get())
                 .validateErrorQueuePage()
                 .clickFilterAndSelectValidationErrors()

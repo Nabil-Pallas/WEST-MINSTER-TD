@@ -47,6 +47,7 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static long validRows = 0;
     public static final ThreadLocal<String> getTradeDate = new ThreadLocal<>();
     public static final ThreadLocal<String> getSettlementDate = new ThreadLocal<>();
+    public static final ThreadLocal<String> number = new ThreadLocal<>();
 
 
     public static void setUserLevel() {
@@ -142,8 +143,8 @@ public class WestMinsterPageHook extends ProjectHooks {
 
             // Load the page with URL based on configuration
             navigate(ConfigurationManager.configuration().baseStagingUrl());
-            new MenuPage().doLogin(userLevel, password)
-                    .dateFormattingInPreferences();
+            new MenuPage().doLogin(userLevel, password);
+//                    .dateFormattingInPreferences();
 
 
         } catch (Exception e) {

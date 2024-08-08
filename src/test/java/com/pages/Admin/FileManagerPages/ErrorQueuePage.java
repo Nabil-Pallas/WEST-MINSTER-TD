@@ -215,6 +215,7 @@ public class ErrorQueuePage extends FileManagerPage {
                 isVisible("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input/preceding::div[@aria-label='add']//i", "Account Name plus Icon");
                 click("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input/preceding::div[@aria-label='add']//i", "Account Name plus Icon");
                 click(frameSpanTextLocator("Yes"), "Yes");
+                waitForLoaderToDisappear();
                 String getAccounttextName = getInnerText("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input");
                 System.out.println("NAME :" + getAccounttextName);
                 List<String> list = Collections.singletonList(getAccounttextName);

@@ -77,7 +77,7 @@ public class EditListPage extends ListManagerPage {
                 pause("low");
                 deleteListItem();
             }
-            if(i==3){
+            if (i == 3) {
                 break;
             }
             clearSearchField();

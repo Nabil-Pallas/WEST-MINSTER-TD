@@ -359,11 +359,11 @@ public class AddNewRowPage extends DataManagerPage {
         pause("medium");
         typeBrokerName(brokerName);
         pause("low");
-                typeTradeDate(tradeDate);
-                pause("low");
-                typeBaseGrossCommission(baseGrossCommission);
-                pause("low");
-                typeSettlementDate(SettlementDate);
+        typeTradeDate(tradeDate);
+        pause("low");
+        typeBaseGrossCommission(baseGrossCommission);
+        pause("low");
+        typeSettlementDate(SettlementDate);
 
         return this;
     }

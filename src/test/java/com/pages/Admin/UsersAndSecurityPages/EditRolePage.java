@@ -55,7 +55,7 @@ public class EditRolePage extends UserSecurityPage {
         waitForElementToLoad(frameClientDetailsLocator("Role Name"));
 
         //  waitForElementToLoad(frameClientDetailsLocator("Role Name"));
-        clearTypeRoleName(roleName,roleName2)
+        clearTypeRoleName(roleName, roleName2)
                 .clearTypeRoleDescription(roleDescription)
 //                .clickAndselectTier(tier)
 //                .clickAndselectClient(client)

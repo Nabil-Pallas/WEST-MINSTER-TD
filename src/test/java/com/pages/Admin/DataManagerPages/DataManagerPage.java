@@ -371,10 +371,10 @@ public class DataManagerPage extends AdminPage {
         return this;
     }
 
-    public DataManagerPage validateAddedRowWDecimalPrecision(String VerificationValues,String verificationHeader1,String verificationHeader2) {
+    public DataManagerPage validateAddedRowWDecimalPrecision(String VerificationValues, String verificationHeader1, String verificationHeader2) {
         pause("medium");
         pause("medium");
-        System.out.println("printing:---->"+decimalPrecision);
+        System.out.println("printing:---->" + decimalPrecision);
         switch (decimalPrecision) {
             case "3 decimals":
                 if (numberFormat.equals("# ##0,00")) {
@@ -450,20 +450,20 @@ public class DataManagerPage extends AdminPage {
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
 //                click(searchValueWithHeader(i), "Search Filter", "Search Box");
 //                typeAndEnter(searchValueWithHeader(i), VerificationValues, VerificationValues);
-                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]","//div[text()='"+VerificationValues+"']",VerificationValues,VerificationValues);
+                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", VerificationValues, VerificationValues);
                 pause("low");
-                click("//span[text()='OK']","filter OK button");
+                click("//span[text()='OK']", "filter OK button");
                 pause("medium");
                 pause("medium");
-                for ( i = 1; i < headerCount; i++) {
+                for (i = 1; i < headerCount; i++) {
                     String header2Element = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
                     String header2Text = getInnerText(header2Element);
                     if (header2Text.equalsIgnoreCase(verificationHeader2)) {
 //                    click("//div[text()='"+verificationHeader2+"']",verificationHeader2);
-                        scrollToElement("//div[text()='"+verificationHeader2+"']");
+                        scrollToElement("//div[text()='" + verificationHeader2 + "']");
                         pause("low");
                         String value = getInnerText("//td[text()='" + valuee + "']");
-                        boolean verifyExactText = verifyInnerText(value,valuee);
+                        boolean verifyExactText = verifyInnerText(value, valuee);
                         Assert.assertTrue(verifyExactText);
                         reportPass("Successfully validated Decimal Precision");
 
@@ -473,7 +473,7 @@ public class DataManagerPage extends AdminPage {
             }
         }
         pause("medium");
-        click("//span[text()='Clear All Filters']","Clear All Filters");
+        click("//span[text()='Clear All Filters']", "Clear All Filters");
         pause("medium");
         reportPass("Successfully cleared all filters for Broker Name column");
         return new DataManagerPage();

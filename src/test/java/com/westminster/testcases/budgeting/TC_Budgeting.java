@@ -17,7 +17,7 @@ import com.page.base.WestMinsterPageHook;
 public class TC_Budgeting extends WestMinsterPageHook {
 
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void setReportValues() {
         testcaseName = "Login with " + xmlUserLevel;
         testDescription = "Login with " + xmlUserLevel;
@@ -25,7 +25,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
         category = "Login for Budgeting Module";
     }
 
-    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createNewBudget() {
         testcaseName = "TC_127";
         testDescription = "Create New Budget and validate";
@@ -50,7 +50,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
         System.out.println("TC-----------TC_127");
     }
 
-    @Test(priority = 11, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void editBudget() {
         testcaseName = "TC_14";
         testDescription = "Edit budget and validate";
@@ -76,7 +76,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
 
     }
 
-    @Test(priority = 12, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void importNewBudget() {
         testcaseName = "TC_126";
         testDescription = "Import new budget and validate";

@@ -216,6 +216,7 @@ public class AllBudgetsPage extends MenuPage {
 
         return new AllBudgetsPage();
     }
+
     public AllBudgetsPage deleteImportedBudget() {
         String budgetName = ImportBudgetPage.updatedCsvValue;
         waitForLoaderToDisappear();
@@ -238,7 +239,6 @@ public class AllBudgetsPage extends MenuPage {
 
         return new AllBudgetsPage();
     }
-
 
 
 }

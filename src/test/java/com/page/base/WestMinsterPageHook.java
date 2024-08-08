@@ -41,8 +41,8 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> fileName2 = new ThreadLocal<>();
     public static final ThreadLocal<String> DataMap = new ThreadLocal<>();
     //public static final ThreadLocal<Long> InitRowCounts = new ThreadLocal<>();
-   // public static final ThreadLocal<Long> FinRowCounts = new ThreadLocal<>();
-   // public static final ThreadLocal<Long> validRows = new ThreadLocal<>();
+    // public static final ThreadLocal<Long> FinRowCounts = new ThreadLocal<>();
+    // public static final ThreadLocal<Long> validRows = new ThreadLocal<>();
     public static long InitRowCounts = 0;
     public static long FinRowCounts = 0;
     public static long validRows = 0;
@@ -95,7 +95,7 @@ public class WestMinsterPageHook extends ProjectHooks {
      * @author Srikanth
      */
     @Parameters("Browser")
-    @BeforeClass(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser",TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
+    @BeforeClass(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
 //beforemethod
     public void initBrowserAndDoLogin(@Optional("chrome") String browser) {
         try {

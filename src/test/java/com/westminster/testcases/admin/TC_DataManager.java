@@ -428,7 +428,37 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5913");
     }
 
+    //Phase - 2 - Manoj
+    //TC_RE_1767 - Check if a warning message appears when refreshing the page during bulk editing.
+    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyWarningOnRefreshDuringBulkEdit() {
+        testcaseName = "TC_RE_1767";
+        testDescription = "Verify Duplicate Detection For Multiple Trades";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
 
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
+        ruleName.set(FakerDataFactory.getCompanyName());
+        reportName.set(FakerDataFactory.getReportsName());
+        titleone.set(FakerDataFactory.getTitle());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnSelectRow()
+                .clickOnBulkEditBtn()
+                .validateBulkEditRowsPage()
+                .editRowInformation(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getFutureDate())
+                .refreshPageAndCancelDialog();
+//                .validateBulkEditRowsPage();
+
+        System.out.println("TC-----------TC_RE_1767");
+    }
 }
 
 

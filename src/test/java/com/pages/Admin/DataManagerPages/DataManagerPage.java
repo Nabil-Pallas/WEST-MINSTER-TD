@@ -301,7 +301,6 @@ public class DataManagerPage extends AdminPage {
         waitForLoaderToDisappear();
 //        pause("medium");
         for (int i = 1; i < 9; i++) {
-            System.out.println(i);
             waitForLoaderToDisappear();
             forceClick("(//div[@aria-label='Select row'])[" + i + "]", "select option", "`checkbox");
 //            pause("medium");

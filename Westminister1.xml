@@ -34,9 +34,18 @@
 <!--                <methods>-->
 <!--                    <include name="userPreferenceDecimalCheck"/>-->
 <!--                    <include name="userPreferenceNumberFormat"/>-->
+<!--                    <include name="userPreferenceDateFormat"/>-->
 
 <!--                </methods>-->
 <!--            </class>-->
+            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
+                <methods>
+<!--                    <include name="userPreferenceDecimalCheck"/>-->
+<!--                    <include name="userPreferenceNumberFormat"/>-->
+                    <include name="userPreferenceTimeFormat"/>
+
+                </methods>
+            </class>
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
 <!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->

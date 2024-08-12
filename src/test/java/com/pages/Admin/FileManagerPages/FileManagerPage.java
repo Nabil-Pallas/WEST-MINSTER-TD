@@ -4,6 +4,10 @@ import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.AddNewRowPage;
 import org.testng.Assert;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 public class FileManagerPage extends AdminPage {
 
@@ -22,7 +26,11 @@ public class FileManagerPage extends AdminPage {
     //xpath for Duplicate Rows in Notification page
     private String duplicateCount = "//div[@id='current-notification-message__text']//ul//li[1]";
 
+    //Duplicate count from Notification
     public static long notificationDuplicateRowCount;
+
+    //upload time from File Manager
+    public static String timeInFileManager;
 
 
     //Locator For Date Format
@@ -305,6 +313,46 @@ public class FileManagerPage extends AdminPage {
         notificationDuplicateRowCount = Long.parseLong(dCount);
         return new FileManagerPage();
     }
+
+    public FileManagerPage getUploadDateInFileManager(String fileName){
+        pause("medium");
+        waitForLoaderToDisappear();
+        String innertext=getInnerText("//tbody[@role='presentation']//tr[td[1] = '"+fileName+"']//td[3]//time");
+        String[] parts=innertext.split(", ",2);
+        timeInFileManager=parts[1];
+        System.out.println(timeInFileManager);
+//        if(preferenceTimeFormat.equals("24-hour")){
+//            // Split the time into hours and minutes
+//            String[] timeParts = timeInFileManager.split(":");
+//            int hour24 = Integer.parseInt(timeParts[0]);
+//            String minutes = timeParts[1];
+//            String seconds = timeParts[2];
+//
+//            // Determine AM/PM
+//            String amPm = hour24 >= 12 ? "PM" : "AM";
+//
+//            // Convert hour from 24-hour format to 12-hour format
+//            int hour12 = hour24 % 12;
+//            if (hour12 == 0) {
+//                hour12 = 12; // Midnight or Noon
+//            }
+
+            // Format hours and minutes into 12-hour time
+//            timeInFileManager = String.format("%02d:%s %s", hour12, minutes, seconds, amPm);
+//            System.out.println("time in 24-hour converted into 12-hour "+timeInFileManager);
+//            reportPass("Successfully converted 24-hour format time to 12-hour format");
+//        }
+        reportPass("Captured fileUpload time from File Manager: "+timeInFileManager);
+        return this;
+    }
+
+//    public FileManagerPage validateLocalTimezonevalue(){
+//
+//        System.out.println("before time: "+currentTimeBeforeFileUpload);
+//        System.out.println("upload time"+timeInFileManager);
+//        System.out.println("After time: "+currentTimeAfterFileUpload);
+//        return this;
+//    }
 
 }
 

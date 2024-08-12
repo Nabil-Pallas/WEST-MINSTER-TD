@@ -17,6 +17,7 @@ public class AddNewRowPage extends DataManagerPage {
     //Validate the Add New Row Page
     public AddNewRowPage validateAddNewRowPage() {
         waitForElementToLoad(addNewRowText);
+        pause("low");
         if (isVisible(addNewRowText, "AddNewRowPage")) {
             reportPass("User reaches to the right Add New Row Page");
         } else {

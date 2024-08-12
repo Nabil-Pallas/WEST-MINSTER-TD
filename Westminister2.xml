@@ -13,18 +13,18 @@
 
             </run>
             <run>
-<!--                <include name="SANITY"></include>-->
+                <!--                <include name="SANITY"></include>-->
                 <include name="REGRESSION"></include>
             </run>
         </groups>
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-<!--            <class name="com.westminster.testcases.admin.TC_FileManager">-->
-<!--                <methods>&ndash;&gt;-->
-<!--                    <include name="validateBulkEditAndPromote"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <class name="com.westminster.testcases.admin.TC_FileManager">
+                <methods>
+                    <include name="verifyInvalidDateValueFormatFilter"/>
+                </methods>
+            </class>
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
             <!--                <methods>-->
             <!--                    <exclude name="impersonateUser"/>-->
@@ -49,12 +49,12 @@
             </class>
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
-<!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-<!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
-<!--                <methods>&ndash;&gt;-->
-<!--                    <include name="createNewBudget"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
+            <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
+            <!--                <methods>&ndash;&gt;-->
+            <!--                    <include name="createNewBudget"/>-->
+            <!--                </methods>-->
+            <!--            </class>-->
             <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
         </classes>
     </test>

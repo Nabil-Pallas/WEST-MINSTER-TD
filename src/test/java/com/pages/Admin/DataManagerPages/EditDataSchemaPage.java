@@ -13,6 +13,8 @@ public class EditDataSchemaPage extends DataManagerPage {
     private String parameterTypeText = "(//input[@class='dx-texteditor-input'])[4]";
     private String selectParameterType = "((//input[@class='dx-texteditor-input'])[4]/following::div[@class='dx-texteditor-buttons-container'])[2]";
     private String selectList = "//input[@name='DATA_LIST_LABEL']//..";
+    private String uniqueTradeIdentifier_1 = "(//span[text()='Unique Trade Identifier']//following::tbody//td[4])[1]";
+    private String uniqueTradeIdentifier_2 = "(//span[text()='Unique Trade Identifier']//following::tbody//td[4])[2]";
 
 
     public EditDataSchemaPage validateEditDataSchemaColumnsPage() {

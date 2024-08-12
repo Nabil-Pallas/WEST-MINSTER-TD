@@ -1505,6 +1505,23 @@ public class PlaywrightWrapper extends Reporter {
      */
     public void reLoadPage() {
         getPage().reload();
+        System.out.println("ReLoaded Page");
+    }
+
+    public void refreshPageUsingJavaScript() {
+        // Execute JavaScript to refresh the page
+        getPage().evaluate("window.location.reload();");
+        System.out.println("Refresh Page Using JavaScript");
+    }
+
+    public void refreshPageToCurrentURL() {
+        // Get the current URL
+//        getPage().context().pages().forEach(p -> p.reload());
+        String currentUrl = getPage().url();
+        System.out.println("CurrentURL --> " + currentUrl);
+        // Navigate to the current URL to refresh the page
+        getPage().navigate(currentUrl);
+        System.out.println("Refresh Page To CurrentURL");
     }
 
     /**
@@ -1706,6 +1723,35 @@ public class PlaywrightWrapper extends Reporter {
 
         Assert.assertTrue(result);
 
+    }
+
+    public void handleDialogReload() {
+        // Listen for dialog events on the page
+        getPage().onDialog(dialog -> {
+            // Check if the dialog type is 'beforeunload'
+            if ("beforeunload".equals(dialog.type())) {
+                // Handle the 'beforeunload' dialog
+                // Accept the dialog to allow the page reload
+                dialog.accept();
+                // Alternatively, you can dismiss the dialog if you want to cancel the reload
+                // dialog.dismiss();
+            }
+        });
+    }
+
+    public void handleDialogCancel() {
+        // Listen for dialog events on the page
+        System.out.println("........");
+        getPage().onDialog(dialog -> {
+            dialog.dismiss();
+            System.out.println("HandleDialogCancel");
+            // Check if the dialog type is 'confirm' or any relevant type where cancellation is needed
+//            if ("confirm".equals(dialog.type())) {
+//                // Handle the confirmation dialog
+//                // Dismiss the dialog to cancel the action
+//                dialog.dismiss();
+//            }
+        });
     }
 
 }

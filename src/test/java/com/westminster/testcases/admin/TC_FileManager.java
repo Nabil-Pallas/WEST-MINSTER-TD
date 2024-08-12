@@ -726,4 +726,80 @@ public class TC_FileManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_5827");
     }
+
+    // Phase - 2 - Manoj
+    // TC_RE_5575 - Verify that the "Missing required value" filter within the "Show All" dropdown on the "Error Queue" screen correctly displays only the rows with missing required values.
+    @Test(priority = 16, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyMissingRequiredValueFilter() {
+        testcaseName = "TC_RE_5575";
+        testDescription = "Verify Missing Required Value Filter";
+        authors = "Automation Team";
+        category = "Error Queue";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/upload/Missing_Required_Fields.csv");
+        fileName.set("Missing_Required_Fields.csv");
+        DataMap.set(FakerDataFactory.getDataMapName());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"), Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .filterByOption("Missing required value")
+                .getErrorQueueRowCounts()
+                .validateRowCount(getRowCounts.get(), 10);
+
+        System.out.println("TC-----------TC_RE_5575");
+    }
+
+    // Phase - 2 - Manoj
+    // TC_RE_5574 - Verify that the "Invalid date/value format" filter within the "Show All" dropdown on the "Error Queue" screen accurately displays only the rows with invalid date or value formats.
+    @Test(priority = 17, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyInvalidDateValueFormatFilter() {
+        testcaseName = "TC_RE_5574";
+        testDescription = "Verify Invalid Date Value Format Filter";
+        authors = "Automation Team";
+        category = "Error Queue";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/upload/Invalid_Date_Format_Or_Value.csv.csv");
+        fileName.set("Invalid_Date_Format_Or_Value.csv.csv");
+        DataMap.set(FakerDataFactory.getDataMapName());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"), Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .filterByOption("Invalid date value/format")
+                .getErrorQueueRowCounts()
+                .validateRowCount(getRowCounts.get(), 10);
+
+        System.out.println("TC-----------TC_RE_5574");
+    }
+
+
 }

@@ -17,6 +17,8 @@ public class ErrorQueuePage extends FileManagerPage {
     private String editRow = "//span[text()='Edit']";
     private String actionBtn = "(//table)[4]//tr[1]//td[last()]";
     private String saveBtn = "(//a[contains(text(),'Save')])[2]";
+    private String filterByLocator = "//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']";
+    private String rowCountLocator = "//div[@id='error-queue-row-count']";
     private static long rCount;
     private static long rowCount;
     private static long duplicateRowCount;
@@ -312,6 +314,42 @@ public class ErrorQueuePage extends FileManagerPage {
         String replaceRowCount = rowCount.replaceAll("Row Count: ", "");
         duplicateRowCount = Long.parseLong(replaceRowCount);
         System.out.println("Duplicate Rows count: " + duplicateRowCount);
+        return this;
+    }
+
+    public ErrorQueuePage clickOnFilterBy() {
+        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
+        click(filterByLocator, "Select Drop Down");
+        pause("low");
+        return this;
+    }
+
+    public ErrorQueuePage filterByOption(String options) {
+        clickOnFilterBy();
+        //select Invalid date value/format option from drop down
+        waitForElementToLoad(frameDivTextLocator(options));
+        forceClick(frameDivTextLocator(options), options, "Option");
+        pause("low");
+        waitForLoaderToDisappear();
+        return this;
+    }
+
+    public ErrorQueuePage getErrorQueueRowCounts() {
+        //get the Row Count value
+        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
+        pause("low");
+        String rowCount = getInnerText(rowCountLocator);
+        String replaceRowCount = rowCount.replaceAll("Row Count: ", "");
+        getRowCounts.set(Long.parseLong(replaceRowCount));
+        System.out.println("Rows counts: " + getRowCounts.get());
+        return this;
+    }
+
+    public ErrorQueuePage validateRowCount(long actualCount, long expectedCount) {
+        Assert.assertEquals(actualCount, expectedCount);
+        reportPass("Row count on the Error Queue page is as expected");
         return this;
     }
 

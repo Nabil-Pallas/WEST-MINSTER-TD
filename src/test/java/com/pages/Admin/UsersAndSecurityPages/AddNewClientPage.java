@@ -91,7 +91,7 @@ public class AddNewClientPage extends UserSecurityPage {
                 .clickAndselectDateFormating(dateFormat);
 //	   .clickAndselectLocalTimeZone(localTimeZone)
 //	   .clickAndselectTimeFormating(timeFormat)
-//	   .clickAndselectNumberFormating(numberFormat)
+//	   .clickAndselectNumberFormating(preferenceNumberFormat)
 //	   .clickAndselectMasterCurrency(masterCurrency);
         reportPass("User successfully filled Client Information");
         return this;

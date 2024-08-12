@@ -31,10 +31,19 @@
             <!--                    <exclude name="roleCreationAndAssignRoleToUser"/>-->
             <!--                </methods>-->
             <!--            </class>-->
-            <class name="com.westminster.testcases.admin.TC_DataManager">
+<!--            <class name="com.westminster.testcases.admin.TC_DataManager">-->
+<!--                <methods>-->
+<!--                    <include name="userPreferenceDecimalCheck"/>-->
+<!--                    <include name="userPreferenceNumberFormat"/>-->
+<!--                    <include name="userPreferenceDateFormat"/>-->
+
+<!--                </methods>-->
+<!--            </class>-->
+            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
                 <methods>
-                    <include name="userPreferenceDecimalCheck"/>
-                    <include name="userPreferenceNumberFormat"/>
+                    <!--                    <include name="userPreferenceDecimalCheck"/>-->
+                    <!--                    <include name="userPreferenceNumberFormat"/>-->
+                    <include name="userPreferenceTimeFormat"/>
 
                 </methods>
             </class>

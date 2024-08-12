@@ -51,6 +51,8 @@ public class PlaywrightWrapper extends Reporter {
     int retry = 0;
     String attachment = "";
 
+
+
     /**
      * Load the URL on the browser launched
      *

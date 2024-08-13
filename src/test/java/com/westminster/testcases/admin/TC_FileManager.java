@@ -522,10 +522,10 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     //Phase -02 --Nabil
-    //TC_RE_5162
+    //TC_RE_5572
     @Test(priority = 12, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateDuplicateRowsInErrorQueue() {
-        testcaseName = "TC_RE_5162";
+        testcaseName = "TC_RE_5572";
         testDescription = "Validate duplicate rows in error queue page";
         authors = "Automation Team";
         category = "Error Queue";

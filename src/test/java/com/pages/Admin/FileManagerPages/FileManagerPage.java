@@ -348,6 +348,7 @@ public class FileManagerPage extends AdminPage {
         String count = getInnerText(duplicateCount);
         String dCount = count.replaceAll("Duplicate Rows: ", "");
         notificationDuplicateRowCount = Long.parseLong(dCount);
+        reportPass("Duplicate rows count in Notification section: "+notificationDuplicateRowCount);
         return new FileManagerPage();
     }
 

@@ -2,11 +2,19 @@ package com.pages.Admin.FileManagerPages;
 
 import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.AddNewRowPage;
+import com.pages.Admin.DataManagerPages.DataManagerPage;
 import org.testng.Assert;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static com.pages.Admin.FileManagerPages.ErrorQueuePage.rCount;
+import static com.pages.Admin.FileManagerPages.ErrorQueuePage.rowCount;
 
 
 public class FileManagerPage extends AdminPage {
@@ -31,6 +39,12 @@ public class FileManagerPage extends AdminPage {
 
     //upload time from File Manager
     public static String timeInFileManager;
+
+    //list of data Manager grid column
+    private static List<String> DatamanagerColumn = new ArrayList<>();
+
+    //list of columns to be added in Column Chooser
+    private static Set<String> chooserColumn = new HashSet<>();
 
 
     //Locator For Date Format
@@ -235,6 +249,29 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
+    public FileManagerPage getErrorRowCount(String fileName) {
+        //click Invalid Row Count for Given File Name
+        waitForLoaderToDisappear();
+        if (isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]")) {
+            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]", "Invalid Row", "Invalid RowLink");
+            pause("low");
+            String errorrows = getInnerText(frameRowCountText("Error Rows"));
+            //validRows.set(Long.parseLong(valid));
+            errorRows = Long.parseLong(errorrows);
+            reportPass("Error Rows Count: " + errorRows);
+            System.out.println("---" + errorRows);
+        }else {
+            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[1]","Invalid Row");
+            pause("low");
+            String errorrows = getInnerText(frameRowCountText("Error Rows"));
+            //validRows.set(Long.parseLong(valid));
+            errorRows = Long.parseLong(errorrows);
+            reportPass("Error Rows Count: " + errorRows);
+            System.out.println("---" + errorRows);
+        }
+        return this;
+    }
+
 
     public FileMappingPage clickOnModifyInvalidMap() {
         pause("low");
@@ -353,6 +390,101 @@ public class FileManagerPage extends AdminPage {
 //        System.out.println("After time: "+currentTimeAfterFileUpload);
 //        return this;
 //    }
+
+    public FileManagerPage validateBulkEditRowCount() {
+        System.out.println("final count: " + rowCount);
+        System.out.println("error rows: " + errorRows);
+        if (rowCount == errorRows) {
+            reportPass("Successfully edited and promoted the row");
+        } else {
+            reportFail("failed to validate. please check whether row has been promoted or not");
+        }
+        return this;
+    }
+
+    public FileManagerPage getFileManagerGridColumnNames(){
+        pause("medium");
+        DatamanagerColumn.clear();
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i <=headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            DatamanagerColumn.add(headerText);
+        }
+        return this;
+    }
+
+    public FileManagerPage validateFileManagerGridColumn(){
+        pause("low");
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (String s : chooserColumn) {
+            for (String string : DatamanagerColumn) {
+                if (string.equals(s)) {
+                    boolean result = true;
+                    reportPass("Column: "+s+" - found in Error Queue Grid");
+                    System.out.println("Column: "+s+" - found in Error Queue Grid");
+                    Assert.assertTrue(result);
+                    break;
+                }
+            }
+        }
+        return this;
+    }
+
+    public FileManagerPage clickOnShowColumnChooser(){
+        pause("medium");
+        waitForElementToLoad(frameSpanExactTextLocator("Show Column Chooser"));
+        waitForLoaderToDisappear();
+        click(frameSpanExactTextLocator("Show Column Chooser"),"Show Column Chooser");
+        return this;
+    }
+
+    public FileManagerPage clickOnCloseColumnChooser(){
+        pause("low");
+        click("//i[contains(@class,'dx-icon-close')]","Close icon");
+        pause("low");
+        return this;
+    }
+
+    public FileManagerPage dragAndDropColumnInColumnChooser(List<String> columnName){
+        pause("low");
+        for (int index = 0; index < columnName.size(); index++) {
+            dragAndDrop("//div[text()='" + columnName.get(index) + "']", frameDivTextLocator("Column Chooser"));
+            chooserColumn.add(columnName.get(index));
+            reportPass("Successfully dropped column: "+columnName.get(index)+" in show column chooser");
+            System.out.println("successfully dropped in column chooser");
+        }
+
+        return this;
+    }
+
+    public FileManagerPage valiateColumnsAgainstColumnChooser(){
+        System.out.println("DataMnager list size: "+DatamanagerColumn);
+        System.out.println("chooser column list size: "+chooserColumn);
+
+        for (String s : chooserColumn) {
+            for (String string : DatamanagerColumn) {
+                if (string.equals(s)) {
+                    boolean result = true;
+                    reportFail("Failed to move column: " +s+" to column chooser");
+                    System.out.println("Failed to move column: " +s+" to column chooser");
+                    Assert.assertFalse(result);
+                    break;
+                }
+            }
+        }
+        reportPass("Successfully validated. Columns \"moved to Show Column Chooser\" are not visible in Error Queue Grid.");
+        return this;
+    }
+
+    public FileManagerPage clickOnRestoreAllColumns(){
+        pause("low");
+        click(frameSpanExactTextLocator("Restore All Columns"),"Restore all columns button");
+        reportPass("Columns restored back to Error Queue Grid");
+
+        pause("low");
+        return this;
+    }
 
 }
 

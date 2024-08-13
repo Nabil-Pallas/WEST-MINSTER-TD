@@ -459,6 +459,51 @@ public class TC_DataManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_1767");
     }
+
+    //Phase - 2 - Nabil
+    //TC_RE_1683 -
+    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyRestoreAllColumns() {
+        testcaseName = "TC_RE_1683";
+        testDescription = "Verify restore all columns in Data Manager and Error Queue";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnShowColumnChooser()
+                .dragAndDropColumnInColumnChooser(Arrays.asList("Broker Name", "Settlement Date", "Trade Date"))
+                .clickOnCloseColumnChooser()
+                .getDataManagerGridColumnNames()
+                .valiateColumnsAgainstColumnChooser()
+                .clickOnShowColumnChooser()
+                .clickOnRestoreAllColumns()
+                .clickOnCloseColumnChooser()
+                .getDataManagerGridColumnNames()
+                .validateDataManagerGridColumn()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .clickOnOpenErrorQueue()
+                .validateErrorQueuePage()
+                .clickOnShowColumnChooser()
+                .dragAndDropColumnInColumnChooser(Arrays.asList("Broker Name", "Settlement Date", "Trade Date"))
+                .clickOnCloseColumnChooser()
+                .getFileManagerGridColumnNames()
+                .valiateColumnsAgainstColumnChooser()
+                .clickOnShowColumnChooser()
+                .clickOnRestoreAllColumns()
+                .clickOnCloseColumnChooser()
+                .getFileManagerGridColumnNames()
+                .validateFileManagerGridColumn();
+
+    }
 }
 
 

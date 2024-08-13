@@ -32,19 +32,21 @@
             <!--            </class>-->
 <!--            <class name="com.westminster.testcases.admin.TC_DataManager">-->
 <!--                <methods>-->
-<!--                    <include name="userPreferenceDecimalCheck"/>-->
+<!--                    <include name="verifyRestoreAllColumns"/>-->
+<!--                    &lt;!&ndash;                    <include name="userPreferenceNumberFormat"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    <include name="userPreferenceDateFormat"/>&ndash;&gt;-->
 
 <!--                </methods>-->
 <!--            </class>-->
 
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
-<!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-<!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
-<!--                <methods>&ndash;&gt;-->
-<!--                    <include name="createNewBudget"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
+            <!--                        <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
+            <!--                            <methods>&ndash;&gt;-->
+            <!--                                <include name="createNewBudget"/>-->
+            <!--                            </methods>-->
+            <!--                        </class>-->
             <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
         </classes>
     </test>

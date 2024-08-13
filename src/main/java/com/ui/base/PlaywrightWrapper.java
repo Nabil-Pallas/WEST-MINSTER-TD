@@ -1757,4 +1757,8 @@ public class PlaywrightWrapper extends Reporter {
         });
     }
 
+    public void dragAndDrop(String draggable, String droppable){
+        pause("low");
+        getPage().locator(draggable).dragTo(getPage().locator(droppable));
+    }
 }

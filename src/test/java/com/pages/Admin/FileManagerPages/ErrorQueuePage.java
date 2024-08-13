@@ -19,8 +19,8 @@ public class ErrorQueuePage extends FileManagerPage {
     private String saveBtn = "(//a[contains(text(),'Save')])[2]";
     private String filterByLocator = "//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']";
     private String rowCountLocator = "//div[@id='error-queue-row-count']";
-    private static long rCount;
-    private static long rowCount;
+    public static long rCount;
+    public static long rowCount;
     private static long duplicateRowCount;
 
 
@@ -271,6 +271,7 @@ public class ErrorQueuePage extends FileManagerPage {
         System.out.println(rowCount);
         String rowCountNum = rowCount.replaceAll("Row Count: ", "");
         rCount = Long.parseLong(rowCountNum);
+        reportPass("Error Queue page row count: "+rCount);
         System.out.println(rCount);
         return this;
     }
@@ -284,7 +285,8 @@ public class ErrorQueuePage extends FileManagerPage {
         String rCount = getInnerText("//div[@id='error-queue-row-count']");
         String rowCountNum = rCount.replaceAll("Row Count: ", "");
         rowCount = Long.parseLong(rowCountNum);
-        System.out.println(rowCount);
+        reportPass("Error queue page final row count: "+rowCount);
+        System.out.println("Error queue page final row count: "+rowCount);
         return this;
     }
 
@@ -369,6 +371,7 @@ public class ErrorQueuePage extends FileManagerPage {
         } else {
             reportFail("failed to promote. Now row count in Validation errors: " + invalidCellCount);
         }
+        pause("medium");
 
         return this;
     }
@@ -382,5 +385,7 @@ public class ErrorQueuePage extends FileManagerPage {
         click(frameSpanExactTextLocator("Cancel", 2), "Cancel");
         return this;
     }
+
+
 
 }

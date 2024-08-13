@@ -638,7 +638,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     @Test(priority = 14, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateBulkEditAndPromote() {
         testcaseName = "TC_RE_6089";
-        testDescription = "Validate bulk Edit in error queue page and promote";
+        testDescription = "Validate bulk Edit in error queue page and promote with checking date validation";
         authors = "Automation Team";
         category = "Error Queue";
         startTestCase();
@@ -660,8 +660,10 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())
-                .selectExistingMapping("TestCaseMap")
-                .clickOnDefineMapping()
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"), Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName.get())
@@ -679,7 +681,9 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnPromoteRows()
                 .clickFilterAndSelectValidationErrors()
                 .getRowCountInErrorQueuePage()
-                .validateRowCountForValidationError();
+                .clickOnExitBtn()
+                .validateRowCountForValidationError()
+                .validateFileNameInFileManagerGridAndDelete(fileName.get());
     }
 
 
@@ -799,6 +803,59 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .validateRowCount(getRowCounts.get(), 10);
 
         System.out.println("TC-----------TC_RE_5574");
+    }
+
+    //Phase -02 --Nabil
+    //TC_RE_722 -
+    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void validateErrorQueueWBulkEdit() {
+        testcaseName = "TC_RE_722";
+        testDescription = "validation of Bulk Edit Row in Error Queue Page";
+        authors = "Automation Team";
+        category = "Error Validation";
+        startTestCase();
+        setNode();
+
+        getTradeDate.set(FakerDataFactory.getPastDate());
+        getSettlementDate.set(FakerDataFactory.getFutureDate());
+        filePath.set("./src/test/resources/upload/100_rows_W_5error_rows.csv");
+        fileName.set("100_rows_W_5error_rows.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .clickOnFileManager()
+                .validateFileUpload(fileName.get())
+                .getErrorRowCount(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .errorQueuePageRowCount()
+                .clickFilterAndSelectInvalidDateFormat()
+                .clickOnSelectAll()
+                .clickOnBulkEditRows()
+                .validateBulkEditRowsPage()
+                .editInvalidRowInfo(getTradeDate.get(), getSettlementDate.get())
+                .clickOnApplyBtn()
+                .validateErrorQueuePage()
+                .clickFilterAndSelectValidatedRows()
+                .clickOnSelectAll()
+                .clickOnPromoteRows()
+                .errorQueuePageRowCountAfterPromote()
+                .clickOnExitBtn()
+                .getErrorRowCount(fileName.get())
+                .validateBulkEditRowCount();
+//                        .validateFileNameInFileManagerGridAndDelete(fileName.get());
+        System.out.println("TC-----------TC_722");
     }
 
 

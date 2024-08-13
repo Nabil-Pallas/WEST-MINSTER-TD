@@ -19,13 +19,11 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-                        <class name="com.westminster.testcases.admin.TC_FileManager">
-                            <methods>
-<!--                                <include name="validateBulkEditAndPromote"/>-->
-                                <include name="validateErrorQueueWSingleEdit"/>
-
-                            </methods>
-                        </class>
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
+                <methods>
+                    <include name="validateBudgetCreationWithInvalidDateRange"/>
+                </methods>
+            </class>
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
             <!--                <methods>-->
             <!--                    <exclude name="impersonateUser"/>-->
@@ -40,14 +38,7 @@
 
 <!--                </methods>-->
 <!--            </class>-->
-<!--            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">-->
-<!--                <methods>-->
-<!--&lt;!&ndash;                    <include name="userPreferenceDecimalCheck"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <include name="userPreferenceNumberFormat"/>&ndash;&gt;-->
-<!--                    <include name="userPreferenceLocalTimezone"/>-->
 
-<!--                </methods>-->
-<!--            </class>-->
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
 <!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->

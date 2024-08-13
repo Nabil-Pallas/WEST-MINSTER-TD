@@ -103,7 +103,7 @@ public class TC_AccountSettings extends WestMinsterPageHook {
 
     //Phase -02 --Nabil
     //TC_RE_5812
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void userPreferenceDateFormat() throws ParseException {
         testcaseName = "TC_RE_5812";
         testDescription = "Set user preference Date Format";
@@ -151,7 +151,7 @@ public class TC_AccountSettings extends WestMinsterPageHook {
 
     //Phase -02 --Nabil
     //TC_RE_5815
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void userPreferenceTimeFormat() {
         testcaseName = "TC_RE_5815";
         testDescription = "Set user preference Time Format";
@@ -197,7 +197,7 @@ public class TC_AccountSettings extends WestMinsterPageHook {
 
     //Phase -02 --Nabil
     //TC_RE_6175
-    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void userPreferenceLocalTimezone() {
         testcaseName = "TC_RE_6175";
         testDescription = "Set user preference Local Timezone";

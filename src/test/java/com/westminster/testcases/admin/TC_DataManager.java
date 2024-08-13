@@ -430,7 +430,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Phase - 2 - Manoj
     //TC_RE_1767 - Check if a warning message appears when refreshing the page during bulk editing.
-    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 9, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyWarningOnRefreshDuringBulkEdit() {
         testcaseName = "TC_RE_1767";
         testDescription = "Verify Duplicate Detection For Multiple Trades";
@@ -462,7 +462,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Phase - 2 - Nabil
     //TC_RE_1683 -
-    @Test(priority = 8, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyRestoreAllColumns() {
         testcaseName = "TC_RE_1683";
         testDescription = "Verify restore all columns in Data Manager and Error Queue";

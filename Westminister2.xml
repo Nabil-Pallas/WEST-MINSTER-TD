@@ -20,11 +20,9 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <class name="com.westminster.testcases.admin.TC_FileManager">
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
                 <methods>
-                    <!--                                <include name="validateBulkEditAndPromote"/>-->
-                    <include name="validateErrorQueueWSingleEdit"/>
-
+                    <include name="validateBudgetCreationWithInvalidDateRange"/>
                 </methods>
             </class>
         <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
@@ -47,18 +45,19 @@
         <!--&lt;!&ndash;                    <include name="userPreferenceNumberFormat"/>&ndash;&gt;-->
         <!--                    <include name="userPreferenceLocalTimezone"/>-->
 
-        <!--                </methods>-->
-        <!--            </class>-->
-        <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
-        <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
-        <!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-        <!--                        <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
-        <!--                            <methods>&ndash;&gt;-->
-        <!--                                <include name="createNewBudget"/>-->
-        <!--                            </methods>-->
-        <!--                        </class>-->
-        <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
-    </classes>
+<!--                </methods>-->
+<!--            </class>-->
+
+            <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
+            <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
+            <!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
+            <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
+            <!--                <methods>&ndash;&gt;-->
+            <!--                    <include name="createNewBudget"/>-->
+            <!--                </methods>-->
+            <!--            </class>-->
+            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
+        </classes>
     </test>
     <!--
      <test thread-count="5" name="WestminsterTest2">

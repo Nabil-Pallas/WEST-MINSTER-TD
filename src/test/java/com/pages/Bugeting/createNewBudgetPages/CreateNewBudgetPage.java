@@ -8,6 +8,8 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
 
     String viewBudgetText = "//h1[text()='View Budget']";
 
+    private String budgetDateErrorText = "//span[contains(text(),'Beginning date and ending date must be in chronological order.')]";
+
     public CreateNewBudgetPage validateViewBudget() {
         waitForElementToLoad(viewBudgetText);
         if (isVisible(viewBudgetText, "View Budget Text")) {
@@ -95,7 +97,9 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
 
     public CreateNewBudgetPage selectBrokerName() {
         pause("medium");
-        clickAndChoose("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]", "(//div[@class='dx-scrollview-content']/div[1])[2]", "brokerName", "Broker Name");
+        clickAndChoose("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]", "(//div[@class='dx-scrollview-content']/div[1])[2]", "Broker Name", "Broker Name");
+//        clickAndChoose("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]", "(//div[@role="listbox"]//div[@role='option'])[1]", "Broker Name", "Broker Name");
+
         pause("medium");
         return this;
     }
@@ -129,6 +133,7 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
         return this;
     }
 
+
     public CreateNewBudgetPage addNewBudget(String budgetName, String beginDate, String endDate, String targetColumn, String budgetBy, String brokerCode, String targetAmount) {
         pause("medium");
         clickAndSelectTargetColumn(targetColumn)
@@ -139,6 +144,16 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
                 .typeEndDate(endDate)
                 .selectBudgetBy(budgetBy);
         reportPass("User successfully created the New Budget");
+        return this;
+    }
+
+
+    //Validate Invalid Budget Date Error
+    public CreateNewBudgetPage validateInvalidBudgetDateError(String errorText) {
+        waitForElementToLoad(budgetDateErrorText);
+        String getInnerText = getInnerText(budgetDateErrorText);
+        Assert.assertEquals(getInnerText, errorText);
+        reportPass("User successfully Validated the Invalid Budget Date Error : " + getInnerText);
         return this;
     }
 }

@@ -23,6 +23,7 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> userMailIdText = new ThreadLocal<>();
     public static final ThreadLocal<String> ruleName = new ThreadLocal<>();
     public static final ThreadLocal<String> getFirstRuleNametext = new ThreadLocal<>();
+    public static final ThreadLocal<String> getTime = new ThreadLocal<>();
     public static final ThreadLocal<String> newListName = new ThreadLocal<>();
     public static final ThreadLocal<List<String>> listItems = new ThreadLocal<>();
     public static final ThreadLocal<List<String>> getTexts = new ThreadLocal<>();

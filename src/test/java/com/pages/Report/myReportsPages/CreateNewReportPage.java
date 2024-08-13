@@ -3,6 +3,9 @@ package com.pages.Report.myReportsPages;
 import com.pages.Report.ReportsPage;
 import org.testng.Assert;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CreateNewReportPage extends ReportsPage {
 
     protected String newReportsText = "//h1[text()='New Report']";
@@ -187,6 +190,7 @@ public class CreateNewReportPage extends ReportsPage {
     }
 
     public CreateNewReportPage clickOnViewReport() {
+
         pause("low");
         click(frameSpanTextLocator("View Report"), "View Report");
         pause("medium");

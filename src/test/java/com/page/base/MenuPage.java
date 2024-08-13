@@ -319,7 +319,7 @@ public class MenuPage extends WestMinsterPageHook {
         System.out.println("list size ranges: "+texts.size());
         Random random = new Random();
         int min = 1;
-        int max = 550;
+        int max = texts.size();
         randomNumber = random.nextInt(max - min + 1) + min;
         System.out.println("random number is: "+ randomNumber);
         click("//div[@class='wdx-custom-dropdown__text']/div[text()='"+texts.get(randomNumber)+"']","option");

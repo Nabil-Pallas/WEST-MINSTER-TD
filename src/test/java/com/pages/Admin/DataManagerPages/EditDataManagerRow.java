@@ -341,8 +341,10 @@ public class EditDataManagerRow extends DataManagerPage {
 
     public EditDataManagerRow refreshPageAndCancelDialog() {
 //        reLoadPage();
-        refreshPageToCurrentURL();
-//        refreshPageUsingJavaScript();
+//        refreshPageToCurrentURL();
+        pause("medium");
+        pause("medium");
+        refreshPageUsingJavaScript();
         pause("medium");
         pause("medium");
         handleDialogCancel();

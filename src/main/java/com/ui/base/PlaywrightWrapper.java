@@ -1743,6 +1743,7 @@ public class PlaywrightWrapper extends Reporter {
         // Listen for dialog events on the page
         System.out.println("........");
         getPage().onDialog(dialog -> {
+            System.out.println("alert message: "+dialog.message());
             dialog.dismiss();
             System.out.println("HandleDialogCancel");
             // Check if the dialog type is 'confirm' or any relevant type where cancellation is needed
@@ -1754,4 +1755,8 @@ public class PlaywrightWrapper extends Reporter {
         });
     }
 
+    public void dragAndDrop(String draggable, String droppable){
+        pause("low");
+        getPage().locator(draggable).dragTo(getPage().locator(droppable));
+    }
 }

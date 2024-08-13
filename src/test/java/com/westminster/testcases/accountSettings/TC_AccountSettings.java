@@ -196,11 +196,11 @@ public class TC_AccountSettings extends WestMinsterPageHook {
     }
 
     //Phase -02 --Nabil
-    //TC_RE_5812
+    //TC_RE_6175
     @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void userPreferenceLocalTimezone() {
-        testcaseName = "TC_RE_5812";
-        testDescription = "Set user preference Date Format";
+        testcaseName = "TC_RE_6175";
+        testDescription = "Set user preference Local Timezone";
         authors = "Automation Team";
         category = "Account Settings";
         startTestCase();
@@ -228,9 +228,6 @@ public class TC_AccountSettings extends WestMinsterPageHook {
                 .getUploadDateInFileManager(fileName.get())
                 .getTimeInLocalTimezoneAfterFileUpload()
                 .validateLocalTimezonevalue();
-
-
-
     }
 
 }

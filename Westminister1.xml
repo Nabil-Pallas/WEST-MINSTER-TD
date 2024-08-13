@@ -21,7 +21,9 @@
         <classes>
                         <class name="com.westminster.testcases.admin.TC_FileManager">
                             <methods>
-                                <include name="verifyInvalidDateValueFormatFilter"/>
+<!--                                <include name="validateBulkEditAndPromote"/>-->
+                                <include name="validateDuplicateRowsInErrorQueue"/>
+
                             </methods>
                         </class>
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
@@ -32,20 +34,20 @@
             <!--            </class>-->
 <!--            <class name="com.westminster.testcases.admin.TC_DataManager">-->
 <!--                <methods>-->
-<!--                    <include name="userPreferenceDecimalCheck"/>-->
-<!--                    <include name="userPreferenceNumberFormat"/>-->
-<!--                    <include name="userPreferenceDateFormat"/>-->
+<!--                    <include name="verifyRestoreAllColumns"/>-->
+<!--&lt;!&ndash;                    <include name="userPreferenceNumberFormat"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include name="userPreferenceDateFormat"/>&ndash;&gt;-->
 
 <!--                </methods>-->
 <!--            </class>-->
-            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
-                <methods>
-<!--                    <include name="userPreferenceDecimalCheck"/>-->
-<!--                    <include name="userPreferenceNumberFormat"/>-->
-                    <include name="userPreferenceTimeFormat"/>
+<!--            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">-->
+<!--                <methods>-->
+<!--&lt;!&ndash;                    <include name="userPreferenceDecimalCheck"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include name="userPreferenceNumberFormat"/>&ndash;&gt;-->
+<!--                    <include name="userPreferenceLocalTimezone"/>-->
 
-                </methods>
-            </class>
+<!--                </methods>-->
+<!--            </class>-->
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
 <!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->

@@ -47,6 +47,7 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static long InitRowCounts = 0;
     public static long FinRowCounts = 0;
     public static long validRows = 0;
+    public static long errorRows = 0;
     public static final ThreadLocal<String> getTradeDate = new ThreadLocal<>();
     public static final ThreadLocal<String> getSettlementDate = new ThreadLocal<>();
     public static final ThreadLocal<String> number = new ThreadLocal<>();

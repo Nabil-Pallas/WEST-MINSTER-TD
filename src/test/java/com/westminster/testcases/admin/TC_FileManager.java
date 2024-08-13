@@ -424,8 +424,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     //Phase -02 --Nabil
-    //TC_RE_720 - In Error Queue Select single row and  edit the row to any particular column which indicates error.
-    //            This validation is done to ensure that the 'single edit' of a row in error queue is working as expected or  not.
+    //TC_RE_720 -
     @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateErrorQueueWSingleEdit() {
         testcaseName = "TC_RE_720";
@@ -465,7 +464,9 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .selectEditedRow(getTradeDate.get())
                 .clickOnPromoteRows()
                 .errorQueuePageRowCountAfterPromote()
-                .validateSingleEditRowCount();
+                .clickOnExitBtn()
+                .validateSingleEditRowCount()
+                .validateFileNameInFileManagerGridAndDelete(fileName.get());
     }
 
 
@@ -522,11 +523,11 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     //Phase -02 --Nabil
-    //TC_RE_5162
+    //TC_RE_5572
     @Test(priority = 12, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateDuplicateRowsInErrorQueue() {
-        testcaseName = "TC_RE_5162";
-        testDescription = "Validate duplicate rows in error queue page";
+        testcaseName = "TC_RE_5572";
+        testDescription = "Validate duplicate rows in Filter option in error queue page";
         authors = "Automation Team";
         category = "Error Queue";
         startTestCase();

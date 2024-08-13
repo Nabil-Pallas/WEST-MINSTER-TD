@@ -22,7 +22,7 @@
             <class name="com.westminster.testcases.admin.TC_FileManager">
                 <methods>
                     <!--                                <include name="validateBulkEditAndPromote"/>-->
-                    <include name="validateDuplicateRowsInErrorQueue"/>
+                    <include name="validateErrorQueueWSingleEdit"/>
 
                 </methods>
             </class>

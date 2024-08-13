@@ -298,6 +298,7 @@ public class ErrorQueuePage extends FileManagerPage {
         } else {
             reportFail("failed to validate. please check whether row has been promoted or not");
         }
+        pause("low");
         return this;
     }
 
@@ -315,6 +316,7 @@ public class ErrorQueuePage extends FileManagerPage {
         String rowCount = getInnerText("//div[@id='error-queue-row-count']");
         String replaceRowCount = rowCount.replaceAll("Row Count: ", "");
         duplicateRowCount = Long.parseLong(replaceRowCount);
+        reportPass("Duplicate Rows count in Error Queue page: " + duplicateRowCount);
         System.out.println("Duplicate Rows count: " + duplicateRowCount);
         return this;
     }

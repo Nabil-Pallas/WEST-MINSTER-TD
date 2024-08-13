@@ -74,8 +74,15 @@ public class AllBudgetsPage extends MenuPage {
         click("(//span[contains(text(),'Import New Budget')])[1]", "Import New Budget");
         waitForLoaderToDisappear();
         return new ImportBudgetPage();
-
     }
+
+    //Click on Import New Budget without readUpdatedValueInCsv
+    public ImportBudgetPage clickOnImportNewBudgetWithoutReadUpdatedValueInCsv() {
+        click("(//span[contains(text(),'Import New Budget')])[1]", "Import New Budget");
+        waitForLoaderToDisappear();
+        return new ImportBudgetPage();
+    }
+
 
     public AllBudgetsPage clickOnActionsBtn() {
         pause("medium");
@@ -237,6 +244,15 @@ public class AllBudgetsPage extends MenuPage {
         }
 
 
+        return new AllBudgetsPage();
+    }
+
+    //Validate Budget Already Exists Error
+    public AllBudgetsPage validateBudgetAlreadyExistsError(String errorText) {
+        waitForElementToLoad("//span[contains(text(),'" + errorText + "')]");
+        String getInnerText = getInnerText("//span[contains(text(),'" + errorText + "')]");
+        Assert.assertEquals(getInnerText, errorText);
+        reportPass("User successfully Validated the Invalid Budget Date Error : " + getInnerText);
         return new AllBudgetsPage();
     }
 

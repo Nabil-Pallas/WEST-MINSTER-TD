@@ -20,9 +20,9 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <class name="com.westminster.testcases.admin.TC_FileManager">
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
                 <methods>
-                    <include name="verifyInvalidDateValueFormatFilter"/>
+                    <include name="validateBudgetCreationWithInvalidDateRange"/>
                 </methods>
             </class>
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
@@ -39,14 +39,7 @@
 
 <!--                </methods>-->
 <!--            </class>-->
-            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
-                <methods>
-                    <!--                    <include name="userPreferenceDecimalCheck"/>-->
-                    <!--                    <include name="userPreferenceNumberFormat"/>-->
-                    <include name="userPreferenceTimeFormat"/>
 
-                </methods>
-            </class>
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
             <!--                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->

@@ -178,7 +178,7 @@ public class TC_Reports extends WestMinsterPageHook {
 
     //Phase -02 --Manoj
     //TC_RE_1746 - Verify whether a automatic delivery schedule for an report can be cancelled or disabled.
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void verifyReportDateCreatedColumn() {
         testcaseName = "TC_RE_1746";
         testDescription = "Report Delivery";

@@ -104,7 +104,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
 
     //Phase -02 --Manoj
     //TC_RE_4428 - Verify that whether the Budgeting system allows the uploading of duplicate budget files
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void checkDuplicateBudgetFileUpload() {
         testcaseName = "TC_RE_4428";
         testDescription = "Check Duplicate Budget File Upload";
@@ -137,7 +137,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
 
     //Phase -02 --Manoj
     //TC_RE_4429 - Verify that whether the system restricts Creating a new budget with invalid date range.
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void validateBudgetCreationWithInvalidDateRange() {
         testcaseName = "TC_RE_4429";
         testDescription = "Validate Budget Creation With Invalid Date Range";

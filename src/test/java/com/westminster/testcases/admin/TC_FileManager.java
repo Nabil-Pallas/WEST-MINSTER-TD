@@ -807,7 +807,7 @@ public class TC_FileManager extends WestMinsterPageHook {
 
     //Phase -02 --Nabil
     //TC_RE_722 -
-    @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 18, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateErrorQueueWBulkEdit() {
         testcaseName = "TC_RE_722";
         testDescription = "validation of Bulk Edit Row in Error Queue Page";

@@ -1522,6 +1522,7 @@ public class PlaywrightWrapper extends Reporter {
         // Navigate to the current URL to refresh the page
         getPage().navigate(currentUrl);
         System.out.println("Refresh Page To CurrentURL");
+        getPage().waitForLoadState();
     }
 
     /**
@@ -1743,7 +1744,8 @@ public class PlaywrightWrapper extends Reporter {
         // Listen for dialog events on the page
         System.out.println("........");
         getPage().onDialog(dialog -> {
-            System.out.println("alert message: "+dialog.message());
+            System.out.println("Dialog type: " + dialog.type());
+            System.out.println("Dialog message: " + dialog.message());
             dialog.dismiss();
             System.out.println("HandleDialogCancel");
             // Check if the dialog type is 'confirm' or any relevant type where cancellation is needed

@@ -22,11 +22,6 @@
             <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
             <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
             <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
-            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
-                <methods>
-                    <include name="validateBudgetCreationWithInvalidDateRange"/>
-                </methods>
-            </class>
         </classes>
     </test>
     <!--

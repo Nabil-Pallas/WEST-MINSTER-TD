@@ -19,9 +19,9 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
+            <class name="com.westminster.testcases.admin.TC_FileManager">
                 <methods>
-                    <include name="validateBudgetCreationWithInvalidDateRange"/>
+                    <include name="verifyDataMappingRefreshAfterInvalidEntryDeletion"/>
                 </methods>
             </class>
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->

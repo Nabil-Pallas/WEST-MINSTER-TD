@@ -47,7 +47,7 @@ public class DashboardPage extends MenuPage {
         waitForLoaderToDisappear();
         waitForElementToLoad(dashboardHover);
         if (getPage().title().contains("Dashboard | Westminster")) {
-            reportStep("User successfully reached the correct Dashboard page","info");
+            reportStep("User successfully reached the correct Dashboard page", "info");
         } else {
             reportFailAndThrowException("Dashboard page is not loaded.");
         }
@@ -58,8 +58,8 @@ public class DashboardPage extends MenuPage {
     public DashboardPage validateImpersonatingAsUserText() {
         waitForLoaderToDisappear();
         waitForElementToLoad(impersonatingAsUserText);
-        if (isVisible(impersonatingAsUserText,"impersonating a user Text.")) {
-            reportStep("User successfully Impersonated the User","pass");
+        if (isVisible(impersonatingAsUserText, "impersonating a user Text.")) {
+            reportStep("User successfully Impersonated the User", "pass");
         } else {
             reportFailAndThrowException("User Unable to Impersonate.");
         }
@@ -72,8 +72,8 @@ public class DashboardPage extends MenuPage {
                 .clickAccountSettingsBtn()
                 .waitForLoaderToDisappear();
         waitForLoaderToDisappear();
-        System.out.println(getInputText("//input[contains(@id,'_email')]")+"---");
-        boolean AssertStatus = verifyInputText("//input[contains(@id,'_email')]",email);
+        System.out.println(getInputText("//input[contains(@id,'_email')]") + "---");
+        boolean AssertStatus = verifyInputText("//input[contains(@id,'_email')]", email);
         Assert.assertTrue(AssertStatus);
         return this;
 

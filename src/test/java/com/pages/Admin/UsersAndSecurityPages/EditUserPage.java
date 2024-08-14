@@ -44,9 +44,9 @@ public class EditUserPage extends UserSecurityPage {
         return this;
     }
 
-    public EditUserPage clickAndselectRole(String roleTier,String role) {
+    public EditUserPage clickAndselectRole(String roleTier, String role) {
         pause("low");
-        clickAndChoose(frameClientDetailsLocator("Roles", 1), selectRolesCheckBox(roleTier,role), role, "Roles");
+        clickAndChoose(frameClientDetailsLocator("Roles", 1), selectRolesCheckBox(roleTier, role), role, "Roles");
         return this;
     }
 

@@ -3,6 +3,9 @@ package com.pages.Admin.DataManagerPages;
 
 import org.testng.Assert;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AddNewRowPage extends DataManagerPage {
 
     //Locator For Add New Row Button
@@ -13,7 +16,7 @@ public class AddNewRowPage extends DataManagerPage {
 
     //Validate the Add New Row Page
     public AddNewRowPage validateAddNewRowPage() {
-//        waitForElementToLoad(addNewRowText);
+        waitForElementToLoad(addNewRowText);
         if (isVisible(addNewRowText, "AddNewRowPage")) {
             reportPass("User reaches to the right Add New Row Page");
         } else {
@@ -52,6 +55,7 @@ public class AddNewRowPage extends DataManagerPage {
         return this;
     }
 
+
     // Type The Account Name
     public AddNewRowPage typeAccountName(String accountName) {
         try {
@@ -82,7 +86,7 @@ public class AddNewRowPage extends DataManagerPage {
 
     // Type The Base Gross Commission
     public AddNewRowPage typeBaseGrossCommission(String BaseGrossCommission) {
-        type(frameClientDetailsLocator("Base  Gross  Commission:", 2), BaseGrossCommission, "BaseGrossCommission");
+        typeWithType(frameClientDetailsLocator("Base  Gross  Commission:", 2), BaseGrossCommission, "BaseGrossCommission");
         return this;
     }
 
@@ -219,12 +223,12 @@ public class AddNewRowPage extends DataManagerPage {
     }
 
     //Click  the Add Button
-    public AddNewRowPage clickOnAddBtn() {
+    public DataManagerPage clickOnAddBtn() {
         click(addBtn, "Add Button");
         pause("low");
 //        waitForLoaderToDisappear();
 //        waitForAppearance(addBtn);
-        return this;
+        return new DataManagerPage();
     }
 
     //Validate the trade date error message
@@ -348,6 +352,19 @@ public class AddNewRowPage extends DataManagerPage {
         selectBrokerName(brokerName)
                 .typeTradeDate(tradeDate)
                 .typeSettlementDate(SettlementDate);
+        return this;
+    }
+
+    public AddNewRowPage addNewRow(String brokerName, String tradeDate, String SettlementDate, String baseGrossCommission) {
+        pause("medium");
+        typeBrokerName(brokerName);
+        pause("low");
+        typeTradeDate(tradeDate);
+        pause("low");
+        typeBaseGrossCommission(baseGrossCommission);
+        pause("low");
+        typeSettlementDate(SettlementDate);
+
         return this;
     }
 }

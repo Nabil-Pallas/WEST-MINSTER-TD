@@ -85,7 +85,7 @@ public class ErrorQueuePage extends FileManagerPage {
         pause("low");
         //select Invalid date value/format option from drop down
         waitForElementToLoad("//div[text()='Invalid date value/format']");
-        forceClick("//div[text()='Invalid date value/format']", "click Invalid date value","Select Option");
+        forceClick("//div[text()='Invalid date value/format']", "click Invalid date value", "Select Option");
         pause("low");
         waitForLoaderToDisappear();
         return new ErrorQueuePage();
@@ -100,7 +100,7 @@ public class ErrorQueuePage extends FileManagerPage {
         pause("low");
         //select Invalid date value/format option from drop down
         waitForElementToLoad("//div[text()='Validation errors']");
-        forceClick("//div[text()='Validation errors']", "Validation errors","Select Option");
+        forceClick("//div[text()='Validation errors']", "Validation errors", "Select Option");
         pause("low");
         waitForLoaderToDisappear();
         return new ErrorQueuePage();
@@ -115,7 +115,7 @@ public class ErrorQueuePage extends FileManagerPage {
         pause("low");
         //select Invalid date value/format option from drop down
         waitForElementToLoad("//div[text()='Validated Rows']");
-        forceClick("//div[text()='Validated Rows']", "Validated Rows","Select Option");
+        forceClick("//div[text()='Validated Rows']", "Validated Rows", "Select Option");
         pause("low");
         waitForLoaderToDisappear();
         return new ErrorQueuePage();
@@ -200,6 +200,24 @@ public class ErrorQueuePage extends FileManagerPage {
         return this;
     }
 
+    public ErrorQueuePage getAccountNameText(String verificationHeaders) {
+        waitForLoaderToDisappear();
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+
+        for (int i = 1; i <= headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+
+            if (verificationHeaders.contains(headerText)) {
+                String getAccounttextName = getInnerText("(//table)[3]//tr[1]//td[" + (i + 3) + "]");
+                List<String> list = Collections.singletonList(getAccounttextName);
+                listItems.set(list);
+                System.out.println("NAME :" + list);
+                reportPass("Successfully Account Name plus Icon is clicked");
+            }
+        }
+        return this;
+    }
 
     public ErrorQueuePage addAccountNameAsList(String verificationHeaders) {
         waitForLoaderToDisappear();
@@ -210,16 +228,10 @@ public class ErrorQueuePage extends FileManagerPage {
             String headerText = getInnerText(headerElement);
 
             if (verificationHeaders.contains(headerText)) {
-//                click("(//table)[3]//tr[1]//td[" + (i + 3) + "]", "Field");
-//                pause("low");
                 isVisible("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input/preceding::div[@aria-label='add']//i", "Account Name plus Icon");
                 click("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input/preceding::div[@aria-label='add']//i", "Account Name plus Icon");
                 click(frameSpanTextLocator("Yes"), "Yes");
-                String getAccounttextName = getInnerText("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input");
-                System.out.println("NAME :" + getAccounttextName);
-                List<String> list = Collections.singletonList(getAccounttextName);
-                listItems.set(list);
-                System.out.println("NAME :" + list);
+                pause("low");
                 reportPass("Successfully Account Name plus Icon is clicked");
             }
         }
@@ -311,15 +323,26 @@ public class ErrorQueuePage extends FileManagerPage {
         }
         return this;
     }
-public ErrorQueuePage validateRowCountForValidationError(){
 
-        if(invalidCellCount==0){
-reportPass("Successfully promoted rows. Now row count in Validation errors: "+invalidCellCount);
-        }else {
-            reportFail("failed to promote. Now row count in Validation errors: "+invalidCellCount);
+    public ErrorQueuePage validateRowCountForValidationError() {
+
+        if (invalidCellCount == 0) {
+            reportPass("Successfully promoted rows. Now row count in Validation errors: " + invalidCellCount);
+        } else {
+            reportFail("failed to promote. Now row count in Validation errors: " + invalidCellCount);
         }
 
         return this;
-}
+    }
+
+
+    public ErrorQueuePage clickFilterAndValidateChanges(String filterFieldName, String expectedValues) {
+        click(frameFieldFilterLocator(filterFieldName), filterFieldName, "Filter Icon");
+        waitForElementToLoad(frameDivTextLocator(expectedValues));
+        boolean verifyExactText = verifyExactText(frameDivTextLocator(expectedValues), expectedValues);
+        Assert.assertTrue(verifyExactText);
+        click(frameSpanExactTextLocator("Cancel", 2), "Cancel");
+        return this;
+    }
 
 }

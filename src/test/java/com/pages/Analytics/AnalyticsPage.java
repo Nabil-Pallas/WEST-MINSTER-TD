@@ -118,16 +118,16 @@ public class AnalyticsPage extends MenuPage {
         return this;
     }
 
-    public AnalyticsPage deleteAnalytics(String analysisName){
+    public AnalyticsPage deleteAnalytics(String analysisName) {
         waitForLoaderToDisappear();
         pause("low");
-        click("//h3[@title='"+analysisName+"']//following::div[@aria-label='Actions'][1]","Actions Button :"+analysisName);
+        click("//h3[@title='" + analysisName + "']//following::div[@aria-label='Actions'][1]", "Actions Button :" + analysisName);
         pause("low");
-        click(frameSpanTextLocator("Delete Analysis"),"Delete Analysis");
+        click(frameSpanTextLocator("Delete Analysis"), "Delete Analysis");
 
         pause("low");
         //Delete popup
-        click("//span[text()='Delete']","Delete Button");
+        click("//span[text()='Delete']", "Delete Button");
         pause("low");
         return this;
     }

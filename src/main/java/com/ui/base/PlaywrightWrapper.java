@@ -138,6 +138,7 @@ public class PlaywrightWrapper extends Reporter {
         }
         return bVisible;
     }
+
     public boolean isVisibleWithMinimumTime(String locator) {
         boolean bVisible = false;
         try {
@@ -618,6 +619,35 @@ public class PlaywrightWrapper extends Reporter {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }
         return false;
+    }
+
+    /**
+     * Use this method to get texts from all options in a dropdown.
+     *
+     * @param selectddLocator The locator to identify the dropdown
+     * @param optionLocator   The locator to identify the options within the dropdown
+     * @return A list of texts from the dropdown options
+     * @author Automation Team
+     */
+    public List<String> getDropdownTexts(String selectddLocator, String optionLocator) {
+        // Locate the dropdown element
+        Locator select = getPage().locator(selectddLocator);
+
+        // Locate all options within the dropdown
+        Locator options = select.locator(optionLocator);
+
+        // Get the count of option elements
+        int count = options.count();
+
+        // Create a list to store the text values
+        List<String> texts = new ArrayList<>();
+
+        // Loop through the options and get their text content
+        for (int i = 0; i < count; i++) {
+            texts.add(options.nth(i).innerText());
+        }
+
+        return texts;
     }
 
     /**

@@ -18,7 +18,6 @@ public class AddNewSystemColumnsPage extends FileManagerPage {
     public static List<String> addedColumnss;
 
 
-
     public AddNewSystemColumnsPage validateAddNewSystemColumnsPage() {
         waitForElementToLoad(addNewSystemColumnsText);
         if (isVisible(addNewSystemColumnsText, "Add New system Column(s)")) {

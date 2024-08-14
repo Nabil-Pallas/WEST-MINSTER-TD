@@ -96,7 +96,7 @@ public class FileManagerPage extends AdminPage {
         click(frameSelectMappingLocator("Select a mapping:"), "Select Mapping DropDown", "DropDown");
         pause("low");
         //click Existing Map From DropDown
-        forceClick("//div[contains(@title,'" + dataMap + "')]", "Existing DataMap","Drop down Value");
+        forceClick("//div[contains(@title,'" + dataMap + "')]", "Existing DataMap", "Drop down Value");
         pause("low");
         return this;
     }
@@ -221,7 +221,7 @@ public class FileManagerPage extends AdminPage {
             String valid = getInnerText(frameRowCountText("Valid Rows"));
             //validRows.set(Long.parseLong(valid));
             validRows = Long.parseLong(valid);
-            reportPass("Valid Rows Counts :"+validRows);
+            reportPass("Valid Rows Counts :" + validRows);
             System.out.println("---" + validRows);
         }
         return this;
@@ -242,7 +242,7 @@ public class FileManagerPage extends AdminPage {
 
 
     public FileMappingPage clickOnDefineMapping() {
-        waitForAppearance(frameSpanTextLocator("Define Mapping"),"Define Mapping Button");
+        waitForAppearance(frameSpanTextLocator("Define Mapping"), "Define Mapping Button");
         if (isVisible(frameSpanTextLocator("Define Mapping"))) {
             click(frameSpanTextLocator("Define Mapping"), "Define Mapping Button");
         } else {
@@ -255,7 +255,7 @@ public class FileManagerPage extends AdminPage {
     public AddNewRowPage deleteDataMaps(String dataMapName) {
         System.out.println("dataMapName----2----" + dataMapName);
         // clickOnViewDataMaps();
-        forceClick("(//table)[last()-1]//tr[1]/td[1]", "View data map","Action Button");
+        forceClick("(//table)[last()-1]//tr[1]/td[1]", "View data map", "Action Button");
         while (!isVisibleWithMinimumTime("//td[text()='" + dataMapName + "']")) {
             pressDownArrow("(//div[@class='dx-scrollable-container'])[4]");
         }
@@ -275,33 +275,33 @@ public class FileManagerPage extends AdminPage {
         return new AddNewRowPage();
     }
 
-    public ErrorQueuePage clickOnOpenErrorQueue(){
+    public ErrorQueuePage clickOnOpenErrorQueue() {
         waitForElementToLoad(openErrorQueueBtn);
-        click(openErrorQueueBtn,"Click Open Error Queue");
+        click(openErrorQueueBtn, "Click Open Error Queue");
         return new ErrorQueuePage();
     }
 
-    public FileManagerPage clickNotificationBadge(){
+    public FileManagerPage clickNotificationBadge() {
         waitForLoaderToDisappear();
-        click("//div[@id='header_notifications']","Notification");
+        click("//div[@id='header_notifications']", "Notification");
         reportPass("Successfully clicked notification Badge");
         return this;
     }
 
-    public FileManagerPage validateNotificationPage(){
+    public FileManagerPage validateNotificationPage() {
         waitForLoaderToDisappear();
-        if(isVisible("//h1[text()='Notifications']")){
+        if (isVisible("//h1[text()='Notifications']")) {
             reportPass("Successfully navigated to Notification page");
-        }else{
+        } else {
             reportFailAndThrowException("failed to Navigate");
         }
         return new FileManagerPage();
     }
 
-    public FileManagerPage getDuplicateRowsCount(){
+    public FileManagerPage getDuplicateRowsCount() {
         waitForLoaderToDisappear();
         String count = getInnerText(duplicateCount);
-        String dCount = count.replaceAll("Duplicate Rows: ","");
+        String dCount = count.replaceAll("Duplicate Rows: ", "");
         notificationDuplicateRowCount = Long.parseLong(dCount);
         return new FileManagerPage();
     }

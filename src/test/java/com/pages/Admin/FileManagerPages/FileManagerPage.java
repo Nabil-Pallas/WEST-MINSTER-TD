@@ -2,7 +2,19 @@ package com.pages.Admin.FileManagerPages;
 
 import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.AddNewRowPage;
+import com.pages.Admin.DataManagerPages.DataManagerPage;
 import org.testng.Assert;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static com.pages.Admin.FileManagerPages.ErrorQueuePage.rCount;
+import static com.pages.Admin.FileManagerPages.ErrorQueuePage.rowCount;
 
 
 public class FileManagerPage extends AdminPage {
@@ -22,7 +34,17 @@ public class FileManagerPage extends AdminPage {
     //xpath for Duplicate Rows in Notification page
     private String duplicateCount = "//div[@id='current-notification-message__text']//ul//li[1]";
 
+    //Duplicate count from Notification
     public static long notificationDuplicateRowCount;
+
+    //upload time from File Manager
+    public static String timeInFileManager;
+
+    //list of data Manager grid column
+    private static List<String> DatamanagerColumn = new ArrayList<>();
+
+    //list of columns to be added in Column Chooser
+    private static Set<String> chooserColumn = new HashSet<>();
 
 
     //Locator For Date Format
@@ -227,6 +249,29 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
+    public FileManagerPage getErrorRowCount(String fileName) {
+        //click Invalid Row Count for Given File Name
+        waitForLoaderToDisappear();
+        if (isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]")) {
+            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]", "Invalid Row", "Invalid RowLink");
+            pause("low");
+            String errorrows = getInnerText(frameRowCountText("Error Rows"));
+            //validRows.set(Long.parseLong(valid));
+            errorRows = Long.parseLong(errorrows);
+            reportPass("Error Rows Count: " + errorRows);
+            System.out.println("---" + errorRows);
+        }else {
+            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[1]","Invalid Row");
+            pause("low");
+            String errorrows = getInnerText(frameRowCountText("Error Rows"));
+            //validRows.set(Long.parseLong(valid));
+            errorRows = Long.parseLong(errorrows);
+            reportPass("Error Rows Count: " + errorRows);
+            System.out.println("---" + errorRows);
+        }
+        return this;
+    }
+
 
     public FileMappingPage clickOnModifyInvalidMap() {
         pause("low");
@@ -303,7 +348,143 @@ public class FileManagerPage extends AdminPage {
         String count = getInnerText(duplicateCount);
         String dCount = count.replaceAll("Duplicate Rows: ", "");
         notificationDuplicateRowCount = Long.parseLong(dCount);
+        reportPass("Duplicate rows count in Notification section: "+notificationDuplicateRowCount);
         return new FileManagerPage();
+    }
+
+    public FileManagerPage getUploadDateInFileManager(String fileName){
+        pause("medium");
+        waitForLoaderToDisappear();
+        String innertext=getInnerText("//tbody[@role='presentation']//tr[td[1] = '"+fileName+"']//td[3]//time");
+        String[] parts=innertext.split(", ",2);
+        timeInFileManager=parts[1];
+        System.out.println(timeInFileManager);
+//        if(preferenceTimeFormat.equals("24-hour")){
+//            // Split the time into hours and minutes
+//            String[] timeParts = timeInFileManager.split(":");
+//            int hour24 = Integer.parseInt(timeParts[0]);
+//            String minutes = timeParts[1];
+//            String seconds = timeParts[2];
+//
+//            // Determine AM/PM
+//            String amPm = hour24 >= 12 ? "PM" : "AM";
+//
+//            // Convert hour from 24-hour format to 12-hour format
+//            int hour12 = hour24 % 12;
+//            if (hour12 == 0) {
+//                hour12 = 12; // Midnight or Noon
+//            }
+
+            // Format hours and minutes into 12-hour time
+//            timeInFileManager = String.format("%02d:%s %s", hour12, minutes, seconds, amPm);
+//            System.out.println("time in 24-hour converted into 12-hour "+timeInFileManager);
+//            reportPass("Successfully converted 24-hour format time to 12-hour format");
+//        }
+        reportPass("Captured fileUpload time from File Manager: "+timeInFileManager);
+        return this;
+    }
+
+//    public FileManagerPage validateLocalTimezonevalue(){
+//
+//        System.out.println("before time: "+currentTimeBeforeFileUpload);
+//        System.out.println("upload time"+timeInFileManager);
+//        System.out.println("After time: "+currentTimeAfterFileUpload);
+//        return this;
+//    }
+
+    public FileManagerPage validateBulkEditRowCount() {
+        System.out.println("final count: " + rowCount);
+        System.out.println("error rows: " + errorRows);
+        if (rowCount == errorRows) {
+            reportPass("Successfully edited and promoted the row");
+        } else {
+            reportFail("failed to validate. please check whether row has been promoted or not");
+        }
+        return this;
+    }
+
+    public FileManagerPage getFileManagerGridColumnNames(){
+        pause("medium");
+        DatamanagerColumn.clear();
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i <=headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            DatamanagerColumn.add(headerText);
+        }
+        return this;
+    }
+
+    public FileManagerPage validateFileManagerGridColumn(){
+        pause("low");
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (String s : chooserColumn) {
+            for (String string : DatamanagerColumn) {
+                if (string.equals(s)) {
+                    boolean result = true;
+                    reportPass("Column: "+s+" - found in Error Queue Grid");
+                    System.out.println("Column: "+s+" - found in Error Queue Grid");
+                    Assert.assertTrue(result);
+                    break;
+                }
+            }
+        }
+        return this;
+    }
+
+    public FileManagerPage clickOnShowColumnChooser(){
+        pause("medium");
+        waitForElementToLoad(frameSpanExactTextLocator("Show Column Chooser"));
+        waitForLoaderToDisappear();
+        click(frameSpanExactTextLocator("Show Column Chooser"),"Show Column Chooser");
+        return this;
+    }
+
+    public FileManagerPage clickOnCloseColumnChooser(){
+        pause("low");
+        click("//i[contains(@class,'dx-icon-close')]","Close icon");
+        pause("low");
+        return this;
+    }
+
+    public FileManagerPage dragAndDropColumnInColumnChooser(List<String> columnName){
+        pause("low");
+        for (int index = 0; index < columnName.size(); index++) {
+            dragAndDrop("//div[text()='" + columnName.get(index) + "']", frameDivTextLocator("Column Chooser"));
+            chooserColumn.add(columnName.get(index));
+            reportPass("Successfully dropped column: "+columnName.get(index)+" in show column chooser");
+            System.out.println("successfully dropped in column chooser");
+        }
+
+        return this;
+    }
+
+    public FileManagerPage valiateColumnsAgainstColumnChooser(){
+        System.out.println("DataMnager list size: "+DatamanagerColumn);
+        System.out.println("chooser column list size: "+chooserColumn);
+
+        for (String s : chooserColumn) {
+            for (String string : DatamanagerColumn) {
+                if (string.equals(s)) {
+                    boolean result = true;
+                    reportFail("Failed to move column: " +s+" to column chooser");
+                    System.out.println("Failed to move column: " +s+" to column chooser");
+                    Assert.assertFalse(result);
+                    break;
+                }
+            }
+        }
+        reportPass("Successfully validated. Columns \"moved to Show Column Chooser\" are not visible in Error Queue Grid.");
+        return this;
+    }
+
+    public FileManagerPage clickOnRestoreAllColumns(){
+        pause("low");
+        click(frameSpanExactTextLocator("Restore All Columns"),"Restore all columns button");
+        reportPass("Columns restored back to Error Queue Grid");
+
+        pause("low");
+        return this;
     }
 
 }

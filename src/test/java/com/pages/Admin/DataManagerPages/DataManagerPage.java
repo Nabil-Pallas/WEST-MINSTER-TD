@@ -1,15 +1,23 @@
 package com.pages.Admin.DataManagerPages;
 
+import com.beust.ah.A;
 import com.pages.Admin.AdminPage;
+import com.pages.Admin.FileManagerPages.FileManagerPage;
 import org.testng.Assert;
 
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DataManagerPage extends AdminPage {
+    // variable for "alidateAddedRowWDecimalAndNumberFormat" method
     public static String valuee;
 
     //Locator for Data Manager
@@ -44,6 +52,18 @@ public class DataManagerPage extends AdminPage {
 
     //Locator for Bulk Edit Rows
     private String bulkEditBtn = "(//span[text()='Bulk Edit Rows'])[1]";
+
+    //variable used for validate date format
+    public static String validDate;
+
+    //variable for upload date in data manager
+    public  static String timeInDataManager;
+
+    //list of data Manager grid column
+    private static List<String> DatamanagerColumn = new ArrayList<>();
+
+    //list of columns to be added in Column Chooser
+    private static Set<String> chooserColumn = new HashSet<>();
 
     //Validate Data Manager Page
     public AddNewColumnPage validateDataManagerPage() {
@@ -301,7 +321,6 @@ public class DataManagerPage extends AdminPage {
         waitForLoaderToDisappear();
 //        pause("medium");
         for (int i = 1; i < 9; i++) {
-            System.out.println(i);
             waitForLoaderToDisappear();
             forceClick("(//div[@aria-label='Select row'])[" + i + "]", "select option", "`checkbox");
 //            pause("medium");
@@ -371,13 +390,13 @@ public class DataManagerPage extends AdminPage {
         return this;
     }
 
-    public DataManagerPage validateAddedRowWDecimalPrecision(String VerificationValues, String verificationHeader1, String verificationHeader2) {
+    public DataManagerPage validateAddedRowWDecimalAndNumberFormat(String VerificationValues, String verificationHeader1, String verificationHeader2) {
         pause("medium");
         pause("medium");
         System.out.println("printing:---->" + decimalPrecision);
         switch (decimalPrecision) {
             case "3 decimals":
-                if (numberFormat.equals("# ##0,00")) {
+                if (preferenceNumberFormat.equals("# ##0,00")) {
                     double d = Double.parseDouble(number.get());
                     DecimalFormatSymbols symbols = new DecimalFormatSymbols();
                     symbols.setDecimalSeparator(',');
@@ -390,7 +409,7 @@ public class DataManagerPage extends AdminPage {
                 }
                 break;
             case "4 decimals":
-                if (numberFormat.equals("# ##0,00")) {
+                if (preferenceNumberFormat.equals("# ##0,00")) {
                     double d = Double.parseDouble(number.get());
                     DecimalFormatSymbols symbols = new DecimalFormatSymbols();
                     symbols.setDecimalSeparator(',');
@@ -403,7 +422,7 @@ public class DataManagerPage extends AdminPage {
                 }
                 break;
             case "5 decimals":
-                if (numberFormat.equals("# ##0,00")) {
+                if (preferenceNumberFormat.equals("# ##0,00")) {
                     double d = Double.parseDouble(number.get());
                     DecimalFormatSymbols symbols = new DecimalFormatSymbols();
                     symbols.setDecimalSeparator(',');
@@ -416,7 +435,7 @@ public class DataManagerPage extends AdminPage {
                 }
                 break;
             case "2 decimals":
-                if (numberFormat.equals("# ##0,00")) {
+                if (preferenceNumberFormat.equals("# ##0,00")) {
                     double d = Double.parseDouble(number.get());
                     DecimalFormatSymbols symbols = new DecimalFormatSymbols();
                     symbols.setDecimalSeparator(',');
@@ -429,7 +448,7 @@ public class DataManagerPage extends AdminPage {
                 }
                 break;
             default:
-                if (numberFormat.equals("# ##0,00")) {
+                if (preferenceNumberFormat.equals("# ##0,00")) {
                     double d = Double.parseDouble(number.get());
                     DecimalFormatSymbols symbols = new DecimalFormatSymbols();
                     symbols.setDecimalSeparator(',');
@@ -450,7 +469,7 @@ public class DataManagerPage extends AdminPage {
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
 //                click(searchValueWithHeader(i), "Search Filter", "Search Box");
 //                typeAndEnter(searchValueWithHeader(i), VerificationValues, VerificationValues);
-                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", VerificationValues, VerificationValues);
+                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 pause("low");
                 click("//span[text()='OK']", "filter OK button");
                 pause("medium");
@@ -465,18 +484,218 @@ public class DataManagerPage extends AdminPage {
                         String value = getInnerText("//td[text()='" + valuee + "']");
                         boolean verifyExactText = verifyInnerText(value, valuee);
                         Assert.assertTrue(verifyExactText);
-                        reportPass("Successfully validated Decimal Precision");
+                        reportPass("Successfully validated Decimal Precision & Number Format");
 
                     }
                 }
 
             }
         }
+        return new DataManagerPage();
+    }
+
+    public DataManagerPage clickOnClearAllFilters(){
         pause("medium");
         click("//span[text()='Clear All Filters']", "Clear All Filters");
         pause("medium");
         reportPass("Successfully cleared all filters for Broker Name column");
-        return new DataManagerPage();
+        return this;
+    }
+
+    public DataManagerPage validateAddedRowWDateFormat(String VerificationValues, String verificationHeader1, String verificationHeader2) throws ParseException {
+        pause("medium");
+        pause("medium");
+        System.out.println("printing:---->" + preferenceDateFormat);
+        switch (preferenceDateFormat){
+            case "DD/MM/YYYY":
+                String str = getTradeDate.get();
+                // Define the input date format
+                SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy");
+                // Define the output date format
+                SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+                // Parse the input date string
+                Date date = inputFormat.parse(str);
+                // Format the date to the desired output format
+                validDate = outputFormat.format(date);
+                break;
+
+            case "YYYY-MM-DD":
+                String str2 = getTradeDate.get();
+                // Define the input date format
+                SimpleDateFormat inputFormat2 = new SimpleDateFormat("MM/dd/yyyy");
+                // Define the output date format
+                SimpleDateFormat outputFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+                // Parse the input date string
+                Date date2 = inputFormat2.parse(str2);
+                // Format the date to the desired output format
+                validDate = outputFormat2.format(date2);
+                break;
+
+            default:
+                validDate=getTradeDate.get();
+                break;
+        }
+        // to locate broker name column and click filter
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i < headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader1)) {
+                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+                pause("low");
+                click("//span[text()='OK']", "filter OK button");
+                pause("medium");
+                pause("medium");
+                // scroll to desire column to get value
+                for (i = 1; i < headerCount; i++) {
+                    String header2Element = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+                    String header2Text = getInnerText(header2Element);
+                    if (header2Text.equalsIgnoreCase(verificationHeader2)) {
+//                    click("//div[text()='"+verificationHeader2+"']",verificationHeader2);
+                        scrollToElement("//div[text()='" + verificationHeader2 + "']");
+                        String value = getInnerText("//td[text()='" + validDate + "']");
+                        boolean verifyExactText = verifyInnerText(value, validDate);
+                        Assert.assertTrue(verifyExactText);
+                        reportPass("Successfully validated Date Format");
+
+                    }
+                }
+
+            }
+        }
+        return this;
+    }
+
+    public DataManagerPage getUploadDateFromDataManager(String verificationHeader1){
+        pause("medium");
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i < headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader1)) {
+                scrollToElement("//div[contains(@class,'dx-datagrid-rowsview')]//table[1]//tr[1]//td["+(i+2)+"]//time");
+                pause("low");
+                reportPass("Successfully Scrolled to "+verificationHeader1+" Column in Data Manager");
+                String str = getInnerText("//div[contains(@class,'dx-datagrid-rowsview')]//table[1]//tr[1]//td["+(i+2)+"]//time");
+                // Split the string at the first occurrence of ", "
+                String[] parts = str.split(", ", 2);
+                // Get the time part which is the second element in the array
+                timeInDataManager = parts[1];
+            }
+        }
+        return this;
+    }
+
+    public DataManagerPage validateTimeFormatInDataManager() {
+//        waitForLoaderToDisappear();
+        pause("medium");
+        if (preferenceTimeFormat.equals("12-hour")) {
+
+            // Regular expression for 12-hour time format (hh:mm:ss AM/PM)
+            String regex = "^(0[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9] (AM|PM)$";
+            // Compile the regex into a pattern
+            Pattern pattern = Pattern.compile(regex);
+            // Match the time string against the pattern
+            Matcher matcher = pattern.matcher(timeInDataManager);
+            boolean result = matcher.matches();
+            Assert.assertTrue(result);
+            reportPass("Successfully Validated 12-hour Time Format: "+timeInDataManager);
+        } else{
+            // Regular expression for 24-hour time format (HH:mm:ss)
+            String regex = "^(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$";
+            // Compile the regex into a pattern
+            Pattern pattern = Pattern.compile(regex);
+            // Match the time string against the pattern
+            Matcher matcher = pattern.matcher(timeInDataManager);
+            boolean result = matcher.matches();
+            Assert.assertTrue(result);
+            reportPass("Successfully Validated 24-hour Time Format: "+timeInDataManager);
+        }
+        return this;
+    }
+
+    public DataManagerPage getDataManagerGridColumnNames(){
+        pause("medium");
+        DatamanagerColumn.clear();
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i <=headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            DatamanagerColumn.add(headerText);
+        }
+        return this;
+    }
+
+    public DataManagerPage validateDataManagerGridColumn(){
+        pause("low");
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (String s : chooserColumn) {
+            for (String string : DatamanagerColumn) {
+                if (string.equals(s)) {
+                    boolean result = true;
+                    reportPass("Column: "+s+" - found in Data Manager Grid");
+                    System.out.println("Column: "+s+" - found in Data Manager Grid");
+                    Assert.assertTrue(result);
+                    break;
+                }
+            }
+        }
+        return this;
+    }
+
+    public DataManagerPage clickOnShowColumnChooser(){
+        pause("medium");
+        waitForElementToLoad(frameSpanExactTextLocator("Show Column Chooser"));
+        waitForLoaderToDisappear();
+        click(frameSpanExactTextLocator("Show Column Chooser"),"Show Column Chooser");
+        return this;
+    }
+
+    public DataManagerPage clickOnCloseColumnChooser(){
+        pause("low");
+        click("//i[contains(@class,'dx-icon-close')]","Close icon");
+        pause("low");
+        return this;
+    }
+
+    public DataManagerPage dragAndDropColumnInColumnChooser(List<String> columnName){
+        pause("low");
+        for (int index = 0; index < columnName.size(); index++) {
+            dragAndDrop("//div[text()='" + columnName.get(index) + "']", frameDivTextLocator("Column Chooser"));
+            chooserColumn.add(columnName.get(index));
+            reportPass("Successfully dropped column: "+columnName.get(index)+" in show column chooser");
+            System.out.println("successfully dropped in column chooser");
+        }
+
+        return this;
+    }
+
+    public DataManagerPage valiateColumnsAgainstColumnChooser(){
+        System.out.println("DataMnager list size: "+DatamanagerColumn);
+        System.out.println("chooser column list size: "+chooserColumn);
+
+        for (String s : chooserColumn) {
+            for (String string : DatamanagerColumn) {
+                if (string.equals(s)) {
+                    boolean result = true;
+                    reportFail("Failed to move column: " +s+" to column chooser");
+                    System.out.println("Failed to move column: " +s+" to column chooser");
+                    Assert.assertFalse(result);
+                    break;
+                }
+            }
+        }
+        reportPass("Successfully validated. Columns \"moved to Show Column Chooser\" are not visible in Data Manager Grid.");
+            return this;
+    }
+
+    public DataManagerPage clickOnRestoreAllColumns(){
+        pause("low");
+        click(frameSpanExactTextLocator("Restore All Columns"),"Restore all columns button");
+        reportPass("Columns restored back to Data Manager Grid");
+
+        pause("low");
+        return this;
     }
 
 }

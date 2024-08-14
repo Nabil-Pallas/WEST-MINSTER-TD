@@ -3,6 +3,7 @@ package com.westminster.testcases.budgeting;
 import java.util.Arrays;
 
 import com.config.ConfigurationManager;
+import com.pages.Bugeting.importBudgetPages.ImportBudgetPage;
 import com.ui.utilities.TestGroups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
@@ -17,7 +18,7 @@ import com.page.base.WestMinsterPageHook;
 public class TC_Budgeting extends WestMinsterPageHook {
 
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "Login with " + xmlUserLevel;
         testDescription = "Login with " + xmlUserLevel;
@@ -98,6 +99,65 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .validateImportedBudget()
                 .deleteImportedBudget();
         System.out.println("TC-----------TC_126");
+
+    }
+
+    //Phase -02 --Manoj
+    //TC_RE_4428 - Verify that whether the Budgeting system allows the uploading of duplicate budget files
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void checkDuplicateBudgetFileUpload() {
+        testcaseName = "TC_RE_4428";
+        testDescription = "Check Duplicate Budget File Upload";
+        authors = "Automation Team";
+        category = "Budget";
+        startTestCase();
+        setNode();
+
+        ruleName.set(FakerDataFactory.getCompanyNameWithoutSpace());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnBudgeting()
+                .validateAllBudgetsPage()
+                .setClient()
+                .clickOnImportNewBudget()
+                .validateImportBudgetPage()
+                .importBudget("./src/test/resources/upload/Budget_Import_Chrome.csv")
+                .clickImportBtn()
+                .searchValueOfImportedBudget("Name")
+                .validateImportedBudget()
+                .clickOnImportNewBudgetWithoutReadUpdatedValueInCsv()
+                .validateImportBudgetPage()
+                .importBudget("./src/test/resources/upload/Budget_Import_Chrome.csv")
+                .clickImportBtn()
+                .validateBudgetAlreadyExistsError("A Budget with the label and Target Column supplied already exists on the specified Client.");
+
+        System.out.println("TC-----------TC_RE_4428");
+
+    }
+
+    //Phase -02 --Manoj
+    //TC_RE_4429 - Verify that whether the system restricts Creating a new budget with invalid date range.
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void validateBudgetCreationWithInvalidDateRange() {
+        testcaseName = "TC_RE_4429";
+        testDescription = "Validate Budget Creation With Invalid Date Range";
+        authors = "Automation Team";
+        category = "Budget";
+        startTestCase();
+        setNode();
+
+        clientCompanyName.set(FakerDataFactory.getCompanyNameWithoutSpace());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnBudgeting()
+                .validateAllBudgetsPage()
+                .setClient()
+                .clickOnCreateNewBudget()
+                .addNewBudget(clientCompanyName.get(), "05/27/2024", "05/21/2024", "FX Rate", "Broker Name", "BMCUS", "1000.01")
+                .clickSaveItemBtn()
+                .clickSaveBudgetBtn()
+                .validateInvalidBudgetDateError("Beginning date and ending date must be in chronological order.");
+        System.out.println("TC-----------TC_RE_4429");
 
     }
 

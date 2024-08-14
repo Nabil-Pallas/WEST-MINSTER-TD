@@ -8,6 +8,9 @@ import com.pages.Report.myReportsPages.EditReportPage;
 import com.pages.Report.myReportsPages.ViewReportPage;
 import org.testng.Assert;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ReportsPage extends MenuPage {
 
     protected String reportsText = "//h1[text()='Reports']";
@@ -106,6 +109,13 @@ public class ReportsPage extends MenuPage {
         } else {
             reportFailAndThrowException("Report Page is not loaded.");
         }
+        return this;
+    }
+
+    public ReportsPage getTimeForCreateReport() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, HH:mm:ss");
+        getTime.set(formatter.format(date));
         return this;
     }
 

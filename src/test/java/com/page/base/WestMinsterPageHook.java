@@ -23,6 +23,7 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> userMailIdText = new ThreadLocal<>();
     public static final ThreadLocal<String> ruleName = new ThreadLocal<>();
     public static final ThreadLocal<String> getFirstRuleNametext = new ThreadLocal<>();
+    public static final ThreadLocal<String> getTime = new ThreadLocal<>();
     public static final ThreadLocal<String> newListName = new ThreadLocal<>();
     public static final ThreadLocal<List<String>> listItems = new ThreadLocal<>();
     public static final ThreadLocal<List<String>> getTexts = new ThreadLocal<>();
@@ -40,12 +41,14 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> fileName = new ThreadLocal<>();
     public static final ThreadLocal<String> fileName2 = new ThreadLocal<>();
     public static final ThreadLocal<String> DataMap = new ThreadLocal<>();
+    public static final ThreadLocal<Long> getRowCounts = new ThreadLocal<>();
     //public static final ThreadLocal<Long> InitRowCounts = new ThreadLocal<>();
     // public static final ThreadLocal<Long> FinRowCounts = new ThreadLocal<>();
-    // public static final ThreadLocal<Long> validRows = new ThreadLocal<>();
+
     public static long InitRowCounts = 0;
     public static long FinRowCounts = 0;
     public static long validRows = 0;
+    public static long errorRows = 0;
     public static final ThreadLocal<String> getTradeDate = new ThreadLocal<>();
     public static final ThreadLocal<String> getSettlementDate = new ThreadLocal<>();
     public static final ThreadLocal<String> number = new ThreadLocal<>();
@@ -144,8 +147,8 @@ public class WestMinsterPageHook extends ProjectHooks {
 
             // Load the page with URL based on configuration
             navigate(ConfigurationManager.configuration().baseStagingUrl());
-            new MenuPage().doLogin(userLevel, password);
-//                    .dateFormattingInPreferences();
+            new MenuPage().doLogin(userLevel, password)
+                    .dateFormattingInPreferences();
 
 
         } catch (Exception e) {

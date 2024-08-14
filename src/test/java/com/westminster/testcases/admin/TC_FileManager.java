@@ -424,8 +424,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     //Phase -02 --Nabil
-    //TC_RE_720 - In Error Queue Select single row and  edit the row to any particular column which indicates error.
-    //            This validation is done to ensure that the 'single edit' of a row in error queue is working as expected or  not.
+    //TC_RE_720 -
     @Test(priority = 10, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateErrorQueueWSingleEdit() {
         testcaseName = "TC_RE_720";
@@ -465,7 +464,9 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .selectEditedRow(getTradeDate.get())
                 .clickOnPromoteRows()
                 .errorQueuePageRowCountAfterPromote()
-                .validateSingleEditRowCount();
+                .clickOnExitBtn()
+                .validateSingleEditRowCount()
+                .validateFileNameInFileManagerGridAndDelete(fileName.get());
     }
 
 
@@ -522,11 +523,11 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     //Phase -02 --Nabil
-    //TC_RE_5162
+    //TC_RE_5572
     @Test(priority = 12, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateDuplicateRowsInErrorQueue() {
-        testcaseName = "TC_RE_5162";
-        testDescription = "Validate duplicate rows in error queue page";
+        testcaseName = "TC_RE_5572";
+        testDescription = "Validate duplicate rows in Filter option in error queue page";
         authors = "Automation Team";
         category = "Error Queue";
         startTestCase();
@@ -638,7 +639,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     @Test(priority = 14, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void validateBulkEditAndPromote() {
         testcaseName = "TC_RE_6089";
-        testDescription = "Validate bulk Edit in error queue page and promote";
+        testDescription = "Validate bulk Edit in error queue page and promote with checking date validation";
         authors = "Automation Team";
         category = "Error Queue";
         startTestCase();
@@ -660,8 +661,10 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())
-                .selectExistingMapping("TestCaseMap")
-                .clickOnDefineMapping()
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"), Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
                 .clickOnFinishMapping()
                 .validateFileUpload(fileName.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName.get())
@@ -679,7 +682,9 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnPromoteRows()
                 .clickFilterAndSelectValidationErrors()
                 .getRowCountInErrorQueuePage()
-                .validateRowCountForValidationError();
+                .clickOnExitBtn()
+                .validateRowCountForValidationError()
+                .validateFileNameInFileManagerGridAndDelete(fileName.get());
     }
 
 
@@ -726,4 +731,133 @@ public class TC_FileManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_5827");
     }
+
+    // Phase - 2 - Manoj
+    // TC_RE_5575 - Verify that the "Missing required value" filter within the "Show All" dropdown on the "Error Queue" screen correctly displays only the rows with missing required values.
+    @Test(priority = 16, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyMissingRequiredValueFilter() {
+        testcaseName = "TC_RE_5575";
+        testDescription = "Verify Missing Required Value Filter";
+        authors = "Automation Team";
+        category = "Error Queue";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/upload/Missing_Required_Fields.csv");
+        fileName.set("Missing_Required_Fields.csv");
+        DataMap.set(FakerDataFactory.getDataMapName());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"), Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .filterByOption("Missing required value")
+                .getErrorQueueRowCounts()
+                .validateRowCount(getRowCounts.get(), 10);
+
+        System.out.println("TC-----------TC_RE_5575");
+    }
+
+    // Phase - 2 - Manoj
+    // TC_RE_5574 - Verify that the "Invalid date/value format" filter within the "Show All" dropdown on the "Error Queue" screen accurately displays only the rows with invalid date or value formats.
+    @Test(priority = 17, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyInvalidDateValueFormatFilter() {
+        testcaseName = "TC_RE_5574";
+        testDescription = "Verify Invalid Date Value Format Filter";
+        authors = "Automation Team";
+        category = "Error Queue";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/upload/Invalid_Date_Format_Or_Value.csv.csv");
+        fileName.set("Invalid_Date_Format_Or_Value.csv.csv");
+        DataMap.set(FakerDataFactory.getDataMapName());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"), Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .filterByOption("Invalid date value/format")
+                .getErrorQueueRowCounts()
+                .validateRowCount(getRowCounts.get(), 10);
+
+        System.out.println("TC-----------TC_RE_5574");
+    }
+
+    //Phase -02 --Nabil
+    //TC_RE_722 -
+    @Test(priority = 18, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void validateErrorQueueWBulkEdit() {
+        testcaseName = "TC_RE_722";
+        testDescription = "validation of Bulk Edit Row in Error Queue Page";
+        authors = "Automation Team";
+        category = "Error Validation";
+        startTestCase();
+        setNode();
+
+        getTradeDate.set(FakerDataFactory.getPastDate());
+        getSettlementDate.set(FakerDataFactory.getFutureDate());
+        filePath.set("./src/test/resources/upload/100_rows_W_5error_rows.csv");
+        fileName.set("100_rows_W_5error_rows.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .clickOnFileManager()
+                .validateFileUpload(fileName.get())
+                .getErrorRowCount(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .errorQueuePageRowCount()
+                .clickFilterAndSelectInvalidDateFormat()
+                .clickOnSelectAll()
+                .clickOnBulkEditRows()
+                .validateBulkEditRowsPage()
+                .editInvalidRowInfo(getTradeDate.get(), getSettlementDate.get())
+                .clickOnApplyBtn()
+                .validateErrorQueuePage()
+                .clickFilterAndSelectValidatedRows()
+                .clickOnSelectAll()
+                .clickOnPromoteRows()
+                .errorQueuePageRowCountAfterPromote()
+                .clickOnExitBtn()
+                .getErrorRowCount(fileName.get())
+                .validateBulkEditRowCount();
+//                        .validateFileNameInFileManagerGridAndDelete(fileName.get());
+        System.out.println("TC-----------TC_722");
+    }
+
+
 }

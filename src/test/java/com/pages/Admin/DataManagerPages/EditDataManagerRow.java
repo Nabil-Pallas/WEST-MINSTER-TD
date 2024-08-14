@@ -318,6 +318,16 @@ public class EditDataManagerRow extends DataManagerPage {
         return this;
     }
 
+    public EditDataManagerRow editRowInformation(String brokerName, String tradeDate, String assetClass,
+                                                 String settlementDate) {
+        typeBrokerName(brokerName)
+                .typeTradeDate(tradeDate)
+                .typeAssetClass(assetClass)
+                .typeSettlementDate(settlementDate);
+        reportPass("User successfully verified all fields and entered values");
+        return this;
+    }
+
     public EditDataManagerRow validateChangeLog(int changeLog) {
 
         for (int i = 1; i <= changeLog; i++) {
@@ -326,6 +336,18 @@ public class EditDataManagerRow extends DataManagerPage {
             Assert.assertTrue(verifyExactText);
         }
         reportPass("User successfully verified that edited fields are displayed in change logs.");
+        return this;
+    }
+
+    public EditDataManagerRow refreshPageAndCancelDialog() {
+//        reLoadPage();
+//        refreshPageToCurrentURL();
+        pause("medium");
+        pause("medium");
+        refreshPageUsingJavaScript();
+        pause("medium");
+        pause("medium");
+        handleDialogCancel();
         return this;
     }
 

@@ -175,4 +175,50 @@ public class TC_Reports extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_4690");
     }
+
+    //Phase -02 --Manoj
+    //TC_RE_1746 - Verify whether a automatic delivery schedule for an report can be cancelled or disabled.
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void verifyReportDateCreatedColumn() {
+        testcaseName = "TC_RE_1746";
+        testDescription = "Report Delivery";
+        authors = "Automation Team";
+        category = "Report Delivery";
+        startTestCase();
+        setNode();
+
+        reportName.set(FakerDataFactory.getNameWithTimeStamp("Report"));
+        titleTwo.set(FakerDataFactory.getTitle());
+        descriptionTwo.set(FakerDataFactory.getDescription());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnReports()
+                .validateReportsPage()
+                .getTimeForCreateReport()
+                .setClient()
+                .clickOnCreateNewReport()
+                .validateNewReportsPage()
+                .fillReportDetail(reportName.get(), "Mosaic", "Blue")
+                .selectSlideTemplate("Intro")
+                .fillIntroPage("SanityTesting", "Sanity Test Description")
+                .validateIntroPage("SanityTesting", "Sanity Test Description")
+                .clickOnAddNewPageAndValidate("Add a budget or analysis", 1)
+                .selectSlideTemplate("1-Column")
+                .fillAnalyticsPage("This is Analytics Page", "Analytics Name")
+                .validateAnalyticsPage("This is Analytics Page", "Analytics Name")
+                .clickOnAddNewPageAndValidate("Add a budget or analysis", 2)
+                .selectSlideTemplate("1-Column")
+                .fillBudgetPage("This is Budget Page", "Budget Name")
+                .validateBudgetingPage("This is Budget Page", "Budget Name")
+                .clickOnViewReport()
+                .clickOnExitBtn()
+                .validateMyReportTitle(reportName.get())
+                .clickOnAllReports()
+                .validateAllReportsPage()
+                .searchReportTitle(reportName.get())
+                .validateReportTitle(reportName.get())
+                .validateDateAndTime();
+
+        System.out.println("TC-----------TC_RE_1746");
+    }
 }

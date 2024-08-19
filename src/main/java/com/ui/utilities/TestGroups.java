@@ -7,6 +7,8 @@ public class TestGroups {
         public static final String SANITY = "SANITY";
         public static final String SMOKE = "SMOKE";
         public static final String Demo = "Demo";
+        public static final String RE_PHASE_1 = "RE_PHASE_1";
+        public static final String RE_PHASE_2 = "RE_PHASE_2";
     }
 
     public static class Feature {

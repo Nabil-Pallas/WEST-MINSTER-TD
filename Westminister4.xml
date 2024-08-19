@@ -12,30 +12,44 @@
                 <include name="Tier2User"></include>
             </run>
             <run>
-                <include name="SANITY"></include>
-                <!--                <include name="REGRESSION"></include>-->
+                <!--                                <include name="SANITY"></include>-->
+                <include name="REGRESSION"></include>
             </run>
         </groups>
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <class name="com.westminster.testcases.admin.TC_FileManager"/>
-            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
+            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings"/>
+            <class name="com.westminster.testcases.admin.TC_FileManager">
                 <methods>
-                    <exclude name="createClient"/>
-                    <exclude name="editClient"/>
-                    <exclude name="createUser"/>
-                    <exclude name="editUser"/>
-                    <exclude name="createRole"/>
-                    <exclude name="editRole"/>
+                    <include name="validateErrorQueueWSingleEdit"/>
+                    <include name="validateErrorQueueWBulkEdit"/>
+                    <include name="validateDuplicateRowsInErrorQueue"/>
+                    <include name="validateBulkEditAndPromote"/>
+
+                    <include name="verifyDataMappingRefreshAfterInvalidEntryDeletion"/>
+                    <include name="showPlusSymbolForSchemaManagers"/>
+                    <include name="verifyDateConversionInBulkEditErrorQueue"/>
+                    <include name="verifyMissingRequiredValueFilter"/>
+                    <include name="verifyInvalidDateValueFormatFilter"/>
                 </methods>
             </class>
             <class name="com.westminster.testcases.admin.TC_DataManager"/>
-            <class name="com.westminster.testcases.admin.TC_RulesManager"/>
-            <class name="com.westminster.testcases.admin.TC_ListManager"/>
-<!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-<!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-            <class name="com.westminster.testcases.report.TC_Reports"/>
+            <methods>
+                <include name="verifyRestoreAllColumns"/>
+                <include name="addNonExistingBrokerNameAndValidate"/>
+            </methods>
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
+                <methods>
+                    <include name="checkDuplicateBudgetFileUpload"/>
+                    <include name="validateBudgetCreationWithInvalidDateRange"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.report.TC_Reports">
+                <methods>
+                    <include name="verifyReportDateCreatedColumn"/>
+                </methods>
+            </class>
         </classes>
     </test>
     <!--

@@ -19,11 +19,16 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-            <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
+            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings"/>
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
+                <methods>
+                    <include name="checkDuplicateBudgetFileUpload"/>
+                    <include name="validateBudgetCreationWithInvalidDateRange"/>
+                </methods>
+            </class>
             <class name="com.westminster.testcases.report.TC_Reports">
                 <methods>
-                    <include name="editReports"/>
+                    <include name="verifyReportDateCreatedColumn"/>
                 </methods>
             </class>
         </classes>

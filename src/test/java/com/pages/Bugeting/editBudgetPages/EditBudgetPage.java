@@ -25,26 +25,30 @@ public class EditBudgetPage extends AllBudgetsPage {
     }
 
     public EditBudgetPage editInformation(List<String> verificationValues, List<String> verificationHeaders) {
+        pause("medium");
         for (int i = 0; i < verificationValues.size(); i++) {
             switch (verificationHeaders.get(i)) {
                 case "Budget Name":
                     typeAndSpace(frameClientDetailsLocator("Budget Name"), verificationValues.get(i), "BudgetName");
-                    pause("medium");
+//                    pause("medium");
+                    pause("low");
                     break;
                 case "Begin Date":
                     type(frameClientDetailsLocator("Begin Date", 2), verificationValues.get(i), "BeginDate");
-                    pause("medium");
+//                    pause("medium");
+                    pause("low");
                     break;
                 case "End Date":
                     type(frameClientDetailsLocator("End Date", 2), verificationValues.get(i), "End Date");
-                    pause("medium");
+//                    pause("medium");
+                    pause("low");
                     break;
                 case "Target Column":
                     pause("low");
                     try {
-                        clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(verificationValues.get(i), 2), verificationValues.get(i), verificationValues.get(i));
+                        clickAndChoose("//span[text()='Target Column']//ancestor::label//following::div[5]//input", frameDivTextLocator(verificationValues.get(i), 2), verificationValues.get(i), verificationValues.get(i));
                     } catch (Exception e) {
-                        clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(verificationValues.get(i)), verificationValues.get(i), verificationValues.get(i));
+                        clickAndChoose("//span[text()='Target Column']//ancestor::label//following::div[5]//input", frameDivTextLocator(verificationValues.get(i)), verificationValues.get(i), verificationValues.get(i));
                     }
                     pause("medium");
                     break;

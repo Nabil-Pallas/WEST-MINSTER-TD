@@ -71,8 +71,8 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .validateEditBudgetPage()
                 .editInformation(Arrays.asList("Local Price", "Broker Name", ruleName.get(), "05/01/2024", "05/29/2024"), Arrays.asList("Target Column", "Budget by", "Budget Name", "Begin Date", "End Date"))
                 .clickSaveBudgetBtn()
-                .validateEditedBudget(ruleName.get(), "05/01/2024", "05/29/2024", "Local Price")
-                .deleteBudget(ruleName.get());
+                .validateEditedBudget(ruleName.get(), "05/01/2024", "05/29/2024", "Local Price");
+                //.deleteBudget(ruleName.get());
         System.out.println("TC-----------TC_14");
 
     }

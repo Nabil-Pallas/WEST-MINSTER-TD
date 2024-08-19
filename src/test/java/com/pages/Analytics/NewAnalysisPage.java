@@ -75,6 +75,7 @@ public class NewAnalysisPage extends AnalyticsPage {
 
 
     public NewAnalysisPage addFilterAndValidate(String fieldName, String operator) {
+        pause("medium");
         clickOnCreateAFilter()
                 .typeFilterFieldName(fieldName) //Broker Name
                 .typeFilterOperator(operator) //Symbol[=,!=,>,<,>=,<=]
@@ -92,6 +93,7 @@ public class NewAnalysisPage extends AnalyticsPage {
     }
 
     public NewAnalysisPage reviewYourAnalysis(String analysisName, String color) {
+        pause("low");
         typeAndEnter(frameAnalysisFieldLocator("Analysis Name:"), analysisName, "Analysis Name Field");
         pause("medium");
         click(frameDivTextLocator(color), " Chart Color", "color");
@@ -112,10 +114,15 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
         pause("low");
+        typeWithType(frameAnalysisFieldLocator("Define the maximum number of items appearing in this chart:", 2), numOfItems, "number of items appearing in this chart");
+//        clickOnNextBtn();
 //        if(isVisible("//div[text()='Invalid Field'")){
 //            clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
+//            pause("low");
+//            clickOnNextBtn();
+//        }else{
+//            reportStep("Selected option for column \"Single Series Value Field\"","info");
 //        }
-        typeWithType(frameAnalysisFieldLocator("Define the maximum number of items appearing in this chart:", 2), numOfItems, "number of items appearing in this chart");
         reportPass("User successfully entered the plot details.");
         return this;
     }
@@ -126,9 +133,13 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
+//        clickOnNextBtn();
 //        if(isVisible("//div[text()='Invalid Field'")){
 //            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
 //            pause("low");
+//            clickOnNextBtn();
+//        }else{
+//            reportStep("Selected option for column \"Multiple Series Value Fields:\"","info");
 //        }
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameDivTextLocator(multipleSeriesValueField1,2), multipleSeriesValueField2, "Multiple Series Value Field 2");
         reportPass("User successfully entered the plot details.");
@@ -141,7 +152,6 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField), multipleSeriesValueField, "Multiple Series Value Field");
         pause("low");
-
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series column Fields:", 1), frameDivTextLocator(multipleSeriesColumnField, 3), multipleSeriesColumnField, "Multiple Series column Fields");
         pause("low");
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Filter Fields:", 1), frameDivTextLocator(multipleSeriesFilterField,3), multipleSeriesFilterField, "Multiple Series Filter Fields");
@@ -156,9 +166,13 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
         pause("low");
+//        clickOnNextBtn();
 //        if(isVisible("//div[text()='Invalid Field'")){
 //            clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
 //            pause("low");
+//            clickOnNextBtn();
+//        }else{
+//            reportStep("Selected option for column \"Single Series Value Field\"","info");
 //        }
         reportPass("User successfully entered the plot details.");
         return this;
@@ -170,23 +184,31 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
+//        clickOnNextBtn();
 //        if(isVisible("//div[text()='Invalid Field'")){
 //            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
 //            pause("low");
+//            clickOnNextBtn();
+//        }else{
+//            reportStep("Selected option for column \"Multiple Series Value Fields:\"","info");
 //        }
         reportPass("User successfully entered the plot details.");
         return this;
     }
 
     public NewAnalysisPage plotDetailsSummaryTable(String mainField, String multipleSeriesValueField1, String multipleSeriesValueField2) {
-        waitForLoaderToDisappear();
+        pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
+//        clickOnNextBtn();
 //        if(isVisible("//div[text()='Invalid Field'")){
 //            clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
 //            pause("low");
+//            clickOnNextBtn();
+//        }else{
+//            reportStep("Selected option for column \"Single Series Value Field\"","info");
 //        }
 
         reportPass("User successfully entered the plot details.");

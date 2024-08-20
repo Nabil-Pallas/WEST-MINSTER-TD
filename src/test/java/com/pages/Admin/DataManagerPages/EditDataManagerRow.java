@@ -339,6 +339,18 @@ public class EditDataManagerRow extends DataManagerPage {
         return this;
     }
 
+    public EditDataManagerRow deleteAndValidateChangeLogItems(int changeLog) {
+
+        for (int i = 1; i <= changeLog; i++) {
+            isVisible("(//table)[last()-1]//tbody//tr[ " + i + "]//td[4]", "Delete Icon");
+            click("(//table)[last()-1]//tbody//tr[ " + i + "]//td[4]", "Delete Icon");
+            click(frameSpanExactTextLocator("Yes"), "Yes");
+//            isNotVisible("(//table)[last()-1]//tbody//tr[ " + (i + 1) + "]//td[4]", "Delete Icon");
+        }
+        reportPass("User successfully deleted the change log Items");
+        return this;
+    }
+
     public EditDataManagerRow refreshPageAndCancelDialog() {
 //        reLoadPage();
 //        refreshPageToCurrentURL();

@@ -75,11 +75,4 @@
         </classes>
 
     </test>
-    <!--
-     <test thread-count="5" name="WestminsterTest2">
-      <parameter name="Browser" value="Edge"></parameter>
-        <classes>
-          <class name="com.pluto.testcases.TC02_FileManager"/>
-        </classes>
-      </test>  -->
-</suite> <!-- WestministerSuite -->
+</suite>

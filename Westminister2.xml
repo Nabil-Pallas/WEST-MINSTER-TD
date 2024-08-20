@@ -10,7 +10,6 @@
         <groups>
             <run>
                 <include name="Tier1User"></include>
-
             </run>
             <run>
                                 <include name="SANITY"></include>

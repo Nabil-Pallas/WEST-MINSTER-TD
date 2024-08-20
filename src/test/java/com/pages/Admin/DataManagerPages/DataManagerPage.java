@@ -57,7 +57,7 @@ public class DataManagerPage extends AdminPage {
     public static String validDate;
 
     //variable for upload date in data manager
-    public  static String timeInDataManager;
+    public static String timeInDataManager;
 
     //list of data Manager grid column
     private static List<String> DatamanagerColumn = new ArrayList<>();
@@ -470,6 +470,8 @@ public class DataManagerPage extends AdminPage {
 //                click(searchValueWithHeader(i), "Search Filter", "Search Box");
 //                typeAndEnter(searchValueWithHeader(i), VerificationValues, VerificationValues);
                 clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+//                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
+//                forceClick("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 pause("low");
                 click("//span[text()='OK']", "filter OK button");
                 pause("medium");
@@ -494,7 +496,7 @@ public class DataManagerPage extends AdminPage {
         return new DataManagerPage();
     }
 
-    public DataManagerPage clickOnClearAllFilters(){
+    public DataManagerPage clickOnClearAllFilters() {
         pause("medium");
         click("//span[text()='Clear All Filters']", "Clear All Filters");
         pause("medium");
@@ -506,7 +508,7 @@ public class DataManagerPage extends AdminPage {
         pause("medium");
         pause("medium");
         System.out.println("printing:---->" + preferenceDateFormat);
-        switch (preferenceDateFormat){
+        switch (preferenceDateFormat) {
             case "DD/MM/YYYY":
                 String str = getTradeDate.get();
                 // Define the input date format
@@ -532,7 +534,7 @@ public class DataManagerPage extends AdminPage {
                 break;
 
             default:
-                validDate=getTradeDate.get();
+                validDate = getTradeDate.get();
                 break;
         }
         // to locate broker name column and click filter
@@ -542,6 +544,8 @@ public class DataManagerPage extends AdminPage {
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
                 clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+//                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
+//                forceClick("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 pause("low");
                 click("//span[text()='OK']", "filter OK button");
                 pause("medium");
@@ -566,17 +570,17 @@ public class DataManagerPage extends AdminPage {
         return this;
     }
 
-    public DataManagerPage getUploadDateFromDataManager(String verificationHeader1){
+    public DataManagerPage getUploadDateFromDataManager(String verificationHeader1) {
         pause("medium");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
         for (int i = 1; i < headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
-                scrollToElement("//div[contains(@class,'dx-datagrid-rowsview')]//table[1]//tr[1]//td["+(i+2)+"]//time");
+                scrollToElement("//div[contains(@class,'dx-datagrid-rowsview')]//table[1]//tr[1]//td[" + (i + 2) + "]//time");
                 pause("low");
-                reportPass("Successfully Scrolled to "+verificationHeader1+" Column in Data Manager");
-                String str = getInnerText("//div[contains(@class,'dx-datagrid-rowsview')]//table[1]//tr[1]//td["+(i+2)+"]//time");
+                reportPass("Successfully Scrolled to " + verificationHeader1 + " Column in Data Manager");
+                String str = getInnerText("//div[contains(@class,'dx-datagrid-rowsview')]//table[1]//tr[1]//td[" + (i + 2) + "]//time");
                 // Split the string at the first occurrence of ", "
                 String[] parts = str.split(", ", 2);
                 // Get the time part which is the second element in the array
@@ -599,8 +603,8 @@ public class DataManagerPage extends AdminPage {
             Matcher matcher = pattern.matcher(timeInDataManager);
             boolean result = matcher.matches();
             Assert.assertTrue(result);
-            reportPass("Successfully Validated 12-hour Time Format: "+timeInDataManager);
-        } else{
+            reportPass("Successfully Validated 12-hour Time Format: " + timeInDataManager);
+        } else {
             // Regular expression for 24-hour time format (HH:mm:ss)
             String regex = "^(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$";
             // Compile the regex into a pattern
@@ -609,16 +613,16 @@ public class DataManagerPage extends AdminPage {
             Matcher matcher = pattern.matcher(timeInDataManager);
             boolean result = matcher.matches();
             Assert.assertTrue(result);
-            reportPass("Successfully Validated 24-hour Time Format: "+timeInDataManager);
+            reportPass("Successfully Validated 24-hour Time Format: " + timeInDataManager);
         }
         return this;
     }
 
-    public DataManagerPage getDataManagerGridColumnNames(){
+    public DataManagerPage getDataManagerGridColumnNames() {
         pause("medium");
         DatamanagerColumn.clear();
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
-        for (int i = 1; i <=headerCount; i++) {
+        for (int i = 1; i <= headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             DatamanagerColumn.add(headerText);
@@ -626,15 +630,15 @@ public class DataManagerPage extends AdminPage {
         return this;
     }
 
-    public DataManagerPage validateDataManagerGridColumn(){
+    public DataManagerPage validateDataManagerGridColumn() {
         pause("low");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
         for (String s : chooserColumn) {
             for (String string : DatamanagerColumn) {
                 if (string.equals(s)) {
                     boolean result = true;
-                    reportPass("Column: "+s+" - found in Data Manager Grid");
-                    System.out.println("Column: "+s+" - found in Data Manager Grid");
+                    reportPass("Column: " + s + " - found in Data Manager Grid");
+                    System.out.println("Column: " + s + " - found in Data Manager Grid");
                     Assert.assertTrue(result);
                     break;
                 }
@@ -643,55 +647,55 @@ public class DataManagerPage extends AdminPage {
         return this;
     }
 
-    public DataManagerPage clickOnShowColumnChooser(){
+    public DataManagerPage clickOnShowColumnChooser() {
         pause("medium");
         waitForElementToLoad(frameSpanExactTextLocator("Show Column Chooser"));
         waitForLoaderToDisappear();
-        click(frameSpanExactTextLocator("Show Column Chooser"),"Show Column Chooser");
+        click(frameSpanExactTextLocator("Show Column Chooser"), "Show Column Chooser");
         return this;
     }
 
-    public DataManagerPage clickOnCloseColumnChooser(){
+    public DataManagerPage clickOnCloseColumnChooser() {
         pause("low");
-        click("//i[contains(@class,'dx-icon-close')]","Close icon");
+        click("//i[contains(@class,'dx-icon-close')]", "Close icon");
         pause("low");
         return this;
     }
 
-    public DataManagerPage dragAndDropColumnInColumnChooser(List<String> columnName){
+    public DataManagerPage dragAndDropColumnInColumnChooser(List<String> columnName) {
         pause("low");
         for (int index = 0; index < columnName.size(); index++) {
             dragAndDrop("//div[text()='" + columnName.get(index) + "']", frameDivTextLocator("Column Chooser"));
             chooserColumn.add(columnName.get(index));
-            reportPass("Successfully dropped column: "+columnName.get(index)+" in show column chooser");
+            reportPass("Successfully dropped column: " + columnName.get(index) + " in show column chooser");
             System.out.println("successfully dropped in column chooser");
         }
 
         return this;
     }
 
-    public DataManagerPage valiateColumnsAgainstColumnChooser(){
-        System.out.println("DataMnager list size: "+DatamanagerColumn);
-        System.out.println("chooser column list size: "+chooserColumn);
+    public DataManagerPage valiateColumnsAgainstColumnChooser() {
+        System.out.println("DataMnager list size: " + DatamanagerColumn);
+        System.out.println("chooser column list size: " + chooserColumn);
 
         for (String s : chooserColumn) {
             for (String string : DatamanagerColumn) {
                 if (string.equals(s)) {
                     boolean result = true;
-                    reportFail("Failed to move column: " +s+" to column chooser");
-                    System.out.println("Failed to move column: " +s+" to column chooser");
+                    reportFail("Failed to move column: " + s + " to column chooser");
+                    System.out.println("Failed to move column: " + s + " to column chooser");
                     Assert.assertFalse(result);
                     break;
                 }
             }
         }
         reportPass("Successfully validated. Columns \"moved to Show Column Chooser\" are not visible in Data Manager Grid.");
-            return this;
+        return this;
     }
 
-    public DataManagerPage clickOnRestoreAllColumns(){
+    public DataManagerPage clickOnRestoreAllColumns() {
         pause("low");
-        click(frameSpanExactTextLocator("Restore All Columns"),"Restore all columns button");
+        click(frameSpanExactTextLocator("Restore All Columns"), "Restore all columns button");
         reportPass("Columns restored back to Data Manager Grid");
 
         pause("low");

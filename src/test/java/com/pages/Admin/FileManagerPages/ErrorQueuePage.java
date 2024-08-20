@@ -271,7 +271,7 @@ public class ErrorQueuePage extends FileManagerPage {
         System.out.println(rowCount);
         String rowCountNum = rowCount.replaceAll("Row Count: ", "");
         rCount = Long.parseLong(rowCountNum);
-        reportPass("Error Queue page row count: "+rCount);
+        reportPass("Error Queue page row count: " + rCount);
         System.out.println(rCount);
         return this;
     }
@@ -285,8 +285,8 @@ public class ErrorQueuePage extends FileManagerPage {
         String rCount = getInnerText("//div[@id='error-queue-row-count']");
         String rowCountNum = rCount.replaceAll("Row Count: ", "");
         rowCount = Long.parseLong(rowCountNum);
-        reportPass("Error queue page final row count: "+rowCount);
-        System.out.println("Error queue page final row count: "+rowCount);
+        reportPass("Error queue page final row count: " + rowCount);
+        System.out.println("Error queue page final row count: " + rowCount);
         return this;
     }
 
@@ -299,6 +299,15 @@ public class ErrorQueuePage extends FileManagerPage {
             reportFail("failed to validate. please check whether row has been promoted or not");
         }
         pause("low");
+        return this;
+    }
+
+
+    public ErrorQueuePage validateAmendErrorRowsAndErrorQueuePageRowCount() {
+        System.out.println("Amend Error Rows: " + getRowCounts.get());
+        System.out.println("Error Queue Page RowCount: " + rCount);
+        Assert.assertEquals(getRowCounts.get(), rCount);
+        reportPass("The count of amended error rows (" + errorRows + ") matches the expected Error Queue Page row count (" + rCount + ").");
         return this;
     }
 
@@ -343,7 +352,7 @@ public class ErrorQueuePage extends FileManagerPage {
         //get the Row Count value
         waitForLoaderToDisappear();
         waitForLoaderToDisappear();
-        pause("low");
+        pause("medium");
         String rowCount = getInnerText(rowCountLocator);
         String replaceRowCount = rowCount.replaceAll("Row Count: ", "");
         getRowCounts.set(Long.parseLong(replaceRowCount));
@@ -387,7 +396,6 @@ public class ErrorQueuePage extends FileManagerPage {
         click(frameSpanExactTextLocator("Cancel", 2), "Cancel");
         return this;
     }
-
 
 
 }

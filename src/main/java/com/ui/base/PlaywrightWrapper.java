@@ -52,7 +52,6 @@ public class PlaywrightWrapper extends Reporter {
     String attachment = "";
 
 
-
     /**
      * Load the URL on the browser launched
      *
@@ -816,7 +815,9 @@ public class PlaywrightWrapper extends Reporter {
     public boolean clickAndChoose(String ddLocator, String optionLocator, String option, String name) {
         try {
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
-            pause("low");
+//            pause("low");
+            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+            getPage().locator(optionLocator).scrollIntoViewIfNeeded();
             getPage().locator(optionLocator).click(new Locator.ClickOptions().setForce(true));
             pause("low");
             reportStep("The drop down : " + name + " is selected with value : " + option, "info");
@@ -827,6 +828,7 @@ public class PlaywrightWrapper extends Reporter {
         }
         return false;
     }
+
 
     /**
      * Use this method to click and choose an element (that looks like dropdown) inside a frame
@@ -1757,7 +1759,7 @@ public class PlaywrightWrapper extends Reporter {
         });
     }
 
-    public void dragAndDrop(String draggable, String droppable){
+    public void dragAndDrop(String draggable, String droppable) {
         pause("low");
         getPage().locator(draggable).dragTo(getPage().locator(droppable));
     }

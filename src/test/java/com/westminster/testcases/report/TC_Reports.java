@@ -181,7 +181,7 @@ public class TC_Reports extends WestMinsterPageHook {
     @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void verifyReportDateCreatedColumn() {
         testcaseName = "TC_RE_1746";
-        testDescription = "Report Delivery";
+        testDescription = "verify Report Date Created Column";
         authors = "Automation Team";
         category = "Report Delivery";
         startTestCase();

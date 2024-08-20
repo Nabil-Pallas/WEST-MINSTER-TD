@@ -78,7 +78,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_50");
     }
 
-    //Phase - 2 --> Manoj
+    //Phase - 1 --> Manoj
     //TC_RE_2825 - Ensure an error message appears when creating a rule with a duplicate name:
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDuplicateRuleNameError() {

@@ -859,5 +859,43 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_722");
     }
 
+    //Phase -03 -Manoj
+    //TC_RE_1181 - When the user clicks the "Amend Errors" button on the file management screen, display all error rows in the error queue panel.
+    @Test(priority = 18, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyErrorRowsOnAmendClick() {
+        testcaseName = "TC_RE_1181";
+        testDescription = "Verify Error Rows On Amend Click";
+        authors = "Automation Team";
+        startTestCase();
+        category = "Error Queue";
+        setNode();
+
+        getTradeDate.set(FakerDataFactory.getPastDate());
+        getSettlementDate.set(FakerDataFactory.getFutureDate());
+        filePath.set("./src/test/resources/upload/550_rows_file_mapping.csv");
+        fileName.set("550_rows_file_mapping.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
+                .clickOnFinishMapping()
+                .clickOnFileManager()
+                .validateFileUpload(fileName.get())
+                .getAmendErrorRowCount(fileName.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName.get())
+                .validateErrorQueuePage()
+                .errorQueuePageRowCount()
+                .validateAmendErrorRowsAndErrorQueuePageRowCount();
+        System.out.println("TC-----------TC_1181");
+    }
 
 }

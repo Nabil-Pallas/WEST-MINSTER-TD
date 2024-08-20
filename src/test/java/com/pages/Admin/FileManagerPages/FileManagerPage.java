@@ -259,15 +259,38 @@ public class FileManagerPage extends AdminPage {
             //validRows.set(Long.parseLong(valid));
             errorRows = Long.parseLong(errorrows);
             reportPass("Error Rows Count: " + errorRows);
-            System.out.println("---" + errorRows);
-        }else {
-            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[1]","Invalid Row");
+            System.out.println("Error Rows Count: " + errorRows);
+        } else {
+            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[1]", "Invalid Row");
             pause("low");
             String errorrows = getInnerText(frameRowCountText("Error Rows"));
             //validRows.set(Long.parseLong(valid));
             errorRows = Long.parseLong(errorrows);
             reportPass("Error Rows Count: " + errorRows);
-            System.out.println("---" + errorRows);
+            System.out.println("Error Rows Count: " + errorRows);
+        }
+        return this;
+    }
+
+    public FileManagerPage getAmendErrorRowCount(String fileName) {
+        //click Invalid Row Count for Given File Name
+        waitForLoaderToDisappear();
+        if (isVisible("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]")) {
+            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[2]", "Invalid Row", "Invalid RowLink");
+            pause("low");
+            String errorrows = getInnerText(frameRowCountText("Error Rows"));
+            //validRows.set(Long.parseLong(valid));
+            getRowCounts.set(Long.parseLong(errorrows));
+            reportPass("Error Rows Count: " + getRowCounts.get());
+            System.out.println("Error Rows Count: " + getRowCounts.get());
+        } else {
+            click("(//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[5]//span)[1]", "Invalid Row");
+            pause("low");
+            String errorrows = getInnerText(frameRowCountText("Error Rows"));
+            //validRows.set(Long.parseLong(valid));
+            getRowCounts.set(Long.parseLong(errorrows));
+            reportPass("Error Rows Count: " + getRowCounts.get());
+            System.out.println("Error Rows Count: " + getRowCounts.get());
         }
         return this;
     }
@@ -348,16 +371,16 @@ public class FileManagerPage extends AdminPage {
         String count = getInnerText(duplicateCount);
         String dCount = count.replaceAll("Duplicate Rows: ", "");
         notificationDuplicateRowCount = Long.parseLong(dCount);
-        reportPass("Duplicate rows count in Notification section: "+notificationDuplicateRowCount);
+        reportPass("Duplicate rows count in Notification section: " + notificationDuplicateRowCount);
         return new FileManagerPage();
     }
 
-    public FileManagerPage getUploadDateInFileManager(String fileName){
+    public FileManagerPage getUploadDateInFileManager(String fileName) {
         pause("medium");
         waitForLoaderToDisappear();
-        String innertext=getInnerText("//tbody[@role='presentation']//tr[td[1] = '"+fileName+"']//td[3]//time");
-        String[] parts=innertext.split(", ",2);
-        timeInFileManager=parts[1];
+        String innertext = getInnerText("//tbody[@role='presentation']//tr[td[1] = '" + fileName + "']//td[3]//time");
+        String[] parts = innertext.split(", ", 2);
+        timeInFileManager = parts[1];
         System.out.println(timeInFileManager);
 //        if(preferenceTimeFormat.equals("24-hour")){
 //            // Split the time into hours and minutes
@@ -375,12 +398,12 @@ public class FileManagerPage extends AdminPage {
 //                hour12 = 12; // Midnight or Noon
 //            }
 
-            // Format hours and minutes into 12-hour time
+        // Format hours and minutes into 12-hour time
 //            timeInFileManager = String.format("%02d:%s %s", hour12, minutes, seconds, amPm);
 //            System.out.println("time in 24-hour converted into 12-hour "+timeInFileManager);
 //            reportPass("Successfully converted 24-hour format time to 12-hour format");
 //        }
-        reportPass("Captured fileUpload time from File Manager: "+timeInFileManager);
+        reportPass("Captured fileUpload time from File Manager: " + timeInFileManager);
         return this;
     }
 
@@ -403,11 +426,11 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
-    public FileManagerPage getFileManagerGridColumnNames(){
+    public FileManagerPage getFileManagerGridColumnNames() {
         pause("medium");
         DatamanagerColumn.clear();
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
-        for (int i = 1; i <=headerCount; i++) {
+        for (int i = 1; i <= headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             DatamanagerColumn.add(headerText);
@@ -415,15 +438,15 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
-    public FileManagerPage validateFileManagerGridColumn(){
+    public FileManagerPage validateFileManagerGridColumn() {
         pause("low");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
         for (String s : chooserColumn) {
             for (String string : DatamanagerColumn) {
                 if (string.equals(s)) {
                     boolean result = true;
-                    reportPass("Column: "+s+" - found in Error Queue Grid");
-                    System.out.println("Column: "+s+" - found in Error Queue Grid");
+                    reportPass("Column: " + s + " - found in Error Queue Grid");
+                    System.out.println("Column: " + s + " - found in Error Queue Grid");
                     Assert.assertTrue(result);
                     break;
                 }
@@ -432,43 +455,43 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
-    public FileManagerPage clickOnShowColumnChooser(){
+    public FileManagerPage clickOnShowColumnChooser() {
         pause("medium");
         waitForElementToLoad(frameSpanExactTextLocator("Show Column Chooser"));
         waitForLoaderToDisappear();
-        click(frameSpanExactTextLocator("Show Column Chooser"),"Show Column Chooser");
+        click(frameSpanExactTextLocator("Show Column Chooser"), "Show Column Chooser");
         return this;
     }
 
-    public FileManagerPage clickOnCloseColumnChooser(){
+    public FileManagerPage clickOnCloseColumnChooser() {
         pause("low");
-        click("//i[contains(@class,'dx-icon-close')]","Close icon");
+        click("//i[contains(@class,'dx-icon-close')]", "Close icon");
         pause("low");
         return this;
     }
 
-    public FileManagerPage dragAndDropColumnInColumnChooser(List<String> columnName){
+    public FileManagerPage dragAndDropColumnInColumnChooser(List<String> columnName) {
         pause("low");
         for (int index = 0; index < columnName.size(); index++) {
             dragAndDrop("//div[text()='" + columnName.get(index) + "']", frameDivTextLocator("Column Chooser"));
             chooserColumn.add(columnName.get(index));
-            reportPass("Successfully dropped column: "+columnName.get(index)+" in show column chooser");
+            reportPass("Successfully dropped column: " + columnName.get(index) + " in show column chooser");
             System.out.println("successfully dropped in column chooser");
         }
 
         return this;
     }
 
-    public FileManagerPage valiateColumnsAgainstColumnChooser(){
-        System.out.println("DataMnager list size: "+DatamanagerColumn);
-        System.out.println("chooser column list size: "+chooserColumn);
+    public FileManagerPage valiateColumnsAgainstColumnChooser() {
+        System.out.println("DataMnager list size: " + DatamanagerColumn);
+        System.out.println("chooser column list size: " + chooserColumn);
 
         for (String s : chooserColumn) {
             for (String string : DatamanagerColumn) {
                 if (string.equals(s)) {
                     boolean result = true;
-                    reportFail("Failed to move column: " +s+" to column chooser");
-                    System.out.println("Failed to move column: " +s+" to column chooser");
+                    reportFail("Failed to move column: " + s + " to column chooser");
+                    System.out.println("Failed to move column: " + s + " to column chooser");
                     Assert.assertFalse(result);
                     break;
                 }
@@ -478,9 +501,9 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
-    public FileManagerPage clickOnRestoreAllColumns(){
+    public FileManagerPage clickOnRestoreAllColumns() {
         pause("low");
-        click(frameSpanExactTextLocator("Restore All Columns"),"Restore all columns button");
+        click(frameSpanExactTextLocator("Restore All Columns"), "Restore all columns button");
         reportPass("Columns restored back to Error Queue Grid");
 
         pause("low");

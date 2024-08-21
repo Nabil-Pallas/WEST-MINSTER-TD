@@ -343,7 +343,7 @@ public class ErrorQueuePage extends FileManagerPage {
         //get the Row Count value
         waitForLoaderToDisappear();
         waitForLoaderToDisappear();
-        pause("low");
+        pause("medium");
         String rowCount = getInnerText(rowCountLocator);
         String replaceRowCount = rowCount.replaceAll("Row Count: ", "");
         getRowCounts.set(Long.parseLong(replaceRowCount));

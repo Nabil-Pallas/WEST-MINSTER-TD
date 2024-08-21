@@ -121,6 +121,7 @@ public class EditDataSchemaPage extends DataManagerPage {
         if (getParameterTypeText.equals("List")) {
             reportPass("Parameter type is already in List");
         } else {
+            waitForElementToLoad(selectParameterType);
             clickAndChoose(selectParameterType, frameDivTextLocator("List"), "List", "Parameter Type");
         }
         return this;

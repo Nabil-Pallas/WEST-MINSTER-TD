@@ -12,8 +12,8 @@
                 <include name="Tier1Admin"></include>
             </run>
             <run>
-                <!--                                                <include name="SANITY"></include>-->
-                <include name="REGRESSION"></include>
+                                                <include name="SANITY"></include>
+<!--                <include name="REGRESSION"></include>-->
             </run>
         </groups>
         <parameter name="Browser" value="chrome"></parameter>
@@ -42,15 +42,36 @@
             </methods>
             <class name="com.westminster.testcases.budgeting.TC_Budgeting">
                 <methods>
-                    <include name="checkDuplicateBudgetFileUpload"/>
-                    <include name="validateBudgetCreationWithInvalidDateRange"/>
+<!--                    <include name="validateBudgetCreationWithInvalidDateRange"/>-->
+                    <exclude name="checkDuplicateBudgetFileUpload"/>
+                    <exclude name="validateBudgetCreationWithInvalidDateRange"/>
+
                 </methods>
             </class>
-            <class name="com.westminster.testcases.report.TC_Reports">
-                <methods>
-                    <include name="verifyReportDateCreatedColumn"/>
-                </methods>
-            </class>
+            <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
+            <!--                <methods>-->
+            <!--                    <exclude name="impersonateUser"/>-->
+            <!--                    <exclude name="roleCreationAndAssignRoleToUser"/>-->
+            <!--                </methods>-->
+            <!--            </class>-->
+<!--            <class name="com.westminster.testcases.admin.TC_DataManager">-->
+<!--                <methods>-->
+<!--                    <include name="verifyRestoreAllColumns"/>-->
+<!--&lt;!&ndash;                    <include name="userPreferenceNumberFormat"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include name="userPreferenceDateFormat"/>&ndash;&gt;-->
+
+<!--                </methods>-->
+<!--            </class>-->
+
+            <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
+            <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
+                        <class name="com.westminster.testcases.analytics.TC_Analytics"/>
+<!--                        <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
+<!--                            <methods>&ndash;&gt;-->
+<!--                                <include name="createNewBudget"/>-->
+<!--                            </methods>-->
+<!--                        </class>-->
+            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
         </classes>
 
     </test>

@@ -29,11 +29,13 @@ public class AddNewRolePage extends UserSecurityPage {
     }
 
     public AddNewRolePage clickAndselectTier(String tier) {
+        pause("low");
         clickAndChoose(frameClientDetailsLocator("Tier", 2), frameUserSelectDropDownLocator(tier), tier, "Tier");
         return this;
     }
 
     public AddNewRolePage clickAndselectClient(String client) {
+        pause("low");
         clickAndChoose(frameClientDetailsLocator("Client", 4), frameUserSelectDropDownLocator(client), client, "Client");
         if (isVisible("//div[text()='Invalid Field']") || isVisible("(//div[text()='Must have a client.'])[1]")) {
             clickAndChoose(frameClientDetailsLocator("Client", 4), frameUserSelectDropDownLocator(client), client, "Client");

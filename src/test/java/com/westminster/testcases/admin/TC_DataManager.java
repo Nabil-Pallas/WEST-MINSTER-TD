@@ -504,6 +504,40 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateFileManagerGridColumn();
 
     }
+
+    //Phase -3 - Manoj
+    //TC_RE_5888 Verify the functionality of the delete icons in the change log.
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyDeleteIconsInChangeLog() {
+        testcaseName = "TC_RE_5888";
+        testDescription = "Verify Delete Icons In Change Log";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
+        ruleName.set(FakerDataFactory.getCompanyName());
+        reportName.set(FakerDataFactory.getReportsName());
+        titleone.set(FakerDataFactory.getTitle());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnSelectRow()
+                .clickOnBulkEditBtn()
+                .validateBulkEditRowsPage()
+                .editInformation(Arrays.asList(clientCompanyName.get(), reportName.get(), titleone.get(), ruleName.get()),
+                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:", "Base  Currency:"))
+                .deleteAndValidateChangeLogItems(3)
+                .clickOnCancelBtn();
+
+        System.out.println("TC-----------TC_RE_5888");
+    }
 }
 
 

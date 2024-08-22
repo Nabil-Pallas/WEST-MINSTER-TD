@@ -48,16 +48,16 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
     }
 
     public CreateNewBudgetPage typeBeginDate(String tradeDate) {
-        pause("medium");
+        waitForElementToLoad(frameClientDetailsLocator("Begin Date", 2));
         type(frameClientDetailsLocator("Begin Date", 2), tradeDate, "BeginDate");
-        pause("medium");
+        pause("low");
         return this;
     }
 
     public CreateNewBudgetPage typeEndDate(String tradeDate) {
-
+        waitForElementToLoad(frameClientDetailsLocator("End Date", 2));
         type(frameClientDetailsLocator("End Date", 2), tradeDate, "EndDate");
-        pause("medium");
+        pause("low");
         return this;
     }
 
@@ -79,9 +79,9 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
     }
 
     public CreateNewBudgetPage selectBudgetBy(String budgetBy) {
-
+        waitForElementToLoad(selectBudgetByCheckBox(budgetBy, 1));
         click(selectBudgetByCheckBox(budgetBy, 1), "Budget By");
-        pause("medium");
+        pause("low");
         return new CreateNewBudgetPage();
     }
 
@@ -99,7 +99,6 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
         pause("medium");
         clickAndChoose("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]", "(//div[@class='dx-scrollview-content']/div[1])[2]", "Broker Name", "Broker Name");
 //        clickAndChoose("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]", "(//div[@role="listbox"]//div[@role='option'])[1]", "Broker Name", "Broker Name");
-
         pause("medium");
         return this;
     }

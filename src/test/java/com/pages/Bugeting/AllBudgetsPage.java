@@ -215,7 +215,6 @@ public class AllBudgetsPage extends MenuPage {
 
         if (getInnerText(budgetNameElement).equals(budgetName)) {
             reportStep("Budget Name is not deleted", "info");
-
         } else {
             reportStep("Budget Name is deleted successfully", "pass");
         }

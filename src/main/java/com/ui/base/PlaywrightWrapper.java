@@ -815,7 +815,6 @@ public class PlaywrightWrapper extends Reporter {
     public boolean clickAndChoose(String ddLocator, String optionLocator, String option, String name) {
         try {
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
-//            pause("low");
             forceClick(optionLocator, option, name);
 //            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
 //            getPage().locator(optionLocator).scrollIntoViewIfNeeded();

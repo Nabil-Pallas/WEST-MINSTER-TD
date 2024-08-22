@@ -262,24 +262,26 @@ public class AdminPage extends MenuPage {
 
     public DataManagerPage getTotalRowCount(String state) {
         pause("medium");
+        waitForLoaderToDisappear();
         String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
+        System.out.println("text : " + rowCount);
 
-        // Regex to extract the main number part (ignoring the filtered part if present)
-        String regex = "Total Row Count: ([\\d,]+)";
+        // Modified regex to account for spaces or commas
+        String regex = "Total Row Count: ([\\d,\\s]+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(rowCount);
 
         if (matcher.find()) {
             String numberString = matcher.group(1); // Get the matched number part
-            String cleanNumberString = numberString.replaceAll(",", ""); // Remove commas
+            String cleanNumberString = numberString.replaceAll("[^\\d]", ""); // Remove all non-digit characters
 
             if (state.equalsIgnoreCase("Initial")) {
                 InitRowCounts = Long.parseLong(cleanNumberString);
-                reportPass("Initial Row Counts : " + InitRowCounts + "Noted.");
+                reportPass("Initial Row Counts: " + InitRowCounts + " noted.");
                 System.out.println("InitRowCounts: " + InitRowCounts);
             } else {
                 FinRowCounts = Long.parseLong(cleanNumberString);
-                reportPass("Final Row Counts : " + FinRowCounts + "Noted.");
+                reportPass("Final Row Counts: " + FinRowCounts + " noted.");
                 System.out.println("FinRowCounts: " + FinRowCounts);
             }
         } else {
@@ -288,6 +290,7 @@ public class AdminPage extends MenuPage {
 
         return new DataManagerPage();
     }
+
 
 //    public DataManagerPage getTotalRowCount(String state) {
 //        pause("low");

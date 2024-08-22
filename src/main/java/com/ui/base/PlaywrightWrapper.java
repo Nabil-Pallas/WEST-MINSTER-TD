@@ -531,7 +531,7 @@ public class PlaywrightWrapper extends Reporter {
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
             getPage().locator(locator).scrollIntoViewIfNeeded();
             getPage().locator(locator).click(new Locator.ClickOptions().setForce(true));
-            reportStep("The " + type + " :" + name + " is clicked", "info");
+            reportStep("The " + type + " : " + name + " is clicked", "info");
             return true;
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
@@ -816,9 +816,10 @@ public class PlaywrightWrapper extends Reporter {
         try {
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
 //            pause("low");
-            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
-            getPage().locator(optionLocator).scrollIntoViewIfNeeded();
-            getPage().locator(optionLocator).click(new Locator.ClickOptions().setForce(true));
+            forceClick(optionLocator, option, name);
+//            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+//            getPage().locator(optionLocator).scrollIntoViewIfNeeded();
+//            getPage().locator(optionLocator).click(new Locator.ClickOptions().setForce(true));
             pause("low");
             reportStep("The drop down : " + name + " is selected with value : " + option, "info");
             return true;

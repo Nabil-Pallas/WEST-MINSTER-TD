@@ -59,7 +59,7 @@ public class ReportsPage extends MenuPage {
     }
 
     public String frameAddBudgeOrAnalysisLocator(String placeholder, int index) {
-        return "(//div//p[text()='" + placeholder + "']//following::div[2]//li//button)[" + index + "]";
+        return "(//div//p[text()='" + placeholder + "']//following::div[3]//li//button)[" + index + "]";
     }
 
     public String frameAnchorTag(String Placeholder) {

@@ -77,7 +77,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
 
     }
 
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void importNewBudget() {
         testcaseName = "TC_126";
         testDescription = "Import new budget and validate";

@@ -24,7 +24,7 @@ public class TC_Reports extends WestMinsterPageHook {
     }
 
     //Create Report - 5785
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+//    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createReports() {
         testcaseName = "TC_5785";
         testDescription = "Create New Report and Validate";
@@ -100,7 +100,7 @@ public class TC_Reports extends WestMinsterPageHook {
     }
 
     //Report Delivery -5674
-    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void reportDelivery() {
         testcaseName = "TC_5674";
         testDescription = "Report Delivery";

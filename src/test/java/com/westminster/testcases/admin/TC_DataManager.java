@@ -538,6 +538,35 @@ public class TC_DataManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_5888");
     }
+
+    //Phase -3 - Manoj
+    //TC_RE_1686 Verify the functionality of the delete icons in the change log.
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyBulkDeleteRowsFunctionality() {
+        testcaseName = "TC_RE_1686";
+        testDescription = "Verify Bulk Delete Rows Functionality";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .getTotalRowCount("Initial")
+                .clickOnSelectRow()
+                .clickOnBulkDeleteBtn()
+                .getTotalRowCount("Final")
+                .getTotalRowCount()
+                .validateRowCountAfterBulkDelete();
+
+        System.out.println("TC-----------TC_RE_1686");
+    }
 }
 
 

@@ -384,9 +384,61 @@ public class DataManagerPage extends AdminPage {
     public DataManagerPage CompareTotalRowCountAndValidRows() {
 
         long totalRows = FinRowCounts - InitRowCounts;
-
         Assert.assertEquals(totalRows, validRows);
+        return this;
+    }
 
+    public DataManagerPage getTotalRowCount() {
+        pause("medium");
+        waitForLoaderToDisappear();
+        String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
+
+        // Clean the string by removing any non-digit characters, including non-breaking spaces
+        String cleanNumberString = rowCount.replaceAll("[^\\d]", ""); // Removes all non-digit characters
+
+        if (!cleanNumberString.isEmpty()) {
+            getRowCounts.set(Long.parseLong(cleanNumberString)); // Set the parsed number
+            reportPass("Final Row Counts: " + getRowCounts.get() + " noted.");
+            System.out.println("Final Row Counts: " + getRowCounts.get());
+        } else {
+            System.out.println("No matching row count found.");
+        }
+
+        return new DataManagerPage();
+    }
+
+
+    public DataManagerPage getTotalRowCount(String state) {
+        pause("medium");
+        waitForLoaderToDisappear();
+        String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
+
+        // Remove any non-digit character including any type of space
+        String cleanNumberString = rowCount.replaceAll("[^\\d]", ""); // Removes all non-digit characters
+
+        if (!cleanNumberString.isEmpty()) {
+            long rowCountNumber = Long.parseLong(cleanNumberString);
+
+            if (state.equalsIgnoreCase("Initial")) {
+                InitRowCounts = rowCountNumber;
+                reportPass("Initial Row Counts: " + InitRowCounts + " noted.");
+                System.out.println("InitRowCounts: " + InitRowCounts);
+            } else {
+                FinRowCounts = rowCountNumber;
+                reportPass("Final Row Counts: " + FinRowCounts + " noted.");
+                System.out.println("FinRowCounts: " + FinRowCounts);
+            }
+        } else {
+            System.out.println("No matching row count found.");
+        }
+
+        return new DataManagerPage();
+    }
+
+
+    public DataManagerPage validateRowCountAfterBulkDelete() {
+        Assert.assertEquals(FinRowCounts, getRowCounts.get());
+        reportPass("Final Row Counts: " + FinRowCounts + " is equal to the final row count after bulk delete: " + getRowCounts.get());
         return this;
     }
 

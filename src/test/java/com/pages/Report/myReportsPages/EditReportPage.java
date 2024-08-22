@@ -83,6 +83,11 @@ public class EditReportPage extends ReportsPage {
 
     public EditReportPage removeVisualization() {
         try {
+            pause("medium");
+            if (isVisible(frameSpanTextLocator("I understand"))) {
+                click(frameSpanTextLocator("I understand"), "I understand");
+            }
+            mouseOver("//i[@class='dx-icon dx-icon-remove']", "Remove Visualization");
             click("//i[@class='dx-icon dx-icon-remove']", "Remove Visualization", "Remove Visualization");
             pause("low");
             addBudgetOrAnalysis();
@@ -183,6 +188,7 @@ public class EditReportPage extends ReportsPage {
         pause("medium");
         return new EditReportPage();
     }
+
     public EditReportPage clickOnSaveIcon() {
         click("//i[@class='dx-icon dx-icon-save']", "Save Icon", "Edit Icon");
         pause("low");

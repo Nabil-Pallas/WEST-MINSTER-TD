@@ -46,6 +46,9 @@ public class FileManagerPage extends AdminPage {
     //list of columns to be added in Column Chooser
     private static Set<String> chooserColumn = new HashSet<>();
 
+    //File Upload Cancel Icon
+    public static String cancelIcon = "//i[@class='dx-icon dx-icon-clear']";
+    ;
 
     //Locator For Date Format
     public String frameDateFormatLocator(String placeholder, int index) {
@@ -167,6 +170,34 @@ public class FileManagerPage extends AdminPage {
 //        waitForElementToLoadWithHighTime(fileLocator);
         boolean verifyExactText = verifyExactText(fileLocator, fileName);
         Assert.assertTrue(verifyExactText);
+
+        return this;
+    }
+
+    //Validate The File Upload
+    public FileManagerPage validateFileIsNotUploaded(String fileName) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        pause("medium");
+        waitForLoaderToDisappear();
+        String fileLocator = "//a[text()='" + fileName + "']";
+        boolean verifyExactText = isNotVisible(fileLocator, fileName);
+        Assert.assertFalse(verifyExactText);
+        reportPass("User successfully validated that the " + fileName + " is not visible.");
+
+        return this;
+    }
+
+    //Validate The File Upload
+    public FileManagerPage clickOnCancelUploadFile() {
+        waitForLoaderToDisappear();
+        waitForElementToLoad(cancelIcon);
+        click(cancelIcon, "Cancel Icon Button");
+//        waitForElementToLoad(frameSpanTextLocator("cancelled successfully"));
+//        String getInnerText = getInnerText(frameSpanTextLocator("cancelled successfully"));
+//        System.out.println("Inner Text: " + getInnerText);
+//        boolean verifyExactText = verifyPartialText(frameSpanTextLocator("cancelled successfully"), getInnerText);
+//        Assert.assertTrue(verifyExactText);
 
         return this;
     }

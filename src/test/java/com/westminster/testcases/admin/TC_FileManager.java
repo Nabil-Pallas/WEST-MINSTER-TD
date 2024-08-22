@@ -866,8 +866,8 @@ public class TC_FileManager extends WestMinsterPageHook {
         testcaseName = "TC_RE_1181";
         testDescription = "Verify Error Rows On Amend Click";
         authors = "Automation Team";
-        startTestCase();
         category = "Error Queue";
+        startTestCase();
         setNode();
 
         getTradeDate.set(FakerDataFactory.getPastDate());
@@ -896,6 +896,38 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .errorQueuePageRowCount()
                 .validateAmendErrorRowsAndErrorQueuePageRowCount();
         System.out.println("TC-----------TC_1181");
+    }
+
+    //Phase -03 -Manoj
+    //TC_RE_4458 - Verify whether the file is not getting upload when it has been cancelled while uploading.
+    @Test(priority = 18, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyFileUploadIsCancelled() {
+        testcaseName = "TC_RE_4458";
+        testDescription = "Verify File Upload Is Cancelled";
+        authors = "Automation Team";
+        category = "File Upload";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/upload/6000DataFile.csv");
+        fileName.set("6000DataFile.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settlement Date"))
+                .clickOnFinishMapping()
+                .clickOnCancelUploadFile()
+                .validateFileIsNotUploaded(fileName.get());
+        System.out.println("TC-----------TC_RE_4458");
     }
 
 }

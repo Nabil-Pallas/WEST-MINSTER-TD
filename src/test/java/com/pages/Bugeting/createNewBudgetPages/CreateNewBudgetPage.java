@@ -118,7 +118,7 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
 
     public CreateNewBudgetPage clickSaveItemBtn() {
         pause("medium");
-        click(frameATagTextLocator("Save Item"), "Save Item", "Save Item");
+        click(frameSpanTextLocator("Save Item"), "Save Item", "Save Item");
 //        click(frameATagTextLocator("Save Item"), "Save Item");
 //        System.out.println("after Clicked");
         pause("medium");

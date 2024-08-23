@@ -203,7 +203,7 @@ public class CreateNewReportPage extends ReportsPage {
     public ReportsPage clickOnExitBtn() {
         pause("medium");
         pause("low");
-        click(frameSpanTextLocator("< Exit"), "Exit");
+        click(frameSpanTextLocator("Exit"), "Exit");
         waitForLoaderToDisappear();
         pause("medium");
         return new ReportsPage();

@@ -597,6 +597,12 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateNewRuleNameIsEnabled(ruleName.get())
                 .clickOnDataManager()
                 .validateDataManagerPage()
+                .verifyHeaderElementIsPresentOrNot(titleone.get())
+                .clickOnRulesManager()
+                .validateRulesManagerPage()
+                .deleteRuleName(ruleName.get())
+                .clickOnDataManager()
+                .validateDataManagerPage()
                 .verifyHeaderElementIsPresentOrNot(titleone.get());
 
         System.out.println("TC-----------TC_RE_5165");

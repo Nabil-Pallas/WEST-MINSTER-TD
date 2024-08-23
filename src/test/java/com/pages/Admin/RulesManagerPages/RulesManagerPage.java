@@ -171,23 +171,23 @@ public class RulesManagerPage extends AdminPage {
         waitForLoaderToDisappear();
         pause("low");
         int ruleNameCount = getLocatorsCount("(((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()]");
-        if (ruleNameCount > 0) {
-            for (int i = 1; i <= ruleNameCount; i++) {
-                String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
-                String headerText = getInnerText(headerElement);
-                if (headerText.equalsIgnoreCase(ruleName)) {
-                    highlightElement(frameDivTextLocator(ruleName), "Header Element");
-                    boolean verifyExactText = verifyExactText(frameDivTextLocator(ruleName), ruleName);
-                    Assert.assertTrue(verifyExactText);
-                    System.out.println("Locators Text : " + verifyExactText);
-                    reportPass("Header Column is present in the Data Manager Grid");
-                    break;
-                } else {
-                    reportFail("Header Column is not present in the Data Manager Grid");
-                }
+
+        for (int i = 1; i <= ruleNameCount; i++) {
+            String ruleNameInnerText = getInnerText("((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()])[" + i + "]");
+            String enableCheckBox = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[2])[position() < last()])[" + i + "]";
+            String actionLocatorStr = "(//td[@class='action-edit-delete-column']/a)[" + i + "]";
+
+            if (ruleNameInnerText.equals(ruleName)) {
+                click(actionLocatorStr, "Action", "Action Icon");
+                click(frameSpanTextLocator("Delete"), "Delete", "Delete Item");
+                pause("low");
+                click(frameSpanTextLocator("Yes"), "Yes", "Button");
+                pause("low");
+                waitForLoaderToDisappear();
+                pause("low");
+                reportPass("User successfully deleted the rule " + ruleName);
+                break;
             }
-        } else {
-            reportWarning("User unable to  delete the rule because there is no rule items");
         }
         return this;
     }

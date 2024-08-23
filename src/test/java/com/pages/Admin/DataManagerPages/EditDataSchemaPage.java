@@ -116,7 +116,7 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     public EditDataSchemaPage selectParameterType() {
-        waitForElementToLoad(parameterTypeText);
+        pause("low");
         String getParameterTypeText = getAttribute(parameterTypeText, "value");
         if (getParameterTypeText.equals("List")) {
             reportPass("Parameter type is already in List");

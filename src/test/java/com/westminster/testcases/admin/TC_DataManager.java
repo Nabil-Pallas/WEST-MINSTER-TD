@@ -567,6 +567,40 @@ public class TC_DataManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_1686");
     }
+
+    //Phase -3 - Manoj
+    //TC_RE_5165 Removes associated rules from the rules manager and data manager grid when a calculated column is deleted from the schema.
+    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void removeRuleOnCalculatedColumnDeletion() {
+        testcaseName = "TC_RE_5165";
+        testDescription = "Remove Rule On Calculated Column Deletion";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
+        titleone.set(FakerDataFactory.getFieldName());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnRulesManager()
+                .validateRulesManagerPage()
+                .clickOnAddNewRuleBtn()
+                .validateAddRulePage()
+                .createANewRule(ruleName.get(), FakerDataFactory.getRuleDescription())
+                .defineTheNewColumn(true, titleone.get(), "")
+                .addFilters("Broker Name", "=")
+                .defineTheCalculation("Local Price", "*", "Local Price")
+                .validateNewRuleNameIsEnabled(ruleName.get())
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .verifyHeaderElementIsPresentOrNot(titleone.get());
+
+        System.out.println("TC-----------TC_RE_5165");
+    }
 }
 
 

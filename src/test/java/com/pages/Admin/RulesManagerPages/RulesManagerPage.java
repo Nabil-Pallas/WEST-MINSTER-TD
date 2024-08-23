@@ -164,6 +164,34 @@ public class RulesManagerPage extends AdminPage {
         return this;
     }
 
+    //Delete Rule Manager
+    public RulesManagerPage deleteRuleName(String ruleName) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        waitForLoaderToDisappear();
+        pause("low");
+        int ruleNameCount = getLocatorsCount("(((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()]");
+        if (ruleNameCount > 0) {
+            for (int i = 1; i <= ruleNameCount; i++) {
+                String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+                String headerText = getInnerText(headerElement);
+                if (headerText.equalsIgnoreCase(ruleName)) {
+                    highlightElement(frameDivTextLocator(ruleName), "Header Element");
+                    boolean verifyExactText = verifyExactText(frameDivTextLocator(ruleName), ruleName);
+                    Assert.assertTrue(verifyExactText);
+                    System.out.println("Locators Text : " + verifyExactText);
+                    reportPass("Header Column is present in the Data Manager Grid");
+                    break;
+                } else {
+                    reportFail("Header Column is not present in the Data Manager Grid");
+                }
+            }
+        } else {
+            reportWarning("User unable to  delete the rule because there is no rule items");
+        }
+        return this;
+    }
+
     public EditRulePage clickOnEditRule() {
         if (isVisible(actionRuleLocator, "Action Icon")) {
             click(actionRuleLocator, "Action", "Link");

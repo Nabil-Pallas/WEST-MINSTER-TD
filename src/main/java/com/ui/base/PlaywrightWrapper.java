@@ -824,7 +824,8 @@ public class PlaywrightWrapper extends Reporter {
                 String innerText = text.innerText();
                 System.out.println("Inner: " + innerText);
                 if (innerText.contains(option)) {
-                    text.click(new Locator.ClickOptions().setForce(true));
+//                    clickUsingJs(text.toString());
+                    text.click(new Locator.ClickOptions().setForce(true).setClickCount(2));
                     // Report success
                     reportStep("The drop down : " + name + " is selected with value : " + option, "info");
                     break; // Exit the loop once the desired option is found and clicked

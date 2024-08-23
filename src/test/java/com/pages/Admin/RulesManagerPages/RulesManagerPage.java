@@ -164,6 +164,34 @@ public class RulesManagerPage extends AdminPage {
         return this;
     }
 
+    //Delete Rule Manager
+    public RulesManagerPage deleteRuleName(String ruleName) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        waitForLoaderToDisappear();
+        pause("low");
+        int ruleNameCount = getLocatorsCount("(((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()]");
+
+        for (int i = 1; i <= ruleNameCount; i++) {
+            String ruleNameInnerText = getInnerText("((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()])[" + i + "]");
+            String enableCheckBox = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[2])[position() < last()])[" + i + "]";
+            String actionLocatorStr = "(//td[@class='action-edit-delete-column']/a)[" + i + "]";
+
+            if (ruleNameInnerText.equals(ruleName)) {
+                click(actionLocatorStr, "Action", "Action Icon");
+                click(frameSpanTextLocator("Delete"), "Delete", "Delete Item");
+                pause("low");
+                click(frameSpanTextLocator("Yes"), "Yes", "Button");
+                pause("low");
+                waitForLoaderToDisappear();
+                pause("low");
+                reportPass("User successfully deleted the rule " + ruleName);
+                break;
+            }
+        }
+        return this;
+    }
+
     public EditRulePage clickOnEditRule() {
         if (isVisible(actionRuleLocator, "Action Icon")) {
             click(actionRuleLocator, "Action", "Link");

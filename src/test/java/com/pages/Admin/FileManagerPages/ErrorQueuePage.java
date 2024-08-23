@@ -343,8 +343,8 @@ public class ErrorQueuePage extends FileManagerPage {
         waitForLoaderToDisappear();
         waitForLoaderToDisappear();
         //select Invalid date value/format option from drop down
-        waitForElementToLoad(filterByValues);
-        selectOptionFromDropdown(filterByLocator, filterByValues, options, "Option");
+        waitForElementToLoad(filterByLocator);
+        selectOptionFromDropdown(filterByLocator, filterByValues, options, "Filter By");
         pause("low");
         waitForLoaderToDisappear();
         return this;

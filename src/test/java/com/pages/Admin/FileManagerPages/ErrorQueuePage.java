@@ -16,7 +16,7 @@ public class ErrorQueuePage extends FileManagerPage {
     private static long errorRows;
     private String editRow = "//span[text()='Edit']";
     private String actionBtn = "(//table)[4]//tr[1]//td[last()]";
-    private String saveBtn = "(//a[contains(text(),'Save')])[2]";
+    private String saveBtn = "(//span[text()='Save'])[2]";
     private String filterByLocator = "//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']";
     private String rowCountLocator = "//div[@id='error-queue-row-count']";
     public static long rCount;

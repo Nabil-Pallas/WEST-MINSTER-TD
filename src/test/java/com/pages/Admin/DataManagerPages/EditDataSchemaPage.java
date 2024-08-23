@@ -117,7 +117,7 @@ public class EditDataSchemaPage extends DataManagerPage {
 
     public EditDataSchemaPage selectParameterType() {
         waitForElementToLoad(parameterTypeText);
-        String getParameterTypeText = getInputText(parameterTypeText);
+        String getParameterTypeText = getAttribute("//input[@name='PARAMETER_TYPE']","value");
         if (getParameterTypeText.equals("List")) {
             reportPass("Parameter type is already in List");
         } else {
@@ -138,7 +138,7 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     public EditDataSchemaPage clickOnExit() {
-        click(frameSpanTextLocator("< Exit"), "Exit Button");
+        click(frameSpanTextLocator("Exit"), "Exit Button");
         pause("medium");
         return this;
     }

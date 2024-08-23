@@ -182,7 +182,6 @@ public class TC_Analytics extends WestMinsterPageHook {
         System.out.println("TC-----------TC_5594");
     }
 
-
     //Summary table - 5773
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void createSummaryTable() {
@@ -214,6 +213,5 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .deleteAnalytics(analysisName.get());
         System.out.println("TC-----------TC_5773");
     }
-
 
 }

@@ -19,7 +19,7 @@
         <parameter name="Browser" value="edge"></parameter>
 
         <classes>
-            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>
+            <class name="com.westminster.testcases.analytics.TC_Analytics"/>
         </classes>
     </test>
     <!--

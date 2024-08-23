@@ -133,6 +133,7 @@ public class NewAnalysisPage extends AnalyticsPage {
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         waitForElementToLoad(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1));
         click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
+        pause("low");
         forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
         pause("low");
 //        clickOnNextBtn();
@@ -185,6 +186,7 @@ public class NewAnalysisPage extends AnalyticsPage {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         waitForElementToLoad(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1));
         click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
+        pause("low");
         forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
@@ -206,6 +208,7 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         waitForElementToLoad(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1));
         click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
+        pause("low");
         forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
 
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");

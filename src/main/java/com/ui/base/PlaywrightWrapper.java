@@ -825,11 +825,12 @@ public class PlaywrightWrapper extends Reporter {
                 System.out.println("Inner: " + innerText);
                 if (innerText.contains(option)) {
                     text.click(new Locator.ClickOptions().setForce(true));
+                    // Report success
+                    reportStep("The drop down : " + name + " is selected with value : " + option, "info");
                     break; // Exit the loop once the desired option is found and clicked
                 }
             }
-            // Report success
-            reportStep("The drop down : " + name + " is selected with value : " + option, "info");
+
             return true;
 
         } catch (PlaywrightException e) {

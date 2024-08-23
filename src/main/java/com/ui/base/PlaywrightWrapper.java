@@ -622,34 +622,6 @@ public class PlaywrightWrapper extends Reporter {
         return false;
     }
 
-    /**
-     * Use this method to get texts from all options in a dropdown.
-     *
-     * @param selectddLocator The locator to identify the dropdown
-     * @param optionLocator   The locator to identify the options within the dropdown
-     * @return A list of texts from the dropdown options
-     * @author Automation Team
-     */
-    public List<String> getDropdownTexts(String selectddLocator, String optionLocator) {
-        // Locate the dropdown element
-        Locator select = getPage().locator(selectddLocator);
-
-        // Locate all options within the dropdown
-        Locator options = select.locator(optionLocator);
-
-        // Get the count of option elements
-        int count = options.count();
-
-        // Create a list to store the text values
-        List<String> texts = new ArrayList<>();
-
-        // Loop through the options and get their text content
-        for (int i = 0; i < count; i++) {
-            texts.add(options.nth(i).innerText());
-        }
-
-        return texts;
-    }
 
     /**
      * Use this method to select a dropdown by its text.
@@ -823,6 +795,46 @@ public class PlaywrightWrapper extends Reporter {
             reportStep("The drop down : " + name + " is selected with value : " + option, "info");
             return true;
         } catch (PlaywrightException e) {
+            e.printStackTrace();
+            reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
+        }
+        return false;
+    }
+
+
+    /**
+     * Use this method to get texts from all options in a dropdown.
+     *
+     * @param ddLocator     The locator to identify the dropdown
+     * @param optionLocator The locator to identify the options within the dropdown
+     * @return A list of texts from the dropdown options
+     * @author Automation Team
+     */
+
+    public boolean selectOptionFromDropdown(String ddLocator, String optionLocator, String option, String name) {
+        try {
+            // Click to open the dropdown
+            getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
+
+            // Locate all options within the dropdown
+            List<Locator> options = getPage().locator(optionLocator).all();
+
+            // Loop through the options and select the one matching the provided value
+            for (Locator text : options) {
+                String innerText = text.innerText();
+                System.out.println("Inner: " + innerText);
+                if (innerText.contains(option)) {
+                    text.click(new Locator.ClickOptions().setForce(true));
+                    // Report success
+                    reportStep("The drop down : " + name + " is selected with value : " + option, "info");
+                    break; // Exit the loop once the desired option is found and clicked
+                }
+            }
+
+            return true;
+
+        } catch (PlaywrightException e) {
+            // Handle any Playwright exceptions
             e.printStackTrace();
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }

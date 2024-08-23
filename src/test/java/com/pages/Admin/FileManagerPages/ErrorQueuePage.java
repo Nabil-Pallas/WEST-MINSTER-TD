@@ -16,9 +16,10 @@ public class ErrorQueuePage extends FileManagerPage {
     private static long errorRows;
     private String editRow = "//span[text()='Edit']";
     private String actionBtn = "(//table)[4]//tr[1]//td[last()]";
-    private String saveBtn = "(//a[contains(text(),'Save')])[2]";
+    private String saveBtn = "(//span[text()='Save'])[2]";
     private String filterByLocator = "//span[text()='Filter by']/ancestor::div[1]/div//div[@class='dx-texteditor-container']";
     private String rowCountLocator = "//div[@id='error-queue-row-count']";
+    private String filterByValues = "//div[@role='option']/child::div";
     public static long rCount;
     public static long rowCount;
     private static long duplicateRowCount;
@@ -339,10 +340,11 @@ public class ErrorQueuePage extends FileManagerPage {
     }
 
     public ErrorQueuePage filterByOption(String options) {
-        clickOnFilterBy();
+        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
         //select Invalid date value/format option from drop down
-        waitForElementToLoad(frameDivTextLocator(options));
-        forceClick(frameDivTextLocator(options), options, "Option");
+        waitForElementToLoad(filterByLocator);
+        selectOptionFromDropdown(filterByLocator, filterByValues, options, "Filter By");
         pause("low");
         waitForLoaderToDisappear();
         return this;

@@ -68,7 +68,7 @@ public class NewAnalysisPage extends AnalyticsPage {
 
     public AnalyticsPage clickOnBackBtn() {
         pause("low");
-        click(frameSpanTextLocator("< Back"), "Back");
+        click(frameSpanTextLocator("Back"), "Back");
         pause("low");
         return new AnalyticsPage();
     }
@@ -132,8 +132,10 @@ public class NewAnalysisPage extends AnalyticsPage {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         waitForElementToLoad(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1));
-        click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
-        forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
+//        click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
+//        pause("low");
+//        forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
+        selectOptionFromDropdown(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "//div[@class='wdx-custom-dropdown__text']", multipleSeriesValueField1, "Drop Down");
         pause("low");
 //        clickOnNextBtn();
 //        if(isVisible("//div[text()='Invalid Field'")){
@@ -185,6 +187,7 @@ public class NewAnalysisPage extends AnalyticsPage {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         waitForElementToLoad(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1));
         click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
+        pause("low");
         forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
@@ -206,6 +209,7 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         waitForElementToLoad(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1));
         click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
+        pause("low");
         forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
 
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");

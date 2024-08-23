@@ -10,7 +10,7 @@ import static com.pages.Admin.FileManagerPages.AddNewSystemColumnsPage.addedColu
 
 public class EditDataSchemaPage extends DataManagerPage {
     private String EditDataSchemaColumnsText = "//h1[text()='Edit Data Schema Columns']";
-    private String parameterTypeText = "(//input[@class='dx-texteditor-input'])[4]";
+    private String parameterTypeText = "//input[@name='PARAMETER_TYPE']";
     private String selectParameterType = "((//input[@class='dx-texteditor-input'])[4]/following::div[@class='dx-texteditor-buttons-container'])[2]";
     private String selectList = "//input[@name='DATA_LIST_LABEL']//..";
     private String uniqueTradeIdentifier_1 = "(//span[text()='Unique Trade Identifier']//following::tbody//td[4])[1]";
@@ -117,7 +117,7 @@ public class EditDataSchemaPage extends DataManagerPage {
 
     public EditDataSchemaPage selectParameterType() {
         waitForElementToLoad(parameterTypeText);
-        String getParameterTypeText = getInputText(parameterTypeText);
+        String getParameterTypeText = getAttribute(parameterTypeText, "value");
         if (getParameterTypeText.equals("List")) {
             reportPass("Parameter type is already in List");
         } else {
@@ -138,7 +138,7 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     public EditDataSchemaPage clickOnExit() {
-        click(frameSpanTextLocator("< Exit"), "Exit Button");
+        click(frameSpanTextLocator("Exit"), "Exit Button");
         pause("medium");
         return this;
     }

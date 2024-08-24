@@ -508,38 +508,68 @@ public class PlaywrightWrapper extends Reporter {
      */
     public boolean click(String locator, String name, String type) {
         try {
+            // Set the default timeout
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+
+            // Ensure the element is in view and stable before clicking
             getPage().locator(locator).scrollIntoViewIfNeeded();
-            getPage().locator(locator).click();
+            getPage().locator(locator).waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.VISIBLE)
+                    .setTimeout(ConfigurationManager.configuration().timeout()));
+
+            // Attempt the click with force and a click count of 2
+            getPage().locator(locator).click(new Locator.ClickOptions().setForce(true).setClickCount(1));
+
+            // Report success
             reportStep("The " + type + " : " + name + " is clicked", "info");
             return true;
         } catch (PlaywrightException e) {
-            reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
+            // Handle other Playwright-related exceptions
+            reportStep("PlaywrightException while clicking on " + type + " : " + name + " \n" + e.getMessage(), "fail");
+        } catch (Exception e) {
+            // Handle any other unexpected exceptions
+            reportStep("Exception while clicking on " + type + " : " + name + " \n" + e.getMessage(), "fail");
         }
+
         return false;
-
-    }
-
-    public void clickUsingJs(String locator) {
-        getPage().evaluate("() => { " + "const element = document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; " + "if (element) { " + "element.scrollIntoView(); " + "element.click(); " + "} " + "}");
-
     }
 
     public boolean forceClick(String locator, String name, String type) {
-
         try {
+            // Set a default timeout
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+
+            // Wait for the element to be visible and enabled
+            getPage().locator(locator).waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.VISIBLE)
+                    .setTimeout(ConfigurationManager.configuration().timeout()));
+
             getPage().locator(locator).scrollIntoViewIfNeeded();
-            getPage().locator(locator).click(new Locator.ClickOptions().setForce(true));
-            reportStep("The " + type + " : " + name + " is clicked", "info");
-            return true;
+
+            // Attempt to click with a retry mechanism
+            int attempts = 0;
+            while (attempts < 3) {
+                try {
+                    getPage().locator(locator).click(new Locator.ClickOptions()
+                            .setForce(true)
+                            .setClickCount(2));
+                    reportStep("The " + type + " : " + name + " is clicked", "info");
+                    return true;
+                } catch (PlaywrightException e) {
+                    attempts++;
+                    if (attempts >= 3) {
+                        throw e;
+                    }
+                }
+            }
         } catch (PlaywrightException e) {
-            reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
+            reportStep("PlaywrightException: \n" + e.getMessage(), "fail");
+        } catch (Exception e) {
+            reportStep("Exception: \n" + e.getMessage(), "fail");
         }
-
         return false;
-
     }
+
 
     public boolean programmaticClick(String locator, String name, String type) {
 
@@ -555,6 +585,11 @@ public class PlaywrightWrapper extends Reporter {
         }
 
         return false;
+
+    }
+
+    public void clickUsingJs(String locator) {
+        getPage().evaluate("() => { " + "const element = document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; " + "if (element) { " + "element.scrollIntoView(); " + "element.click(); " + "} " + "}");
 
     }
 
@@ -786,11 +821,14 @@ public class PlaywrightWrapper extends Reporter {
      */
     public boolean clickAndChoose(String ddLocator, String optionLocator, String option, String name) {
         try {
+            getPage().locator(ddLocator).scrollIntoViewIfNeeded();
+            getPage().locator(ddLocator).waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.VISIBLE)
+                    .setTimeout(ConfigurationManager.configuration().timeout()));
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
+            //Force Click the optionLocator
             forceClick(optionLocator, option, name);
-//            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
-//            getPage().locator(optionLocator).scrollIntoViewIfNeeded();
-//            getPage().locator(optionLocator).click(new Locator.ClickOptions().setForce(true));
+
             pause("low");
             reportStep("The drop down : " + name + " is selected with value : " + option, "info");
             return true;
@@ -811,34 +849,52 @@ public class PlaywrightWrapper extends Reporter {
      * @author Automation Team
      */
 
+
     public boolean selectOptionFromDropdown(String ddLocator, String optionLocator, String option, String name) {
         try {
-            // Click to open the dropdown
+            // Ensure the dropdown is clickable and then click to open it
+            getPage().locator(ddLocator).scrollIntoViewIfNeeded();
+            getPage().locator(ddLocator).waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.ATTACHED)
+                    .setTimeout(ConfigurationManager.configuration().timeout()));
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
+
+            // Wait for options to be available in the dropdown
+            getPage().locator(optionLocator).waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.VISIBLE)
+                    .setTimeout(ConfigurationManager.configuration().timeout()));
 
             // Locate all options within the dropdown
             List<Locator> options = getPage().locator(optionLocator).all();
 
             // Loop through the options and select the one matching the provided value
-            for (Locator text : options) {
-                String innerText = text.innerText();
+            for (Locator optionElement : options) {
+                String innerText = optionElement.innerText();
                 System.out.println("Inner: " + innerText);
                 if (innerText.contains(option)) {
-//                    clickUsingJs(text.toString());
-                    text.click(new Locator.ClickOptions().setForce(true).setClickCount(2));
+                    optionElement.scrollIntoViewIfNeeded();
+                    optionElement.click(new Locator.ClickOptions().setForce(true).setClickCount(1));
+
                     // Report success
-                    reportStep("The drop down : " + name + " is selected with value : " + option, "info");
-                    break; // Exit the loop once the desired option is found and clicked
+                    reportStep("The dropdown : " + name + " is selected with value : " + option, "info");
+                    return true; // Exit the loop and return true once the desired option is clicked
                 }
             }
 
-            return true;
+            // If the option is not found
+            reportStep("The option: " + option + " was not found in the dropdown: " + name, "fail");
+            return false;
 
         } catch (PlaywrightException e) {
-            // Handle any Playwright exceptions
+            // Handle any other Playwright exceptions
             e.printStackTrace();
-            reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
+            reportStep("PlaywrightException while selecting from dropdown: " + name + " \n" + e.getMessage(), "fail");
+        } catch (Exception e) {
+            // Handle any generic exceptions
+            e.printStackTrace();
+            reportStep("Exception while selecting from dropdown: " + name + " \n" + e.getMessage(), "fail");
         }
+
         return false;
     }
 

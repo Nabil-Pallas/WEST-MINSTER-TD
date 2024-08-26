@@ -84,6 +84,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnActionsBtn()
                 .clickOnEditBtn()
+                .validateEditRowPage()
                 .editInformation(Arrays.asList(ruleName.get(), reportName.get(), titleone.get()),
                         Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:"))
                 .clickOnApplyBtn()

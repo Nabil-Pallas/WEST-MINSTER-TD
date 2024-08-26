@@ -859,11 +859,6 @@ public class PlaywrightWrapper extends Reporter {
                     .setTimeout(ConfigurationManager.configuration().timeout()));
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
 
-            // Wait for options to be available in the dropdown
-            getPage().locator(optionLocator).waitFor(new Locator.WaitForOptions()
-                    .setState(WaitForSelectorState.VISIBLE)
-                    .setTimeout(ConfigurationManager.configuration().timeout()));
-
             // Locate all options within the dropdown
             List<Locator> options = getPage().locator(optionLocator).all();
 

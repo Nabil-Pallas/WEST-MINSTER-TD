@@ -518,7 +518,7 @@ public class PlaywrightWrapper extends Reporter {
                     .setTimeout(ConfigurationManager.configuration().timeout()));
 
             // Attempt the click with force and a click count of 2
-            getPage().locator(locator).click(new Locator.ClickOptions().setForce(true).setClickCount(1));
+            getPage().locator(locator).click(new Locator.ClickOptions().setForce(true).setClickCount(2));
 
             // Report success
             reportStep("The " + type + " : " + name + " is clicked", "info");
@@ -541,7 +541,6 @@ public class PlaywrightWrapper extends Reporter {
 
             // Wait for the element to be visible and enabled
             getPage().locator(locator).waitFor(new Locator.WaitForOptions()
-                    .setState(WaitForSelectorState.VISIBLE)
                     .setTimeout(ConfigurationManager.configuration().timeout()));
 
             getPage().locator(locator).scrollIntoViewIfNeeded();
@@ -588,10 +587,34 @@ public class PlaywrightWrapper extends Reporter {
 
     }
 
-    public void clickUsingJs(String locator) {
-        getPage().evaluate("() => { " + "const element = document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; " + "if (element) { " + "element.scrollIntoView(); " + "element.click(); " + "} " + "}");
+    //Click using JS
+    public boolean clickUsingJs(String locator, String name, String type) {
 
+        try {
+            // Setting the default timeout
+            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+
+            // Execute JavaScript to scroll the element into view and click
+            getPage().evaluate("() => { " +
+                    "const element = document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; " +
+                    "if (element) { " +
+                    "element.scrollIntoViewIfNeeded(); " +  // Scroll into view
+                    "element.click(); " +                    // Programmatic click
+                    "} " +
+                    "}");
+
+            // Report the successful click action
+            reportStep("The " + type + " :" + name + " is clicked", "info");
+            return true;
+
+        } catch (PlaywrightException e) {
+            // Report any exceptions that occur
+            reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
+        }
+
+        return false;
     }
+
 
     /**
      * Use this method to double click an element.
@@ -606,7 +629,7 @@ public class PlaywrightWrapper extends Reporter {
         try {
             getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
             getPage().locator(locator).scrollIntoViewIfNeeded();
-            getPage().locator(locator).dblclick();
+            getPage().locator(locator).dblclick(new Locator.DblclickOptions().setForce(true));
             reportStep("The " + type + " :" + name + " is double clicked", "info");
             return true;
         } catch (PlaywrightException e) {

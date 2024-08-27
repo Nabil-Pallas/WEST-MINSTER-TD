@@ -35,15 +35,43 @@ public class AddNewListPage extends ListManagerPage {
         return this;
     }
 
+//    public AddNewListPage typeListItems(List<String> listItems) {
+//        for (String listItem : listItems) {
+//            clickOnAddListItem();
+//            pause("low");
+//            doubleClick(frametextareaLocator(2), "List Item", "Text Box" );
+//            typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
+//            pause("low");
+//            doubleClick(listTable, "Next Row", "Empty Row");
+//        }
+//        return this;
+//    }
+
     public AddNewListPage typeListItems(List<String> listItems) {
-        for (String listItem : listItems) {
-            clickOnAddListItem();
-            typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
-            pause("low");
-            click(listTable, "Next Row", "Empty Row");
+        if (listItems == null || listItems.isEmpty()) {
+            return this; // Return early if the list is null or empty
         }
+        // Click on AddListItem before the loop starts
+        clickOnAddListItem();
+        pause("low");
+
+        for (int i = 0; i < listItems.size(); i++) {
+            String listItem = listItems.get(i);
+
+//            doubleClick(frametextareaLocator(2), "List Item", "Text Box");
+            typeAndSpace(frametextareaLocator(2), listItem, "List Item " + listItem);
+
+            if (i < listItems.size() - 1) {
+                // For all but the last item, press Enter
+                pressEnter(frametextareaLocator(2));
+                pause("low");
+//                doubleClick(listTable, "Next Row", "Empty Row");
+            }
+        }
+
         return this;
     }
+
 
     public ListManagerPage clickOnSaveListBtn() {
         click(frameSpanTextLocator("Save List"), "Save List");

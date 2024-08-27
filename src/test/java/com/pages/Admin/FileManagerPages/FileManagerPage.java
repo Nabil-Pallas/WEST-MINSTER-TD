@@ -101,6 +101,7 @@ public class FileManagerPage extends AdminPage {
                 typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
                 pause("low");
                 click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete");
+                pause("medium");
                 break;
             }
         }
@@ -152,6 +153,7 @@ public class FileManagerPage extends AdminPage {
 
     //Create The New Data Map
     public FileMappingPage createNewDataMap(String dataMapName, String dateFormat) {
+        waitForElementToLoad(frameClientDetailsLocator("Data Map Name"));
         typeAndSpace(frameClientDetailsLocator("Data Map Name"), dataMapName, "Data Map Name");
         clickAndChoose(frameDateFormatLocator("Date Format", 2), frameDateFormatSelectDropDownLocator(dateFormat), dateFormat, "Date Format");
         clickOnCreateBtn();

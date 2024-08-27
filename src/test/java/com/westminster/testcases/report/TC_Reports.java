@@ -192,6 +192,7 @@ public class TC_Reports extends WestMinsterPageHook {
         descriptionTwo.set(FakerDataFactory.getDescription());
         new DashboardPage()
                 .validateDashBoardElements()
+                .clickAndselectLocalTimezone("GMT+5:30: India Standard Time (Asia, Kolkata)")
                 .clickOnReports()
                 .validateReportsPage()
                 .getTimeForCreateReport()

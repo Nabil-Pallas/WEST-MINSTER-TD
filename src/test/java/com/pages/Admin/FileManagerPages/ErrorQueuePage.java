@@ -176,6 +176,7 @@ public class ErrorQueuePage extends FileManagerPage {
         waitForElementToLoad(saveBtn);
         click(saveBtn, "Save");
         waitForLoaderToDisappear();
+        pause("low");
         return this;
     }
 
@@ -391,7 +392,10 @@ public class ErrorQueuePage extends FileManagerPage {
 
 
     public ErrorQueuePage clickFilterAndValidateChanges(String filterFieldName, String expectedValues) {
+        waitForLoaderToDisappear();
+        pause("medium");
         click(frameFieldFilterLocator(filterFieldName), filterFieldName, "Filter Icon");
+        pause("low");
         waitForElementToLoad(frameDivTextLocator(expectedValues));
         boolean verifyExactText = verifyExactText(frameDivTextLocator(expectedValues), expectedValues);
         Assert.assertTrue(verifyExactText);

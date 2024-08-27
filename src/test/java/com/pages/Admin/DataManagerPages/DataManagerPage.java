@@ -537,7 +537,6 @@ public class DataManagerPage extends AdminPage {
                         boolean verifyExactText = verifyInnerText(value, valuee);
                         Assert.assertTrue(verifyExactText);
                         reportPass("Successfully validated Decimal Precision & Number Format");
-
                     }
                 }
 
@@ -700,7 +699,7 @@ public class DataManagerPage extends AdminPage {
     public DataManagerPage clickOnShowColumnChooser() {
         pause("medium");
         waitForElementToLoad(frameSpanExactTextLocator("Show Column Chooser"));
-        waitForLoaderToDisappear();
+        pause("medium");
         click(frameSpanExactTextLocator("Show Column Chooser"), "Show Column Chooser");
         return this;
     }

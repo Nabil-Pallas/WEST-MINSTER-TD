@@ -177,7 +177,7 @@ public class MenuPage extends WestMinsterPageHook {
 
     public MenuPage clickAndselectDefaultDateFormat() {
         pause("low");
-        preferenceDateFormat="MM/DD/YYYY";
+        preferenceDateFormat = "MM/DD/YYYY";
         String innerText = getInputText("//input[contains(@id,'DATE_FORMAT')]");
         if (innerText.equals("MM/DD/YYYY")) {
             click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
@@ -194,21 +194,21 @@ public class MenuPage extends WestMinsterPageHook {
         if (innerText.equals("YYYY-MM-DD")) {
             clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
             pause("low");
-            preferenceDateFormat ="MM/DD/YYYY";
+            preferenceDateFormat = "MM/DD/YYYY";
             clickPreferenceSaveBtn();
-            reportPass("Date format have been setted to: "+preferenceDateFormat);
-        } else if (innerText.equals("MM/DD/YYYY")){
+            reportPass("Date format have been setted to: " + preferenceDateFormat);
+        } else if (innerText.equals("MM/DD/YYYY")) {
             clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='DD/MM/YYYY']", "DD/MM/YYYY", "Date Format");
             pause("low");
-            preferenceDateFormat ="DD/MM/YYYY";
+            preferenceDateFormat = "DD/MM/YYYY";
             clickPreferenceSaveBtn();
-            reportPass("Date format have been set to: "+preferenceDateFormat);
-        }else {
+            reportPass("Date format have been set to: " + preferenceDateFormat);
+        } else {
             clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='YYYY-MM-DD']", "YYYY-MM-DD", "Date Format");
             pause("low");
-            preferenceDateFormat ="YYYY-MM-DD";
+            preferenceDateFormat = "YYYY-MM-DD";
             clickPreferenceSaveBtn();
-            reportPass("Date format have been set to: "+preferenceDateFormat);
+            reportPass("Date format have been set to: " + preferenceDateFormat);
         }
         return this;
     }
@@ -281,18 +281,18 @@ public class MenuPage extends WestMinsterPageHook {
         return this;
     }
 
-    public MenuPage clickAndselectTimeFormat(){
+    public MenuPage clickAndselectTimeFormat() {
         pause("low");
         String innerText = getInputText("//input[contains(@id,'TIME_FORMAT')]");
-        if (innerText.equals("24-hour")){
-            clickAndChoose("//input[contains(@id,'TIME_FORMAT')]","//div[text()='12-hour']","12-hour","Time Format");
+        if (innerText.equals("24-hour")) {
+            clickAndChoose("//input[contains(@id,'TIME_FORMAT')]", "//div[text()='12-hour']", "12-hour", "Time Format");
             pause("low");
             preferenceTimeFormat = "12-hour";
             clickPreferenceSaveBtn();
             pause("low");
             reportPass("User successfully edited time format to: " + preferenceTimeFormat);
-        }else {
-            clickAndChoose("//input[contains(@id,'TIME_FORMAT')]","//div[text()='24-hour']","24-hour","Time Format");
+        } else {
+            clickAndChoose("//input[contains(@id,'TIME_FORMAT')]", "//div[text()='24-hour']", "24-hour", "Time Format");
             pause("low");
             preferenceTimeFormat = "24-hour";
             clickPreferenceSaveBtn();
@@ -302,30 +302,43 @@ public class MenuPage extends WestMinsterPageHook {
         return this;
     }
 
-    public MenuPage clickAndselectLocalTimezone(){
+    public MenuPage clickAndselectLocalTimezone() {
 
         String innerText = getInputText("//input[contains(@id,'TIME_FORMAT')]");
-        if (innerText.equals("24-hour")){
+        if (innerText.equals("24-hour")) {
             preferenceTimeFormat = "24-hour";
-        }else {
+        } else {
             preferenceTimeFormat = "12-hour";
         }
-        click("//input[contains(@id,'LOCAL_TIMEZONE')]","Drop Down");
+        click("//input[contains(@id,'LOCAL_TIMEZONE')]", "Drop Down");
         int count = getLocatorsCount("//div[@class='dx-scrollview-content']//div[@class='wdx-custom-dropdown']//div[@class='wdx-custom-dropdown__text']//div[1]");
-        for(int i=1;i<=count;i++){
-            String innertext = getInnerText("(//div[@class='dx-scrollview-content']//div[@class='wdx-custom-dropdown']//div[@class='wdx-custom-dropdown__text']//div[1])["+i+"]");
+        for (int i = 1; i <= count; i++) {
+            String innertext = getInnerText("(//div[@class='dx-scrollview-content']//div[@class='wdx-custom-dropdown']//div[@class='wdx-custom-dropdown__text']//div[1])[" + i + "]");
             texts.add(innertext);
         }
-        System.out.println("list size ranges: "+texts.size());
+        System.out.println("list size ranges: " + texts.size());
         Random random = new Random();
         int min = 1;
         int max = texts.size();
         randomNumber = random.nextInt(max - min + 1) + min;
-        System.out.println("random number is: "+ randomNumber);
-        click("//div[@class='wdx-custom-dropdown__text']/div[text()='"+texts.get(randomNumber)+"']","option");
+        System.out.println("random number is: " + randomNumber);
+        click("//div[@class='wdx-custom-dropdown__text']/div[text()='" + texts.get(randomNumber) + "']", "option");
         pause("low");
         clickPreferenceSaveBtn();
         return this;
+    }
+
+
+    public DashboardPage clickAndselectLocalTimezone(String timeZone) {
+        mouseHoverOnProfile()
+                .clickAccountSettingsBtn()
+                .waitForLoaderToDisappear();
+        clickPreferencesBtn()
+                .clickEditPreferencesBtn();
+        waitForElementToLoad("//input[contains(@id,'LOCAL_TIMEZONE')]");
+        selectOptionFromDropdown("//input[contains(@id,'LOCAL_TIMEZONE')]", "//div[@class='dx-scrollview-content']//div[@class='wdx-custom-dropdown']//div[@class='wdx-custom-dropdown__text']//div[1]", timeZone, "Time Zone");
+        clickPreferenceSaveBtn();
+        return new DashboardPage();
     }
 
 
@@ -353,8 +366,10 @@ public class MenuPage extends WestMinsterPageHook {
 
     //Navigate to the application URL
     public DashboardPage navigateURL() {
-        waitForAppearance("//span[contains(text(),'OK')]", "OK");
-        click("//span[contains(text(),'OK')]", "OK", "Button");
+        pause("low");
+        if (isVisible("//span[contains(text(),'OK')]")) {
+            click("//span[contains(text(),'OK')]", "OK", "Button");
+        }
         navigate(ConfigurationManager.configuration().baseStagingUrl());
         return new DashboardPage();
     }
@@ -471,7 +486,7 @@ public class MenuPage extends WestMinsterPageHook {
             boolean result = verifyInnerText(str, "dd/MM/yyyy");
             Assert.assertTrue(result);
             reportPass("Successfully validated date format. Option selected is: " + str);
-        }else{
+        } else {
             boolean result = verifyInnerText(str, "yyyy-MM-dd");
             Assert.assertTrue(result);
             reportPass("Successfully validated date format. Option selected is: " + str);
@@ -479,7 +494,7 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
-    public DashboardPage setTimeFormatInPreferences(){
+    public DashboardPage setTimeFormatInPreferences() {
         mouseHoverOnProfile()
                 .clickAccountSettingsBtn()
                 .waitForLoaderToDisappear();
@@ -489,7 +504,7 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
-    public DashboardPage setLocalTimezoneInPreferences(){
+    public DashboardPage setLocalTimezoneInPreferences() {
         mouseHoverOnProfile()
                 .clickAccountSettingsBtn()
                 .waitForLoaderToDisappear();
@@ -500,15 +515,15 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
-    public DashboardPage getTimeInLocalTimezoneBeforeFileUpload(){
+    public DashboardPage getTimeInLocalTimezoneBeforeFileUpload() {
         pause("low");
 
-        if (isVisible("//span[text()='Edit Preferences']")){
+        if (isVisible("//span[text()='Edit Preferences']")) {
             clickEditPreferencesBtn();
-            click("//input[contains(@id,'LOCAL_TIMEZONE')]","Drop Down");
-            String str = getInnerText("//div[@class='wdx-custom-dropdown__text']/div[text()='"+texts.get(randomNumber)+"']//following-sibling::div");
-            currentTimeBeforeFileUpload=str.replaceAll("e.g. current time: ","");
-        }else {
+            click("//input[contains(@id,'LOCAL_TIMEZONE')]", "Drop Down");
+            String str = getInnerText("//div[@class='wdx-custom-dropdown__text']/div[text()='" + texts.get(randomNumber) + "']//following-sibling::div");
+            currentTimeBeforeFileUpload = str.replaceAll("e.g. current time: ", "");
+        } else {
 
             mouseHoverOnProfile()
                     .clickAccountSettingsBtn()
@@ -522,33 +537,33 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
-    public DashboardPage getTimeInLocalTimezoneAfterFileUpload(){
+    public DashboardPage getTimeInLocalTimezoneAfterFileUpload() {
         mouseHoverOnProfile()
                 .clickAccountSettingsBtn()
                 .waitForLoaderToDisappear();
         clickPreferencesBtn()
                 .clickEditPreferencesBtn();
-        click("//input[contains(@id,'LOCAL_TIMEZONE')]","Drop Down");
-        String str = getInnerText("//div[@class='wdx-custom-dropdown__text']/div[text()='"+texts.get(randomNumber)+"']//following-sibling::div");
-        currentTimeAfterFileUpload=str.replaceAll("e.g. current time: ","");
+        click("//input[contains(@id,'LOCAL_TIMEZONE')]", "Drop Down");
+        String str = getInnerText("//div[@class='wdx-custom-dropdown__text']/div[text()='" + texts.get(randomNumber) + "']//following-sibling::div");
+        currentTimeAfterFileUpload = str.replaceAll("e.g. current time: ", "");
 
         return new DashboardPage();
     }
 
-    public DashboardPage validateLocalTimezonevalue(){
+    public DashboardPage validateLocalTimezonevalue() {
 
-        System.out.println("before time: "+currentTimeBeforeFileUpload);
-        System.out.println("upload time: "+timeInFileManager);
-        System.out.println("After time: "+currentTimeAfterFileUpload);
-        System.out.println("preference time format: "+preferenceTimeFormat);
+        System.out.println("before time: " + currentTimeBeforeFileUpload);
+        System.out.println("upload time: " + timeInFileManager);
+        System.out.println("After time: " + currentTimeAfterFileUpload);
+        System.out.println("preference time format: " + preferenceTimeFormat);
 
         // Check if the timestamp is within the range
         if (timeInFileManager.compareTo(currentTimeBeforeFileUpload) >= 0 && timeInFileManager.compareTo(currentTimeAfterFileUpload) <= 0) {
             System.out.println("The timestamp is within the specified range.");
             boolean result = true;
             Assert.assertTrue(result);
-            reportPass("Successfully validated Local timeZone. Fileupload time: "+timeInFileManager+
-                    "lies between range beforeUpload: "+currentTimeBeforeFileUpload+" and afterUpload: "+currentTimeAfterFileUpload);
+            reportPass("Successfully validated Local timeZone. Fileupload time: " + timeInFileManager +
+                    "lies between range beforeUpload: " + currentTimeBeforeFileUpload + " and afterUpload: " + currentTimeAfterFileUpload);
         } else {
             System.out.println("The timestamp is not within the specified range.");
             boolean result = false;

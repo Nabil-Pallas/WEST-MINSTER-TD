@@ -1,6 +1,7 @@
 package com.pages.Admin.DataManagerPages;
 
 
+import com.microsoft.playwright.Locator;
 import org.testng.Assert;
 
 import com.page.base.DashboardPage;
@@ -100,7 +101,16 @@ public class EditDataSchemaPage extends DataManagerPage {
         }
         scrollToElement("//td[text()='" + fieldName + "']");
         pause("medium");
-        forceClick("(//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", fieldName, "Action Icon");
+//        forceClick("(//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')])[1]", fieldName, "Action Icon");
+
+//        clickUsingJs("(//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')])[1]", fieldName, "Action Icon");
+        programmaticClick("(//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')])[1]", fieldName, "Action Icon");
+//        if (isVisible("(//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')])[1]")) {
+//            forceClick("(//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')])[1]", fieldName, "Action Icon");
+//        } else {
+//            System.out.println("Element not visible for field: " + fieldName);
+//        }
+//        forceClick("(//td[text()='" + fieldName + "']//following::a[text()='⋯'])[1]", fieldName, "Action Icon");
         pause("low");
         return this;
     }

@@ -86,6 +86,7 @@ public class CreateNewReportPage extends ReportsPage {
     public CreateNewReportPage typeAddContent(String placeholder, int index, String content) {
         pause("low");
         type(addReportLocator(placeholder, index), content, content);
+        pause("low");
         return this;
     }
 
@@ -160,12 +161,20 @@ public class CreateNewReportPage extends ReportsPage {
     }
 
     public CreateNewReportPage clickOnAddBudgetOrAnalysis(String placeholder, int index) {
+        waitForElementToLoad(frameAddBudgetOrAnalysisLocator(placeholder, index));
         click(frameAddBudgetOrAnalysisLocator(placeholder, index), "Add a budget or analysis", "Table");
+        //Click Add a budget or analysis if visible after Clicking
+        if (isVisible(frameAddBudgetOrAnalysisLocator(placeholder, index))) {
+            click("(//div[@class='report-add-visualizations-icons'])[" + index + "]", "Add a budget or analysis", "Table");
+            pause("medium");
+        }
+        pause("medium");
         return this;
     }
 
     public CreateNewReportPage addAnalytics() {
-        click(frameAddBudgeOrAnalysisLocator("Analytics", 1), "Analytics", "visualization ");
+        waitForElementToLoad(frameAddBudgeOrAnalysisLocator("Analytics", 1));
+        forceClick(frameAddBudgeOrAnalysisLocator("Analytics", 1), "Analytics", "visualization ");
         pause("medium");
         if (isVisible(frameSpanTextLocator("I understand"))) {
             click(frameSpanTextLocator("I understand"), "I understand");
@@ -174,7 +183,8 @@ public class CreateNewReportPage extends ReportsPage {
     }
 
     public CreateNewReportPage addBudgeting() {
-        click(frameAddBudgeOrAnalysisLocator("Budgeting", 1), "Budgeting", "visualization ");
+        waitForElementToLoad(frameAddBudgeOrAnalysisLocator("Budgeting", 1));
+        forceClick(frameAddBudgeOrAnalysisLocator("Budgeting", 1), "Budgeting", "visualization ");
         pause("medium");
         return this;
     }

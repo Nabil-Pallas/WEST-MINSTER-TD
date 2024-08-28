@@ -605,6 +605,7 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
                 .clickOnRelevantFieldNameActionIcon("Account Name")
+//                .reloadCurrentURLAndClickOnRelevantFieldName("Account Name")
                 .clickOnAddValidation()
                 .validateAddFieldValidationParametersPage()
                 .addFieldValidationParameters(newListName.get())

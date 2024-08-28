@@ -47,6 +47,7 @@ public class EditRolePage extends UserSecurityPage {
     public EditRolePage clickAndselectPermissions(String permission) {
         pause("low");
         clickAndChoose(frameClientDetailsLocator("Permissions", 1), selectPermissionCheckBox(permission), permission, "Permissions");
+        pause("medium");
         return this;
     }
 

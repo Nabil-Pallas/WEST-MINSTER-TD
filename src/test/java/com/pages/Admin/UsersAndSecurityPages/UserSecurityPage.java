@@ -124,7 +124,8 @@ public class UserSecurityPage extends AdminPage {
         pause("medium");
         typeSearchClient(clientName);
         pause("medium");
-        String firstGridName = getInnerText("(//table)[3]//tr[1]/td[1]");
+//        String firstGridName = getInnerText("(//table)[3]//tr[1]/td[1]");
+        String firstGridName = getInnerText("(//table)[3]//tr[1]/td[1]//span");
         if (clientName.equals(firstGridName)) {
             boolean verifyExactText = verifyExactText(clientGridFirstRow, clientName);
             Assert.assertTrue(verifyExactText);
@@ -186,17 +187,18 @@ public class UserSecurityPage extends AdminPage {
         pause("medium");
         waitForLoaderToDisappear();
         typeSearchRoles(roleName);
-        String str = getInnerText(frameUserSearchResult(roleName));
+        pause("low");
+//        String str = getInnerText(frameSpanExactTextLocator(roleName, 1));
+        String str = getInnerText("((//tr[1])[7]//td[@aria-colindex='2']//span)[2]");
         if (roleName.equals(str)) {
-            waitForLoaderToDisappear();
             pause("medium");
-            waitForLoaderToDisappear();
-            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName), roleName);
+            boolean verifyExactText = verifyExactText(frameSpanExactTextLocator(roleName, 1), roleName);
             Assert.assertTrue(verifyExactText);
         } else {
             typeSearchRoles(roleName2);
+            pause("medium");
             waitForElementToLoad(frameUserSearchResult(roleName2));
-            boolean verifyExactText = verifyExactText(frameUserSearchResult(roleName2), roleName2);
+            boolean verifyExactText = verifyExactText(frameSpanExactTextLocator(roleName2, 1), roleName2);
             Assert.assertTrue(verifyExactText);
 
         }
@@ -334,6 +336,7 @@ public class UserSecurityPage extends AdminPage {
         switch (xmlUserLevel) {
             case "Tier2Admin":
                 typeSearchRoles(roleName);
+                pause("low");
                 String firstGridName1 = getInnerText("(//tr[1])[3]//td[@aria-colindex='2']");
                 if (roleName.equals(firstGridName1)) {
                     pause("medium");
@@ -346,6 +349,7 @@ public class UserSecurityPage extends AdminPage {
                 break;
             default:
                 typeSearchRoles(roleName);
+                pause("low");
                 String firstGridName2 = getInnerText("(//tr[1])[7]//td[@aria-colindex='2']");
                 if (roleName.equals(firstGridName2)) {
                     pause("medium");

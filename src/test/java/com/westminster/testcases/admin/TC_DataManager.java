@@ -285,7 +285,6 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
-                .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnActionsBtn()
                 .clickOnEditBtn()

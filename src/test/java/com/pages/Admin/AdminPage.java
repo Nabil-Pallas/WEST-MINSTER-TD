@@ -100,7 +100,7 @@ public class AdminPage extends MenuPage {
     }
 
     public String frameSelectMappingLocator(String placeholder) {
-        return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div";
+        return "//span[text()='" + placeholder + "']/ancestor::label/following-sibling::div//div[@aria-label='Select']";
     }
 
     public String frameRowCountText(String placeholder) {
@@ -266,27 +266,47 @@ public class AdminPage extends MenuPage {
         String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
         System.out.println("text : " + rowCount);
 
-        // Modified regex to account for spaces or commas
-        String regex = "Total Row Count: ([\\d,\\s]+)";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(rowCount);
+        // Remove any non-digit character including any type of space
+        String cleanNumberString = rowCount.replaceAll("[^\\d]", ""); // Removes all non-digit characters
 
-        if (matcher.find()) {
-            String numberString = matcher.group(1); // Get the matched number part
-            String cleanNumberString = numberString.replaceAll("[^\\d]", ""); // Remove all non-digit characters
+        if (!cleanNumberString.isEmpty()) {
+            long rowCountNumber = Long.parseLong(cleanNumberString);
 
             if (state.equalsIgnoreCase("Initial")) {
-                InitRowCounts = Long.parseLong(cleanNumberString);
+                InitRowCounts = rowCountNumber;
                 reportPass("Initial Row Counts: " + InitRowCounts + " noted.");
                 System.out.println("InitRowCounts: " + InitRowCounts);
             } else {
-                FinRowCounts = Long.parseLong(cleanNumberString);
+                FinRowCounts = rowCountNumber;
                 reportPass("Final Row Counts: " + FinRowCounts + " noted.");
                 System.out.println("FinRowCounts: " + FinRowCounts);
             }
         } else {
             System.out.println("No matching row count found.");
         }
+
+//        // Modified regex to account for spaces or commas
+//        String regex = "Total Row Count: ([\\d,\\s]+)";
+//        Pattern pattern = Pattern.compile(regex);
+//        Matcher matcher = pattern.matcher(rowCount);
+//
+//
+//        if (matcher.find()) {
+//            String numberString = matcher.group(1); // Get the matched number part
+//            String cleanNumberString = numberString.replaceAll("[^\\d]", ""); // Remove all non-digit characters
+//
+//            if (state.equalsIgnoreCase("Initial")) {
+//                InitRowCounts = Long.parseLong(cleanNumberString);
+//                reportPass("Initial Row Counts: " + InitRowCounts + " noted.");
+//                System.out.println("InitRowCounts: " + InitRowCounts);
+//            } else {
+//                FinRowCounts = Long.parseLong(cleanNumberString);
+//                reportPass("Final Row Counts: " + FinRowCounts + " noted.");
+//                System.out.println("FinRowCounts: " + FinRowCounts);
+//            }
+//        } else {
+//            System.out.println("No matching row count found.");
+//        }
 
         return new DataManagerPage();
     }

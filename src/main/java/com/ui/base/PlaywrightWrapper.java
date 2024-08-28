@@ -518,7 +518,7 @@ public class PlaywrightWrapper extends Reporter {
                     .setTimeout(ConfigurationManager.configuration().timeout()));
 
             // Attempt the click with force and a click count of 2
-            getPage().locator(locator).click(new Locator.ClickOptions().setForce(true).setClickCount(2));
+            getPage().locator(locator).click(new Locator.ClickOptions().setForce(true));
 
             // Report success
             reportStep("The " + type + " : " + name + " is clicked", "info");
@@ -551,7 +551,7 @@ public class PlaywrightWrapper extends Reporter {
                 try {
                     getPage().locator(locator).click(new Locator.ClickOptions()
                             .setForce(true)
-                            .setClickCount(2));
+                            .setClickCount(1));
                     reportStep("The " + type + " : " + name + " is clicked", "info");
                     return true;
                 } catch (PlaywrightException e) {

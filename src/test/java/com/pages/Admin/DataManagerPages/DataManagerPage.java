@@ -93,10 +93,10 @@ public class DataManagerPage extends AdminPage {
 
     //Click the Action Button
     public DataManagerPage clickOnActionsBtn() {
-        waitForLoaderToDisappear();
-        waitForElementToLoad(actionBtn);
+        pause("medium");
+        waitForAppearance(actionBtn, "Action button");
         click(actionBtn, "Action button");
-        waitForLoaderToDisappear();
+        pause("low");
         return new DataManagerPage();
     }
 
@@ -115,10 +115,9 @@ public class DataManagerPage extends AdminPage {
 
     //Click the Edit Button
     public EditDataManagerRow clickOnEditBtn() {
+        waitForElementToLoad(editBtn);
         click(editBtn, "Edit button");
         pause("low");
-//        waitForLoaderToDisappear();
-//        waitForAppearance(editBtn);
         reportPass("User successfully clicked the Edit button.");
         return new EditDataManagerRow();
     }
@@ -287,6 +286,7 @@ public class DataManagerPage extends AdminPage {
     public DataManagerPage clickOnApplyBtn() {
 //        waitForLoaderToDisappear();
         pause("medium");
+        waitForElementToLoad(applyBtn);
         click(applyBtn, "Apply Button");
         pause("medium");
         pause("low");
@@ -316,21 +316,18 @@ public class DataManagerPage extends AdminPage {
 
     //click row select option on Data Manager Grid
     public DataManagerPage clickOnSelectRow() {
-        waitForLoaderToDisappear();
-//        pause("medium");
+        pause("medium");
         for (int i = 1; i < 9; i++) {
-            waitForLoaderToDisappear();
+            waitForElementToLoad("(//div[@aria-label='Select row'])[" + i + "]");
             forceClick("(//div[@aria-label='Select row'])[" + i + "]", "select option", "`checkbox");
-//            pause("medium");
-
         }
         return this;
     }
 
     //click select single Check Box
     public DataManagerPage clickOnSingleCheckBox() {
-        waitForLoaderToDisappear();
         pause("medium");
+        waitForElementToLoad(singleCheckBox);
         click(singleCheckBox, "Single Check Box", "CheckBox");
         mouseOver(frameSpanTextLocator("Edit Data Schema"), "Edit Data Schema");
         pause("low");
@@ -350,11 +347,12 @@ public class DataManagerPage extends AdminPage {
 
     //validate Bulk Edit rows page
     public EditDataManagerRow validateBulkEditRowsPage() {
-        waitForLoaderToDisappear();
+        pause("medium");
+        waitForAppearance("//div[text()='Bulk Edit Rows']", "Bulk Edit Rows Page");
         if (isVisible("//div[text()='Bulk Edit Rows']", "Bulk Edit Rows Page")) {
             reportPass("Successfully navigated to Bulk edit rows page");
         } else {
-            reportFail("failed to navigate to bulk edit rows page");
+            reportFail("Failed to navigate to bulk edit rows page");
         }
         return new EditDataManagerRow();
     }
@@ -383,6 +381,7 @@ public class DataManagerPage extends AdminPage {
 
         long totalRows = FinRowCounts - InitRowCounts;
         Assert.assertEquals(totalRows, validRows);
+        reportPass("User Successfully validated that the " + validRows + " is equal to " + totalRows);
         return this;
     }
 
@@ -408,7 +407,8 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage getTotalRowCount(String state) {
         pause("medium");
-        waitForLoaderToDisappear();
+        pause("medium");
+//        waitForLoaderToDisappear();
         String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
 
         // Remove any non-digit character including any type of space
@@ -517,12 +517,22 @@ public class DataManagerPage extends AdminPage {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
+                pause("low");
 //                click(searchValueWithHeader(i), "Search Filter", "Search Box");
 //                typeAndEnter(searchValueWithHeader(i), VerificationValues, VerificationValues);
-                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
-//                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
-//                forceClick("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+//                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
                 pause("low");
+                scrollToElement("//div[text()='" + VerificationValues + "']");
+                pause("low");
+                click("//div[text()='" + VerificationValues + "']//preceding-sibling::div", verificationHeader1, "Broker Name");
+                pause("low");
+//                String state = getAttribute("//div[text()='" + VerificationValues + "']//preceding-sibling::div","aria-checked");
+//                System.out.println(state);
+//                if(state.equals("false")){
+//                    forceClick("//div[text()='" + VerificationValues + "']//preceding-sibling::div", verificationHeader1, "Broker Name");
+//                    pause("low");
+//                }
                 click("//span[text()='OK']", "filter OK button");
                 pause("medium");
                 pause("medium");

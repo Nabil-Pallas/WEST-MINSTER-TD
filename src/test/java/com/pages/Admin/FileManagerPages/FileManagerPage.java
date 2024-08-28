@@ -96,10 +96,12 @@ public class FileManagerPage extends AdminPage {
                 //delete
                 click(frameSpanTextLocator("Delete"), "Delete Link", "Action Item popup");
                 //click Yes popup
+                waitForAppearance(frameSpanTextLocator("Yes"), "Yes");
                 click(frameSpanTextLocator("Yes"), "Yes");
                 pause("low");
                 typeAndEnter(frameClientDetailsLocator("Please type the word \"DELETE\" to confirm deletion."), "DELETE", "Delete Field");
                 pause("low");
+                waitForAppearance(frameSpanTextLocator("Confirm Delete"), "Confirm Delete");
                 click(frameSpanTextLocator("Confirm Delete"), "Confirm Delete");
                 pause("medium");
                 break;
@@ -110,6 +112,7 @@ public class FileManagerPage extends AdminPage {
     }
 
     public FileManagerPage clickOnCreateNewMapping() {
+        pause("medium");
         waitForAppearance(createNewMapping, "Create New Mapping");
         click(createNewMapping, "Create New Mapping", "Link");
         return this;
@@ -118,6 +121,7 @@ public class FileManagerPage extends AdminPage {
     //Selecting Existing DataMap
     public FileManagerPage selectExistingMapping(String dataMap) {
         pause("low");
+        waitForElementToLoad(frameSelectMappingLocator("Select a mapping:"));
         //Click Select mapping DropDown
         click(frameSelectMappingLocator("Select a mapping:"), "Select Mapping DropDown", "DropDown");
         pause("low");
@@ -153,6 +157,7 @@ public class FileManagerPage extends AdminPage {
 
     //Create The New Data Map
     public FileMappingPage createNewDataMap(String dataMapName, String dateFormat) {
+        pause("medium");
         waitForElementToLoad(frameClientDetailsLocator("Data Map Name"));
         typeAndSpace(frameClientDetailsLocator("Data Map Name"), dataMapName, "Data Map Name");
         clickAndChoose(frameDateFormatLocator("Date Format", 2), frameDateFormatSelectDropDownLocator(dateFormat), dateFormat, "Date Format");

@@ -517,12 +517,22 @@ public class DataManagerPage extends AdminPage {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
+                pause("low");
 //                click(searchValueWithHeader(i), "Search Filter", "Search Box");
 //                typeAndEnter(searchValueWithHeader(i), VerificationValues, VerificationValues);
-                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
-//                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
-//                forceClick("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+//                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
                 pause("low");
+                scrollToElement("//div[text()='" + VerificationValues + "']");
+                pause("low");
+                click("//div[text()='" + VerificationValues + "']//preceding-sibling::div", verificationHeader1, "Broker Name");
+                pause("low");
+//                String state = getAttribute("//div[text()='" + VerificationValues + "']//preceding-sibling::div","aria-checked");
+//                System.out.println(state);
+//                if(state.equals("false")){
+//                    forceClick("//div[text()='" + VerificationValues + "']//preceding-sibling::div", verificationHeader1, "Broker Name");
+//                    pause("low");
+//                }
                 click("//span[text()='OK']", "filter OK button");
                 pause("medium");
                 pause("medium");

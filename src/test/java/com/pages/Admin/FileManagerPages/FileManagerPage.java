@@ -110,6 +110,7 @@ public class FileManagerPage extends AdminPage {
     }
 
     public FileManagerPage clickOnCreateNewMapping() {
+        pause("medium");
         waitForAppearance(createNewMapping, "Create New Mapping");
         click(createNewMapping, "Create New Mapping", "Link");
         return this;
@@ -153,6 +154,7 @@ public class FileManagerPage extends AdminPage {
 
     //Create The New Data Map
     public FileMappingPage createNewDataMap(String dataMapName, String dateFormat) {
+        pause("medium");
         waitForElementToLoad(frameClientDetailsLocator("Data Map Name"));
         typeAndSpace(frameClientDetailsLocator("Data Map Name"), dataMapName, "Data Map Name");
         clickAndChoose(frameDateFormatLocator("Date Format", 2), frameDateFormatSelectDropDownLocator(dateFormat), dateFormat, "Date Format");

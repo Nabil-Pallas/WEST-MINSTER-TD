@@ -19,36 +19,38 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <class name="com.westminster.testcases.login.TC_Login"/>
-            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings"/>
             <class name="com.westminster.testcases.admin.TC_FileManager">
                 <methods>
-                    <include name="validateErrorQueueWSingleEdit"/>
-                    <include name="validateErrorQueueWBulkEdit"/>
-                    <include name="validateDuplicateRowsInErrorQueue"/>
-                    <include name="validateBulkEditAndPromote"/>
-
-                    <include name="verifyDataMappingRefreshAfterInvalidEntryDeletion"/>
-                    <include name="showPlusSymbolForSchemaManagers"/>
-                    <include name="verifyDateConversionInBulkEditErrorQueue"/>
-                    <include name="verifyMissingRequiredValueFilter"/>
-                    <include name="verifyInvalidDateValueFormatFilter"/>
+                    <include name="fileUploadAddSystemColumn"/>
+                    <include name="mapColumns"/>
+                    <include name="upload6000DataFile"/>
+                    <include name="upload500KDataFile"/>
+                    <include name="validateFileWithWrongDateFormat"/>
+                    <include name="verifyInvalidColumnsWExistMapping"/>
+                    <include name="uploadSameContentFileWDiffName"/>
+                    <include name="uploadDiffContentFileWSameName"/>
                 </methods>
             </class>
-            <class name="com.westminster.testcases.admin.TC_DataManager"/>
-            <methods>
-                <include name="verifyRestoreAllColumns"/>
-                <include name="addNonExistingBrokerNameAndValidate"/>
-            </methods>
-            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
+            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
                 <methods>
-                    <include name="checkDuplicateBudgetFileUpload"/>
-                    <include name="validateBudgetCreationWithInvalidDateRange"/>
+                    <include name="impersonateUser"/>
+                    <include name="roleCreationAndAssignRoleToUser"/>
                 </methods>
             </class>
-            <class name="com.westminster.testcases.report.TC_Reports">
+            <class name="com.westminster.testcases.admin.TC_DataManager">
                 <methods>
-                    <include name="verifyReportDateCreatedColumn"/>
+                    <include name="checkApplyAndCancelBtnForEditAndBulkedit"/>
+                    <include name="addMoreThan10Rows"/>
+                    <include name="verifyAddButtonDisabledOnTradeDateError"/>
+                    <include name="verifyAddButtonDisabledOnBrokerNameError"/>
+                    <include name="verifyDropdownsForAdHocRows"/>
+                    <include name="verifyNoBlankSpacesOnEditTradeDetailsPage"/>
+                    <include name="verifyValidRowsInDataManager"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.admin.TC_RulesManager">
+                <methods>
+                    <include name="verifyDuplicateRuleNameError"/>
                 </methods>
             </class>
         </classes>

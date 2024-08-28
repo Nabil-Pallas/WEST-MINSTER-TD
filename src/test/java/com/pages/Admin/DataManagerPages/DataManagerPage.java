@@ -381,6 +381,7 @@ public class DataManagerPage extends AdminPage {
 
         long totalRows = FinRowCounts - InitRowCounts;
         Assert.assertEquals(totalRows, validRows);
+        reportPass("User Successfully validated that the " + validRows + " is equal to " + totalRows);
         return this;
     }
 

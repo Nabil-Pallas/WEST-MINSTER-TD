@@ -200,7 +200,6 @@ public class UserSecurityPage extends AdminPage {
             waitForElementToLoad(frameUserSearchResult(roleName2));
             boolean verifyExactText = verifyExactText(frameSpanExactTextLocator(roleName2, 1), roleName2);
             Assert.assertTrue(verifyExactText);
-
         }
         return this;
     }

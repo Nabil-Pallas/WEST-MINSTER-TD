@@ -36,9 +36,14 @@ public class AddNewRolePage extends UserSecurityPage {
 
     public AddNewRolePage clickAndselectClient(String client) {
         pause("low");
-        clickAndChoose(frameClientDetailsLocator("Client", 4), frameUserSelectDropDownLocator(client), client, "Client");
+//        //div[@class='dx-item dx-list-item']//div
+        click(frameClientDetailsLocator("Client", 4), "Client Drop Down");
+        clickUsingJs(frameUserSelectDropDownLocator(client), client, "Client");
+//        clickAndChoose(frameClientDetailsLocator("Client", 4), frameUserSelectDropDownLocator(client), client, "Client");
         if (isVisible("//div[text()='Invalid Field']") || isVisible("(//div[text()='Must have a client.'])[1]")) {
-            clickAndChoose(frameClientDetailsLocator("Client", 4), frameUserSelectDropDownLocator(client), client, "Client");
+//            clickAndChoose(frameClientDetailsLocator("Client", 4), frameUserSelectDropDownLocator(client), client, "Client");
+            click(frameClientDetailsLocator("Client", 4), "Client Drop Down");
+            clickUsingJs(frameUserSelectDropDownLocator(client), client, "Client");
         }
         return this;
     }
@@ -46,7 +51,6 @@ public class AddNewRolePage extends UserSecurityPage {
     public AddNewRolePage clickAndselectPermissions(String permission) {
         pause("low");
         clickAndChoose(frameClientDetailsLocator("Permissions", 1), selectPermissionCheckBox(permission), permission, "Permissions");
-
         return this;
     }
 

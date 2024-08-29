@@ -917,6 +917,58 @@ public class PlaywrightWrapper extends Reporter {
     }
 
 
+    public boolean selectOptionFromDropdownUsingJSClick(String ddLocator, String optionLocator, String option, String name) {
+        try {
+            // Ensure the dropdown is clickable and then click to open it
+            getPage().locator(ddLocator).scrollIntoViewIfNeeded();
+            getPage().locator(ddLocator).waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.ATTACHED)
+                    .setTimeout(ConfigurationManager.configuration().timeout()));
+            getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
+
+            // Locate all options within the dropdown
+            List<Locator> options = getPage().locator(optionLocator).all();
+
+            // Loop through the options and select the one matching the provided value
+            for (Locator optionElement : options) {
+                String innerText = optionElement.innerText();
+                System.out.println("Inner: " + innerText);
+                if (innerText.contains(option)) {
+                    optionElement.scrollIntoViewIfNeeded();
+
+                    // Use JavaScript click instead of Playwright's regular click
+                    boolean jsClickResult = clickUsingJs(optionLocator, option, "Dropdown option");
+
+                    if (jsClickResult) {
+                        // Report success if JS click was successful
+                        reportStep("The dropdown: " + name + " is selected with value: " + option, "info");
+                        return true; // Exit the loop and return true once the desired option is clicked
+                    } else {
+                        // Report failure if JS click failed
+                        reportStep("Failed to click the option: " + option + " in the dropdown: " + name, "fail");
+                        return false;
+                    }
+                }
+            }
+
+            // If the option is not found
+            reportStep("The option: " + option + " was not found in the dropdown: " + name, "fail");
+            return false;
+
+        } catch (PlaywrightException e) {
+            // Handle any other Playwright exceptions
+            e.printStackTrace();
+            reportStep("PlaywrightException while selecting from dropdown: " + name + " \n" + e.getMessage(), "fail");
+        } catch (Exception e) {
+            // Handle any generic exceptions
+            e.printStackTrace();
+            reportStep("Exception while selecting from dropdown: " + name + " \n" + e.getMessage(), "fail");
+        }
+
+        return false;
+    }
+
+
     /**
      * Use this method to click and choose an element (that looks like dropdown) inside a frame
      *

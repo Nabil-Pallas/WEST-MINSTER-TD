@@ -557,9 +557,16 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage clickOnClearAllFilters() {
         pause("medium");
-        click("//span[text()='Clear All Filters']", "Clear All Filters");
-        pause("medium");
-        reportPass("Successfully cleared all filters for Broker Name column");
+        // Check if the button is attached and clickable
+        boolean isClickable = isEnabled("//span[text()='Clear All Filters']", "Clear All Filters") &&
+                isVisible("//span[text()='Clear All Filters']", "Clear All Filters");
+        if (isClickable) {
+            click("//span[text()='Clear All Filters']", "Clear All Filters");
+            pause("medium");
+            reportPass("Successfully cleared all filters for Broker Name column");
+        } else {
+            reportPass("There is no Clear All Filters is enabled");
+        }
         return this;
     }
 

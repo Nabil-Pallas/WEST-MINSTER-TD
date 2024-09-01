@@ -14,7 +14,7 @@ public class AllBudgetsPage extends MenuPage {
     protected String allBudgetsText = "//h1[text()='All Budgets']";
     private String actionBtn = "(//td[@class='action-edit-delete-column']/a)[1]";
     private String editBtn = "//span[text()='Edit']";
-    private String exitBtn = "//span[text()='< Exit']";
+    private String exitBtn = "//span[text()='Exit']";
     private String deleteBtn = "//span[text()='Delete']";
     private String confirmDeleteBtn = "//span[text()='Yes']";
 

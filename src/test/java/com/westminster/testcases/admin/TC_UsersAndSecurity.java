@@ -221,7 +221,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
 
     //Srikanth
     //TC_2004
-//    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", TestGroups.Type.REGRESSION})
     public void roleCreationAndAssignRoleToUser() {
         testcaseName = "TC_RE_2004";
         testDescription = "Create Role And Assign that Role to User";
@@ -243,7 +243,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateUserSecurityPage()
                 .clickOnRolesTab()
                 .clickOnaddNewRoleBtn()
-                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "LandoLandoLando", "Select All")
+                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "Automation Client_1", "Select All")
                 .clickOnApplyBtn()
                 .validateRoleInformation(userFirstName.get())
                 .clickOnUserTab()

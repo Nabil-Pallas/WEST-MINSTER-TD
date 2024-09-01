@@ -550,8 +550,7 @@ public class PlaywrightWrapper extends Reporter {
             while (attempts < 3) {
                 try {
                     getPage().locator(locator).click(new Locator.ClickOptions()
-                            .setForce(true)
-                            .setClickCount(1));
+                            .setForce(true));
                     reportStep("The " + type + " : " + name + " is clicked", "info");
                     return true;
                 } catch (PlaywrightException e) {
@@ -844,11 +843,13 @@ public class PlaywrightWrapper extends Reporter {
      */
     public boolean clickAndChoose(String ddLocator, String optionLocator, String option, String name) {
         try {
+
             getPage().locator(ddLocator).scrollIntoViewIfNeeded();
             getPage().locator(ddLocator).waitFor(new Locator.WaitForOptions()
                     .setState(WaitForSelectorState.VISIBLE)
                     .setTimeout(ConfigurationManager.configuration().timeout()));
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
+            pause("low");
             //Force Click the optionLocator
             forceClick(optionLocator, option, name);
 

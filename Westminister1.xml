@@ -31,28 +31,31 @@
 <!--                    <include name="uploadDiffContentFileWSameName"/>-->
 <!--                </methods>-->
 <!--            </class>-->
-            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">
-                <methods>
-                    <include name="impersonateUser"/>
-                    <include name="roleCreationAndAssignRoleToUser"/>
-                </methods>
-            </class>
-            <class name="com.westminster.testcases.admin.TC_DataManager">
-                <methods>
-<!--                    <include name="checkApplyAndCancelBtnForEditAndBulkedit"/>-->
-<!--                    <include name="addMoreThan10Rows"/>-->
-<!--                    <include name="verifyAddButtonDisabledOnTradeDateError"/>-->
-<!--                    <include name="verifyAddButtonDisabledOnBrokerNameError"/>-->
-<!--                    <include name="verifyDropdownsForAdHocRows"/>-->
-<!--                    <include name="verifyNoBlankSpacesOnEditTradeDetailsPage"/>-->
-                    <include name="verifyValidRowsInDataManager"/>
-                </methods>
-            </class>
+<!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
+<!--                <methods>-->
+<!--                    <include name="impersonateUser"/>-->
+<!--                    <include name="roleCreationAndAssignRoleToUser"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--            <class name="com.westminster.testcases.admin.TC_DataManager">-->
+<!--                <methods>-->
+<!--&lt;!&ndash;                    <include name="checkApplyAndCancelBtnForEditAndBulkedit"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include name="addMoreThan10Rows"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include name="verifyAddButtonDisabledOnTradeDateError"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include name="verifyAddButtonDisabledOnBrokerNameError"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include name="verifyDropdownsForAdHocRows"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include name="verifyNoBlankSpacesOnEditTradeDetailsPage"/>&ndash;&gt;-->
+<!--                    <include name="verifyValidRowsInDataManager"/>-->
+<!--                </methods>-->
+<!--            </class>-->
 <!--            <class name="com.westminster.testcases.admin.TC_RulesManager">-->
 <!--                <methods>-->
 <!--                    <include name="verifyDuplicateRuleNameError"/>-->
 <!--                </methods>-->
 <!--            </class>-->
+            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
+                        </class>
+
         </classes>
 
     </test>

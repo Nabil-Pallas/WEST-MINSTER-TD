@@ -445,14 +445,6 @@ public class FileManagerPage extends AdminPage {
         return this;
     }
 
-//    public FileManagerPage validateLocalTimezonevalue(){
-//
-//        System.out.println("before time: "+currentTimeBeforeFileUpload);
-//        System.out.println("upload time"+timeInFileManager);
-//        System.out.println("After time: "+currentTimeAfterFileUpload);
-//        return this;
-//    }
-
     public FileManagerPage validateBulkEditRowCount() {
         System.out.println("final count: " + rowCount);
         System.out.println("error rows: " + errorRows);

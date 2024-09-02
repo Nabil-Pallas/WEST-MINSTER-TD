@@ -936,7 +936,7 @@ public class PlaywrightWrapper extends Reporter {
 //                System.out.println("Inner: " + innerText);
                 if (innerText.contains(option)) {
                     optionElement.scrollIntoViewIfNeeded();
-
+                    pause("low");
                     // Use JavaScript click instead of Playwright's regular click
                     boolean jsClickResult = clickUsingJs(optionLocator, option, "Dropdown option");
 
@@ -1686,7 +1686,7 @@ public class PlaywrightWrapper extends Reporter {
         try {
             getPage().setInputFiles("input[type='file']", Path.of(fileName));
             /*waitForAppearance("//img[@data-testid='preview-thumbnail']");*/
-            reportStep("File is Uploaded", "info");
+            reportStep("User Successfully Uploaded the File.", "info");
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }
@@ -1710,8 +1710,14 @@ public class PlaywrightWrapper extends Reporter {
      * @author Srikanth
      */
     public void waitForElementToLoad(String locator) {
-        getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().timeout()));
+        try {
+            getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().timeout()));
+            reportStep("Element has been successfully loaded.", "info");
+        } catch (Exception e) {
+            reportFail("Failed to load the element: " + locator + ". Error: " + e.getMessage());
+        }
     }
+
 
     public void waitForElementToLoadWithHighTime(String locator) {
         getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().highTimeout()));

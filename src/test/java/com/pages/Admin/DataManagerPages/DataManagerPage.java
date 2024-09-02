@@ -387,7 +387,8 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage getTotalRowCount() {
         pause("medium");
-        waitForLoaderToDisappear();
+        pause("medium");
+//        waitForLoaderToDisappear();
         String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
 
         // Clean the string by removing any non-digit characters, including non-breaking spaces

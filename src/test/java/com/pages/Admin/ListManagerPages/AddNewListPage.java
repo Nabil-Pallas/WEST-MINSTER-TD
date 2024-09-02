@@ -1,5 +1,7 @@
 package com.pages.Admin.ListManagerPages;
 
+import org.testng.Assert;
+
 import java.util.List;
 
 
@@ -69,6 +71,15 @@ public class AddNewListPage extends ListManagerPage {
             }
         }
 
+        return this;
+    }
+
+    //Validate the List name error message
+    public AddNewListPage validateListNameError(String errorMsg) {
+        click(frameInputLocator("List Title…", 1), "List Name", "Input");
+        String errorMsgText = getInnerText(frameDivTextLocator(errorMsg));
+        Assert.assertEquals(errorMsgText, errorMsg);
+        reportPass("User Successfully validated the Error Msg displayed as -- " + errorMsgText);
         return this;
     }
 

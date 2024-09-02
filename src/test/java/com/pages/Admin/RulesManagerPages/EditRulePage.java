@@ -3,6 +3,8 @@ package com.pages.Admin.RulesManagerPages;
 import com.page.base.DashboardPage;
 import org.testng.Assert;
 
+import static com.pages.Admin.RulesManagerPages.AddNewRulePage.ChooseCalculationColumnValues;
+
 public class EditRulePage extends RulesManagerPage {
     private String editRuleText = "//h1[text()='Edit Rule']";
     private String columnApplyBtn = "(//span[text()='Apply'])[2]";
@@ -97,7 +99,9 @@ public class EditRulePage extends RulesManagerPage {
 
 
     public EditRulePage selectCalculationColumn(String calculationValue) {
-        clickAndChoose(frameCalculationLocator("Choose Calculation Column"), frameSpanTextLocator(calculationValue), calculationValue, "Choose Calculation Column");
+        pause("medium");
+//        clickAndChoose(frameCalculationLocator("Choose Calculation Column"), frameSpanTextLocator(calculationValue), calculationValue, "Choose Calculation Column");
+        selectOptionFromDropdownUsingJSClick(frameCalculationLocator("Choose Calculation Column"), ChooseCalculationColumnValues, calculationValue, "Choose Calculation Column");
         pause("low");
         return this;
     }

@@ -889,7 +889,7 @@ public class PlaywrightWrapper extends Reporter {
             // Loop through the options and select the one matching the provided value
             for (Locator optionElement : options) {
                 String innerText = optionElement.innerText();
-                System.out.println("Inner: " + innerText);
+//                System.out.println("Inner: " + innerText);
                 if (innerText.contains(option)) {
                     optionElement.scrollIntoViewIfNeeded();
                     optionElement.click(new Locator.ClickOptions().setForce(true).setClickCount(1));
@@ -933,7 +933,7 @@ public class PlaywrightWrapper extends Reporter {
             // Loop through the options and select the one matching the provided value
             for (Locator optionElement : options) {
                 String innerText = optionElement.innerText();
-                System.out.println("Inner: " + innerText);
+//                System.out.println("Inner: " + innerText);
                 if (innerText.contains(option)) {
                     optionElement.scrollIntoViewIfNeeded();
 

@@ -910,8 +910,8 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-        filePath.set("./src/test/resources/upload/6000DataFile.csv");
-        fileName.set("6000DataFile.csv");
+        filePath.set("./src/test/resources/upload/15000_rows_file.csv");
+        fileName.set("15000_rows_file.csv");
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()

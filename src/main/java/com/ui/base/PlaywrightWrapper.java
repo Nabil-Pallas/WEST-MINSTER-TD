@@ -1685,7 +1685,7 @@ public class PlaywrightWrapper extends Reporter {
         try {
             getPage().setInputFiles("input[type='file']", Path.of(fileName));
             /*waitForAppearance("//img[@data-testid='preview-thumbnail']");*/
-            reportStep("File is Uploaded", "info");
+            reportStep("User Successfully Uploaded the File.", "info");
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }

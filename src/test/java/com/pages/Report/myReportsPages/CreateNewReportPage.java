@@ -162,10 +162,10 @@ public class CreateNewReportPage extends ReportsPage {
 
     public CreateNewReportPage clickOnAddBudgetOrAnalysis(String placeholder, int index) {
         waitForElementToLoad(frameAddBudgetOrAnalysisLocator(placeholder, index));
-        click(frameAddBudgetOrAnalysisLocator(placeholder, index), "Add a budget or analysis", "Table");
+        clickUsingJs(frameAddBudgetOrAnalysisLocator(placeholder, index), "Add a budget or analysis", "Table");
         //Click Add a budget or analysis if visible after Clicking
         if (isVisible(frameAddBudgetOrAnalysisLocator(placeholder, index))) {
-            click("(//div[@class='report-add-visualizations-icons'])[" + index + "]", "Add a budget or analysis", "Table");
+            clickUsingJs("(//div[@class='report-add-visualizations-icons'])[" + index + "]", "Add a budget or analysis", "Table");
             pause("medium");
         }
         pause("medium");

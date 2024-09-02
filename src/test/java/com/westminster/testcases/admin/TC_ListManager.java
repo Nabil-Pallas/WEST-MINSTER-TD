@@ -81,6 +81,36 @@ public class TC_ListManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_5357");
 
     }
+
+    // Phase - 3 - Manoj
+    // TC_RE_5330 - In list manager, verify whether the system  does not allow duplicate entries in list title field
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyNoDuplicateListTitle() {
+        testcaseName = "TC_RE_5330 ";
+        testDescription = "Verify No Duplicate List Title";
+        authors = "Automation Team";
+        category = "List Manager";
+        startTestCase();
+        setNode();
+
+        newListName.set(FakerDataFactory.getListName());
+        listItems.set(FakerDataFactory.getListOfItems(4));
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnListManager()
+                .validateListManagerPage()
+                .getFirstListNametext()
+                .clickOnAddNewListBtn()
+                .validateAddListItemPage()
+                .typeListTitle(getFirstRuleNametext.get())
+                .validateListNameError("List already exists.");
+        System.out.println("TC-----------TC_RE_5330");
+
+    }
+
 }
 
 

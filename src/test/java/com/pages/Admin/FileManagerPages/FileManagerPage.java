@@ -200,6 +200,7 @@ public class FileManagerPage extends AdminPage {
         waitForLoaderToDisappear();
         waitForElementToLoad(cancelIcon);
         click(cancelIcon, "Cancel Icon Button");
+        reportPass("User successfully clicked cancel Icon Button");
 //        waitForElementToLoad(frameSpanTextLocator("cancelled successfully"));
 //        String getInnerText = getInnerText(frameSpanTextLocator("cancelled successfully"));
 //        System.out.println("Inner Text: " + getInnerText);
@@ -444,14 +445,6 @@ public class FileManagerPage extends AdminPage {
         reportPass("Captured fileUpload time from File Manager: " + timeInFileManager);
         return this;
     }
-
-//    public FileManagerPage validateLocalTimezonevalue(){
-//
-//        System.out.println("before time: "+currentTimeBeforeFileUpload);
-//        System.out.println("upload time"+timeInFileManager);
-//        System.out.println("After time: "+currentTimeAfterFileUpload);
-//        return this;
-//    }
 
     public FileManagerPage validateBulkEditRowCount() {
         System.out.println("final count: " + rowCount);

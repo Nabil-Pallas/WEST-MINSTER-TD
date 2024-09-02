@@ -1,7 +1,9 @@
 package com.pages.Admin.ListManagerPages;
 
+import com.data.dynamic.FakerDataFactory;
 import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
+import com.pages.Admin.RulesManagerPages.AddNewRulePage;
 import com.pages.Admin.RulesManagerPages.RulesManagerPage;
 import org.testng.Assert;
 
@@ -45,6 +47,29 @@ public class ListManagerPage extends AdminPage {
         click(frameSpanTextLocator("Add New List"), "Add New List");
         return new AddNewListPage();
     }
+
+    //Get first List name text
+    public ListManagerPage getFirstListNametext() {
+        waitForLoaderToDisappear();
+        waitForElementToLoad(listNameText);
+        if (isVisible(listNameText, "First List Name text")) {
+            String innerText = getInnerText(listNameText);
+            System.out.println("Inner Text " + innerText);
+            getFirstRuleNametext.set(innerText);
+            reportStep("User successfully retrieved the first list name : " + innerText, "info");
+        } else {
+            clickOnAddNewListBtn()
+                    .validateAddListItemPage()
+                    .typeListTitle(newListName.get())
+                    .typeListItems(listItems.get())
+                    .clickOnSaveListBtn()
+                    .validateListNameAndItem(newListName.get(), listItems.get());
+            reportStep("User successfully created new List.", "Pass");
+        }
+
+        return this;
+    }
+
 
     public ListManagerPage searchListName(String listName) {
         clickAndType(listNameSearch, listName, "List Name");

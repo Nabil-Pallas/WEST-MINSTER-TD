@@ -733,6 +733,7 @@ public class TC_FileManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5827");
     }
 
+
     // Phase - 2 - Manoj
     // TC_RE_5575 - Verify that the "Missing required value" filter within the "Show All" dropdown on the "Error Queue" screen correctly displays only the rows with missing required values.
     @Test(priority = 16, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
@@ -910,8 +911,8 @@ public class TC_FileManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-        filePath.set("./src/test/resources/upload/6000DataFile.csv");
-        fileName.set("6000DataFile.csv");
+        filePath.set("./src/test/resources/upload/10K_Rows_File.csv");
+        fileName.set("10K_Rows_File.csv");
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -924,11 +925,43 @@ public class TC_FileManager extends WestMinsterPageHook {
                 .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
                 .validateFileMappingPage()
                 .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
-                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settlement Date"))
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settle Date"))
                 .clickOnFinishMapping()
                 .clickOnCancelUploadFile()
                 .validateFileIsNotUploaded(fileName.get());
         System.out.println("TC-----------TC_RE_4458");
     }
 
+    // Phase - 3 - Manoj
+    // TC_RE_821 - Edit the Invalid date format to valid format
+    @Test(priority = 17, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void editInvalidDateFormatToValid() {
+        testcaseName = "TC_RE_821";
+        testDescription = "Edit Invalid Date Format To Valid";
+        authors = "Automation Team";
+        category = "Error Queue";
+        startTestCase();
+        setNode();
+
+        getTradeDate.set(FakerDataFactory.getPastDate());
+        getSettlementDate.set(FakerDataFactory.getFutureDate());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .clickOnOpenErrorQueue()
+                .validateErrorQueuePage()
+                .filterByOption("Invalid date value/format")
+                .getErrorQueueRowCounts("Initial")
+                .clickActionBtn()
+                .clickOnEdit()
+                .editInformation("Trade Date", "Settlement Date", getTradeDate.get(), getSettlementDate.get())
+                .getErrorQueueRowCounts("Final")
+                .validateRowCount(1);
+
+        System.out.println("TC-----------TC_RE_821");
+    }
 }

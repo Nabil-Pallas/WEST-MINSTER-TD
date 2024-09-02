@@ -82,6 +82,8 @@ public class TC_ListManager extends WestMinsterPageHook {
 
     }
 
+    // Phase - 3 - Manoj
+    // TC_RE_5330 - In list manager, verify whether the system  does not allow duplicate entries in list title field
     @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyNoDuplicateListTitle() {
         testcaseName = "TC_RE_5330 ";

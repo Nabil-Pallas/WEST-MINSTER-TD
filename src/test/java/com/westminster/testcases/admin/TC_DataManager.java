@@ -607,6 +607,66 @@ public class TC_DataManager extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_5165");
     }
+
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void detectDuplicateFileWhenNoUniqueTradeIdentifierSelected() {
+        testcaseName = "TC_RE_5161";
+        testDescription = "Detect Duplicate File When No Unique Trade Identifier Selected";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/upload/Duplicate_File_One.csv");
+        fileName.set("Duplicate_File_One.csv");
+        filePath2.set("./src/test/resources/upload/Duplicate_File_Two.csv");
+        fileName2.set("Duplicate_File_Two.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .getTotalRowCount()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settlement Date"))
+                .clickOnFinishMapping()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .getTotalRowCount()
+                .clickOnEditDataSchema()
+                .clickOnEditBtn()
+                .clickOnDataManager()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath2.get(), fileName2.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settlement Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName2.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName2.get())
+                .validateErrorQueuePage()
+                .clickOnFilterBy()
+                .filterByOption("Duplicate Rows")
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .getTotalRowCount();
+
+
+        System.out.println("TC-----------TC_RE_5161");
+    }
+
+
 }
 
 

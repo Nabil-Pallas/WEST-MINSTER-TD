@@ -2,6 +2,7 @@ package com.pages.Admin.DataManagerPages;
 
 
 import com.microsoft.playwright.Locator;
+import com.pages.Admin.FileManagerPages.AddNewSystemColumnsPage;
 import org.testng.Assert;
 
 import com.page.base.DashboardPage;
@@ -107,6 +108,15 @@ public class EditDataSchemaPage extends DataManagerPage {
         return this;
     }
 
+    public EditDataSchemaPage clickOnUniqueTradeIdentifier() {
+        //clickUsingJs("//td[@class=\"dx-editor-cell dx-datagrid-validator dx-validator dx-visibility-change-handler dx-focused\"]//following-sibling::td[3]  "
+        //clickUsingJs("(//table)[3]//tr[last()-4]//td[4]//span");
+        pause("low");
+        return this;
+    }
+
+
+    
     public EditDataSchemaPage reloadCurrentURLAndClickOnRelevantFieldName(String fieldName) {
         refreshPageToCurrentURL();
         waitForLoaderToDisappear();
@@ -204,6 +214,15 @@ public class EditDataSchemaPage extends DataManagerPage {
         pause("medium");
         return new EditDataSchemaPage();
     }
+
+    public EditDataSchemaPage readOnlyCheckbox(boolean readOnlyCheckbox) {
+        if (readOnlyCheckbox) {
+            click("(//div[@class='dx-widget dx-checkbox dx-checkbox-indeterminate dx-datagrid-checkbox-size'])[3]", "read-Only Checkbox");
+            pause("low");
+        }
+        return this;
+    }
+
 
 
     public AddNewRowPage deleteDataSchema() {

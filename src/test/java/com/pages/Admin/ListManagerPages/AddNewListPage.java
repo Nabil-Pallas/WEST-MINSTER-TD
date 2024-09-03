@@ -12,7 +12,7 @@ public class AddNewListPage extends ListManagerPage {
     public AddNewListPage validateAddListItemPage() {
         waitForElementToLoad(frameSpanTextLocator("Add list item"));
         if (isVisible(frameSpanTextLocator("Add list item"), "Add New List Text")) {
-            reportPass("User successfully reached the correct Add New Rule page");
+            reportPass("User successfully reached the correct Add New List page");
         } else {
             reportFailAndThrowException("Add New List Page is not loaded.");
         }

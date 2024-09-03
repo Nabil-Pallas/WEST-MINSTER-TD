@@ -601,12 +601,17 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .verifyHeaderElementIsPresentOrNot(titleone.get())
-                .clickOnRulesManager()
-                .validateRulesManagerPage()
-                .deleteRuleName(ruleName.get())
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .validateNewlyAddedDataSchemaColumn(titleone.get())
+                .clickOnRelevantFieldNameActionIcon(titleone.get())
+                .clickOnDeleteBtn()
+                .clickOnExit()
                 .clickOnDataManager()
                 .validateDataManagerPage()
-                .verifyHeaderElementIsPresentOrNot(titleone.get());
+                .clickOnRulesManager()
+                .validateRulesManagerPage()
+                .validateRuleDeletion(ruleName.get());
 
         System.out.println("TC-----------TC_RE_5165");
     }

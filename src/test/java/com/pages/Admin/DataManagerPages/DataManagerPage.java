@@ -1,17 +1,12 @@
 package com.pages.Admin.DataManagerPages;
 
-import com.beust.ah.A;
 import com.pages.Admin.AdminPage;
-import com.pages.Admin.FileManagerPages.FileManagerPage;
 import org.testng.Assert;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -123,7 +118,7 @@ public class DataManagerPage extends AdminPage {
     }
 
     //Click the Delete Button
-    public EditDataManagerRow clickOnDeleteBtn() {
+    public EditDataSchemaPage clickOnDeleteBtn() {
         pause("medium");
         click(deleteBtn, "Delete button");
         pause("low");
@@ -134,7 +129,7 @@ public class DataManagerPage extends AdminPage {
             typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']", "delete", "Enter Delete in input box");
             click("//span[text()='Confirm Delete']", "Click Delete button");
         }
-        return new EditDataManagerRow();
+        return new EditDataSchemaPage();
     }
 
     //Click the Bulk Delete Button - Multiple Rows Delete

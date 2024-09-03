@@ -16,7 +16,7 @@
                 <!--                <include name="REGRESSION"></include>-->
             </run>
         </groups>
-        <parameter name="Browser" value="edge"></parameter>
+        <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
 <!--            <class name="com.westminster.testcases.admin.TC_FileManager">-->
@@ -53,7 +53,10 @@
 <!--                    <include name="verifyDuplicateRuleNameError"/>-->
 <!--                </methods>-->
 <!--            </class>-->
-            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
+            <class name="com.westminster.testcases.analytics.TC_Analytics">
+                <methods>
+                    <include name="verifyEditAnalysis"/>
+                </methods>
                         </class>
 
         </classes>

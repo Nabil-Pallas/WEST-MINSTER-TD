@@ -1,6 +1,5 @@
 package com.pages.Analytics;
 
-import com.pages.Admin.RulesManagerPages.AddNewRulePage;
 import org.testng.Assert;
 
 public class NewAnalysisPage extends AnalyticsPage {
@@ -8,6 +7,10 @@ public class NewAnalysisPage extends AnalyticsPage {
     private String newAnalysisText = "//h1[text()='New Analysis']";
     private String brokerNameFirstGrid = "(//td[@class='dx-required-field-heading'])[1]";
     private String rowFields = "(//table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[4]/tbody/tr[last()-1]";
+    private String pivotGrandTotalPath = "(//table[contains(@class,'dx-pivotgrid-border')]//tr[@class='dx-bottom-row']//td[2]//tr[last()]//td[last()])[2]";
+    private String pivotGrandTotalInReviewPage="";
+    private String pivotGrandTotalInViewPage="";
+
 
     public NewAnalysisPage validateNewAnalysisPage() {
         waitForElementToLoad(newAnalysisText);
@@ -16,6 +19,7 @@ public class NewAnalysisPage extends AnalyticsPage {
         } else {
             reportFailAndThrowException("New Analysis Page is not loaded.");
         }
+        pause("low");
         return this;
     }
 
@@ -63,6 +67,7 @@ public class NewAnalysisPage extends AnalyticsPage {
 
     public NewAnalysisPage clickOnSaveBtn() {
         click(frameSpanTextLocator("Save"), "Save");
+        pause("low");
         return this;
     }
 
@@ -95,7 +100,7 @@ public class NewAnalysisPage extends AnalyticsPage {
 
     public NewAnalysisPage reviewYourAnalysis(String analysisName, String color) {
         pause("low");
-        typeAndEnter(frameAnalysisFieldLocator("Analysis Name:"), analysisName, "Analysis Name Field");
+        typeWithType(frameAnalysisFieldLocator("Analysis Name:"), analysisName, "Analysis Name Field");
         pause("medium");
         click(frameDivTextLocator(color), " Chart Color", "color");
         waitForDisappearance("(//*[contains(text(),'Loading...')])[3]", "Loading...");
@@ -232,5 +237,57 @@ public class NewAnalysisPage extends AnalyticsPage {
         return this;
     }
 
+    public NewAnalysisPage getGrandTotalInReviwAnalysis(){
+        pause("low");
+        mouseOver("(//td[@class='dx-area-data-cell']//tr[1]//td[1])[2]","Full data");
+        pause("low");
+        while (!isVisibleWithMinimumTime("(//span[text()='Grand Total'])[4]")){
+            scrollUsingMouseWheelVertically("//td[@class='dx-area-data-cell']//div[contains(@class,'dx-scrollbar-vertical')]//div[@class='dx-scrollable-scroll-content']");
+        }
+        String innertext = getInnerText("(//table[contains(@class,'dx-pivotgrid-border')]//tr[@class='dx-bottom-row']//td[1]//tr[last()])[2]");
+        System.out.println(innertext);
+        if(innertext.equals("Grand Total")){
+            pivotGrandTotalInReviewPage = getInnerText(pivotGrandTotalPath);
+            reportPass("Grand Total in Review Analysis page: "+pivotGrandTotalInReviewPage);
+        }
 
+
+        return this;
+    }
+
+    public NewAnalysisPage getGrandTotalInViewAnalysis(){
+
+        pause("medium");
+        pause("low");
+        mouseOver("(//td[@class='dx-area-data-cell']//tr[1]//td[1])[2]","Full data");
+        pause("low");
+        while (!isVisibleWithMinimumTime("(//span[text()='Grand Total'])[4]")){
+            scrollUsingMouseWheelVertically("//td[@class='dx-area-data-cell']//div[contains(@class,'dx-scrollbar-vertical')]//div[@class='dx-scrollable-scroll-content']");
+        }
+        String innertext = getInnerText("(//table[contains(@class,'dx-pivotgrid-border')]//tr[@class='dx-bottom-row']//td[1]//tr[last()])[2]");
+        System.out.println(innertext);
+        if(innertext.equals("Grand Total")){
+            pivotGrandTotalInViewPage = getInnerText(pivotGrandTotalPath);
+            reportPass("Grand Total in View Analysis page: "+pivotGrandTotalInViewPage);
+        }
+
+        return this;
+    }
+
+    public NewAnalysisPage validateGrandTotal(){
+        if (pivotGrandTotalInReviewPage.equals(pivotGrandTotalInViewPage)){
+            reportPass("Successfully validated Grand Total in both Review and View Analysis Page");
+        } else{
+            reportFail("Failed to validate Grand Total");
+        }
+
+        return this;
+    }
+
+    public NewAnalysisPage validateEditedDetails(){
+
+
+        return this;
+
+    }
 }

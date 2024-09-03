@@ -2,6 +2,7 @@ package com.pages.Admin.DataManagerPages;
 
 
 import com.microsoft.playwright.Locator;
+import com.pages.Admin.FileManagerPages.AddNewSystemColumnsPage;
 import org.testng.Assert;
 
 import com.page.base.DashboardPage;
@@ -84,6 +85,44 @@ public class EditDataSchemaPage extends DataManagerPage {
         return new AdminPage();
     }
 
+    //trade id 
+    public EditDataSchemaPage clickOnUniqueTradeIdentifier(String fieldName, boolean UTI) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        click("//div[text()='Field Name']", "sort");
+        int headerCount = getLocatorsCount("(//td[@aria-colindex='4'])[position() > 1]");
+        for (int i = 1; i <= 30; i++) {
+            String headerElement = "((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]";
+            String headerText = getInnerText(headerElement);
+
+            if (headerText.contains(fieldName)) {
+                int maxAttempts = 30;
+                int attempts = 0;
+                while (!isVisible("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
+                    pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+                    attempts++;
+                }
+                scrollToElement("//td[text()='" + fieldName + "']");
+                pause("medium");
+                clickUsingJs("//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]//a[text()='⋯']", fieldName, "Action Icon");
+                pause("low");
+                clickOnEditBtn();
+                String getAtrribute = getAttribute("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]//div[@role='checkbox']", "aria-checked");
+                System.out.println("Attribute : ===============> " + getAtrribute);
+                if (getAtrribute.equals(UTI)) {
+                    click("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]", "Unique Trade Identifier Check Box");
+                    pause("low");
+                    click(frameSpanExactTextLocator("Save", 2), "Save Button");
+                } else {
+                    break;
+                }
+
+
+            }
+        }
+        return this;
+    }
+
     public EditDataSchemaPage clickOnActionIcon(String fieldName) {
         pause("medium");
         scrollToElement("//td[text()='" + fieldName + "']");
@@ -106,6 +145,14 @@ public class EditDataSchemaPage extends DataManagerPage {
         pause("low");
         return this;
     }
+
+    public EditDataSchemaPage clickOnUniqueTradeIdentifier() {
+        //clickUsingJs("//td[@class=\"dx-editor-cell dx-datagrid-validator dx-validator dx-visibility-change-handler dx-focused\"]//following-sibling::td[3]  "
+        //clickUsingJs("(//table)[3]//tr[last()-4]//td[4]//span");
+        pause("low");
+        return this;
+    }
+
 
     public EditDataSchemaPage reloadCurrentURLAndClickOnRelevantFieldName(String fieldName) {
         refreshPageToCurrentURL();
@@ -203,6 +250,14 @@ public class EditDataSchemaPage extends DataManagerPage {
         waitForLoaderToDisappear();
         pause("medium");
         return new EditDataSchemaPage();
+    }
+
+    public EditDataSchemaPage readOnlyCheckbox(boolean readOnlyCheckbox) {
+        if (readOnlyCheckbox) {
+            click("(//div[@class='dx-widget dx-checkbox dx-checkbox-indeterminate dx-datagrid-checkbox-size'])[3]", "read-Only Checkbox");
+            pause("low");
+        }
+        return this;
     }
 
 

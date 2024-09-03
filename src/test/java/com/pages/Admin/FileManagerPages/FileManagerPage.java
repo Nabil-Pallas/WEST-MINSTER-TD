@@ -200,6 +200,7 @@ public class FileManagerPage extends AdminPage {
         waitForLoaderToDisappear();
         waitForElementToLoad(cancelIcon);
         click(cancelIcon, "Cancel Icon Button");
+        reportPass("User successfully clicked cancel Icon Button");
 //        waitForElementToLoad(frameSpanTextLocator("cancelled successfully"));
 //        String getInnerText = getInnerText(frameSpanTextLocator("cancelled successfully"));
 //        System.out.println("Inner Text: " + getInnerText);

@@ -84,6 +84,29 @@ public class EditDataSchemaPage extends DataManagerPage {
         return new AdminPage();
     }
 
+    //trade id 
+    public AdminPage clickOnUniqueTradeIdentifier(String fieldName) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        click("//div[text()='Field Name']", "sort");
+        int headerCount = getLocatorsCount("(//td[@aria-colindex='4'])[position() > 1]");
+        for (int i = 1; i <= 30; i++) {
+            String headerElement = "((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]";
+            String headerText = getInnerText(headerElement);
+
+            if (headerText.contains(fieldName)) {
+                clickOnRelevantFieldNameActionIcon(fieldName);
+                String getAtrribute = getAttribute("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]//div", "aria-checked");
+                if (getAtrribute.equals("false")) {
+                    click("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]", "Unique Trade Identifier Check Box");
+                } else {
+                    break;
+                }
+            }
+        }
+        return new AdminPage();
+    }
+
     public EditDataSchemaPage clickOnActionIcon(String fieldName) {
         pause("medium");
         scrollToElement("//td[text()='" + fieldName + "']");

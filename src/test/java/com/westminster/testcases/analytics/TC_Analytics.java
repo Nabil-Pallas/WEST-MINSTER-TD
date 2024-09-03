@@ -216,7 +216,7 @@ public class TC_Analytics extends WestMinsterPageHook {
 
     //Phase -03 --Nabil
     //TC_RE_6104
-    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void verifyPivotTableToggleOptionForFullData(){
         testcaseName = "TC_RE_6104";
         testDescription = "Verify Pivot table toggle option by selecting sample data to full data";
@@ -249,7 +249,7 @@ public class TC_Analytics extends WestMinsterPageHook {
 
     //Phase -03 --Nabil
     //TC_RE_6
-    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
     public void verifyEditAnalysis() {
         testcaseName = "TC_RE_6";
         testDescription = "Verify whether the analytics can be edited using edit analysis";

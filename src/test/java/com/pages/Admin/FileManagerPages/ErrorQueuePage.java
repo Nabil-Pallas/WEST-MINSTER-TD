@@ -367,6 +367,23 @@ public class ErrorQueuePage extends FileManagerPage {
         return this;
     }
 
+    public ErrorQueuePage validateRowCountIsZero() {
+        // Assuming getRowCounts returns a Long
+        Long rowCountValue = getRowCounts.get();
+
+        // Check if row count is zero
+        if (rowCountValue != null && rowCountValue == 0) {
+            System.out.println("Validation passed: Row count is zero.");
+        } else {
+            System.out.println("Validation failed: Row count is not zero. Actual count: " + rowCountValue);
+            // Optionally throw an exception or handle the failure as needed
+            reportFail("Row count is not zero. Actual count: " + rowCountValue);
+        }
+        return this;
+    }
+
+
+
     public ErrorQueuePage getErrorQueueRowCounts(String state) {
         //get the Row Count value
         waitForLoaderToDisappear();

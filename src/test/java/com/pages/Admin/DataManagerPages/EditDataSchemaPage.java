@@ -86,7 +86,7 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     //trade id 
-    public AdminPage clickOnUniqueTradeIdentifier(String fieldName) {
+    public EditDataSchemaPage clickOnUniqueTradeIdentifier(String fieldName, boolean UTI) {
         waitForLoaderToDisappear();
         pause("medium");
         click("//div[text()='Field Name']", "sort");
@@ -96,16 +96,31 @@ public class EditDataSchemaPage extends DataManagerPage {
             String headerText = getInnerText(headerElement);
 
             if (headerText.contains(fieldName)) {
-                clickOnRelevantFieldNameActionIcon(fieldName);
-                String getAtrribute = getAttribute("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]//div", "aria-checked");
-                if (getAtrribute.equals("false")) {
+                int maxAttempts = 30;
+                int attempts = 0;
+                while (!isVisible("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
+                    pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+                    attempts++;
+                }
+                scrollToElement("//td[text()='" + fieldName + "']");
+                pause("medium");
+                clickUsingJs("//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]//a[text()='⋯']", fieldName, "Action Icon");
+                pause("low");
+                clickOnEditBtn();
+                String getAtrribute = getAttribute("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]//div[@role='checkbox']", "aria-checked");
+                System.out.println("Attribute : ===============> " + getAtrribute);
+                if (getAtrribute.equals(UTI)) {
                     click("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]", "Unique Trade Identifier Check Box");
+                    pause("low");
+                    click(frameSpanExactTextLocator("Save", 2), "Save Button");
                 } else {
                     break;
                 }
+
+
             }
         }
-        return new AdminPage();
+        return this;
     }
 
     public EditDataSchemaPage clickOnActionIcon(String fieldName) {
@@ -139,7 +154,6 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
 
-    
     public EditDataSchemaPage reloadCurrentURLAndClickOnRelevantFieldName(String fieldName) {
         refreshPageToCurrentURL();
         waitForLoaderToDisappear();
@@ -245,7 +259,6 @@ public class EditDataSchemaPage extends DataManagerPage {
         }
         return this;
     }
-
 
 
     public AddNewRowPage deleteDataSchema() {

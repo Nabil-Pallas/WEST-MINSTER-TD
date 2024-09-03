@@ -387,7 +387,8 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage getTotalRowCount() {
         pause("medium");
-        waitForLoaderToDisappear();
+        pause("medium");
+//        waitForLoaderToDisappear();
         String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
 
         // Clean the string by removing any non-digit characters, including non-breaking spaces
@@ -518,21 +519,15 @@ public class DataManagerPage extends AdminPage {
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
                 pause("low");
-//                click(searchValueWithHeader(i), "Search Filter", "Search Box");
-//                typeAndEnter(searchValueWithHeader(i), VerificationValues, VerificationValues);
-//                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
                 pause("low");
-                scrollToElement("//div[text()='" + VerificationValues + "']");
+                mouseOver("//div[@aria-label='Select All']","Broker Name filter");
+                while (!isVisibleWithMinimumTime("//div[text()='" + VerificationValues + "']")) {
+                    scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-scroll-content'])[2]");
+                }
                 pause("low");
-                click("//div[text()='" + VerificationValues + "']//preceding-sibling::div", verificationHeader1, "Broker Name");
+                click("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 pause("low");
-//                String state = getAttribute("//div[text()='" + VerificationValues + "']//preceding-sibling::div","aria-checked");
-//                System.out.println(state);
-//                if(state.equals("false")){
-//                    forceClick("//div[text()='" + VerificationValues + "']//preceding-sibling::div", verificationHeader1, "Broker Name");
-//                    pause("low");
-//                }
                 click("//span[text()='OK']", "filter OK button");
                 pause("medium");
                 pause("medium");
@@ -557,9 +552,16 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage clickOnClearAllFilters() {
         pause("medium");
-        click("//span[text()='Clear All Filters']", "Clear All Filters");
-        pause("medium");
-        reportPass("Successfully cleared all filters for Broker Name column");
+        // Check if the button is attached and clickable
+        boolean isClickable = isEnabled("//span[text()='Clear All Filters']", "Clear All Filters") &&
+                isVisible("//span[text()='Clear All Filters']", "Clear All Filters");
+        if (isClickable) {
+            click("//span[text()='Clear All Filters']", "Clear All Filters");
+            pause("medium");
+            reportPass("Successfully cleared all filters for Broker Name column");
+        } else {
+            reportPass("There is no Clear All Filters is enabled");
+        }
         return this;
     }
 
@@ -602,9 +604,18 @@ public class DataManagerPage extends AdminPage {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
-                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+                pause("low");
+//                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
 //                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
 //                forceClick("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
+                pause("low");
+                mouseOver("//div[@aria-label='Select All']","Broker Name filter");
+                while (!isVisibleWithMinimumTime("//div[text()='" + VerificationValues + "']")) {
+                    scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-scroll-content'])[2]");
+                }
+                pause("low");
+                click("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 pause("low");
                 click("//span[text()='OK']", "filter OK button");
                 pause("medium");
@@ -631,6 +642,7 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage getUploadDateFromDataManager(String verificationHeader1) {
         pause("medium");
+        waitForElementToLoad("//div[@aria-label='Select all']");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
         for (int i = 1; i < headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";

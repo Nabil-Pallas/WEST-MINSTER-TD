@@ -64,12 +64,12 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
     public CreateNewBudgetPage clickAndSelectTargetColumn(String targetColumn) {
         try {
 //            clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(targetColumn, 2), targetColumn, targetColumn);
-            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input", "drop down");
+            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input", "Target Column Drop down");
             pause("low");
             click(frameDivTextLocator(targetColumn, 2), "option");
         } catch (Exception e) {
 //            clickAndChoose("(//div[@class='dx-dropdowneditor-input-wrapper dx-selectbox-container'])[3]", frameDivTextLocator(targetColumn), targetColumn, targetColumn);
-            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input", "drop down");
+            click("//span[text()='Target Column']//ancestor::label//following::div[5]//input", "Target Column Drop down");
             pause("low");
             click(frameDivTextLocator(targetColumn), "option");
         }
@@ -97,8 +97,10 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
 
     public CreateNewBudgetPage selectBrokerName() {
         pause("medium");
-        clickAndChoose("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]", "(//div[@class='dx-scrollview-content']/div[1])[2]", "Broker Name", "Broker Name");
-//        clickAndChoose("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]", "(//div[@role="listbox"]//div[@role='option'])[1]", "Broker Name", "Broker Name");
+        waitForElementToLoad("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]");
+//        clickAndChoose("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]", "(//div[@role='listbox']//div[@role='option'])[1]", "Broker Name", "Broker Name");
+        click("(//div[text()='Target Amount']/ancestor::div[2]/following::div[1]//input[@role='combobox'])[1]", "Broker Name Drop Down");
+        clickUsingJs("(//div[text()='Broker Name']//following::div[@role='listbox']//div[@role='option'])[1]", "Broker Name", "Broker Name");
         pause("medium");
         return this;
     }

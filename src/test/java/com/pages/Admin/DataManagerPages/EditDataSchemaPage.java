@@ -250,7 +250,7 @@ public class EditDataSchemaPage extends DataManagerPage {
 //
         pause("low");
         pause("low");
-        forceClick("(//td[text()='" + clientCompanyName.get() + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
+        clickUsingJs("//td[text()='" + clientCompanyName.get() + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]//a[text()='⋯']", "Delete Button", "");
         pause("low");
         click(deleteBtn, "Delete Button");
         pause("low");

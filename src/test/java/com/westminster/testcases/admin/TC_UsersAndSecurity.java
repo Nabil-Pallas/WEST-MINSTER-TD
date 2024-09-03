@@ -243,7 +243,7 @@ public class TC_UsersAndSecurity extends WestMinsterPageHook {
                 .validateUserSecurityPage()
                 .clickOnRolesTab()
                 .clickOnaddNewRoleBtn()
-                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "LandoLandoLando", "Select All")
+                .fillRoleInformation(userFirstName.get(), userLastName.get(), "Tier 2", "Automation Client_1", "Select All")
                 .clickOnApplyBtn()
                 .validateRoleInformation(userFirstName.get())
                 .clickOnUserTab()

@@ -46,9 +46,11 @@ public class EditBudgetPage extends AllBudgetsPage {
                 case "Target Column":
                     pause("low");
                     try {
-                        clickAndChoose("//span[text()='Target Column']//ancestor::label//following::div[5]//input", frameDivTextLocator(verificationValues.get(i), 2), verificationValues.get(i), verificationValues.get(i));
+//                        clickAndChoose("//span[text()='Target Column']//ancestor::label//following::div[5]//input", frameDivTextLocator(verificationValues.get(i), 2), verificationValues.get(i), verificationValues.get(i));
+                        selectOptionFromDropdownUsingJSClick("//span[text()='Target Column']//ancestor::label//following::div[5]//input", frameDivTextLocator(verificationValues.get(i), 2), verificationValues.get(i), verificationValues.get(i));
                     } catch (Exception e) {
-                        clickAndChoose("//span[text()='Target Column']//ancestor::label//following::div[5]//input", frameDivTextLocator(verificationValues.get(i)), verificationValues.get(i), verificationValues.get(i));
+//                        clickAndChoose("//span[text()='Target Column']//ancestor::label//following::div[5]//input", frameDivTextLocator(verificationValues.get(i)), verificationValues.get(i), verificationValues.get(i));
+                        selectOptionFromDropdownUsingJSClick("//span[text()='Target Column']//ancestor::label//following::div[5]//input", "//div[@class='dx-list-items']//div[@class='dx-item-content dx-list-item-content']", verificationValues.get(i), verificationValues.get(i));
                     }
                     pause("medium");
                     break;

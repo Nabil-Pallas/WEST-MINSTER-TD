@@ -192,13 +192,13 @@ public class ErrorQueuePage extends FileManagerPage {
                 click("(//table)[3]//tr[1]//td[" + (i + 3) + "]", "Field");
                 pause("low");
                 typeWithType("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input", tradeDate, "Field");
-                reportPass("successfully edited Trade date");
+                reportPass("Successfully edited Trade date");
             }
             if (verificationHeaders1.contains(headerText)) {
                 click("(//table)[3]//tr[1]//td[" + (i + 3) + "]", "Field");
                 pause("low");
                 typeAndEnter("(//table)[3]//tr[1]//td[" + (i + 3) + "]//input", settlementDate, "Field");
-                reportPass("successfully edited Settlement date");
+                reportPass("Successfully edited Settlement date");
             }
         }
         return this;
@@ -309,7 +309,7 @@ public class ErrorQueuePage extends FileManagerPage {
         System.out.println("Amend Error Rows: " + getRowCounts.get());
         System.out.println("Error Queue Page RowCount: " + rCount);
         Assert.assertEquals(getRowCounts.get(), rCount);
-        reportPass("The count of amended error rows (" + errorRows + ") matches the expected Error Queue Page row count (" + rCount + ").");
+        reportPass("The count of amended error rows (" + getRowCounts.get() + ") matches the expected Error Queue Page row count (" + rCount + ").");
         return this;
     }
 
@@ -341,12 +341,16 @@ public class ErrorQueuePage extends FileManagerPage {
     }
 
     public ErrorQueuePage filterByOption(String options) {
+        pause("medium");
+        pause("medium");
         waitForLoaderToDisappear();
         waitForLoaderToDisappear();
         //select Invalid date value/format option from drop down
         waitForElementToLoad(filterByLocator);
-        selectOptionFromDropdown(filterByLocator, filterByValues, options, "Filter By");
-        pause("low");
+        click(filterByLocator, "Filter By", "Select Drop Down");
+        clickUsingJs(frameDivTextLocator(options), options, "Filter By");
+//        selectOptionFromDropdownUsingJSClick(filterByLocator, filterByValues, options, "Filter By");
+        pause("medium");
         waitForLoaderToDisappear();
         return this;
     }
@@ -363,8 +367,35 @@ public class ErrorQueuePage extends FileManagerPage {
         return this;
     }
 
+    public ErrorQueuePage getErrorQueueRowCounts(String state) {
+        //get the Row Count value
+        waitForLoaderToDisappear();
+        waitForLoaderToDisappear();
+        pause("medium");
+        String rowCount = getInnerText(rowCountLocator);
+        String replaceRowCount = rowCount.replaceAll("Row Count: ", "");
+
+        if (state.equalsIgnoreCase("Initial")) {
+            InitRowCounts = Long.parseLong(replaceRowCount);
+            reportPass("Initial Row Counts: " + InitRowCounts + " noted.");
+            System.out.println("InitRowCounts: " + InitRowCounts);
+        } else {
+            FinRowCounts = Long.parseLong(replaceRowCount);
+            reportPass("Final Row Counts: " + FinRowCounts + " noted.");
+            System.out.println("FinRowCounts: " + FinRowCounts);
+        }
+        return this;
+    }
+
     public ErrorQueuePage validateRowCount(long actualCount, long expectedCount) {
         Assert.assertEquals(actualCount, expectedCount);
+        reportPass("Row count on the Error Queue page is as expected");
+        return this;
+    }
+
+    public ErrorQueuePage validateRowCount(long expectedCount) {
+        Long finalRowCount = InitRowCounts - FinRowCounts;
+        Assert.assertEquals(finalRowCount, expectedCount);
         reportPass("Row count on the Error Queue page is as expected");
         return this;
     }

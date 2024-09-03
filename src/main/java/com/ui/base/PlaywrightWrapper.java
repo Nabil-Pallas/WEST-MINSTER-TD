@@ -550,8 +550,7 @@ public class PlaywrightWrapper extends Reporter {
             while (attempts < 3) {
                 try {
                     getPage().locator(locator).click(new Locator.ClickOptions()
-                            .setForce(true)
-                            .setClickCount(1));
+                            .setForce(true));
                     reportStep("The " + type + " : " + name + " is clicked", "info");
                     return true;
                 } catch (PlaywrightException e) {
@@ -844,11 +843,13 @@ public class PlaywrightWrapper extends Reporter {
      */
     public boolean clickAndChoose(String ddLocator, String optionLocator, String option, String name) {
         try {
+
             getPage().locator(ddLocator).scrollIntoViewIfNeeded();
             getPage().locator(ddLocator).waitFor(new Locator.WaitForOptions()
                     .setState(WaitForSelectorState.VISIBLE)
                     .setTimeout(ConfigurationManager.configuration().timeout()));
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
+            pause("low");
             //Force Click the optionLocator
             forceClick(optionLocator, option, name);
 
@@ -888,7 +889,7 @@ public class PlaywrightWrapper extends Reporter {
             // Loop through the options and select the one matching the provided value
             for (Locator optionElement : options) {
                 String innerText = optionElement.innerText();
-                System.out.println("Inner: " + innerText);
+//                System.out.println("Inner: " + innerText);
                 if (innerText.contains(option)) {
                     optionElement.scrollIntoViewIfNeeded();
                     optionElement.click(new Locator.ClickOptions().setForce(true).setClickCount(1));
@@ -896,6 +897,58 @@ public class PlaywrightWrapper extends Reporter {
                     // Report success
                     reportStep("The dropdown : " + name + " is selected with value : " + option, "info");
                     return true; // Exit the loop and return true once the desired option is clicked
+                }
+            }
+
+            // If the option is not found
+            reportStep("The option: " + option + " was not found in the dropdown: " + name, "fail");
+            return false;
+
+        } catch (PlaywrightException e) {
+            // Handle any other Playwright exceptions
+            e.printStackTrace();
+            reportStep("PlaywrightException while selecting from dropdown: " + name + " \n" + e.getMessage(), "fail");
+        } catch (Exception e) {
+            // Handle any generic exceptions
+            e.printStackTrace();
+            reportStep("Exception while selecting from dropdown: " + name + " \n" + e.getMessage(), "fail");
+        }
+
+        return false;
+    }
+
+
+    public boolean selectOptionFromDropdownUsingJSClick(String ddLocator, String optionLocator, String option, String name) {
+        try {
+            // Ensure the dropdown is clickable and then click to open it
+            getPage().locator(ddLocator).scrollIntoViewIfNeeded();
+            getPage().locator(ddLocator).waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.ATTACHED)
+                    .setTimeout(ConfigurationManager.configuration().timeout()));
+            getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
+
+            // Locate all options within the dropdown
+            List<Locator> options = getPage().locator(optionLocator).all();
+
+            // Loop through the options and select the one matching the provided value
+            for (Locator optionElement : options) {
+                String innerText = optionElement.innerText();
+//                System.out.println("Inner: " + innerText);
+                if (innerText.contains(option)) {
+                    optionElement.scrollIntoViewIfNeeded();
+                    pause("low");
+                    // Use JavaScript click instead of Playwright's regular click
+                    boolean jsClickResult = clickUsingJs(optionLocator, option, "Dropdown option");
+
+                    if (jsClickResult) {
+                        // Report success if JS click was successful
+                        reportStep("The dropdown: " + name + " is selected with value: " + option, "info");
+                        return true; // Exit the loop and return true once the desired option is clicked
+                    } else {
+                        // Report failure if JS click failed
+                        reportStep("Failed to click the option: " + option + " in the dropdown: " + name, "fail");
+                        return false;
+                    }
                 }
             }
 
@@ -1633,7 +1686,7 @@ public class PlaywrightWrapper extends Reporter {
         try {
             getPage().setInputFiles("input[type='file']", Path.of(fileName));
             /*waitForAppearance("//img[@data-testid='preview-thumbnail']");*/
-            reportStep("File is Uploaded", "info");
+            reportStep("User Successfully Uploaded the File.", "info");
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }
@@ -1657,8 +1710,14 @@ public class PlaywrightWrapper extends Reporter {
      * @author Srikanth
      */
     public void waitForElementToLoad(String locator) {
-        getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().timeout()));
+        try {
+            getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().timeout()));
+            reportStep("Element has been successfully loaded.", "info");
+        } catch (Exception e) {
+            reportFail("Failed to load the element: " + locator + ". Error: " + e.getMessage());
+        }
     }
+
 
     public void waitForElementToLoadWithHighTime(String locator) {
         getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().highTimeout()));

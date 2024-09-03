@@ -68,6 +68,7 @@ public class NewAnalysisPage extends AnalyticsPage {
 
     public AnalyticsPage clickOnBackBtn() {
         pause("low");
+        waitForElementToLoad(frameSpanTextLocator("Back"));
         click(frameSpanTextLocator("Back"), "Back");
         pause("low");
         return new AnalyticsPage();
@@ -132,10 +133,10 @@ public class NewAnalysisPage extends AnalyticsPage {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         waitForElementToLoad(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1));
-//        click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
-//        pause("low");
-//        forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
-        selectOptionFromDropdown(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "//div[@class='wdx-custom-dropdown__text']", multipleSeriesValueField1, "Drop Down");
+        click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
+        pause("low");
+        clickUsingJs(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
+//        selectOptionFromDropdownUsingJSClick(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "//div[@class='wdx-custom-dropdown__text']", multipleSeriesValueField1, "Drop Down");
         pause("low");
 //        clickOnNextBtn();
 //        if(isVisible("//div[text()='Invalid Field'")){
@@ -168,7 +169,9 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         pause("low");
-        clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
+//        clickAndChoose(frameAnalysisFieldLocator("Single Series Value Field:", 2), frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
+        click(frameAnalysisFieldLocator("Single Series Value Field:", 2), "Single Series Value Field:");
+        clickUsingJs(frameSeriesValueField(singleSeriesValueField), singleSeriesValueField, "Single Series Value Field");
         pause("low");
 //        clickOnNextBtn();
 //        if(isVisible("//div[text()='Invalid Field'")){
@@ -186,12 +189,12 @@ public class NewAnalysisPage extends AnalyticsPage {
         pause("low");
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         waitForElementToLoad(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1));
-//        click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
-//        pause("low");
-//        forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
+        click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
+        pause("low");
+        clickUsingJs(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
-        selectOptionFromDropdown(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "//div[@class='wdx-custom-dropdown__text']", multipleSeriesValueField1, "Drop Down");
+//        selectOptionFromDropdownUsingJSClick(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "//div[@class='wdx-custom-dropdown__text']", multipleSeriesValueField1, "Drop Down");
 
 //        clickOnNextBtn();
 //        if(isVisible("//div[text()='Invalid Field'")){
@@ -210,11 +213,10 @@ public class NewAnalysisPage extends AnalyticsPage {
         clickAndChoose(frameAnalysisFieldLocator("Main Field:", 2), frameDivTextLocator(mainField, 2), mainField, "Main Field");
         pause("low");
         waitForElementToLoad(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1));
-//        click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
-//        pause("low");
-//        forceClick(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
-        selectOptionFromDropdown(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "//div[@class='wdx-custom-dropdown__text']", multipleSeriesValueField1, "Drop Down");
-
+        click(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "Multiple Series Value Fields");
+        pause("low");
+        clickUsingJs(frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Drop Down");
+//        selectOptionFromDropdownUsingJSClick(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), "//div[@class='wdx-custom-dropdown__text']", multipleSeriesValueField1, "Drop Down");
 //        clickAndChoose(frameAnalysisFieldLocator("Multiple Series Value Fields:", 1), frameSeriesValueField(multipleSeriesValueField1), multipleSeriesValueField1, "Multiple Series Value Field 1");
         pause("low");
 //        clickOnNextBtn();

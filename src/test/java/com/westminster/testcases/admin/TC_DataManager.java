@@ -46,6 +46,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnDataManager()
                 .clickOnDataManager()
                 .validateDataManagerPage()
+                .clickOnClearAllFilters()
                 .clickOnAddNewRowBtn()
                 .validateAddNewRowPage()
                 .addNewRowInformation(clientCompanyName.get(), FakerDataFactory.getPastDate(), FakerDataFactory.get12DigitsBankAccountNumber(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getFTPFolderAcronym(), FakerDataFactory.getAlphanumeric(), FakerDataFactory.getAlphanumeric(),
@@ -82,6 +83,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnDataManager()
                 .clickOnDataManager()
                 .validateDataManagerPage()
+                .clickOnClearAllFilters()
                 .clickOnActionsBtn()
                 .clickOnEditBtn()
                 .validateEditRowPage()
@@ -112,6 +114,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnDataManager()
                 .validateDataManagerPage()
+                .clickOnClearAllFilters()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
                 .clickOnAddNewColumn()

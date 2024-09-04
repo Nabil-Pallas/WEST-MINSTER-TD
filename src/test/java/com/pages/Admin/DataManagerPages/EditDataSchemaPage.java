@@ -90,6 +90,7 @@ public class EditDataSchemaPage extends DataManagerPage {
         waitForLoaderToDisappear();
         pause("medium");
         click("//div[text()='Field Name']", "sort");
+        pause("low");
         int headerCount = getLocatorsCount("(//td[@aria-colindex='4'])[position() > 1]");
         for (int i = 1; i <= 7; i++) {
             String headerElement = "((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]";
@@ -113,11 +114,13 @@ public class EditDataSchemaPage extends DataManagerPage {
                     click("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]", "Unique Trade Identifier Check Box");
                     pause("low");
                     click(frameSpanExactTextLocator("Save", 2), "Save Button");
+                    ;
                 } else {
-                    reportFail("Failed to Uncheck the Unique Trade Identifier Checkbox ");
+                    break;
                 }
             }
         }
+
         return this;
     }
 

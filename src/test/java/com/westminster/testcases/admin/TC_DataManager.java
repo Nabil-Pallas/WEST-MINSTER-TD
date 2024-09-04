@@ -621,6 +621,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
+        DataMap.set(FakerDataFactory.getDataMapName());
         filePath.set("./src/test/resources/upload/Duplicate_File_One.csv");
         fileName.set("Duplicate_File_One.csv");
         filePath2.set("./src/test/resources/upload/Duplicate_File_Two.csv");
@@ -634,7 +635,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateFileManagerPage()
                 .fileUpload(filePath.get(), fileName.get())
                 .clickOnCreateNewMapping()
-                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
                 .validateFileMappingPage()
                 .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
                         Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settlement Date"))
@@ -649,12 +650,8 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnFileManager()
                 .validateFileManagerPage()
                 .fileUpload(filePath2.get(), fileName2.get())
-                .clickOnCreateNewMapping()
-                .createNewDataMap(FakerDataFactory.getDataMapName(), "MM/dd/yyyy")
-                .validateFileMappingPage()
-                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
-                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settlement Date"))
-                .clickOnFinishMapping()
+                .selectExistingMapping(DataMap.get())
+                .clickOnApplyMapping()
                 .validateFileUpload(fileName2.get())
                 .clickOnInvalidRowCountAndAmendErrors(fileName2.get())
                 .validateErrorQueuePage()
@@ -672,7 +669,63 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5161");
     }
 
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void checkDuplicateFileDetectionForMultipleUniqueIdentifiers() {
+        testcaseName = "TC_RE_5162";
+        testDescription = "Check Duplicate File Detection for Multiple Unique Identifiers";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
 
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/Duplicate_File_One.csv");
+        fileName.set("Duplicate_File_One.csv");
+        filePath2.set("./src/test/resources/upload/Duplicate_File_Two.csv");
+        fileName2.set("Duplicate_File_Two.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settlement Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnUniqueTradeIdentifier("Trade ID", "false")
+                .clickOnUniqueTradeIdentifier("Account Name","false")
+                .clickOnExit()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath2.get(), fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnApplyMapping()
+                .validateFileUpload(fileName2.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName2.get())
+                .validateErrorQueuePage()
+                .clickFilterAndSelectDuplicateRows()
+                .getErrorQueueRowCounts()
+                .clickOnExitBtn()
+                .validateRowCountIsZero()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnUniqueTradeIdentifier("Trade ID", "false")
+                .clickOnUniqueTradeIdentifier("Trade ID", "true")
+                .clickOnExit();
+        System.out.println("TC-----------TC_RE_5162");
+    }
 }
 
 

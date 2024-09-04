@@ -132,5 +132,16 @@ public class AnalyticsPage extends MenuPage {
         return this;
     }
 
+    public EditAnalysisPage editAnalytics(String analysisName) {
+        waitForLoaderToDisappear();
+        pause("low");
+        click("//h3[@title='" + analysisName + "']//following::div[@aria-label='Actions'][1]", "Actions Button :" + analysisName);
+        pause("low");
+        click(frameSpanTextLocator("Edit Analysis"), "Edit Analysis");
+
+        pause("low");
+        return new EditAnalysisPage();
+    }
+
 
 }

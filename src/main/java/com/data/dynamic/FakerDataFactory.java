@@ -133,6 +133,10 @@ public class FakerDataFactory {
         return "" + faker.number().randomNumber(10, false);
     }
 
+    public static String get4DigitNumber() {
+        return "" + faker.number().randomNumber(3, false);
+    }
+
     public static String getAlphanumeric() {
         return faker.number().randomNumber(6, false) + "lkjhhh";
     }

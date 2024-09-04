@@ -147,7 +147,7 @@ public class AddNewRowPage extends DataManagerPage {
 
     // Type The Local Executed Value
     public AddNewRowPage typeLocalExecutedValue(String LocalExecutedValue) {
-        type(frameClientDetailsLocator("Local  Executed  Value:", 2), LocalExecutedValue, "LocalExecutedValue");
+        typeWithType(frameClientDetailsLocator("Local  Executed  Value:", 2), LocalExecutedValue, "LocalExecutedValue");
         return this;
     }
 
@@ -356,15 +356,17 @@ public class AddNewRowPage extends DataManagerPage {
         return this;
     }
 
-    public AddNewRowPage addNewRow(String brokerName, String tradeDate, String SettlementDate, String baseGrossCommission) {
-        pause("medium");
+    public AddNewRowPage addNewRow(String brokerName, String tradeDate, String SettlementDate, String BaseGrossCommission, String localExecutedValue) {
+        pause("low");
         typeBrokerName(brokerName);
         pause("low");
         typeTradeDate(tradeDate);
         pause("low");
-        typeBaseGrossCommission(baseGrossCommission);
+        typeBaseGrossCommission(BaseGrossCommission);
         pause("low");
         typeSettlementDate(SettlementDate);
+        pause("low");
+        typeLocalExecutedValue(localExecutedValue);
 
         return this;
     }

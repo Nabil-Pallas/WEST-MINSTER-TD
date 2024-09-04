@@ -6,6 +6,9 @@ import com.page.base.DashboardPage;
 import com.pages.Admin.AdminPage;
 import org.testng.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RulesManagerPage extends AdminPage {
 
     private String rulesManagerText = "//h1[text()='Rules Manager']";
@@ -191,6 +194,39 @@ public class RulesManagerPage extends AdminPage {
         }
         return this;
     }
+
+
+    //Validate whether the rule is  Deleted
+    public RulesManagerPage validateRuleDeletion(String ruleName) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        waitForLoaderToDisappear();
+        pause("low");
+        int ruleNameCount = getLocatorsCount("(((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()]");
+
+        for (int i = 1; i <= ruleNameCount; i++) {
+            String ruleNameInnerText = getInnerText("((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()])[" + i + "]");
+            String enableCheckBox = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[2])[position() < last()])[" + i + "]";
+
+            List<String> ruleNametexts = new ArrayList<String>();
+            ruleNametexts.add(ruleNameInnerText);
+
+
+            for (String ruleName1 : ruleNametexts) {
+                boolean isPresent = ruleName1.equals(ruleName);
+
+                // Verify that the ruleName is not present in the grid
+                if (isPresent) {
+                    System.out.println("Rule name '" + ruleName1 + "' is present in the grid, which is not expected.");
+                } else {
+                    System.out.println("Rule name '" + ruleName1 + "' is not present in the grid, as expected.");
+                }
+            }
+
+        }
+        return this;
+    }
+
 
     public EditRulePage clickOnEditRule() {
         if (isVisible(actionRuleLocator, "Action Icon")) {

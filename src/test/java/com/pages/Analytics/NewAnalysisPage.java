@@ -38,7 +38,6 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage typeFilterOperator(String operator) {
         pause("medium");
         typeAndEnter(frameFilterGroupLocator("Operator", 3), operator, "Operator");
-        pause("medium");
         return this;
     }
 
@@ -47,6 +46,14 @@ public class NewAnalysisPage extends AnalyticsPage {
         String getBrokerName = getInnerText(brokerNameFirstGrid);
         pause("low");
         typeAndEnter(frameFilterGroupLocator("Value", 4), getBrokerName, "Value");
+        click(frameSpanTextLocator("Apply"), "Apply");
+        pause("medium");
+        return this;
+    }
+
+    public NewAnalysisPage typeFilterValue(String value, int index) {
+        pause("low");
+        typeAndEnter(frameFilterGroupLocator("Value", index), value, "Value");
         click(frameSpanTextLocator("Apply"), "Apply");
         pause("medium");
         return this;
@@ -79,6 +86,20 @@ public class NewAnalysisPage extends AnalyticsPage {
         return new AnalyticsPage();
     }
 
+    public NewAnalysisPage clickOnFilter(){
+
+        pause("low");
+        click("//span[text()='+ Filter']","Filter");
+        return new NewAnalysisPage();
+    }
+
+    public NewAnalysisPage clickOnFilterSave(){
+
+        pause("low");
+        click("//a[@title='Save']","Save");
+        return new NewAnalysisPage();
+    }
+
 
     public NewAnalysisPage addFilterAndValidate(String fieldName, String operator) {
         pause("medium");
@@ -88,6 +109,16 @@ public class NewAnalysisPage extends AnalyticsPage {
                 .typeFilterValue()
                 .validateDataFilter();
         reportPass("User Successfully Added the Filter & validated");
+        return this;
+    }
+
+    public NewAnalysisPage addFilterAndValidate(String fieldName, String operator, String value, int index) {
+        pause("medium");
+        clickOnCreateAFilter()
+                .typeFilterFieldName(fieldName) //Broker Name
+                .typeFilterOperator(operator) //Symbol[=,!=,>,<,>=,<=]
+                .typeFilterValue(value,index);
+        reportPass("User Successfully Added the Filter");
         return this;
     }
 
@@ -289,5 +320,32 @@ public class NewAnalysisPage extends AnalyticsPage {
 
         return this;
 
+    }
+
+    public NewAnalysisPage validateFilteredDataInStep1(String verificationHeader, String value){
+        pause("low");
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i < headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader)) {
+                scrollToElement("((//table)[4]//tr//td["+(i+1)+"])[1]");
+                pause("low");
+                String valuee = getInnerText("((//table)[4]//tr//td["+(i+1)+"])[1]");
+                System.out.println(valuee);
+                int number1 = Integer.parseInt(value);      // Convert str1 to int
+                double number2 = Double.parseDouble(valuee);
+                System.out.println("number1====> "+number1+" number2=====> "+number2);
+                // Compare the converted numbers
+                if (number1 == number2) {
+                    reportPass("Successfully verified the Numeric value in filter: "+number2);
+                } else {
+                    reportFail("Failed to validate");
+                }
+
+            }
+        }
+
+        return this;
     }
 }

@@ -287,5 +287,42 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .deleteAnalytics("Demo-test");
     }
 
+    //Phase -03 --Nabil
+    //TC_RE_5019
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void verifyNumericValuesInAnalysisStep1() {
+        testcaseName = "TC_RE_5019";
+        testDescription = "Verify whether numeric values can be filtered in step 1 in analytics";
+        authors = "Automation Team";
+        category = "Create Analysis";
+        startTestCase();
+        setNode();
+
+        clientCompanyName.set(FakerDataFactory.getNameWithTimeStamp(""));
+        number.set(FakerDataFactory.get4DigitNumber());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters()
+                .clickOnAddNewRowBtn()
+                .validateAddNewRowPage()
+                .addNewRow(clientCompanyName.get(),FakerDataFactory.getPastDate(),FakerDataFactory.getFutureDate(),"5432",number.get())
+                .clickOnAddBtn()
+                .clickOnApplyBtn()
+                .mouseHoverOnDashboard()
+                .clickOnAnalytics()
+                .validateAnalyticsPage()
+                .clickOnCreateNewDataAnalysis()
+                .addFilterAndValidate("Local Executed Value","=",number.get(),4)
+                .validateFilteredDataInStep1("Local Executed Value",number.get());
+
+
+
+    }
+
 
 }

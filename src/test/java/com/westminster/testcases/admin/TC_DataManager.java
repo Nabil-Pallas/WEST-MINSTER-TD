@@ -644,7 +644,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
-                .clickOnUniqueTradeIdentifier("Trade ID", true)
+                .clickOnUniqueTradeIdentifier("Trade ID", "true")
                 .clickOnExit()
                 .clickOnFileManager()
                 .validateFileManagerPage()
@@ -666,7 +666,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
-                .clickOnUniqueTradeIdentifier("Trade ID", false)
+                .clickOnUniqueTradeIdentifier("Trade ID", "false")
                 .clickOnExit();
 
         System.out.println("TC-----------TC_RE_5161");

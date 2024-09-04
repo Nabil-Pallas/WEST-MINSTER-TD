@@ -86,19 +86,19 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     //trade id 
-    public EditDataSchemaPage clickOnUniqueTradeIdentifier(String fieldName, boolean UTI) {
+    public EditDataSchemaPage clickOnUniqueTradeIdentifier(String fieldName, String UTI) {
         waitForLoaderToDisappear();
         pause("medium");
         click("//div[text()='Field Name']", "sort");
         int headerCount = getLocatorsCount("(//td[@aria-colindex='4'])[position() > 1]");
-        for (int i = 1; i <= 30; i++) {
+        for (int i = 1; i <= 7; i++) {
             String headerElement = "((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]";
             String headerText = getInnerText(headerElement);
 
             if (headerText.contains(fieldName)) {
-                int maxAttempts = 30;
+                int maxAttempts = 7;
                 int attempts = 0;
-                while (!isVisible("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
+                while (!isVisibleWithMinimumTime("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
                     pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
                     attempts++;
                 }
@@ -114,10 +114,8 @@ public class EditDataSchemaPage extends DataManagerPage {
                     pause("low");
                     click(frameSpanExactTextLocator("Save", 2), "Save Button");
                 } else {
-                    break;
+                    reportFail("Failed to Uncheck the Unique Trade Identifier Checkbox ");
                 }
-
-
             }
         }
         return this;

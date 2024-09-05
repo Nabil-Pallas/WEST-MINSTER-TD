@@ -619,7 +619,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5165");
     }
 
-    //Phase -3 - Manoj
+    //Phase -3 - Praveen
     //TC_RE_5161 Verify the duplicate file detection functionality when no unique trade identifier is selected
     @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDuplicateFileDetectionWithoutUniqueTradeIdentifier() {
@@ -654,6 +654,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "true")
                 .clickOnExit()
                 .clickOnFileManager()
@@ -672,12 +673,14 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "false")
                 .clickOnExit();
 
         System.out.println("TC-----------TC_RE_5161");
     }
 
+    //Phase -3 - Praveen
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkDuplicateFileDetectionForMultipleUniqueIdentifiers() {
         testcaseName = "TC_RE_5162";
@@ -711,7 +714,9 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "false")
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Account Name","false")
                 .clickOnExit()
                 .clickOnFileManager()
@@ -725,12 +730,14 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickFilterAndSelectDuplicateRows()
                 .getErrorQueueRowCounts()
                 .clickOnExitBtn()
-                .validateRowCountIsZero()
+                .validateRowCountIsNotZero()
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "false")
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "true")
                 .clickOnExit();
         System.out.println("TC-----------TC_RE_5162");

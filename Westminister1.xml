@@ -24,11 +24,11 @@
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_DataManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
-<!--            <class name="com.westminster.testcases.admin.TC_FileManager">-->
-<!--                <methods>-->
-<!--                    <include name="editInvalidDateFormatToValid"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
+                <methods>
+                    <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>
+                </methods>
+            </class>
             <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
                         <class name="com.westminster.testcases.analytics.TC_Analytics">
                             <methods>

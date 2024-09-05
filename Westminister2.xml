@@ -30,9 +30,11 @@
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
             <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-            <class name="com.westminster.testcases.analytics.TC_Analytics">
+            <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
+            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
+            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
                 <methods>
-                    <include name="verifyNumericValuesInAnalysisStep1"/>
+                    <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>
                 </methods>
             </class>
             <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->

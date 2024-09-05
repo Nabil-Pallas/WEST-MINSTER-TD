@@ -24,6 +24,7 @@ public class EditDataSchemaPage extends DataManagerPage {
         } else {
             reportFailAndThrowException("Edit Data Schema Columns Page is not loaded.");
         }
+
         return this;
     }
 

@@ -1101,6 +1101,14 @@ public class PlaywrightWrapper extends Reporter {
         return "";
     }
 
+    public String getInnerTextUsingJS(String locator) {
+        try {
+            return String.valueOf(getPage().evaluate("locator => document.querySelector(locator).innerText", locator));
+        } catch (Exception e) {
+        }
+        return "";
+    }
+
     /**
      * Use this method to check if the element is enabled
      *

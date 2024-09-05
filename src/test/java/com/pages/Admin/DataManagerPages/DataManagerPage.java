@@ -570,24 +570,32 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage clickOnClearAllFilters() {
         pause("medium");
+//        waitForLoaderToDisappear();
+        pause("medium");
+
+        // Check user level and skip for Tier3EndUser
         switch (xmlUserLevel) {
             case "Tier3EndUser":
                 break;
             default:
-                // Check if the button is attached and clickable
-                boolean isClickable = isEnabled("//span[text()='Clear All Filters']", "Clear All Filters") &&
-                        isVisible("//span[text()='Clear All Filters']", "Clear All Filters");
-                if (isClickable) {
+//                boolean isClickable = isEnabled("//span[text()='Clear All Filters']", "Clear All Filters") ||
+//                        isVisible("//span[text()='Clear All Filters']", "Clear All Filters");
+                // Get the inner text of the 'Total Row Count' element
+                String totalRowCountText = getInnerText("//span[contains(text(),'Total Row Count:')]");
+                // Check if the "Total Row Count" text contains "filtered"
+                if (totalRowCountText.contains("filtered")) {
                     click("//span[text()='Clear All Filters']", "Clear All Filters");
                     pause("medium");
-                    reportPass("Successfully cleared all filters for Broker Name column");
+                    reportPass("Successfully cleared all filters.");
                 } else {
-                    reportPass("There is no Clear All Filters is enabled");
+                    reportPass("No filters to clear (No 'filtered' text found).");
                 }
                 break;
         }
+
         return this;
     }
+
 
     public DataManagerPage validateAddedRowWDateFormat(String VerificationValues, String verificationHeader1, String verificationHeader2) throws ParseException {
         pause("medium");

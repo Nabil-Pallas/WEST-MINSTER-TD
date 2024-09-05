@@ -62,27 +62,37 @@ public class DataManagerPage extends AdminPage {
 
     //Validate Data Manager Page
     public AddNewColumnPage validateDataManagerPage() {
-        waitForElementToLoad(dataManagerText);
-        if (isVisible(dataManagerText, "DataManagerText")) {
-            reportPass("User Navigated to the Data Manager page successfully");
-        } else {
-            reportFailAndThrowException("Data Manager Page is not loaded.");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                waitForElementToLoad(dataManagerText);
+                if (isVisible(dataManagerText, "DataManagerText")) {
+                    reportPass("User Navigated to the Data Manager page successfully");
+                } else {
+                    reportFailAndThrowException("Data Manager Page is not loaded.");
+                }
+                break;
         }
+
         pause("medium");
         return new AddNewColumnPage();
     }
 
     //Click the Add New Row Button
     public AddNewRowPage clickOnAddNewRowBtn() {
-//       waitForLoaderToDisappear();
-//        waitForElementToLoad(addNewRowBtn);
-        pause("medium");
-        pause("medium");
-        pause("low");
-        click(addNewRowBtn, "Add new row button");
-        pause("low");
-//
-//        waitForAppearance(addNewRowBtn);
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                pause("medium");
+                pause("medium");
+                pause("low");
+                click(addNewRowBtn, "Add new row button");
+                pause("low");
+                break;
+        }
+
         return new AddNewRowPage();
     }
 
@@ -279,13 +289,19 @@ public class DataManagerPage extends AdminPage {
 
     //Click The Apply Button
     public DataManagerPage clickOnApplyBtn() {
-//        waitForLoaderToDisappear();
-        pause("medium");
-        waitForElementToLoad(applyBtn);
-        click(applyBtn, "Apply Button");
-        pause("medium");
-        pause("low");
-        reportPass("User successfully clicked the Apply button.");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                pause("medium");
+                waitForElementToLoad(applyBtn);
+                click(applyBtn, "Apply Button");
+                pause("medium");
+                pause("low");
+                reportPass("User successfully clicked the Apply button.");
+                break;
+        }
+
         return new DataManagerPage();
     }
 
@@ -547,15 +563,21 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage clickOnClearAllFilters() {
         pause("medium");
-        // Check if the button is attached and clickable
-        boolean isClickable = isEnabled("//span[text()='Clear All Filters']", "Clear All Filters") &&
-                isVisible("//span[text()='Clear All Filters']", "Clear All Filters");
-        if (isClickable) {
-            click("//span[text()='Clear All Filters']", "Clear All Filters");
-            pause("medium");
-            reportPass("Successfully cleared all filters for Broker Name column");
-        } else {
-            reportPass("There is no Clear All Filters is enabled");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                // Check if the button is attached and clickable
+                boolean isClickable = isEnabled("//span[text()='Clear All Filters']", "Clear All Filters") &&
+                        isVisible("//span[text()='Clear All Filters']", "Clear All Filters");
+                if (isClickable) {
+                    click("//span[text()='Clear All Filters']", "Clear All Filters");
+                    pause("medium");
+                    reportPass("Successfully cleared all filters for Broker Name column");
+                } else {
+                    reportPass("There is no Clear All Filters is enabled");
+                }
+                break;
         }
         return this;
     }

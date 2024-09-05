@@ -14,7 +14,7 @@ import com.page.base.WestMinsterPageHook;
 @Listeners(TestListener.class)
 public class TC_Analytics extends WestMinsterPageHook {
 
-    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
         testcaseName = "Login with " + xmlUserLevel;
         testDescription = "Login with " + xmlUserLevel;
@@ -241,6 +241,7 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .reviewYourAnalysis(analysisName.get(), "Black")
                 .getGrandTotalInReviwAnalysis()
                 .clickOnSaveBtn()
+                .validateViewAnalysisPage()
                 .getGrandTotalInViewAnalysis()
                 .validateGrandTotal()
                 .clickOnBackBtn();
@@ -317,12 +318,42 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .clickOnAnalytics()
                 .validateAnalyticsPage()
                 .clickOnCreateNewDataAnalysis()
+                .validateNewAnalysisPage()
                 .addFilterAndValidate("Local Executed Value","=",number.get(),4)
                 .validateFilteredDataInStep1("Local Executed Value",number.get());
 
-
-
     }
+
+    //Phase -03 --Nabil
+    //TC_RE_6095 -- currently it is in bug [Bug ID - 7383]
+//    @Test(priority = 4, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void createScatterPlotAndValidateStep4() {
+        testcaseName = "TC_6095";
+        testDescription = "Create New Analytics - Scatter plot and validate step 4 is successful.";
+        authors = "Automation Team";
+        category = "Create Scatter Plot";
+        startTestCase();
+        setNode();
+
+        analysisName.set(FakerDataFactory.getNameWithTimeStamp("Analysis"));
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAnalytics()
+                .validateAnalyticsPage()
+                .setClient()
+                .clickOnCreateNewDataAnalysis()
+                .validateNewAnalysisPage()
+//                .addFilterAndValidate("Broker Name", "=")
+                .clickOnNextBtn()
+                .selectVisualizationType("Scatter Plot")
+                .clickOnNextBtn()
+                .plotDetailsScatterPlot("Trade Date", "Executed Quantity")
+                .clickOnNextBtn()
+                .reviewYourAnalysis(analysisName.get(), "Green")
+                .clickOnSaveBtn()
+                .validateViewAnalysisPage();
+    }
+
 
 
 }

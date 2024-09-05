@@ -140,6 +140,7 @@ public class MenuPage extends WestMinsterPageHook {
 
     public MenuPage clickPreferenceSaveBtn() {
         click("//div[@id='preferences-view']//span[text()='Save']", "click on Save Button", "Save Button");
+        pause("low");
         return this;
     }
 
@@ -177,16 +178,36 @@ public class MenuPage extends WestMinsterPageHook {
 
     public MenuPage clickAndselectDefaultDateFormat() {
         pause("low");
+//        preferenceDateFormat = "MM/DD/YYYY";
+//        String innerText = getInputText("//input[contains(@id,'DATE_FORMAT')]");
+        clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
         preferenceDateFormat = "MM/DD/YYYY";
-        String innerText = getInputText("//input[contains(@id,'DATE_FORMAT')]");
-        if (innerText.equals("MM/DD/YYYY")) {
-            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
-        } else {
-            clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
-            clickPreferenceSaveBtn();
-        }
+//        if (innerText.equals("MM/DD/YYYY")) {
+//            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
+//        } else {
+//            clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
+////            clickPreferenceSaveBtn();
+//        }
         return this;
     }
+
+    public MenuPage clickAndselectDefaultDecimalPrecision() {
+        pause("low");
+        clickAndChoose("//input[contains(@id,'DECIMAL_PRECISION')]", "//div[text()='1 decimal']", "1 decimal", "Decimal Precision");
+        decimalPrecision = "1 decimal";
+
+//        clickPreferenceSaveBtn();
+        return this;
+    }
+
+    public MenuPage clickAndselectDefaultNumberFormat() {
+        pause("low");
+        clickAndChoose("//input[contains(@id,'NUMBER_FORMAT')]", "//div[text()='#,##0.00']", "#,##0.00", "Number Format");
+        preferenceNumberFormat= "#,##0.00";
+//        clickPreferenceSaveBtn();
+        return this;
+    }
+
 
     public MenuPage clickAndselectDateFormat() {
         pause("low");
@@ -382,13 +403,16 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
-    public DashboardPage dateFormattingInPreferences() {
+    public DashboardPage defaultFormattingInPreferences() {
         mouseHoverOnProfile()
                 .clickAccountSettingsBtn()
                 .waitForLoaderToDisappear();
         clickPreferencesBtn()
                 .clickEditPreferencesBtn()
-                .clickAndselectDefaultDateFormat();
+                .clickAndselectDefaultDateFormat()
+                .clickAndselectDefaultNumberFormat()
+                .clickAndselectDefaultDecimalPrecision()
+                .clickPreferenceSaveBtn();
         new DashboardPage().clickOnHomePage();
 
         return new DashboardPage();

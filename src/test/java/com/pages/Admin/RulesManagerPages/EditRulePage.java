@@ -101,7 +101,9 @@ public class EditRulePage extends RulesManagerPage {
     public EditRulePage selectCalculationColumn(String calculationValue) {
         pause("medium");
 //        clickAndChoose(frameCalculationLocator("Choose Calculation Column"), frameSpanTextLocator(calculationValue), calculationValue, "Choose Calculation Column");
-        selectOptionFromDropdownUsingJSClick(frameCalculationLocator("Choose Calculation Column"), ChooseCalculationColumnValues, calculationValue, "Choose Calculation Column");
+        click(frameCalculationLocator("Choose Calculation Column"), "Choose Calculation Column", "Drop Down");
+        clickUsingJs(frameSpanTextLocator(calculationValue), calculationValue, "Choose Calculation Column");
+//        selectOptionFromDropdownUsingJSClick(frameCalculationLocator("Choose Calculation Column"), ChooseCalculationColumnValues, calculationValue, "Choose Calculation Column");
         pause("low");
         return this;
     }

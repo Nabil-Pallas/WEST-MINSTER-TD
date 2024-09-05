@@ -29,11 +29,20 @@ public class ImportBudgetPage extends AllBudgetsPage {
     }
 
     public ImportBudgetPage importBudget(String fileName) {
-
         uploadFile(fileName);
         reportPass("User successfully Imported the Budget file");
         return new ImportBudgetPage();
     }
+
+    //Download the file and store it
+    public ImportBudgetPage downloadSampleBudget(String filepath) {
+
+        // Click the link to download the CSV sample
+        clickAndDownload(frameSpanTextLocator("Download CSV Sample"), filepath);
+        reportPass("User successfully downloaded and stored the budget file as " + filepath + ".csv");
+        return new ImportBudgetPage();
+    }
+
 
     public static String readAndModifyCsv() {
         String csvFile = "./src/test/resources/upload/Budget_Import_Chrome.csv";
@@ -88,6 +97,26 @@ public class ImportBudgetPage extends AllBudgetsPage {
 
     public static String updatedCsvValue = "";
 
+//    public static String readUpdatedValueInCsv() {
+//        readAndModifyCsv();
+//        String csvFile = "./src/test/resources/upload/Budget_Import_Chrome.csv";
+//        Map<String, String> csvData = new HashMap<>();
+//
+//        // Step 3: Read the CSV file again to verify the updated value
+//        try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
+//            String[] line;
+//            while ((line = reader.readNext()) != null) {
+//                if (line.length >= 2) {
+//                    csvData.put(line[0], line[1]);
+//                }
+//            }
+//        } catch (IOException | CsvValidationException e) {
+//            e.printStackTrace();
+//        }
+//        updatedCsvValue = csvData.get("BUDGET NAME");
+//        return csvData.get("BUDGET NAME");
+//    }
+
     public static String readUpdatedValueInCsv() {
         readAndModifyCsv();
         String csvFile = "./src/test/resources/upload/Budget_Import_Chrome.csv";
@@ -114,8 +143,6 @@ public class ImportBudgetPage extends AllBudgetsPage {
         pause("medium");
         return new AllBudgetsPage();
     }
-
-
 
 
 }

@@ -203,28 +203,35 @@ public class DataManagerPage extends AdminPage {
 
     //Validate the Add New Row Information
     public DataManagerPage verifyHeaderElementIsPresentOrNot(String verificationHeader) {
-        List<String> list = new ArrayList<>();
-        Boolean value = false;
+        boolean isHeaderPresent = false;
+
         pause("medium");
         pause("medium");
+
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
-        for (int i = 1; i < headerCount; i++) {
+
+        for (int i = 1; i <= headerCount; i++) {  // Updated to iterate through all headers
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
-            System.out.println("-------------------" + headerText);
+            System.out.println("Header Text: " + headerText);
+
             if (headerText.contains(verificationHeader)) {
-                value = true;
-//                highlightElement(frameDivTextLocator(verificationHeader), "Header Element");
-//                boolean verifyExactText = verifyPartialText(frameDivTextLocator(verificationHeader), verificationHeader);
-                Assert.assertTrue(value);
-                break;
+                isHeaderPresent = true;
+                // Uncomment if you want to highlight the header
+                // highlightElement(frameDivTextLocator(verificationHeader), "Header Element");
+                break; // Exit loop as soon as the header is found
             }
         }
-        if (value) {
-            reportPass("Header Column " + verificationHeader + " is present in the Data Manager Grid");
+
+        if (isHeaderPresent) {
+            Assert.assertTrue(isHeaderPresent, "Header Column '" + verificationHeader + "' is present in the Data Manager Grid");
+            reportPass("Header Column '" + verificationHeader + "' is present in the Data Manager Grid");
         } else {
-            reportFail("Header Column is not present in the Data Manager Grid");
+            Assert.assertFalse(isHeaderPresent, "Expected header '" + verificationHeader + "' was not found in the Data Manager Grid.");
+            reportPass("Header Column '" + verificationHeader + "' is not present in the Data Manager Grid");
         }
+
+
         return new DataManagerPage();
     }
 
@@ -516,7 +523,7 @@ public class DataManagerPage extends AdminPage {
                 pause("low");
                 click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
                 pause("low");
-                mouseOver("//div[@aria-label='Select All']","Broker Name filter");
+                mouseOver("//div[@aria-label='Select All']", "Broker Name filter");
                 while (!isVisibleWithMinimumTime("//div[text()='" + VerificationValues + "']")) {
                     scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-scroll-content'])[2]");
                 }
@@ -605,7 +612,7 @@ public class DataManagerPage extends AdminPage {
 //                forceClick("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
                 pause("low");
-                mouseOver("//div[@aria-label='Select All']","Broker Name filter");
+                mouseOver("//div[@aria-label='Select All']", "Broker Name filter");
                 while (!isVisibleWithMinimumTime("//div[text()='" + VerificationValues + "']")) {
                     scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-scroll-content'])[2]");
                 }

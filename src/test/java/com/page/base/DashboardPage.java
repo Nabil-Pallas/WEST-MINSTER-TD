@@ -84,7 +84,6 @@ public class DashboardPage extends MenuPage {
         mouseHoverOnDashboard();
         click(adminLink, "Admin Link");
         pause("medium");
-        getPage().setViewportSize(1920,1080);
         return new AdminPage();
     }
 

@@ -105,6 +105,13 @@ public class AllBudgetsPage extends MenuPage {
         return new EditBudgetPage();
     }
 
+    public AllBudgetsPage clickOnExit() {
+        waitForElementToLoad(frameSpanTextLocator("Exit"));
+        click(frameSpanTextLocator("Exit"), "Exit Button");
+        pause("medium");
+        return this;
+    }
+
     public AllBudgetsPage searchValueToBeEdit(String nameToSearch, String verificationHeader) {
         waitForLoaderToDisappear();
 
@@ -141,8 +148,36 @@ public class AllBudgetsPage extends MenuPage {
         return new AllBudgetsPage();
     }
 
+    public AllBudgetsPage searchValueOfImportedBudget(String verificationHeader, String searchBudgetName) {
+        waitForLoaderToDisappear();
+        String budgetName = searchBudgetName;
+        int headerCount = getLocatorsCount("(//td[contains(@class,'dx-datagrid-action dx')])");
+        for (int i = 1; i < headerCount; i++) {
+
+            String headerElement = "(//td[contains(@class,'dx-datagrid-action dx')])[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader)) {
+                click(searchValueWithHeader(i), "Search Filter", "Search Box");
+                type(searchValueWithHeader(i), budgetName, budgetName);
+                break;
+            }
+
+        }
+        pause("medium");
+        return new AllBudgetsPage();
+    }
+
+    //Validate the budget is present or not
     public AllBudgetsPage validateImportedBudget() {
         String name = ImportBudgetPage.updatedCsvValue;
+        String budgetNameElement = "(//div[@class='wdx-interactive-cell dx-command-view-budget-cell'])[1]";
+        boolean verifyExactBudgetNameText = verifyExactText(budgetNameElement, name);
+        Assert.assertTrue(verifyExactBudgetNameText);
+        return new AllBudgetsPage();
+    }
+
+    public AllBudgetsPage validateImportedBudget(String budgetName) {
+        String name = budgetName;
         String budgetNameElement = "(//div[@class='wdx-interactive-cell dx-command-view-budget-cell'])[1]";
         boolean verifyExactBudgetNameText = verifyExactText(budgetNameElement, name);
         Assert.assertTrue(verifyExactBudgetNameText);
@@ -165,6 +200,31 @@ public class AllBudgetsPage extends MenuPage {
         pause("medium");
         return new AllBudgetsPage();
     }
+
+    public AllBudgetsPage searchAndDeleteImportedBudget(String budgetName) {
+        waitForLoaderToDisappear();
+        searchValueOfBudget("Name", budgetName);
+        if (isVisible(frameATagTextLocator(budgetName))) {
+            clickOnActionsBtn();
+            pause("low");
+            click(deleteBtn, "Delete Button");
+            pause("low");
+            click(confirmDeleteBtn, "Confirm Delete");
+            searchValueOfBudget("Name", budgetName);
+            pause("low");
+            String budgetNameElement = "//div[@class='wdx-interactive-cell dx-command-view-budget-cell']";
+            if (getInnerText(budgetNameElement).equals(budgetName)) {
+                reportStep("Budget Name is not deleted", "warning");
+            } else {
+                reportStep("Budget Name " + budgetName + " is deleted successfully", "pass");
+            }
+        } else {
+            reportStep("No Budget in the grid to delete the Budget", "pass");
+        }
+
+        return new AllBudgetsPage();
+    }
+
 
     public AllBudgetsPage setClient() {
 
@@ -197,6 +257,13 @@ public class AllBudgetsPage extends MenuPage {
                 break;
         }
         return new AllBudgetsPage();
+    }
+
+    //Deletes all files in the specified directory
+    public ImportBudgetPage deleteAllFilesInFolder(String filepath) {
+        boolean result = deleteFilesInDirectory(filepath);
+        System.out.println("All files deleted: " + result);
+        return new ImportBudgetPage();
     }
 
     public AllBudgetsPage deleteBudget(String budgetName) {
@@ -245,6 +312,29 @@ public class AllBudgetsPage extends MenuPage {
 
         return new AllBudgetsPage();
     }
+
+    public AllBudgetsPage deleteImportedBudget(String budgetName) {
+        waitForLoaderToDisappear();
+        searchValueOfBudget("Name", budgetName);
+        clickOnActionsBtn();
+        pause("low");
+        click(deleteBtn, "Delete Button");
+        pause("low");
+        click(confirmDeleteBtn, "Confirm Delete");
+        searchValueOfBudget("Name", budgetName);
+        pause("low");
+        String budgetNameElement = "//div[@class='wdx-interactive-cell dx-command-view-budget-cell']";
+        if (getInnerText(budgetNameElement).equals(budgetName)) {
+            reportStep("Budget Name is not deleted", "warning");
+
+        } else {
+            reportStep("Budget Name is deleted successfully", "pass");
+        }
+
+
+        return new AllBudgetsPage();
+    }
+
 
     //Validate Budget Already Exists Error
     public AllBudgetsPage validateBudgetAlreadyExistsError(String errorText) {

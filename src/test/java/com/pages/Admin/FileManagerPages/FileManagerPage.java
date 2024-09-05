@@ -177,7 +177,6 @@ public class FileManagerPage extends AdminPage {
 //        waitForElementToLoadWithHighTime(fileLocator);
         boolean verifyExactText = verifyExactText(fileLocator, fileName);
         Assert.assertTrue(verifyExactText);
-
         return this;
     }
 

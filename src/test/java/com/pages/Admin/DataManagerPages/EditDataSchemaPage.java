@@ -24,6 +24,7 @@ public class EditDataSchemaPage extends DataManagerPage {
         } else {
             reportFailAndThrowException("Edit Data Schema Columns Page is not loaded.");
         }
+
         return this;
     }
 
@@ -84,19 +85,20 @@ public class EditDataSchemaPage extends DataManagerPage {
     }
 
     //trade id 
-    public EditDataSchemaPage clickOnUniqueTradeIdentifier(String fieldName, boolean UTI) {
+    public EditDataSchemaPage clickOnUniqueTradeIdentifier(String fieldName, String UTI) {
         waitForLoaderToDisappear();
         pause("medium");
         click("//div[text()='Field Name']", "sort");
+        pause("low");
         int headerCount = getLocatorsCount("(//td[@aria-colindex='4'])[position() > 1]");
-        for (int i = 1; i <= 30; i++) {
+        for (int i = 1; i <= 7; i++) {
             String headerElement = "((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]";
             String headerText = getInnerText(headerElement);
 
             if (headerText.contains(fieldName)) {
-                int maxAttempts = 30;
+                int maxAttempts = 7;
                 int attempts = 0;
-                while (!isVisible("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
+                while (!isVisibleWithMinimumTime("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
                     pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
                     attempts++;
                 }
@@ -111,13 +113,13 @@ public class EditDataSchemaPage extends DataManagerPage {
                     click("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]", "Unique Trade Identifier Check Box");
                     pause("low");
                     click(frameSpanExactTextLocator("Save", 2), "Save Button");
+                    ;
                 } else {
                     break;
                 }
-
-
             }
         }
+
         return this;
     }
 
@@ -148,22 +150,40 @@ public class EditDataSchemaPage extends DataManagerPage {
     public EditDataSchemaPage validateNewlyAddedDataSchemaColumn(String fieldName) {
         Boolean value = false;
         pause("medium");
-        pause("medium");
-        int headerCount = getLocatorsCount("(//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1']");
-        for (int i = 1; i < 50; i++) {
-            scrollToElement("((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]");
-            String fieldNameLocator = "((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]";
-            String fieldNametext = getInnerText(fieldNameLocator);
-            System.out.println("-------------------" + fieldNametext);
-            if (fieldNametext.contains(fieldName)) {
-                value = true;
-                System.out.println("-------------------" + fieldNametext);
-                highlightElement(frameDivTextLocator(fieldName), "Header Element");
-                boolean verifyExactText = verifyExactText(frameDivTextLocator(fieldName), fieldName);
-                Assert.assertTrue(verifyExactText);
-                break;
-            }
+
+        click("((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[1]", "First Field", "First Grid");
+        int maxAttempts = 40;
+        int attempts = 0;
+        while (!isVisible("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
+            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+            attempts++;
         }
+
+        scrollToElement("//td[text()='" + fieldName + "']");
+        pause("medium");
+        String fieldNametext = getInnerText("//td[text()='" + fieldName + "']");
+        if (fieldNametext.equals(fieldName)) {
+            value = true;
+            System.out.println("-------------------" + fieldNametext);
+            highlightElement(frameDivTextLocator(fieldName), "Header Element");
+            boolean verifyExactText = verifyExactText(frameDivTextLocator(fieldName), fieldName);
+            Assert.assertTrue(verifyExactText);
+        }
+
+//        for (int i = 1; i < 50; i++) {
+//            scrollToElement("((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]");
+//            String fieldNameLocator = "((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]";
+//            String fieldNametext = getInnerText(fieldNameLocator);
+//            System.out.println("-------------------" + fieldNametext);
+//            if (fieldNametext.contains(fieldName)) {
+//                value = true;
+//                System.out.println("-------------------" + fieldNametext);
+//                highlightElement(frameDivTextLocator(fieldName), "Header Element");
+//                boolean verifyExactText = verifyExactText(frameDivTextLocator(fieldName), fieldName);
+//                Assert.assertTrue(verifyExactText);
+//                break;
+//            }
+//        }
         if (value) {
             reportPass("Field Name " + fieldName + " is present in the Edit Data Schema Columns");
         } else {
@@ -230,15 +250,11 @@ public class EditDataSchemaPage extends DataManagerPage {
     //Click the Delete Button
     public EditDataSchemaPage clickOnDeleteBtn() {
         pause("medium");
-        click(deleteBtn, "Delete button");
+        click(deleteBtn, "Delete Button");
         pause("low");
-        reportPass("User successfully clicked the Delete button.");
-        if (isVisible("//div[contains(text(),'Delete')]")) {
-            click("//span[text()='Yes']", "Click Yes Button");
-            reportPass("User successfully clicked Yes button.");
-            typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']", "delete", "Enter Delete in input box");
-            click("//span[text()='Confirm Delete']", "Click Delete button");
-        }
+        click(confirmDeleteBtn, "Confirm Delete");
+        pause("low");
+        reportPass("User successfully Deleted the Data Schema Column.");
         return this;
     }
 

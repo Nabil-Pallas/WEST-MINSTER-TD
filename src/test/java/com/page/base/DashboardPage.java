@@ -81,9 +81,15 @@ public class DashboardPage extends MenuPage {
 
     // Click the Admin Option
     public AdminPage clickOnAdmin() {
-        mouseHoverOnDashboard();
-        click(adminLink, "Admin Link");
-        pause("medium");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                mouseHoverOnDashboard();
+                click(adminLink, "Admin Link");
+                pause("medium");
+                break;
+        }
         return new AdminPage();
     }
 

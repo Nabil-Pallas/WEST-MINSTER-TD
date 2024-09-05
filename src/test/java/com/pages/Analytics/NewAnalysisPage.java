@@ -5,11 +5,13 @@ import org.testng.Assert;
 public class NewAnalysisPage extends AnalyticsPage {
 
     private String newAnalysisText = "//h1[text()='New Analysis']";
+    private String viewAnalysisText = "//h1[text()='View Analysis']";
     private String brokerNameFirstGrid = "(//td[@class='dx-required-field-heading'])[1]";
     private String rowFields = "(//table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[4]/tbody/tr[last()-1]";
     private String pivotGrandTotalPath = "(//table[contains(@class,'dx-pivotgrid-border')]//tr[@class='dx-bottom-row']//td[2]//tr[last()]//td[last()])[2]";
     private String pivotGrandTotalInReviewPage="";
     private String pivotGrandTotalInViewPage="";
+    private String innertext="";
 
 
     public NewAnalysisPage validateNewAnalysisPage() {
@@ -20,6 +22,16 @@ public class NewAnalysisPage extends AnalyticsPage {
             reportFailAndThrowException("New Analysis Page is not loaded.");
         }
         pause("low");
+        return this;
+    }
+
+    public NewAnalysisPage validateViewAnalysisPage() {
+        waitForElementToLoad(viewAnalysisText);
+        if (isVisible(viewAnalysisText, "View Analysis Text")) {
+            reportPass("User successfully reached the correct View Analysis page");
+        } else {
+            reportFailAndThrowException("View Analysis Page is not loaded.");
+        }
         return this;
     }
 
@@ -113,12 +125,39 @@ public class NewAnalysisPage extends AnalyticsPage {
     }
 
     public NewAnalysisPage addFilterAndValidate(String fieldName, String operator, String value, int index) {
-        pause("medium");
-        clickOnCreateAFilter()
-                .typeFilterFieldName(fieldName) //Broker Name
-                .typeFilterOperator(operator) //Symbol[=,!=,>,<,>=,<=]
-                .typeFilterValue(value,index);
-        reportPass("User Successfully Added the Filter");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                pause("medium");
+                waitForLoaderToDisappear();
+                int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+                for (int i = 1; i < headerCount; i++) {
+                    String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+                    String headerText = getInnerText(headerElement);
+                    if (headerText.equalsIgnoreCase("Local Executed Value")) {
+                        click("(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]", "Field sort");
+                        pause("low");
+                        click("(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]", "Field sort");
+                        pause("low");
+                        innertext = getInnerText("((//table)[4]//tr//td[" + (i + 1) + "])[1]");
+                        pause("low");
+                    }
+                }
+                    clickOnCreateAFilter()
+                        .typeFilterFieldName(fieldName) //Broker Name
+                        .typeFilterOperator(operator) //Symbol[=,!=,>,<,>=,<=]
+                        .typeFilterValue(innertext,index);
+                reportPass("User Successfully Added the Filter");
+                break;
+            default:
+                pause("medium");
+                clickOnCreateAFilter()
+                        .typeFilterFieldName(fieldName) //Broker Name
+                        .typeFilterOperator(operator) //Symbol[=,!=,>,<,>=,<=]
+                        .typeFilterValue(value,index);
+                reportPass("User Successfully Added the Filter");
+                break;
+        }
+
         return this;
     }
 
@@ -268,6 +307,7 @@ public class NewAnalysisPage extends AnalyticsPage {
         return this;
     }
 
+
     public NewAnalysisPage getGrandTotalInReviwAnalysis(){
         pause("low");
         mouseOver("(//td[@class='dx-area-data-cell']//tr[1]//td[1])[2]","Full data");
@@ -315,36 +355,57 @@ public class NewAnalysisPage extends AnalyticsPage {
         return this;
     }
 
-    public NewAnalysisPage validateEditedDetails(){
-
-
-        return this;
-
-    }
-
     public NewAnalysisPage validateFilteredDataInStep1(String verificationHeader, String value){
-        pause("low");
-        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
-        for (int i = 1; i < headerCount; i++) {
-            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
-            String headerText = getInnerText(headerElement);
-            if (headerText.equalsIgnoreCase(verificationHeader)) {
-                scrollToElement("((//table)[4]//tr//td["+(i+1)+"])[1]");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
                 pause("low");
-                String valuee = getInnerText("((//table)[4]//tr//td["+(i+1)+"])[1]");
-                System.out.println(valuee);
-                int number1 = Integer.parseInt(value);      // Convert str1 to int
-                double number2 = Double.parseDouble(valuee);
-                System.out.println("number1====> "+number1+" number2=====> "+number2);
-                // Compare the converted numbers
-                if (number1 == number2) {
-                    reportPass("Successfully verified the Numeric value in filter: "+number2);
-                } else {
-                    reportFail("Failed to validate");
-                }
+                int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+                for (int i = 1; i < headerCount; i++) {
+                    String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+                    String headerText = getInnerText(headerElement);
+                    if (headerText.equalsIgnoreCase(verificationHeader)) {
+                        scrollToElement("((//table)[4]//tr//td["+(i+1)+"])[1]");
+                        pause("low");
+                        String valuee = getInnerText("((//table)[4]//tr//td["+(i+1)+"])[1]");
+                        double number1 = Double.parseDouble(innertext);      // Convert str1 to int
+                        double number2 = Double.parseDouble(valuee);
+                        System.out.println("number1====> "+number1+" number2=====> "+number2);
+                        // Compare the converted numbers
+                        if (number1 == number2) {
+                            reportPass("Successfully verified the Numeric value in filter: "+number2);
+                        } else {
+                            reportFail("Failed to validate");
+                        }
 
-            }
+                    }
+                }
+                break;
+            default:
+                pause("low");
+                int headCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+                for (int i = 1; i < headCount; i++) {
+                    String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+                    String headerText = getInnerText(headerElement);
+                    if (headerText.equalsIgnoreCase(verificationHeader)) {
+                        scrollToElement("((//table)[4]//tr//td["+(i+1)+"])[1]");
+                        pause("low");
+                        String valuee = getInnerText("((//table)[4]//tr//td["+(i+1)+"])[1]");
+                        System.out.println(valuee);
+                        int number1 = Integer.parseInt(value);      // Convert str1 to int
+                        double number2 = Double.parseDouble(valuee);
+                        System.out.println("number1====> "+number1+" number2=====> "+number2);
+                        // Compare the converted numbers
+                        if (number1 == number2) {
+                            reportPass("Successfully verified the Numeric value in filter: "+number2);
+                        } else {
+                            reportFail("Failed to validate");
+                        }
+
+                    }
+                }
+                break;
         }
+
 
         return this;
     }

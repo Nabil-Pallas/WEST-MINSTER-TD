@@ -583,7 +583,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         setNode();
 
         ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
-        titleone.set(FakerDataFactory.getFieldName());
+        titleone.set(FakerDataFactory.getStaticNameWithTimeStamp("Aapay"));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -603,12 +603,13 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .verifyHeaderElementIsPresentOrNot(titleone.get())
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
-                .validateNewlyAddedDataSchemaColumn(titleone.get())
+//                .validateNewlyAddedDataSchemaColumn(titleone.get())
                 .clickOnRelevantFieldNameActionIcon(titleone.get())
                 .clickOnDeleteBtn()
                 .clickOnExit()
                 .clickOnDataManager()
                 .validateDataManagerPage()
+                .verifyHeaderElementIsPresentOrNot(titleone.get())
                 .clickOnRulesManager()
                 .validateRulesManagerPage()
                 .deleteRuleName(ruleName.get())

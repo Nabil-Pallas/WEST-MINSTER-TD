@@ -1,6 +1,7 @@
 package com.pages.Bugeting.editBudgetPages;
 
 import com.pages.Bugeting.AllBudgetsPage;
+import com.pages.Bugeting.importBudgetPages.ImportBudgetPage;
 import org.testng.Assert;
 
 import java.util.List;
@@ -88,6 +89,22 @@ public class EditBudgetPage extends AllBudgetsPage {
 
         return new AllBudgetsPage();
     }
+
+
+    public AllBudgetsPage validateEditedBudget(String budgetName, String targetColumn) {
+        waitForLoaderToDisappear();
+        String budgetNameElement = "//h2[text()='" + budgetName + "']";
+        String targetColumnElement = frameSpanTextLocator(targetColumn);
+
+        boolean verifyExactBudgetNameText = verifyExactText(budgetNameElement, budgetName);
+        boolean verifyExactTargetColumnText = verifyExactText(targetColumnElement, targetColumn);
+
+        Assert.assertTrue(verifyExactBudgetNameText);
+        Assert.assertTrue(verifyExactTargetColumnText);
+
+        return new AllBudgetsPage();
+    }
+
 
     public EditBudgetPage clickSaveBudgetBtn() {
         click(frameSpanTextLocator("Save Budget"), "Save Budget");

@@ -270,7 +270,7 @@ public class TC_FileManager extends WestMinsterPageHook {
     }
 
     //     Sanjay Kumar
-//    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void upload500KDataFile() {
         testcaseName = "TC_RE_1543";
         testDescription = "Validating whether the 500k Data file is uploaded successfully";

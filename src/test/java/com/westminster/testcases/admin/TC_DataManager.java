@@ -619,7 +619,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5165");
     }
 
-    //Phase -3 - Manoj
+    //Phase -3 - Praveen
     //TC_RE_5161 Verify the duplicate file detection functionality when no unique trade identifier is selected
     @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDuplicateFileDetectionWithoutUniqueTradeIdentifier() {
@@ -678,6 +678,8 @@ public class TC_DataManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_5161");
     }
 
+    //Phase -3 - Praveen
+    //TC_RE_5162
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void checkDuplicateFileDetectionForMultipleUniqueIdentifiers() {
         testcaseName = "TC_RE_5162";
@@ -735,6 +737,49 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnExit();
         System.out.println("TC-----------TC_RE_5162");
     }
+
+    //Phase -3 - Nabil
+    //TC_RE_5169
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyClearedDataInDataManager() {
+        testcaseName = "TC_RE_5169";
+        testDescription = "Verify that clearing existing data in Data Manager";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWithTimeStamp());
+        getTradeDate.set(FakerDataFactory.getPastDate());
+        getSettlementDate.set(FakerDataFactory.getFutureDate());
+        number.set(FakerDataFactory.get4DigitNumber());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters()
+                .clickOnAddNewRowBtn()
+                .validateAddNewRowPage()
+                .addNewRow(clientCompanyName.get(),getTradeDate.get(),getSettlementDate.get(),number.get(),"7890")
+                .clickOnAddBtn()
+                .clickOnApplyBtn()
+                .clickOnDataManager()
+                .clickOnFieldFilterAndSelectValue(clientCompanyName.get(),"Broker Name","Base Gross Commission")
+                .clickOnSelectAll()
+                .clickOnActionsBtn()
+                .clickOnEditBtn()
+                .validateEditRowPage()
+                .removeRowInformation("")
+                .clickOnApplyBtn()
+                .validateColumnValue("Base Gross Commission");
+
+    }
+
+
+
 }
 
 

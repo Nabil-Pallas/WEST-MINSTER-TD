@@ -54,6 +54,8 @@ public class DataManagerPage extends AdminPage {
     //variable for upload date in data manager
     public static String timeInDataManager;
 
+    public static String columnvalue="";
+
     //list of data Manager grid column
     private static List<String> DatamanagerColumn = new ArrayList<>();
 
@@ -530,7 +532,7 @@ public class DataManagerPage extends AdminPage {
                 }
                 break;
         }
-
+        System.out.println("value: "+valuee);
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
         for (int i = 1; i < headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
@@ -793,6 +795,89 @@ public class DataManagerPage extends AdminPage {
         click(frameSpanExactTextLocator("Restore All Columns"), "Restore all columns button");
         reportPass("Columns restored back to Data Manager Grid");
 
+        pause("low");
+        return this;
+    }
+
+    public DataManagerPage clickOnFieldFilterAndSelectValue(String VerificationValues, String verificationHeader1, String verificationHeader2) {
+        pause("medium");
+        pause("medium");
+        System.out.println("printing:---->" + decimalPrecision);
+
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i < headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader1)) {
+                pause("low");
+                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Field Drop Down");
+                pause("low");
+                mouseOver("//div[@aria-label='Select All']", "Broker Name filter");
+                while (!isVisibleWithMinimumTime("//div[text()='" + VerificationValues + "']")) {
+                    scrollUsingMouseWheelVertically("//div[@aria-label='Filter options']//div[@class='dx-scrollable-scroll-content']");
+                }
+                pause("low");
+                click("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+                pause("low");
+                click("//span[text()='OK']", "filter OK button");
+                pause("medium");
+                pause("medium");
+                for (i = 1; i < headerCount; i++) {
+                    String header2Element = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+                    String header2Text = getInnerText(header2Element);
+                    if (header2Text.equalsIgnoreCase(verificationHeader2)) {
+//                    click("//div[text()='"+verificationHeader2+"']",verificationHeader2);
+                        scrollToElement("//div[text()='" + verificationHeader2 + "']");
+                        pause("low");
+                        double num1 = Double.parseDouble(number.get());
+                        System.out.println("num1: "+num1);
+                        columnvalue = getInnerText("//td[text()='" + num1 + "']");
+                        System.out.println("columnvalue: "+columnvalue);
+                        double num2 = Double.parseDouble(columnvalue);
+                        System.out.println("num2: "+num2);
+
+                        if (num1 == num2) {
+                            reportPass("Successfully validated the added row");
+                        } else {
+                            reportFail("failed to validate the row");
+                        }
+                    }
+                }
+
+            }
+        }
+        return this;
+    }
+
+    public DataManagerPage validateColumnValue(String verificationHeader2){
+        pause("medium");
+        pause("medium");
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i < headerCount; i++) {
+            String header2Element = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String header2Text = getInnerText(header2Element);
+            if (header2Text.equalsIgnoreCase(verificationHeader2)) {
+//                    click("//div[text()='"+verificationHeader2+"']",verificationHeader2);
+                pause("medium");
+                scrollToElement("(//div[text()='" + verificationHeader2 + "'])[1]");
+                reportPass("Reached column: "+verificationHeader2);
+                pause("low");
+                double num1 = Double.parseDouble(number.get());
+                System.out.println("num1: "+num1);
+               columnvalue = getInnerText("(//table)[3]//td)["+(i+1)+"]");
+                if(columnvalue.isEmpty()) {
+                    reportPass("Successfully validated and column doesn't have data");
+                }else {
+                    reportFail("failed to validate");
+                }
+            }
+        }
+        return this;
+    }
+
+    public DataManagerPage removeRowInformation(String BaseGrossCommission){
+        pause("low");
+        typeWithType(frameClientDetailsLocator("Base  Gross  Commission:", 2), BaseGrossCommission, "BaseGrossCommission");
         pause("low");
         return this;
     }

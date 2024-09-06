@@ -134,9 +134,11 @@ public class NewAnalysisPage extends AnalyticsPage {
                     String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
                     String headerText = getInnerText(headerElement);
                     if (headerText.equalsIgnoreCase("Local Executed Value")) {
-                        click("(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]", "Field sort");
+                        click("(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]", "Local Executed header column");
+                        reportPass("Column sorted in ascending order");
                         pause("low");
-                        click("(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]", "Field sort");
+                        click("(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]", "Local Executed header column");
+                        reportPass("Column sorted in descending order");
                         pause("low");
                         innertext = getInnerText("((//table)[4]//tr//td[" + (i + 1) + "])[1]");
                         pause("low");

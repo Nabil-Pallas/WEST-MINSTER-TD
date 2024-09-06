@@ -43,6 +43,7 @@ import com.microsoft.playwright.options.WaitForSelectorState;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
+import com.microsoft.playwright.options.WaitUntilState;
 import com.ui.utilities.Reporter;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
@@ -62,9 +63,10 @@ public class PlaywrightWrapper extends Reporter {
      */
     public boolean navigate(String url) {
         try {
-            getPage().navigate(url);
+            getPage().navigate(url, new Page.NavigateOptions()
+                    .setWaitUntil(WaitUntilState.NETWORKIDLE));
             reportStep("The page with URL : " + url + " is loaded", "info");
-            reportPass("Launched the application successfully");
+            reportPass("Application loaded successfully with the URL");
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }
@@ -1096,6 +1098,14 @@ public class PlaywrightWrapper extends Reporter {
     public String getInnerText(String locator) {
         try {
             return getPage().locator(locator).innerText();
+        } catch (Exception e) {
+        }
+        return "";
+    }
+
+    public String getInnerTextUsingJS(String locator) {
+        try {
+            return String.valueOf(getPage().evaluate("locator => document.querySelector(locator).innerText", locator));
         } catch (Exception e) {
         }
         return "";

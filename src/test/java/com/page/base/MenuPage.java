@@ -62,6 +62,14 @@ public class MenuPage extends WestMinsterPageHook {
         return "//div[contains(text(),'" + placeholder + "')]";
     }
 
+    public String frameSpanTextLocator(String placeholder) {
+        return "//span[text()='" + placeholder + "']";
+    }
+
+    public String frameh2TextLocator(String placeholder) {
+        return "//h2[text()='" + placeholder + "']";
+    }
+
     //Wait For Loader To Disappear
     public void waitForLoaderToDisappear() {
         if (waitForDisappearance(loaderIcon, "Loader Icon")) {
@@ -390,6 +398,7 @@ public class MenuPage extends WestMinsterPageHook {
         validateLoginElements().typeUserName(userName).typePassword(password);
         if (isEnabled(loginWithPassword, "Login With Password")) {
             clickLoginWithPassword();
+            reportPass("User Successfully Logged Into the Application");
         } else {
             reportFailAndThrowException("login With Password is not enabled");
         }

@@ -65,6 +65,7 @@ public class PlaywrightWrapper extends Reporter {
         try {
             getPage().navigate(url, new Page.NavigateOptions()
                     .setWaitUntil(WaitUntilState.NETWORKIDLE));
+            
             reportStep("The page with URL : " + url + " is loaded", "info");
             reportPass("Application loaded successfully with the URL");
         } catch (PlaywrightException e) {

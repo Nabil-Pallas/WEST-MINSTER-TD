@@ -12,18 +12,43 @@ public class EditDataManagerRow extends DataManagerPage {
 
 
     //Edit The Data Manager Row
+//    public EditDataManagerRow editInformation(List<String> verificationValues, List<String> verificationHeaders) {
+////        waitForLoaderToDisappear();
+//        for (int i = 0; i < verificationValues.size(); i++) {
+//            try {
+//                type(frameClientDetailsLocator(verificationHeaders.get(i)), verificationValues.get(i), verificationValues.get(i));
+//            } catch (Exception e) {
+//                type(frameClientDetailsLocator(verificationHeaders.get(i), 2), verificationValues.get(i), verificationValues.get(i));
+//            }
+//        }
+//        reportPass("User successfully edited the row information.");
+//        return new EditDataManagerRow();
+//
+//    }
+
     public EditDataManagerRow editInformation(List<String> verificationValues, List<String> verificationHeaders) {
-//        waitForLoaderToDisappear();
+        // waitForLoaderToDisappear();
+
         for (int i = 0; i < verificationValues.size(); i++) {
+            String header = verificationHeaders.get(i);
+            String value = verificationValues.get(i);
+
+            // Determine if the user is a Tier 1 user
+            boolean isTier1User = "Tier1User".equals(xmlUserLevel);
+
+            // Check if the user is a Tier 1 user and skip processing for "Account Name"
+            if (isTier1User && "Account  Name:".equals(header)) {
+                continue;
+            }
             try {
-                type(frameClientDetailsLocator(verificationHeaders.get(i)), verificationValues.get(i), verificationValues.get(i));
+                type(frameClientDetailsLocator(header), value, value);
             } catch (Exception e) {
-                type(frameClientDetailsLocator(verificationHeaders.get(i), 2), verificationValues.get(i), verificationValues.get(i));
+                type(frameClientDetailsLocator(header, 2), value, value);
             }
         }
+
         reportPass("User successfully edited the row information.");
         return new EditDataManagerRow();
-
     }
 
     public EditDataManagerRow typeBrokerName(String brokerName) {
@@ -339,17 +364,30 @@ public class EditDataManagerRow extends DataManagerPage {
         return this;
     }
 
-    public EditDataManagerRow deleteAndValidateChangeLogItems(int changeLog) {
+    public EditDataManagerRow deleteAndValidateChangeLogItems() {
 
-        for (int i = 1; i <= changeLog; i++) {
-            isVisible("(//table)[last()-1]//tbody//tr[ " + i + "]//td[4]", "Delete Icon");
-            click("(//table)[last()-1]//tbody//tr[ " + i + "]//td[4]", "Delete Icon");
+        String rowLocator = "(//table)[last()-1]//tbody//tr";
+
+        // Get the initial count of rows with the delete icon
+        int rowCount = getLocatorsCount(rowLocator + "//td[4]//a[@href='#']");
+        System.out.println("Initial delete count: " + rowCount);
+
+        // Loop through and delete all rows one by one
+        while (rowCount > 0) {
+            // Always target the first row (which is index 1) since the table updates after each deletion
+            clickUsingJs(rowLocator + "[1]//td[4]//a[@href='#']", "Delete Icon", "Delete Action");
+
+            // Click "Yes" on the confirmation popup
             click(frameSpanExactTextLocator("Yes"), "Yes");
-//            isNotVisible("(//table)[last()-1]//tbody//tr[ " + (i + 1) + "]//td[4]", "Delete Icon");
+
+            // Re-fetch the updated count of rows after deletion
+            rowCount = getLocatorsCount(rowLocator + "//td[4]//a[@href='#']");
         }
-        reportPass("User successfully deleted the change log Items");
+
+        reportPass("User successfully deleted all change log items.");
         return this;
     }
+
 
     public EditDataManagerRow refreshPageAndCancelDialog() {
 //        reLoadPage();

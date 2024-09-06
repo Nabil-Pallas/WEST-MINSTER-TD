@@ -88,7 +88,7 @@ public class EditReportPage extends ReportsPage {
                 click(frameSpanTextLocator("I understand"), "I understand");
             }
             mouseOver("//i[@class='dx-icon dx-icon-remove']", "Remove Visualization");
-            click("//i[@class='dx-icon dx-icon-remove']", "Remove Visualization", "Remove Visualization");
+            clickUsingJs("//i[@class='dx-icon dx-icon-remove']", "Remove Visualization", "Remove Visualization");
             pause("low");
             addBudgetOrAnalysis();
         } catch (Exception e) {

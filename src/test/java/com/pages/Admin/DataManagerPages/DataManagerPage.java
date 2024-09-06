@@ -1,17 +1,12 @@
 package com.pages.Admin.DataManagerPages;
 
-import com.beust.ah.A;
 import com.pages.Admin.AdminPage;
-import com.pages.Admin.FileManagerPages.FileManagerPage;
 import org.testng.Assert;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,27 +62,37 @@ public class DataManagerPage extends AdminPage {
 
     //Validate Data Manager Page
     public AddNewColumnPage validateDataManagerPage() {
-        waitForElementToLoad(dataManagerText);
-        if (isVisible(dataManagerText, "DataManagerText")) {
-            reportPass("User Navigated to the Data Manager page successfully");
-        } else {
-            reportFailAndThrowException("Data Manager Page is not loaded.");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                waitForElementToLoad(dataManagerText);
+                if (isVisible(dataManagerText, "DataManagerText")) {
+                    reportPass("User Navigated to the Data Manager page successfully");
+                } else {
+                    reportFailAndThrowException("Data Manager Page is not loaded.");
+                }
+                break;
         }
+
         pause("medium");
         return new AddNewColumnPage();
     }
 
     //Click the Add New Row Button
     public AddNewRowPage clickOnAddNewRowBtn() {
-//       waitForLoaderToDisappear();
-//        waitForElementToLoad(addNewRowBtn);
-        pause("medium");
-        pause("medium");
-        pause("low");
-        click(addNewRowBtn, "Add new row button");
-        pause("low");
-//
-//        waitForAppearance(addNewRowBtn);
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                pause("medium");
+                pause("medium");
+                pause("low");
+                click(addNewRowBtn, "Add new row button");
+                pause("low");
+                break;
+        }
+
         return new AddNewRowPage();
     }
 
@@ -123,7 +128,7 @@ public class DataManagerPage extends AdminPage {
     }
 
     //Click the Delete Button
-    public EditDataManagerRow clickOnDeleteBtn() {
+    public EditDataSchemaPage clickOnDeleteBtn() {
         pause("medium");
         click(deleteBtn, "Delete button");
         pause("low");
@@ -134,7 +139,7 @@ public class DataManagerPage extends AdminPage {
             typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']", "delete", "Enter Delete in input box");
             click("//span[text()='Confirm Delete']", "Click Delete button");
         }
-        return new EditDataManagerRow();
+        return new EditDataSchemaPage();
     }
 
     //Click the Bulk Delete Button - Multiple Rows Delete
@@ -208,28 +213,35 @@ public class DataManagerPage extends AdminPage {
 
     //Validate the Add New Row Information
     public DataManagerPage verifyHeaderElementIsPresentOrNot(String verificationHeader) {
-        List<String> list = new ArrayList<>();
-        Boolean value = false;
+        boolean isHeaderPresent = false;
+
         pause("medium");
         pause("medium");
+
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
-        for (int i = 1; i < headerCount; i++) {
+
+        for (int i = 1; i <= headerCount; i++) {  // Updated to iterate through all headers
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
-            System.out.println("-------------------" + headerText);
+            System.out.println("Header Text: " + headerText);
+
             if (headerText.contains(verificationHeader)) {
-                value = true;
-//                highlightElement(frameDivTextLocator(verificationHeader), "Header Element");
-//                boolean verifyExactText = verifyPartialText(frameDivTextLocator(verificationHeader), verificationHeader);
-                Assert.assertTrue(value);
-                break;
+                isHeaderPresent = true;
+                // Uncomment if you want to highlight the header
+                // highlightElement(frameDivTextLocator(verificationHeader), "Header Element");
+                break; // Exit loop as soon as the header is found
             }
         }
-        if (value) {
-            reportPass("Header Column " + verificationHeader + " is present in the Data Manager Grid");
+
+        if (isHeaderPresent) {
+            Assert.assertTrue(isHeaderPresent, "Header Column '" + verificationHeader + "' is present in the Data Manager Grid");
+            reportPass("Header Column '" + verificationHeader + "' is present in the Data Manager Grid");
         } else {
-            reportFail("Header Column is not present in the Data Manager Grid");
+            Assert.assertFalse(isHeaderPresent, "Expected header '" + verificationHeader + "' was not found in the Data Manager Grid.");
+            reportPass("Header Column '" + verificationHeader + "' is not present in the Data Manager Grid");
         }
+
+
         return new DataManagerPage();
     }
 
@@ -284,13 +296,19 @@ public class DataManagerPage extends AdminPage {
 
     //Click The Apply Button
     public DataManagerPage clickOnApplyBtn() {
-//        waitForLoaderToDisappear();
-        pause("medium");
-        waitForElementToLoad(applyBtn);
-        click(applyBtn, "Apply Button");
-        pause("medium");
-        pause("low");
-        reportPass("User successfully clicked the Apply button.");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                pause("medium");
+                waitForElementToLoad(applyBtn);
+                click(applyBtn, "Apply Button");
+                pause("medium");
+                pause("low");
+                reportPass("User successfully clicked the Apply button.");
+                break;
+        }
+
         return new DataManagerPage();
     }
 
@@ -387,7 +405,8 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage getTotalRowCount() {
         pause("medium");
-        waitForLoaderToDisappear();
+        pause("medium");
+//        waitForLoaderToDisappear();
         String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
 
         // Clean the string by removing any non-digit characters, including non-breaking spaces
@@ -518,21 +537,15 @@ public class DataManagerPage extends AdminPage {
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
                 pause("low");
-//                click(searchValueWithHeader(i), "Search Filter", "Search Box");
-//                typeAndEnter(searchValueWithHeader(i), VerificationValues, VerificationValues);
-//                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
                 pause("low");
-                scrollToElement("//div[text()='" + VerificationValues + "']");
+                mouseOver("//div[@aria-label='Select All']", "Broker Name filter");
+                while (!isVisibleWithMinimumTime("//div[text()='" + VerificationValues + "']")) {
+                    scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-scroll-content'])[2]");
+                }
                 pause("low");
-                click("//div[text()='" + VerificationValues + "']//preceding-sibling::div", verificationHeader1, "Broker Name");
+                click("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 pause("low");
-//                String state = getAttribute("//div[text()='" + VerificationValues + "']//preceding-sibling::div","aria-checked");
-//                System.out.println(state);
-//                if(state.equals("false")){
-//                    forceClick("//div[text()='" + VerificationValues + "']//preceding-sibling::div", verificationHeader1, "Broker Name");
-//                    pause("low");
-//                }
                 click("//span[text()='OK']", "filter OK button");
                 pause("medium");
                 pause("medium");
@@ -557,18 +570,32 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage clickOnClearAllFilters() {
         pause("medium");
-        // Check if the button is attached and clickable
-        boolean isClickable = isEnabled("//span[text()='Clear All Filters']", "Clear All Filters") &&
-                isVisible("//span[text()='Clear All Filters']", "Clear All Filters");
-        if (isClickable) {
-            click("//span[text()='Clear All Filters']", "Clear All Filters");
-            pause("medium");
-            reportPass("Successfully cleared all filters for Broker Name column");
-        } else {
-            reportPass("There is no Clear All Filters is enabled");
+//        waitForLoaderToDisappear();
+        pause("medium");
+
+        // Check user level and skip for Tier3EndUser
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+//                boolean isClickable = isEnabled("//span[text()='Clear All Filters']", "Clear All Filters") ||
+//                        isVisible("//span[text()='Clear All Filters']", "Clear All Filters");
+                // Get the inner text of the 'Total Row Count' element
+                String totalRowCountText = getInnerText("//span[contains(text(),'Total Row Count:')]");
+                // Check if the "Total Row Count" text contains "filtered"
+                if (totalRowCountText.contains("filtered")) {
+                    click("//span[text()='Clear All Filters']", "Clear All Filters");
+                    pause("medium");
+                    reportPass("Successfully cleared all filters.");
+                } else {
+                    reportPass("No filters to clear (No 'filtered' text found).");
+                }
+                break;
         }
+
         return this;
     }
+
 
     public DataManagerPage validateAddedRowWDateFormat(String VerificationValues, String verificationHeader1, String verificationHeader2) throws ParseException {
         pause("medium");
@@ -609,9 +636,18 @@ public class DataManagerPage extends AdminPage {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader1)) {
-                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+                pause("low");
+//                clickAndChoose("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
 //                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
 //                forceClick("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Drop Down");
+                pause("low");
+                mouseOver("//div[@aria-label='Select All']", "Broker Name filter");
+                while (!isVisibleWithMinimumTime("//div[text()='" + VerificationValues + "']")) {
+                    scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-scroll-content'])[2]");
+                }
+                pause("low");
+                click("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
                 pause("low");
                 click("//span[text()='OK']", "filter OK button");
                 pause("medium");
@@ -638,6 +674,7 @@ public class DataManagerPage extends AdminPage {
 
     public DataManagerPage getUploadDateFromDataManager(String verificationHeader1) {
         pause("medium");
+        waitForElementToLoad("//div[@aria-label='Select all']");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
         for (int i = 1; i < headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";

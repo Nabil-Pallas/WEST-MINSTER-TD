@@ -82,7 +82,7 @@ public abstract class Reporter extends DriverFactory {
 
     public void reportStep(String desc, String status, boolean bSnap) {
         synchronized (test) {
-            System.out.println(desc + " ************ " + status);
+            System.out.println(desc + " -----------------> " + status);
 
             // Define the custom CSS styles
             String style = "style='white-space: normal !important; text-align: left !important; display: block !important;'";

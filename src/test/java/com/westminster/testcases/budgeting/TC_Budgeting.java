@@ -72,7 +72,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .editInformation(Arrays.asList("Local Price", "Broker Name", ruleName.get(), "05/01/2024", "05/29/2024"), Arrays.asList("Target Column", "Budget by", "Budget Name", "Begin Date", "End Date"))
                 .clickSaveBudgetBtn()
                 .validateEditedBudget(ruleName.get(), "05/01/2024", "05/29/2024", "Local Price");
-                //.deleteBudget(ruleName.get());
+        //.deleteBudget(ruleName.get());
         System.out.println("TC-----------TC_14");
 
     }
@@ -158,6 +158,54 @@ public class TC_Budgeting extends WestMinsterPageHook {
                 .clickSaveBudgetBtn()
                 .validateInvalidBudgetDateError("Beginning date and ending date must be in chronological order.");
         System.out.println("TC-----------TC_RE_4429");
+
+    }
+
+    //Phase -03 --Manoj
+    //TC_RE_6091 - Verifies that the system permits importing the same budget a second time after editing its name and target column.
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void verifyBudgetImportWithEditedNameAndTargetColumn() {
+        testcaseName = "TC_RE_6091";
+        testDescription = "Verify Budget Import With Edited Name And TargetColumn";
+        authors = "Automation Team";
+        category = "Import Budget";
+        startTestCase();
+        setNode();
+
+        String folderPath = "./src/test/resources/downloadedFile";
+        String filePath = "./src/test/resources/downloadedFile/Sample Budget 1.csv";
+        ruleName.set(FakerDataFactory.getCompanyNameWithoutSpace());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnBudgeting()
+                .validateAllBudgetsPage()
+                .setClient()
+                .deleteAllFilesInFolder(folderPath)
+                .searchAndDeleteImportedBudget("Sample Budget 1")
+                .clickOnImportNewBudgetWithoutReadUpdatedValueInCsv()
+                .validateImportBudgetPage()
+                .downloadSampleBudget(filePath)
+                .importBudget(filePath)
+                .clickImportBtn()
+                .searchValueOfImportedBudget("Name", "Sample Budget 1")
+                .validateImportedBudget("Sample Budget 1")
+                .clickOnActionsBtn()
+                .clickOnEditBtn()
+                .validateEditBudgetPage()
+                .editInformation(Arrays.asList("Local Price", ruleName.get()), Arrays.asList("Target Column", "Budget Name"))
+                .clickSaveBudgetBtn()
+                .validateEditedBudget(ruleName.get(), "Local Price")
+                .clickOnExit()
+                .validateAllBudgetsPage()
+                .clickOnImportNewBudgetWithoutReadUpdatedValueInCsv()
+                .validateImportBudgetPage()
+                .importBudget(filePath)
+                .clickImportBtn()
+                .searchValueOfImportedBudget("Name", "Sample Budget 1")
+                .validateImportedBudget("Sample Budget 1")
+                .searchAndDeleteImportedBudget("Sample Budget 1")
+                .searchAndDeleteImportedBudget(ruleName.get());
+        System.out.println("TC-----------TC_RE_6091");
 
     }
 

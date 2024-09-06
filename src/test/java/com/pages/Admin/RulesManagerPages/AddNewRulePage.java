@@ -13,7 +13,7 @@ public class AddNewRulePage extends RulesManagerPage {
     private String valueField = "(//input[@class='dx-texteditor-input'])[10]";
     private String rowFields = "(//table[@class='dx-datagrid-table dx-datagrid-table-fixed'])[4]/tbody/tr[last()-1]";
     private String brokerNameText = "(//td[@class='dx-required-field-heading'])[1]";
-    private String ChooseCalculationColumnValues = "//span[@class='ml-half']";
+    public static String ChooseCalculationColumnValues = "//span[@class='ml-half']";
 
 
     public AddNewRulePage validateAddRulePage() {
@@ -83,6 +83,7 @@ public class AddNewRulePage extends RulesManagerPage {
     public AddNewRulePage typeFieldName(String fieldName) {
         typeWithType(frameAddNewcalculatedColumnLocator("Field Name here…", 1), fieldName, "Field Name");
         pause("low");
+        pressEnter(frameAddNewcalculatedColumnLocator("Field Name here…", 1));
         randomDoubleClick();
         pause("medium");
         return this;
@@ -155,7 +156,9 @@ public class AddNewRulePage extends RulesManagerPage {
     public AddNewRulePage selectCalculationColumn(String calculationValue) {
         pause("medium");
 //        clickAndChoose(frameCalculationLocator("Choose Calculation Column"), frameSpanTextLocator(calculationValue), calculationValue, "Choose Calculation Column");
-        selectOptionFromDropdown(frameCalculationLocator("Choose Calculation Column"), ChooseCalculationColumnValues, calculationValue, "Choose Calculation Column");
+        click(frameCalculationLocator("Choose Calculation Column"), "Choose Calculation Column", "Drop Down");
+        clickUsingJs(frameSpanTextLocator(calculationValue), calculationValue, "Choose Calculation Column");
+//        selectOptionFromDropdownUsingJSClick(frameCalculationLocator("Choose Calculation Column"), ChooseCalculationColumnValues, calculationValue, "Choose Calculation Column");
         pause("low");
         return this;
     }

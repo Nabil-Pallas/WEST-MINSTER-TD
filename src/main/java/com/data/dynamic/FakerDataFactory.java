@@ -133,6 +133,10 @@ public class FakerDataFactory {
         return "" + faker.number().randomNumber(10, false);
     }
 
+    public static String get4DigitNumber() {
+        return "" + faker.number().randomNumber(3, false);
+    }
+
     public static String getAlphanumeric() {
         return faker.number().randomNumber(6, false) + "lkjhhh";
     }
@@ -158,8 +162,9 @@ public class FakerDataFactory {
     public static String getFTPFolderAcronym() {
         return "" + faker.number().randomNumber(4, false);
     }
+
     public static String getNumericWDecimal() {
-        return "" +faker.number().randomDouble(8,50,100);
+        return "" + faker.number().randomDouble(8, 50, 100);
     }
 
     public static String getTaxNumber() {
@@ -188,6 +193,11 @@ public class FakerDataFactory {
         String buzzword = faker.company().buzzword(); // Generate a random buzzword
         String timeStamp = getTimeStamp(); // Get the current time in HH:mm:ss format
         return buzzword + "-" + timeStamp;
+    }
+
+    public static String getStaticNameWithTimeStamp(String name) {
+        String timeStamp = getTimeStamp(); // Get the current time in HH:mm:ss format
+        return name + "-" + timeStamp;
     }
 
     public static String getBrokerNameWOTimeStamp() {

@@ -28,6 +28,7 @@ package com.ui.base;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.HeadlessException;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -550,8 +551,7 @@ public class PlaywrightWrapper extends Reporter {
             while (attempts < 3) {
                 try {
                     getPage().locator(locator).click(new Locator.ClickOptions()
-                            .setForce(true)
-                            .setClickCount(1));
+                            .setForce(true));
                     reportStep("The " + type + " : " + name + " is clicked", "info");
                     return true;
                 } catch (PlaywrightException e) {
@@ -586,6 +586,65 @@ public class PlaywrightWrapper extends Reporter {
         return false;
 
     }
+
+    public boolean clickAndDownload(String locator, String savePath) {
+        try {
+            // Set a default timeout and wait for the element to be visible
+            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+            Locator element = getPage().locator(locator);
+            element.waitFor(new Locator.WaitForOptions().setTimeout(ConfigurationManager.configuration().timeout()));
+            element.scrollIntoViewIfNeeded();
+
+            // Start waiting for the download before clicking
+            Download download = getPage().waitForDownload(() -> element.click(new Locator.ClickOptions().setForce(true)));
+
+            // Save the downloaded file
+            String filePath = savePath;
+            download.saveAs(Paths.get(filePath));
+            reportStep("File saved as " + savePath, "info");
+            return true;
+        } catch (PlaywrightException e) {
+            reportStep("PlaywrightException: \n" + e.getMessage(), "fail");
+        } catch (Exception e) {
+            reportStep("Exception: \n" + e.getMessage(), "fail");
+        }
+        return false;
+    }
+
+    public boolean deleteFilesInDirectory(String directoryPath) {
+        File directory = new File(directoryPath);
+
+        // Check if the directory exists and is a directory
+        if (!directory.exists() || !directory.isDirectory()) {
+            reportStep("Invalid directory path: " + directoryPath, "info");
+            return false;
+        }
+
+        // Get all files in the directory
+        File[] files = directory.listFiles();
+        if (files == null || files.length == 0) {
+            reportStep("No files to delete in directory: " + directoryPath, "info");
+            return true; // No files to delete, but directory is valid
+        }
+
+        // Delete each file
+        boolean allDeleted = true;
+        for (File file : files) {
+            if (file.isFile()) {
+                reportStep("Attempting to delete file: " + file.getName(), "info");
+                boolean deleted = file.delete();
+                if (deleted) {
+                    reportStep("Successfully deleted: " + file.getName(), "info");
+                } else {
+                    reportStep("Failed to delete file: " + file.getName(), "info");
+                    allDeleted = false;
+                }
+            }
+        }
+
+        return allDeleted;
+    }
+
 
     //Click using JS
     public boolean clickUsingJs(String locator, String name, String type) {
@@ -844,11 +903,13 @@ public class PlaywrightWrapper extends Reporter {
      */
     public boolean clickAndChoose(String ddLocator, String optionLocator, String option, String name) {
         try {
+
             getPage().locator(ddLocator).scrollIntoViewIfNeeded();
             getPage().locator(ddLocator).waitFor(new Locator.WaitForOptions()
                     .setState(WaitForSelectorState.VISIBLE)
                     .setTimeout(ConfigurationManager.configuration().timeout()));
             getPage().locator(ddLocator).click(new Locator.ClickOptions().setForce(true));
+            pause("low");
             //Force Click the optionLocator
             forceClick(optionLocator, option, name);
 
@@ -888,7 +949,7 @@ public class PlaywrightWrapper extends Reporter {
             // Loop through the options and select the one matching the provided value
             for (Locator optionElement : options) {
                 String innerText = optionElement.innerText();
-                System.out.println("Inner: " + innerText);
+//                System.out.println("Inner: " + innerText);
                 if (innerText.contains(option)) {
                     optionElement.scrollIntoViewIfNeeded();
                     optionElement.click(new Locator.ClickOptions().setForce(true).setClickCount(1));
@@ -932,10 +993,10 @@ public class PlaywrightWrapper extends Reporter {
             // Loop through the options and select the one matching the provided value
             for (Locator optionElement : options) {
                 String innerText = optionElement.innerText();
-                System.out.println("Inner: " + innerText);
+//                System.out.println("Inner: " + innerText);
                 if (innerText.contains(option)) {
                     optionElement.scrollIntoViewIfNeeded();
-
+                    pause("low");
                     // Use JavaScript click instead of Playwright's regular click
                     boolean jsClickResult = clickUsingJs(optionLocator, option, "Dropdown option");
 
@@ -1035,6 +1096,14 @@ public class PlaywrightWrapper extends Reporter {
     public String getInnerText(String locator) {
         try {
             return getPage().locator(locator).innerText();
+        } catch (Exception e) {
+        }
+        return "";
+    }
+
+    public String getInnerTextUsingJS(String locator) {
+        try {
+            return String.valueOf(getPage().evaluate("locator => document.querySelector(locator).innerText", locator));
         } catch (Exception e) {
         }
         return "";
@@ -1685,7 +1754,7 @@ public class PlaywrightWrapper extends Reporter {
         try {
             getPage().setInputFiles("input[type='file']", Path.of(fileName));
             /*waitForAppearance("//img[@data-testid='preview-thumbnail']");*/
-            reportStep("File is Uploaded", "info");
+            reportStep("User Successfully Uploaded the File.", "info");
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
         }
@@ -1709,8 +1778,14 @@ public class PlaywrightWrapper extends Reporter {
      * @author Srikanth
      */
     public void waitForElementToLoad(String locator) {
-        getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().timeout()));
+        try {
+            getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().timeout()));
+            reportStep("Element has been successfully loaded.", "info");
+        } catch (Exception e) {
+            reportFail("Failed to load the element: " + locator + ". Error: " + e.getMessage());
+        }
     }
+
 
     public void waitForElementToLoadWithHighTime(String locator) {
         getPage().waitForSelector(locator, new Page.WaitForSelectorOptions().setTimeout(ConfigurationManager.configuration().highTimeout()));

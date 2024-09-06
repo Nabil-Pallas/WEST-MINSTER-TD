@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import com.pages.Admin.DataManagerPages.DataManagerPage;
+import com.pages.Admin.DataManagerPages.EditDataManagerRow;
+import com.pages.Admin.DataManagerPages.EditDataSchemaPage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -519,7 +522,8 @@ public class TC_DataManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-        clientCompanyName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWithTimeStamp());
+        userFirstName.set(FakerDataFactory.getBrokerNameWOTimeStamp());
         ruleName.set(FakerDataFactory.getCompanyName());
         reportName.set(FakerDataFactory.getReportsName());
         titleone.set(FakerDataFactory.getTitle());
@@ -529,15 +533,27 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
-                .clickOnDataManager()
                 .validateDataManagerPage()
+                .clickOnClearAllFilters()
                 .clickOnSelectRow()
                 .clickOnBulkEditBtn()
                 .validateBulkEditRowsPage()
                 .editInformation(Arrays.asList(clientCompanyName.get(), reportName.get(), titleone.get(), ruleName.get()),
                         Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:", "Base  Currency:"))
-                .deleteAndValidateChangeLogItems(3)
-                .clickOnCancelBtn();
+                .clickOnApplyBtn()
+                .validateDataManagerPage()
+                .validateAddedRowInformation(clientCompanyName.get(), "Broker Name")
+                .clickOnSelectRow()
+                .clickOnBulkEditBtn()
+                .validateBulkEditRowsPage()
+                .editInformation(Arrays.asList(userFirstName.get(), "Account", "Asset", "Currency"),
+                        Arrays.asList("Broker  Name:", "Account  Name:", "Asset  Class:", "Base  Currency:"));
+        new EditDataManagerRow()
+                .deleteAndValidateChangeLogItems()
+                .clickOnCancelBtn()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters()
+                .validateAddedRowInformation(clientCompanyName.get(), "Broker Name");
 
         System.out.println("TC-----------TC_RE_5888");
     }
@@ -583,7 +599,7 @@ public class TC_DataManager extends WestMinsterPageHook {
         setNode();
 
         ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
-        titleone.set(FakerDataFactory.getFieldName());
+        titleone.set(FakerDataFactory.getStaticNameWithTimeStamp("Aapay"));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -601,14 +617,141 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .verifyHeaderElementIsPresentOrNot(titleone.get())
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+//                .validateNewlyAddedDataSchemaColumn(titleone.get())
+                .clickOnRelevantFieldNameActionIcon(titleone.get())
+                .clickOnDeleteBtn()
+                .clickOnExit()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .verifyHeaderElementIsPresentOrNot(titleone.get())
                 .clickOnRulesManager()
                 .validateRulesManagerPage()
                 .deleteRuleName(ruleName.get())
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .verifyHeaderElementIsPresentOrNot(titleone.get());
-
         System.out.println("TC-----------TC_RE_5165");
+    }
+
+    //Phase -3 - Praveen
+    //TC_RE_5161 Verify the duplicate file detection functionality when no unique trade identifier is selected
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyDuplicateFileDetectionWithoutUniqueTradeIdentifier() {
+        testcaseName = "TC_RE_5161";
+        testDescription = "Detect Duplicate File When No Unique Trade Identifier Selected";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/Duplicate_File_One.csv");
+        fileName.set("Duplicate_File_One.csv");
+        filePath2.set("./src/test/resources/upload/Duplicate_File_Two.csv");
+        fileName2.set("Duplicate_File_Two.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settlement Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnUniqueTradeIdentifier("Trade ID", "true")
+                .clickOnExit()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath2.get(), fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnApplyMapping()
+                .validateFileUpload(fileName2.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName2.get())
+                .validateErrorQueuePage()
+                .clickFilterAndSelectDuplicateRows()
+                .getErrorQueueRowCounts()
+                .clickOnExitBtn()
+                .validateRowCountIsZero()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnUniqueTradeIdentifier("Trade ID", "false")
+                .clickOnExit();
+
+        System.out.println("TC-----------TC_RE_5161");
+    }
+
+    //Phase -3 - Praveen
+    //TC_RE_5162
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void checkDuplicateFileDetectionForMultipleUniqueIdentifiers() {
+        testcaseName = "TC_RE_5162";
+        testDescription = "Check Duplicate File Detection for Multiple Unique Identifiers";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        DataMap.set(FakerDataFactory.getDataMapName());
+        filePath.set("./src/test/resources/upload/Duplicate_File_One.csv");
+        fileName.set("Duplicate_File_One.csv");
+        filePath2.set("./src/test/resources/upload/Duplicate_File_Two.csv");
+        fileName2.set("Duplicate_File_Two.csv");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath.get(), fileName.get())
+                .clickOnCreateNewMapping()
+                .createNewDataMap(DataMap.get(), "MM/dd/yyyy")
+                .validateFileMappingPage()
+                .mappingFileAndSystemColumns(Arrays.asList("Broker Name", "Trade Date", "Account Name", "Trade ID", "Settlement Date"),
+                        Arrays.asList("BROKER", "Trade Date", "ACCOUNT", "Trade ID", "Settlement Date"))
+                .clickOnFinishMapping()
+                .validateFileUpload(fileName.get())
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnUniqueTradeIdentifier("Trade ID", "false")
+                .clickOnUniqueTradeIdentifier("Account Name", "false")
+                .clickOnExit()
+                .clickOnFileManager()
+                .validateFileManagerPage()
+                .fileUpload(filePath2.get(), fileName2.get())
+                .selectExistingMapping(DataMap.get())
+                .clickOnApplyMapping()
+                .validateFileUpload(fileName2.get())
+                .clickOnInvalidRowCountAndAmendErrors(fileName2.get())
+                .validateErrorQueuePage()
+                .clickFilterAndSelectDuplicateRows()
+                .getErrorQueueRowCounts()
+                .clickOnExitBtn()
+                .validateRowCountIsZero()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnUniqueTradeIdentifier("Trade ID", "false")
+                .clickOnUniqueTradeIdentifier("Trade ID", "true")
+                .clickOnExit();
+        System.out.println("TC-----------TC_RE_5162");
     }
 }
 

@@ -20,7 +20,7 @@ public class AdminPage extends MenuPage {
     protected String dataManager = "//span[contains(text(),'Data Manager')]";
     protected String rulesManager = "//span[contains(text(),'Rules Manager')]";
     private String clientSelectDrpDown = "(//div[@class='dx-dropdowneditor-icon'])[1]";
-    public String deleteBtn = "//span[text()='Delete']";
+    public static String deleteBtn = "//span[text()='Delete']";
     public String confirmDeleteBtn = "//span[text()='Yes']";
     public String closeIcon = "//i[@class='dx-icon dx-icon-close']";
 
@@ -120,12 +120,20 @@ public class AdminPage extends MenuPage {
     }
 
     public AdminPage validateAdminPage() {
-        waitForElementToLoad(adminText);
-        if (isVisible(adminText, "Admin Text")) {
-            reportPass("User successfully navigated to the Admin tab.");
-        } else {
-            reportFailAndThrowException("Admin Page is not loaded.");
+
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                waitForElementToLoad(adminText);
+                if (isVisible(adminText, "Admin Text")) {
+                    reportPass("User successfully navigated to the Admin tab.");
+                } else {
+                    reportFailAndThrowException("Admin Page is not loaded.");
+                }
+                break;
         }
+
         return this;
     }
 
@@ -224,10 +232,15 @@ public class AdminPage extends MenuPage {
     }
 
     public DataManagerPage clickOnDataManager() {
-//        pause("medium");
-        click(dataManager, "Data Manager");
-//        waitForLoaderToDisappear();
-        pause("medium");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                click(dataManager, "Data Manager");
+                pause("medium");
+                break;
+        }
+
         return new DataManagerPage();
     }
 

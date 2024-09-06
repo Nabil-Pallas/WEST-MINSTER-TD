@@ -12,6 +12,8 @@ import static com.pages.Bugeting.importBudgetPages.ImportBudgetPage.readUpdatedV
 
 public class AllBudgetsPage extends MenuPage {
     protected String allBudgetsText = "//h1[text()='All Budgets']";
+
+    protected String addBudgetText = "//h2[@id='budgeting-container-heading']";
     private String actionBtn = "(//td[@class='action-edit-delete-column']/a)[1]";
     private String editBtn = "//span[text()='Edit']";
     private String exitBtn = "//span[text()='Exit']";
@@ -62,12 +64,28 @@ public class AllBudgetsPage extends MenuPage {
         return this;
     }
 
+    public AllBudgetsPage validateAddBudgetPage() {
+        waitForElementToLoad(addBudgetText);
+        if (isVisible(addBudgetText, "Add Budget Text")) {
+            reportPass("User successfully reached the correct Add Budget page");
+        } else {
+            reportFailAndThrowException("Add Budget Page is not loaded.");
+        }
+        return this;
+    }
+
+
+
+
+
     public CreateNewBudgetPage clickOnCreateNewBudget() {
         click("(//span[contains(text(),'Create New Budget')])[1]", "Create New Budget");
         waitForLoaderToDisappear();
         return new CreateNewBudgetPage();
-
     }
+
+
+
 
     public ImportBudgetPage clickOnImportNewBudget() {
         readUpdatedValueInCsv();

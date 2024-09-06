@@ -396,7 +396,7 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .checkAnalysisIsInDashboardOrNot(analysisName.get())
                 .clickOnAnalytics()
                 .validateAnalyticsPage()
-                .validateAnalysis(analysisName.get());
+                .deleteAnalytics(analysisName.get());
         System.out.println("TC-----------TC_RE_6203");
     }
 

@@ -1,7 +1,6 @@
 package com.pages.Admin.DataManagerPages;
 
 
-import com.microsoft.playwright.Locator;
 import org.testng.Assert;
 
 import com.page.base.DashboardPage;
@@ -25,6 +24,7 @@ public class EditDataSchemaPage extends DataManagerPage {
         } else {
             reportFailAndThrowException("Edit Data Schema Columns Page is not loaded.");
         }
+
         return this;
     }
 
@@ -84,6 +84,45 @@ public class EditDataSchemaPage extends DataManagerPage {
         return new AdminPage();
     }
 
+    //trade id 
+    public EditDataSchemaPage clickOnUniqueTradeIdentifier(String fieldName, String UTI) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        click("//div[text()='Field Name']", "sort");
+        pause("low");
+        int headerCount = getLocatorsCount("(//td[@aria-colindex='4'])[position() > 1]");
+        for (int i = 1; i <= 7; i++) {
+            String headerElement = "((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]";
+            String headerText = getInnerText(headerElement);
+
+            if (headerText.contains(fieldName)) {
+                int maxAttempts = 7;
+                int attempts = 0;
+                while (!isVisibleWithMinimumTime("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
+                    pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+                    attempts++;
+                }
+                scrollToElement("//td[text()='" + fieldName + "']");
+                pause("medium");
+                clickUsingJs("//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]//a[text()='⋯']", fieldName, "Action Icon");
+                pause("low");
+                clickOnEditBtn();
+                String getAtrribute = getAttribute("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]//div[@role='checkbox']", "aria-checked");
+                System.out.println("Attribute : ===============> " + getAtrribute);
+                if (getAtrribute.equals(UTI)) {
+                    click("((//td[@aria-colindex='4'])[position() > 1])[" + i + "]", "Unique Trade Identifier Check Box");
+                    pause("low");
+                    click(frameSpanExactTextLocator("Save", 2), "Save Button");
+                    ;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return this;
+    }
+
     public EditDataSchemaPage clickOnActionIcon(String fieldName) {
         pause("medium");
         scrollToElement("//td[text()='" + fieldName + "']");
@@ -106,6 +145,61 @@ public class EditDataSchemaPage extends DataManagerPage {
         pause("low");
         return this;
     }
+
+    //Validate whether new column is added or not
+    public EditDataSchemaPage validateNewlyAddedDataSchemaColumn(String fieldName) {
+        Boolean value = false;
+        pause("medium");
+
+        click("((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[1]", "First Field", "First Grid");
+        int maxAttempts = 40;
+        int attempts = 0;
+        while (!isVisible("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
+            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
+            attempts++;
+        }
+
+        scrollToElement("//td[text()='" + fieldName + "']");
+        pause("medium");
+        String fieldNametext = getInnerText("//td[text()='" + fieldName + "']");
+        if (fieldNametext.equals(fieldName)) {
+            value = true;
+            System.out.println("-------------------" + fieldNametext);
+            highlightElement(frameDivTextLocator(fieldName), "Header Element");
+            boolean verifyExactText = verifyExactText(frameDivTextLocator(fieldName), fieldName);
+            Assert.assertTrue(verifyExactText);
+        }
+
+//        for (int i = 1; i < 50; i++) {
+//            scrollToElement("((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]");
+//            String fieldNameLocator = "((//table)[3]//tbody[@role='presentation']//td[@aria-colindex='1'])[" + i + "]";
+//            String fieldNametext = getInnerText(fieldNameLocator);
+//            System.out.println("-------------------" + fieldNametext);
+//            if (fieldNametext.contains(fieldName)) {
+//                value = true;
+//                System.out.println("-------------------" + fieldNametext);
+//                highlightElement(frameDivTextLocator(fieldName), "Header Element");
+//                boolean verifyExactText = verifyExactText(frameDivTextLocator(fieldName), fieldName);
+//                Assert.assertTrue(verifyExactText);
+//                break;
+//            }
+//        }
+        if (value) {
+            reportPass("Field Name " + fieldName + " is present in the Edit Data Schema Columns");
+        } else {
+            reportFail("Field Name  is not present in the Edit Data Schema Columns");
+        }
+        pause("low");
+        return this;
+    }
+
+    public EditDataSchemaPage clickOnUniqueTradeIdentifier() {
+        //clickUsingJs("//td[@class=\"dx-editor-cell dx-datagrid-validator dx-validator dx-visibility-change-handler dx-focused\"]//following-sibling::td[3]  "
+        //clickUsingJs("(//table)[3]//tr[last()-4]//td[4]//span");
+        pause("low");
+        return this;
+    }
+
 
     public EditDataSchemaPage reloadCurrentURLAndClickOnRelevantFieldName(String fieldName) {
         refreshPageToCurrentURL();
@@ -150,6 +244,17 @@ public class EditDataSchemaPage extends DataManagerPage {
     public EditDataSchemaPage clickOnExit() {
         click(frameSpanTextLocator("Exit"), "Exit Button");
         pause("medium");
+        return this;
+    }
+
+    //Click the Delete Button
+    public EditDataSchemaPage clickOnDeleteBtn() {
+        pause("medium");
+        click(deleteBtn, "Delete Button");
+        pause("low");
+        click(confirmDeleteBtn, "Confirm Delete");
+        pause("low");
+        reportPass("User successfully Deleted the Data Schema Column.");
         return this;
     }
 
@@ -203,6 +308,14 @@ public class EditDataSchemaPage extends DataManagerPage {
         waitForLoaderToDisappear();
         pause("medium");
         return new EditDataSchemaPage();
+    }
+
+    public EditDataSchemaPage readOnlyCheckbox(boolean readOnlyCheckbox) {
+        if (readOnlyCheckbox) {
+            click("(//div[@class='dx-widget dx-checkbox dx-checkbox-indeterminate dx-datagrid-checkbox-size'])[3]", "read-Only Checkbox");
+            pause("low");
+        }
+        return this;
     }
 
 

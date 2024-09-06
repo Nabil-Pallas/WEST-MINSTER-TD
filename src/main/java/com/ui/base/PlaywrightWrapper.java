@@ -28,6 +28,7 @@ package com.ui.base;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.HeadlessException;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -586,6 +587,65 @@ public class PlaywrightWrapper extends Reporter {
 
     }
 
+    public boolean clickAndDownload(String locator, String savePath) {
+        try {
+            // Set a default timeout and wait for the element to be visible
+            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+            Locator element = getPage().locator(locator);
+            element.waitFor(new Locator.WaitForOptions().setTimeout(ConfigurationManager.configuration().timeout()));
+            element.scrollIntoViewIfNeeded();
+
+            // Start waiting for the download before clicking
+            Download download = getPage().waitForDownload(() -> element.click(new Locator.ClickOptions().setForce(true)));
+
+            // Save the downloaded file
+            String filePath = savePath;
+            download.saveAs(Paths.get(filePath));
+            reportStep("File saved as " + savePath, "info");
+            return true;
+        } catch (PlaywrightException e) {
+            reportStep("PlaywrightException: \n" + e.getMessage(), "fail");
+        } catch (Exception e) {
+            reportStep("Exception: \n" + e.getMessage(), "fail");
+        }
+        return false;
+    }
+
+    public boolean deleteFilesInDirectory(String directoryPath) {
+        File directory = new File(directoryPath);
+
+        // Check if the directory exists and is a directory
+        if (!directory.exists() || !directory.isDirectory()) {
+            reportStep("Invalid directory path: " + directoryPath, "info");
+            return false;
+        }
+
+        // Get all files in the directory
+        File[] files = directory.listFiles();
+        if (files == null || files.length == 0) {
+            reportStep("No files to delete in directory: " + directoryPath, "info");
+            return true; // No files to delete, but directory is valid
+        }
+
+        // Delete each file
+        boolean allDeleted = true;
+        for (File file : files) {
+            if (file.isFile()) {
+                reportStep("Attempting to delete file: " + file.getName(), "info");
+                boolean deleted = file.delete();
+                if (deleted) {
+                    reportStep("Successfully deleted: " + file.getName(), "info");
+                } else {
+                    reportStep("Failed to delete file: " + file.getName(), "info");
+                    allDeleted = false;
+                }
+            }
+        }
+
+        return allDeleted;
+    }
+
+
     //Click using JS
     public boolean clickUsingJs(String locator, String name, String type) {
 
@@ -1036,6 +1096,14 @@ public class PlaywrightWrapper extends Reporter {
     public String getInnerText(String locator) {
         try {
             return getPage().locator(locator).innerText();
+        } catch (Exception e) {
+        }
+        return "";
+    }
+
+    public String getInnerTextUsingJS(String locator) {
+        try {
+            return String.valueOf(getPage().evaluate("locator => document.querySelector(locator).innerText", locator));
         } catch (Exception e) {
         }
         return "";

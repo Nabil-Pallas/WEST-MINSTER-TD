@@ -107,4 +107,52 @@ public class TC_RulesManager extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_2825");
     }
 
+    //Phase - 3 --> Manoj
+    //TC_RE_51 - RULES MANAGER - Enabling the existing rule
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void enableExistingRule() {
+        testcaseName = "TC_RE_51";
+        testDescription = "Enable Existing Rule";
+        authors = "Automation Team";
+        category = "Rule Manager";
+        startTestCase();
+        setNode();
+
+        ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnRulesManager()
+                .validateRulesManagerPage()
+                .enableAndDisableRule("Enable");
+
+        System.out.println("TC-----------TC_RE_51");
+    }
+
+    //Phase - 3 --> Manoj
+    //TC_RE_49 - RULES MANAGER - Disabling the existing rule
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void disableExistingRule() {
+        testcaseName = "TC_RE_49";
+        testDescription = "Disable Existing Rule";
+        authors = "Automation Team";
+        category = "Rule Manager";
+        startTestCase();
+        setNode();
+
+        ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnRulesManager()
+                .validateRulesManagerPage()
+                .enableAndDisableRule("Disable");
+
+        System.out.println("TC-----------TC_RE_49");
+    }
+
 }

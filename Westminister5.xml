@@ -22,9 +22,9 @@
             <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
             <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
             <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
-            <class name="com.westminster.testcases.budgeting.TC_Budgeting">
+            <class name="com.westminster.testcases.analytics.TC_Analytics">
                 <methods>
-                    <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>
+                    <include name="validateComparisonRangeOptions"/>
                 </methods>
             </class>
         </classes>

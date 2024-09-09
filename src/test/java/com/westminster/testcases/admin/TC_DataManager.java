@@ -759,6 +759,40 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnExit();
         System.out.println("TC-----------TC_RE_5162");
     }
+
+
+    //Phase -3 - Praveen
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void test_validate_restrictions_on_calculated_column_properties () {
+        testcaseName = "TC_RE_5163";
+        testDescription = "test validate restrictions on calculated column properties";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+
+         new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                 .clickOnAddNewColumn()
+                 .validateAddNewColumnPage()
+                 .typeInformationInAddNewColumnsAndValidate(false, true, false)
+                 .clickOnDataManager()
+                 .validateDataManagerPage()
+                 .clickOnEditDataSchema()
+                 .validateEditDataSchemaColumnsPage()
+                 .clickOnRelevantFieldNameActionIcon(clientCompanyName.get())
+                 .clickOnRename();
+
+        System.out.println("TC-----------TC_RE_5163");
+    }
 }
 
 

@@ -148,7 +148,6 @@ public class EditDataSchemaPage extends DataManagerPage {
         scrollToElement("//td[text()='" + fieldName + "']");
         pause("medium");
         clickUsingJs("//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]//a[text()='⋯']", fieldName, "Action Icon");
-
         pause("low");
         return this;
     }
@@ -225,6 +224,13 @@ public class EditDataSchemaPage extends DataManagerPage {
         click(frameSpanTextLocator("Add Validation"), "Add Validation", "Add Validation");
         return this;
     }
+
+    public EditDataSchemaPage clickOnRename() {
+        click(frameSpanTextLocator("Rename"), "Rename", "Rename");
+        return this;
+    }
+
+
 
     public EditDataSchemaPage selectParameterType() {
         pause("low");

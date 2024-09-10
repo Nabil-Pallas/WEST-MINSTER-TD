@@ -84,7 +84,14 @@ public class EditDataSchemaPage extends DataManagerPage {
         return new AdminPage();
     }
 
-    //trade id 
+    public EditDataSchemaPage sortByFieldColumn() {
+        waitForLoaderToDisappear();
+        pause("medium");
+        click("//div[text()='Field Name']", "sort");
+        return this;
+    }
+
+        //trade id
     public EditDataSchemaPage clickOnUniqueTradeIdentifier(String fieldName, String UTI) {
         waitForLoaderToDisappear();
         pause("medium");

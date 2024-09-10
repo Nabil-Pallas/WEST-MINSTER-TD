@@ -126,7 +126,7 @@ public class DashboardPage extends MenuPage {
     public DashboardPage checkAnalysisIsInDashboardOrNot(String analysisName) {
 
         pause("low");
-        if (isVisible(frameh2TextLocator(analysisName), "Analysis")) {
+        if (isVisibleWithMinimumTime(frameh2TextLocator(analysisName))) {
             reportPass("The analysis " + analysisName + " is present in the dashboard.");
         } else {
             reportPass("The analysis " + analysisName + " is not present in the dashboard.");

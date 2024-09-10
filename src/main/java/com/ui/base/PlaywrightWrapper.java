@@ -1139,6 +1139,25 @@ public class PlaywrightWrapper extends Reporter {
         return "";
     }
 
+    public List<String> getAllInnerText(String locator) {
+        List<String> allTexts = new ArrayList<>();
+        try {
+            // Fetch all matching elements for the locator
+            List<Locator> elements = getPage().locator(locator).all();
+
+            // Iterate over each element and get its innerText
+            for (Locator element : elements) {
+                String text = element.innerText().trim(); // trim to remove unnecessary whitespace
+                allTexts.add(text);
+            }
+        } catch (Exception e) {
+            // Handle any exceptions
+            e.printStackTrace();
+        }
+        return allTexts;
+    }
+
+
     /**
      * Use this method to check if the element is enabled
      *

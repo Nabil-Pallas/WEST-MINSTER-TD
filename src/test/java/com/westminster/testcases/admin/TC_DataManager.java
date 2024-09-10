@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.DataManagerPage;
 import com.pages.Admin.DataManagerPages.EditDataManagerRow;
 import com.pages.Admin.DataManagerPages.EditDataSchemaPage;
@@ -771,7 +772,6 @@ public class TC_DataManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
-
          new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -789,8 +789,8 @@ public class TC_DataManager extends WestMinsterPageHook {
                  .clickOnEditDataSchema()
                  .validateEditDataSchemaColumnsPage()
                  .clickOnRelevantFieldNameActionIcon(clientCompanyName.get())
-                 .clickOnRename();
-
+                 .clickOnRename()
+                 .validateDisabledFieldsForCalcualtedColumns();
         System.out.println("TC-----------TC_RE_5163");
     }
 }

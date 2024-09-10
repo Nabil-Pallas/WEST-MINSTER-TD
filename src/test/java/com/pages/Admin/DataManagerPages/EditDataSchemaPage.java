@@ -16,6 +16,13 @@ public class EditDataSchemaPage extends DataManagerPage {
     private String uniqueTradeIdentifier_1 = "(//span[text()='Unique Trade Identifier']//following::tbody//td[4])[1]";
     private String uniqueTradeIdentifier_2 = "(//span[text()='Unique Trade Identifier']//following::tbody//td[4])[2]";
 
+    private String requiredFields = ("(//input[@aria-disabled='true'])[2]");
+
+    private String readOnlyFields = ("(//input[@aria-disabled='true'])[3]");
+
+
+
+
 
     public EditDataSchemaPage validateEditDataSchemaColumnsPage() {
         waitForElementToLoad(EditDataSchemaColumnsText);
@@ -322,6 +329,20 @@ public class EditDataSchemaPage extends DataManagerPage {
         pause("medium");
         return new EditDataSchemaPage();
     }
+
+    public EditDataSchemaPage validateDisabledFieldsForCalcualtedColumns() {
+        pause("medium");
+        if(isVisible(readOnlyFields) && isVisible(requiredFields)){
+            reportPass("Read-only Fields & Required Fields state has been disabled and successfully validated");
+        } else {
+            reportFail("Read-only Fields & Required Fields state has been enabled and validation has been failed");
+        }
+      return this;
+    }
+
+
+
+
 
     public EditDataSchemaPage readOnlyCheckbox(boolean readOnlyCheckbox) {
         if (readOnlyCheckbox) {

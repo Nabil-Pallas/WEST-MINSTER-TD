@@ -15,6 +15,8 @@ import com.aventstack.extentreports.*;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 
+import static com.ui.base.ProjectHooks.xmlUserLevel;
+
 
 public abstract class Reporter extends DriverFactory {
 
@@ -25,7 +27,7 @@ public abstract class Reporter extends DriverFactory {
     protected static ThreadLocal<String> testName = new ThreadLocal<String>();
 
 
-    private String fileName = "result.html";
+    private String fileName = "report.html";
     private static String pattern = "dd-MMM-yyyy HH-mm-ss";
 
     public String testcaseName, testDescription, authors, category, dataFileType, dataFileName;
@@ -43,7 +45,7 @@ public abstract class Reporter extends DriverFactory {
         return folderName;
     }
 
-    public synchronized void startReport(String userName) {
+    public synchronized void startReport() {
         folderName = createFolder("reports");
         List<ViewName> viewList = new ArrayList<ViewName>();
         viewList.add(ViewName.DASHBOARD);
@@ -51,7 +53,7 @@ public abstract class Reporter extends DriverFactory {
         viewList.add(ViewName.AUTHOR);
         viewList.add(ViewName.CATEGORY);
         //ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("./" + folderName + "/" + fileName);
-        oSpark = new ExtentSparkReporter("./" + folderName + "/" + userName + "_" + fileName).viewConfigurer().viewOrder().as(viewList).apply();
+        oSpark = new ExtentSparkReporter("./" + folderName + "/" + xmlUserLevel + "_" + fileName).viewConfigurer().viewOrder().as(viewList).apply();
 //		oSpark.config().setTestViewChartLocation(ChartLocation.BOTTOM);
 //		oSpark.config().setChartVisibilityOnOpen(!true);
         oSpark.config().setTheme(Theme.STANDARD);
@@ -82,7 +84,7 @@ public abstract class Reporter extends DriverFactory {
 
     public void reportStep(String desc, String status, boolean bSnap) {
         synchronized (test) {
-            System.out.println(desc + " ************ " + status);
+            System.out.println(desc + " -----------------> " + status);
 
             // Define the custom CSS styles
             String style = "style='white-space: normal !important; text-align: left !important; display: block !important;'";
@@ -97,11 +99,12 @@ public abstract class Reporter extends DriverFactory {
 
             if (status.equalsIgnoreCase("pass")) {
                 test.get().pass(MarkupHelper.createLabel(styledDesc, ExtentColor.GREEN));
+                test.get().pass(styledDesc, MediaEntityBuilder.createScreenCaptureFromBase64String(takeSnap()).build());
             } else if (status.equalsIgnoreCase("fail")) {
                 test.get().fail(MarkupHelper.createLabel(styledDesc, ExtentColor.RED));
                 test.get().fail(styledDesc, MediaEntityBuilder.createScreenCaptureFromBase64String(takeSnap()).build());
             } else if (status.equalsIgnoreCase("warning")) {
-                test.get().warning(MarkupHelper.createLabel(styledDesc, ExtentColor.YELLOW));
+                test.get().warning(MarkupHelper.createLabel(styledDesc, ExtentColor.ORANGE));
                 test.get().warning(styledDesc, MediaEntityBuilder.createScreenCaptureFromBase64String(takeSnap()).build());
             } else if (status.equalsIgnoreCase("skipped")) {
                 test.get().skip("The test is skipped due to dependency failure");

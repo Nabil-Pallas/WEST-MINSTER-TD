@@ -9,8 +9,8 @@ import org.testng.annotations.Test;
 public class TC_Login extends WestMinsterPageHook {
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void setReportValues() {
-        testcaseName = "Login with " + xmlUserLevel;
-        testDescription = "Login with " + xmlUserLevel;
+        testcaseName = "Login as " + xmlUserLevel;
+        testDescription = "Login as " + xmlUserLevel;
         authors = "Automation Team";
         category = "Login Page";
     }

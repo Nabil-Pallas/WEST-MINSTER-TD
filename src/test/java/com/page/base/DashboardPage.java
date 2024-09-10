@@ -1,7 +1,9 @@
 package com.page.base;
 
+import com.config.ConfigurationManager;
 import com.pages.Admin.AdminPage;
 import com.pages.Analytics.AnalyticsPage;
+import com.pages.Analytics.NewAnalysisPage;
 import com.pages.Report.ReportsPage;
 import com.pages.Bugeting.AllBudgetsPage;
 import org.testng.Assert;
@@ -81,9 +83,15 @@ public class DashboardPage extends MenuPage {
 
     // Click the Admin Option
     public AdminPage clickOnAdmin() {
-        mouseHoverOnDashboard();
-        click(adminLink, "Admin Link");
-        pause("medium");
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                mouseHoverOnDashboard();
+                click(adminLink, "Admin Link");
+                pause("medium");
+                break;
+        }
         return new AdminPage();
     }
 
@@ -113,6 +121,94 @@ public class DashboardPage extends MenuPage {
         mouseHoverOnDashboard();
         click(reportsLink, "Reports Link");
         return new ReportsPage();
+    }
+
+    public DashboardPage checkAnalysisIsInDashboardOrNot(String analysisName) {
+
+        pause("low");
+        if (isVisibleWithMinimumTime(frameh2TextLocator(analysisName))) {
+            reportPass("The analysis " + analysisName + " is present in the dashboard.");
+        } else {
+            reportPass("The analysis " + analysisName + " is not present in the dashboard.");
+        }
+
+        return this;
+    }
+
+    public DashboardPage checkCompareDDIsPresentOrNot(String analysisName) {
+        try {
+            pause("medium");
+            if (isVisible("//h2[text()='" + analysisName + "']/following::span[contains(text(),'Compare')]")) {
+                click("//h2[text()='" + analysisName + "']/following::span[contains(text(),'Compare')]/following::div[@aria-label='Select']", "Compare", "Drop Down");
+
+                if (isVisible("//h2[text()='" + analysisName + "']/following::span[contains(text(),'Compare')]/following::div[@aria-label='Select']", "Comparison Dropdown")) {
+                    reportPass("Successfully validated that the Comparison Drop Down is present in View Analysis Page.");
+                } else {
+                    reportFail("The Comparison Drop Down is not present after clicking.");
+                }
+            } else {
+                reportFail("The 'Compare' element is not visible on the page.");
+            }
+        } catch (Exception e) {
+            reportFail("Error checking Comparison Drop Down: " + e.getMessage());
+        }
+        return this;
+    }
+
+    public DashboardPage clickOnAnalysisActionBtn(String analysisName) {
+        pause("low");
+        click("//h2[text()='" + analysisName + "']/following::div[1]//div[@aria-label='Actions']", "Analysis Action Button");
+        return this;
+    }
+
+    // Click on the "Remove from Dashboard" link
+    public DashboardPage clickOnRemoveFromDashboard() {
+        pause("low");
+        click(frameSpanTextLocator("Remove from Dashboard"), "Remove from Dashboard Link");
+        return this;
+    }
+
+    //select client
+    public DashboardPage setClient() {
+        switch (xmlUserLevel) {
+            case "Tier2Admin":
+                break;
+            case "Tier2User":
+                break;
+            case "Tier3EndUser":
+                break;
+            case "Tier1User":
+                try {
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1User() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1User());
+                    pause("low");
+                    reportPass("User successfully selected the Client.");
+                } catch (Exception e) {
+                    reportWarning("Client is not selected as it is set as default");
+                }
+                break;
+            default:
+                try {
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1Admin() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1Admin());
+                    pause("low");
+                    reportPass("User successfully selected the Client.");
+                } catch (Exception e) {
+                    reportWarning("Client is not selected as it is set as default");
+                }
+                break;
+        }
+        return this;
+    }
+    public DashboardPage validateEditedUserName(String firstName, String lastName){
+        String innertext = getInnerText("//p[@class='header__profile__info__name']");
+        String verification = firstName+" "+lastName;
+        if(innertext.equals(verification)){
+            reportPass("Successfully validated the edited name");
+        }else {
+            reportFail("Failed to validate");
+        }
+
+
+        return this;
     }
 
 

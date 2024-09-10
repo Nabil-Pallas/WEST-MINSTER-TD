@@ -26,7 +26,9 @@ public class AllReportsPage extends ReportsPage {
     }
 
     public AllReportsPage searchReportTitle(String reportTitle) {
+        waitForElementToLoad(reportTitleSearchBox);
         clickAndType(reportTitleSearchBox, reportTitle, "Report Title");
+        pause("low");
         return this;
     }
 

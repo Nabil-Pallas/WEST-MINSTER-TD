@@ -19,34 +19,55 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <!--            <class name="com.westminster.testcases.admin.TC_FileManager"/>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
-            <!--                <methods>-->
-            <!--                    <exclude name="createClient"/>-->
-            <!--                    <exclude name="editClient"/>-->
-            <!--                    <exclude name="createUser"/>-->
-            <!--                    <exclude name="editUser"/>-->
-            <!--                    <exclude name="createRole"/>-->
-            <!--                    <exclude name="editRole"/>-->
-            <!--                </methods>-->
-            <!--            </class>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_DataManager"/>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
-            <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-            <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
+            <class name="com.westminster.testcases.admin.TC_FileManager">
+                <methods>
+                    <include name="editInvalidDateFormatToValid"/>
+                    <include name="verifyErrorRowsOnAmendClick"/>
+                    <include name="verifyFileUploadIsCancelled"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.admin.TC_DataManager">
+                <methods>
+                    <include name="checkDuplicateFileDetectionForMultipleUniqueIdentifiers"/>
+                    <include name="verifyDuplicateFileDetectionWithoutUniqueTradeIdentifier"/>
+                    <include name="testValidateRestrictionsOnCalculatedColumnProperties"/>
+                    <include name="removeRuleOnCalculatedColumnDeletion"/>
+                    <include name="verifyClearedDataInDataManager"/>
+                    <include name="verifyDeleteIconsInChangeLog"/>
+                    <include name="verifyBulkDeleteRowsFunctionality"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.admin.TC_RulesManager">
+                <methods>
+                    <include name="enableExistingRule"/>
+                    <include name="disableExistingRule"/>
+
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.admin.TC_ListManager">
+                <methods>
+                    <include name="verifyNoDuplicateListTitle"/>
+                </methods>
+            </class>
             <class name="com.westminster.testcases.budgeting.TC_Budgeting">
                 <methods>
+                    <include name="verifyNonPositiveTargetAmountIsRejectedForBudgetItem"/>
                     <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>
                 </methods>
             </class>
-            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
-<!--            <class name="com.westminster.testcases.admin.TC_FileManager">-->
-<!--                <methods>-->
-<!--                    <include name="editInvalidDateFormatToValid"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <class name="com.westminster.testcases.analytics.TC_Analytics">
+                <methods>
+                    <include name="verifyEditAnalysis"/>
+                    <include name="verifyNumericValuesInAnalysisStep1"/>
+                    <include name="validateComparisonRangeOptions"/>
+                    <include name="verifyPivotTableToggleOptionForFullData"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.report.TC_Reports">
+                <methods>
+                    <include name="verifyDownloadFile"/>
+                </methods>
+            </class>
         </classes>
     </test>
     <!--

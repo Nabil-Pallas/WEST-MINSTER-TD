@@ -42,6 +42,8 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> fileName2 = new ThreadLocal<>();
     public static final ThreadLocal<String> DataMap = new ThreadLocal<>();
     public static final ThreadLocal<Long> getRowCounts = new ThreadLocal<>();
+    public static ThreadLocal<String> firstName = new ThreadLocal<>();
+    public static ThreadLocal<String> lastName = new ThreadLocal<>();
     //public static final ThreadLocal<Long> InitRowCounts = new ThreadLocal<>();
     // public static final ThreadLocal<Long> FinRowCounts = new ThreadLocal<>();
 
@@ -148,7 +150,7 @@ public class WestMinsterPageHook extends ProjectHooks {
             // Load the page with URL based on configuration
             navigate(ConfigurationManager.configuration().baseStagingUrl());
             new MenuPage().doLogin(userLevel, password)
-                    .dateFormattingInPreferences();
+                    .defaultFormattingInPreferences();
 
 
         } catch (Exception e) {
@@ -158,8 +160,8 @@ public class WestMinsterPageHook extends ProjectHooks {
 
     @AfterMethod(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION, TestGroups.Type.SANITY})
     public void redirectToDashboard() {
-//        System.out.println("redirectToDashboard------------------------");
-        navigate("https://sakthivel.murugesan%40mojopsg.com:sb%5EyCCM6pieJ@gct-app.qa.cwi.studio/Dashboard");
+        getPage().navigate("https://sakthivel.murugesan%40mojopsg.com:sb%5EyCCM6pieJ@gct-app.qa.cwi.studio/Dashboard");
+        reportPass("User successfully navigated to the Dashboard page.");
         pause("medium");
         getContext().clearCookies();
 

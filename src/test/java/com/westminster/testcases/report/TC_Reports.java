@@ -16,8 +16,8 @@ public class TC_Reports extends WestMinsterPageHook {
 
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
-        testcaseName = "Login with " + xmlUserLevel;
-        testDescription = "Login with " + xmlUserLevel;
+        testcaseName = "Login as " + xmlUserLevel;
+        testDescription = "Login as " + xmlUserLevel;
         authors = "Automation Team";
         category = "Login for Report Module";
 
@@ -100,7 +100,7 @@ public class TC_Reports extends WestMinsterPageHook {
     }
 
     //Report Delivery -5674
-//    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY})
     public void reportDelivery() {
         testcaseName = "TC_5674";
         testDescription = "Report Delivery";
@@ -221,5 +221,27 @@ public class TC_Reports extends WestMinsterPageHook {
                 .validateDateAndTime();
 
         System.out.println("TC-----------TC_RE_1746");
+    }
+
+    //Phase -03 --Nabil
+    //TC_RE_132 - Reports - Download option.
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void verifyDownloadFile() {
+        testcaseName = "TC_RE_132";
+        testDescription = "Verify Download Report";
+        authors = "Automation Team";
+        category = "Report Download";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/download");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .setClient()
+                .clickOnReports()
+                .validateReportsPage()
+                .clickOnReport()
+                .clickOnDownload(filePath.get())
+                .validateDownloadedFile(filePath.get());
     }
 }

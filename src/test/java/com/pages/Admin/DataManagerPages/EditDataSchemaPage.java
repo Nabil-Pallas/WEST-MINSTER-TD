@@ -139,9 +139,9 @@ public class EditDataSchemaPage extends DataManagerPage {
 
     public EditDataSchemaPage clickOnRelevantFieldNameActionIcon(String fieldName) {
         click("//td[text()='Account Name']", "Account Name", "First Field");
-        int maxAttempts = 40;
+        int maxAttempts = 50;
         int attempts = 0;
-        while (!isVisible("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
+        while (!isVisibleWithMinimumTime("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
             pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
             attempts++;
         }

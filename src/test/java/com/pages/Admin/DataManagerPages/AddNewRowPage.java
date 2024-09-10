@@ -16,13 +16,21 @@ public class AddNewRowPage extends DataManagerPage {
 
     //Validate the Add New Row Page
     public AddNewRowPage validateAddNewRowPage() {
-        waitForElementToLoad(addNewRowText);
-        pause("low");
-        if (isVisible(addNewRowText, "AddNewRowPage")) {
-            reportPass("User reaches to the right Add New Row Page");
-        } else {
-            reportFailAndThrowException("Add New Row Page is not loaded.");
+
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                waitForElementToLoad(addNewRowText);
+                pause("low");
+                if (isVisible(addNewRowText, "AddNewRowPage")) {
+                    reportPass("User reaches to the right Add New Row Page");
+                } else {
+                    reportFailAndThrowException("Add New Row Page is not loaded.");
+                }
+                break;
         }
+
         return this;
     }
 
@@ -225,10 +233,14 @@ public class AddNewRowPage extends DataManagerPage {
 
     //Click  the Add Button
     public DataManagerPage clickOnAddBtn() {
-        click(addBtn, "Add Button");
-        pause("low");
-//        waitForLoaderToDisappear();
-//        waitForAppearance(addBtn);
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                click(addBtn, "Add Button");
+                pause("low");
+                break;
+        }
         return new DataManagerPage();
     }
 
@@ -357,16 +369,23 @@ public class AddNewRowPage extends DataManagerPage {
     }
 
     public AddNewRowPage addNewRow(String brokerName, String tradeDate, String SettlementDate, String BaseGrossCommission, String localExecutedValue) {
-        pause("low");
-        typeBrokerName(brokerName);
-        pause("low");
-        typeTradeDate(tradeDate);
-        pause("low");
-        typeBaseGrossCommission(BaseGrossCommission);
-        pause("low");
-        typeSettlementDate(SettlementDate);
-        pause("low");
-        typeLocalExecutedValue(localExecutedValue);
+        switch (xmlUserLevel) {
+            case "Tier3EndUser":
+                break;
+            default:
+                pause("low");
+                typeBrokerName(brokerName);
+                pause("low");
+                typeTradeDate(tradeDate);
+                pause("low");
+                typeBaseGrossCommission(BaseGrossCommission);
+                pause("low");
+                typeSettlementDate(SettlementDate);
+                pause("low");
+                typeLocalExecutedValue(localExecutedValue);
+                break;
+        }
+
 
         return this;
     }

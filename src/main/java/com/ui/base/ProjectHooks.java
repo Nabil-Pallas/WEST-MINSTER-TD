@@ -57,7 +57,7 @@ public class ProjectHooks extends PlaywrightWrapper {
     public void initSuite() {
         videoFolderName = createFolder("videos");
         tracesFolderName = createFolder("traces");
-        startReport(xmlUserLevel);
+        startReport();
         xmlUserLevel = groupNames.get(count);
         count++;
     }

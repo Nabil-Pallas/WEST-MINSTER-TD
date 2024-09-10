@@ -111,9 +111,9 @@ public class PlaywrightWrapper extends Reporter {
             waitForAppearance(locator, elementName);
             bVisible = getPage().isVisible(locator);
             if (bVisible == true) {
-                reportStep("The WebElement : " + elementName + " is visible ", "info");
+                reportStep("The WebElement '" + elementName + "' is visible.", "info");
             } else {
-                reportStep("The WebElement : " + elementName + " is not visible ", "warning");
+                reportStep("The WebElement '" + elementName + "' is not visible.", "warning");
             }
 
         } catch (PlaywrightException e) {

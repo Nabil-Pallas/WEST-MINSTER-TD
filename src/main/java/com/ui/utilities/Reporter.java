@@ -97,11 +97,12 @@ public abstract class Reporter extends DriverFactory {
 
             if (status.equalsIgnoreCase("pass")) {
                 test.get().pass(MarkupHelper.createLabel(styledDesc, ExtentColor.GREEN));
+//                test.get().pass(styledDesc, MediaEntityBuilder.createScreenCaptureFromBase64String(takeSnap()).build());
             } else if (status.equalsIgnoreCase("fail")) {
                 test.get().fail(MarkupHelper.createLabel(styledDesc, ExtentColor.RED));
                 test.get().fail(styledDesc, MediaEntityBuilder.createScreenCaptureFromBase64String(takeSnap()).build());
             } else if (status.equalsIgnoreCase("warning")) {
-                test.get().warning(MarkupHelper.createLabel(styledDesc, ExtentColor.YELLOW));
+                test.get().warning(MarkupHelper.createLabel(styledDesc, ExtentColor.ORANGE));
                 test.get().warning(styledDesc, MediaEntityBuilder.createScreenCaptureFromBase64String(takeSnap()).build());
             } else if (status.equalsIgnoreCase("skipped")) {
                 test.get().skip("The test is skipped due to dependency failure");

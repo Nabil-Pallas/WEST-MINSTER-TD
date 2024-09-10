@@ -118,7 +118,9 @@ public class TC_RulesManager extends WestMinsterPageHook {
         startTestCase();
         setNode();
 
+
         ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
+        reportName.set(FakerDataFactory.getFieldName());
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -126,9 +128,28 @@ public class TC_RulesManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnRulesManager()
                 .validateRulesManagerPage()
-                .enableAndDisableRule("Enable");
+                .clickOnAddNewRuleBtn()
+                .validateAddRulePage()
+                .createANewRule(ruleName.get(), FakerDataFactory.getRuleDescription())
+                .defineTheNewColumn(true, reportName.get(), "")
+                .addFilters("Broker Name", "=")
+                .defineTheCalculation("Base Gross Commission", "+", "Base Gross Commission")
+                .validateNewRuleNameIsEnabled(ruleName.get(), true)
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters()
+                .verifyHeaderElementIsPresentOrNot(reportName.get())
+                .validateAddedColumnHasValues(reportName.get(), true)
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnRelevantFieldNameActionIcon(reportName.get())
+                .clickOnDeleteBtn()
+                .clickOnExit()
+                .validateDataManagerPage();
 
         System.out.println("TC-----------TC_RE_51");
+
+
     }
 
     //Phase - 3 --> Manoj
@@ -143,6 +164,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
         setNode();
 
         ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
+        reportName.set(FakerDataFactory.getFieldName());
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -150,7 +172,24 @@ public class TC_RulesManager extends WestMinsterPageHook {
                 .setClient()
                 .clickOnRulesManager()
                 .validateRulesManagerPage()
-                .enableAndDisableRule("Disable");
+                .clickOnAddNewRuleBtn()
+                .validateAddRulePage()
+                .createANewRule(ruleName.get(), FakerDataFactory.getRuleDescription())
+                .defineTheNewColumn(true, reportName.get(), "")
+                .addFilters("Broker Name", "=")
+                .defineTheCalculation("Base Gross Commission", "+", "Base Gross Commission")
+                .validateNewRuleNameIsEnabled(ruleName.get(), false)
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters()
+                .verifyHeaderElementIsPresentOrNot(reportName.get())
+                .validateAddedColumnHasValues(reportName.get(), false)
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                .clickOnRelevantFieldNameActionIcon(reportName.get())
+                .clickOnDeleteBtn()
+                .clickOnExit()
+                .validateDataManagerPage();
 
         System.out.println("TC-----------TC_RE_49");
     }

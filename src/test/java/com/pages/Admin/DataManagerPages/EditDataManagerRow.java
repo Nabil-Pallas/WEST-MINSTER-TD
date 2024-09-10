@@ -41,9 +41,9 @@ public class EditDataManagerRow extends DataManagerPage {
                 continue;
             }
             try {
-                type(frameClientDetailsLocator(header), value, value);
+                type(frameClientDetailsLocator(header), value, header);
             } catch (Exception e) {
-                type(frameClientDetailsLocator(header, 2), value, value);
+                type(frameClientDetailsLocator(header, 2), value, header);
             }
         }
 
@@ -375,7 +375,7 @@ public class EditDataManagerRow extends DataManagerPage {
         // Loop through and delete all rows one by one
         while (rowCount > 0) {
             // Always target the first row (which is index 1) since the table updates after each deletion
-            clickUsingJs(rowLocator + "[1]//td[4]//a[@href='#']", "Delete Icon", "Delete Action");
+            clickUsingJs(rowLocator + "[1]//td[4]//a[@href='#']", "Delete Icon", "X Button");
 
             // Click "Yes" on the confirmation popup
             click(frameSpanExactTextLocator("Yes"), "Yes");

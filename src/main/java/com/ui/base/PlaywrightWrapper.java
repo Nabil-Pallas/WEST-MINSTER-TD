@@ -53,7 +53,7 @@ public class PlaywrightWrapper extends Reporter {
     int retry = 0;
     String attachment = "";
 
-    public static String suggestedFilename="";
+    public static String suggestedFilename = "";
 
 
     /**
@@ -111,9 +111,9 @@ public class PlaywrightWrapper extends Reporter {
             waitForAppearance(locator, elementName);
             bVisible = getPage().isVisible(locator);
             if (bVisible == true) {
-                reportStep("The WebElement : " + elementName + " is visible ", "info");
+                reportStep("The WebElement '" + elementName + "' is visible.", "info");
             } else {
-                reportStep("The WebElement : " + elementName + " is not visible ", "warning");
+                reportStep("The WebElement '" + elementName + "' is not visible.", "warning");
             }
 
         } catch (PlaywrightException e) {
@@ -214,7 +214,7 @@ public class PlaywrightWrapper extends Reporter {
         try {
             getPage().locator(locator).fill("");
             getPage().locator(locator).type(value);
-            reportStep("The text box : " + name + " is typed with value : " + value, "info");
+            reportStep("The text box '" + name + "' was typed with the value : '" + value + "'.", "info");
             return true;
         } catch (PlaywrightException e) {
             e.printStackTrace();
@@ -237,7 +237,7 @@ public class PlaywrightWrapper extends Reporter {
         try {
             getPage().locator(locator).fill("");
             getPage().locator(locator).fill(value);
-            reportStep("The text box : " + name + " is typed with value : " + value, "info");
+            reportStep("The text box '" + name + "' was typed with the value: '" + value + "'.", "info");
             return true;
         } catch (PlaywrightException e) {
             e.printStackTrace();
@@ -407,7 +407,7 @@ public class PlaywrightWrapper extends Reporter {
             getPage().locator(locator).waitFor();
             getPage().locator(locator).scrollIntoViewIfNeeded();
             getPage().locator(locator).click();
-            reportStep("The Button name : " + name + " is clicked", "info");
+            reportStep("The button with name '" + name + "' has been clicked.", "info");
             return true;
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");
@@ -526,7 +526,8 @@ public class PlaywrightWrapper extends Reporter {
             getPage().locator(locator).click(new Locator.ClickOptions().setForce(true));
 
             // Report success
-            reportStep("The " + type + " : " + name + " is clicked", "info");
+            reportStep("The " + type + " with name '" + name + "' was clicked.", "info");
+
             return true;
         } catch (PlaywrightException e) {
             // Handle other Playwright-related exceptions
@@ -556,7 +557,7 @@ public class PlaywrightWrapper extends Reporter {
                 try {
                     getPage().locator(locator).click(new Locator.ClickOptions()
                             .setForce(true));
-                    reportStep("The " + type + " : " + name + " is clicked", "info");
+                    reportStep("The " + type + " '" + name + "' was clicked.", "info");
                     return true;
                 } catch (PlaywrightException e) {
                     attempts++;
@@ -629,7 +630,7 @@ public class PlaywrightWrapper extends Reporter {
             suggestedFilename = download.suggestedFilename();
 
             // Save the downloaded file
-            String filePath = savePath+"/"+suggestedFilename;
+            String filePath = savePath + "/" + suggestedFilename;
             download.saveAs(Paths.get(filePath));
             reportStep("File saved as " + filePath, "info");
             return true;
@@ -693,7 +694,7 @@ public class PlaywrightWrapper extends Reporter {
                     "}");
 
             // Report the successful click action
-            reportStep("The " + type + " :" + name + " is clicked", "info");
+            reportStep("The " + type + " '" + name + "' was clicked.", "info");
             return true;
 
         } catch (PlaywrightException e) {
@@ -1403,9 +1404,11 @@ public class PlaywrightWrapper extends Reporter {
     public boolean verifyExactText(String locator, String expectedText) {
         try {
             if (getPage().locator(locator).innerText().equals(expectedText)) {
-                reportStep("The element with text : " + expectedText + " displayed as expected", "pass");
+                reportStep("Verification successful: The element with text '" + expectedText + "' is displayed as expected.", "pass");
                 return true;
-            } else reportStep("The element with text : " + expectedText + " did not match", "warning");
+            } else
+                reportStep("The element text was expected to be '" + expectedText + "', but it did not match.", "warning");
+
 
         } catch (PlaywrightException e) {
             reportStep("PlaywrightException : \n" + e.getMessage(), "fail");

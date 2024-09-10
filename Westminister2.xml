@@ -41,7 +41,6 @@
                 <methods>
                     <include name="enableExistingRule"/>
                     <include name="disableExistingRule"/>
-
                 </methods>
             </class>
             <class name="com.westminster.testcases.admin.TC_ListManager">

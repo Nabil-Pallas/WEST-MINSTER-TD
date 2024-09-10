@@ -638,7 +638,6 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     //Phase -3 - Praveen
-    //Phase -3 - Praveen
     //TC_RE_5161 Verify the duplicate file detection functionality when no unique trade identifier is selected
     @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
     public void verifyDuplicateFileDetectionWithoutUniqueTradeIdentifier() {

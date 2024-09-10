@@ -55,6 +55,10 @@ public class MenuPage extends WestMinsterPageHook {
     public static String currentTimeBeforeFileUpload;
     public static String currentTimeAfterFileUpload;
 
+    //default FirstName and LastName of the user
+//    public static String firstName="";
+//    public static String lastName="";
+
     // To store Local Timezone options in this list
     public static List<String> texts = new ArrayList<>();
 
@@ -141,6 +145,24 @@ public class MenuPage extends WestMinsterPageHook {
         return this;
     }
 
+    public MenuPage clickProfileBtn() {
+        click("//span[text()='Profile']", "click on Profile");
+        return this;
+    }
+
+    public MenuPage clickEditProfileBtn() {
+        click("//span[text()='Edit Profile']", "click on Edit Profile");
+        return this;
+    }
+
+    public MenuPage clickProfileSaveBtn() {
+        click("//div[@id='profile-view']//span[text()='Save']", "click on Save Button", "Save Button");
+        boolean message = isVisible("//span[text()='Success']");
+        Assert.assertTrue(message);
+        pause("low");
+        return this;
+    }
+
     public MenuPage clickEditPreferencesBtn() {
         click("//span[text()='Edit Preferences']", "click on Edit Preferences");
         return this;
@@ -184,35 +206,70 @@ public class MenuPage extends WestMinsterPageHook {
         return new DashboardPage();
     }
 
+    public DashboardPage editProfileInfo(String firstName, String lastName){
+        mouseHoverOnProfile()
+                .clickAccountSettingsBtn()
+                .waitForLoaderToDisappear();
+        clickProfileBtn()
+                .clickEditProfileBtn()
+                .editFirstAndLastName(firstName,lastName)
+                .clickProfileSaveBtn();
+        return new DashboardPage();
+    }
+
+    public DashboardPage editFirstAndLastName(String fName, String lName){
+        waitForLoaderToDisappear();
+        firstName.set(getInputText("//input[contains(@id,'FIRST_NAME')]"));
+        lastName.set(getInputText("//input[contains(@id,'LAST_NAME')]"));
+        typeAndEnter("//input[contains(@id,'FIRST_NAME')]",fName,"First Name");
+        typeAndEnter("//input[contains(@id,'LAST_NAME')]",lName,"Last Name");
+        reportPass("Successfully entered First Name: "+fName+" || Last Name: "+lName);
+        pause("low");
+        return new DashboardPage();
+    }
+
     public MenuPage clickAndselectDefaultDateFormat() {
         pause("low");
 //        preferenceDateFormat = "MM/DD/YYYY";
-//        String innerText = getInputText("//input[contains(@id,'DATE_FORMAT')]");
-        clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
-        preferenceDateFormat = "MM/DD/YYYY";
-//        if (innerText.equals("MM/DD/YYYY")) {
+        String innerText = getInputText("//input[contains(@id,'DATE_FORMAT')]");
+//        clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
+//        preferenceDateFormat = "MM/DD/YYYY";
+        if (innerText.equals("MM/DD/YYYY")) {
+            preferenceDateFormat = "MM/DD/YYYY";
 //            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
-//        } else {
-//            clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
-////            clickPreferenceSaveBtn();
-//        }
+
+        } else {
+            clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
+            preferenceDateFormat = "MM/DD/YYYY";
+//            clickPreferenceSaveBtn();
+        }
         return this;
     }
 
     public MenuPage clickAndselectDefaultDecimalPrecision() {
-        pause("low");
-        clickAndChoose("//input[contains(@id,'DECIMAL_PRECISION')]", "//div[text()='1 decimal']", "1 decimal", "Decimal Precision");
-        decimalPrecision = "1 decimal";
+        String innerText = getInputText("//input[contains(@id,'DECIMAL_PRECISION')]");
+        if (innerText.equals("1 decimal")) {
+            decimalPrecision = "1 decimal";
+//            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
+        } else {
+            clickAndChoose("//input[contains(@id,'DECIMAL_PRECISION')]", "//div[text()='1 decimal']", "1 decimal", "Decimal Precision");
+            decimalPrecision = "1 decimal";
+            //            clickPreferenceSaveBtn();
+        }
 
-//        clickPreferenceSaveBtn();
         return this;
     }
 
     public MenuPage clickAndselectDefaultNumberFormat() {
-        pause("low");
-        clickAndChoose("//input[contains(@id,'NUMBER_FORMAT')]", "//div[text()='#,##0.00']", "#,##0.00", "Number Format");
-        preferenceNumberFormat = "#,##0.00";
-//        clickPreferenceSaveBtn();
+        String innerText = getInputText("//input[contains(@id,'NUMBER_FORMAT')]");
+        if (innerText.equals("#,##0.00")) {
+            preferenceNumberFormat = "#,##0.00";
+//            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
+        } else {
+            clickAndChoose("//input[contains(@id,'NUMBER_FORMAT')]", "//div[text()='#,##0.00']", "#,##0.00", "Number Format");
+            preferenceNumberFormat = "#,##0.00";
+//            clickPreferenceSaveBtn();
+        }
         return this;
     }
 

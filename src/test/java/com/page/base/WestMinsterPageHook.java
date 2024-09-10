@@ -44,6 +44,8 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> fileName2 = new ThreadLocal<>();
     public static final ThreadLocal<String> DataMap = new ThreadLocal<>();
     public static final ThreadLocal<Long> getRowCounts = new ThreadLocal<>();
+    public static ThreadLocal<String> firstName = new ThreadLocal<>();
+    public static ThreadLocal<String> lastName = new ThreadLocal<>();
     //public static final ThreadLocal<Long> InitRowCounts = new ThreadLocal<>();
     // public static final ThreadLocal<Long> FinRowCounts = new ThreadLocal<>();
 

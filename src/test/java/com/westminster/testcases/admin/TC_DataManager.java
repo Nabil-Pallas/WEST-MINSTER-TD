@@ -25,8 +25,8 @@ import com.ui.utilities.TestGroups;
 public class TC_DataManager extends WestMinsterPageHook {
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
-        testcaseName = "Login with " + xmlUserLevel;
-        testDescription = "Login with " + xmlUserLevel;
+        testcaseName = "Login as " + xmlUserLevel;
+        testDescription = "Login as " + xmlUserLevel;
         authors = "Automation Team";
         category = "Login for Data Manager Module";
     }
@@ -576,14 +576,16 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters()
+                .getTotalRowCount("Initial")
+                .clickOnSelectRow(8)
+                .clickOnBulkDeleteBtn()
                 .clickOnDataManager()
                 .validateDataManagerPage()
-                .getTotalRowCount("Initial")
-                .clickOnSelectRow()
-                .clickOnBulkDeleteBtn()
+                .clickOnClearAllFilters()
                 .getTotalRowCount("Final")
-                .getTotalRowCount()
-                .validateRowCountAfterBulkDelete();
+                .validateRowCountAfterBulkDelete(8);
 
         System.out.println("TC-----------TC_RE_1686");
     }
@@ -760,6 +762,48 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnExit();
         System.out.println("TC-----------TC_RE_5162");
     }
+
+    //Phase -3 - Nabil
+    //TC_RE_5169
+    @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void verifyClearedDataInDataManager() {
+        testcaseName = "TC_RE_5169";
+        testDescription = "Verify that clearing existing data in Data Manager";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
+
+        clientCompanyName.set(FakerDataFactory.getBrokerNameWithTimeStamp());
+        getTradeDate.set(FakerDataFactory.getPastDate());
+        getSettlementDate.set(FakerDataFactory.getFutureDate());
+        number.set(FakerDataFactory.get4DigitNumber());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters()
+                .clickOnAddNewRowBtn()
+                .validateAddNewRowPage()
+                .addNewRow(clientCompanyName.get(), getTradeDate.get(), getSettlementDate.get(), number.get(), "7890")
+                .clickOnAddBtn()
+                .clickOnApplyBtn()
+                .clickOnDataManager()
+                .clickOnFieldFilterAndSelectValue(clientCompanyName.get(), "Broker Name", "Base Gross Commission")
+                .clickOnSelectAll()
+                .clickOnActionsBtn()
+                .clickOnEditBtn()
+                .validateEditRowPage()
+                .removeRowInformation("")
+                .clickOnApplyBtn()
+                .validateColumnValue("Base Gross Commission");
+
+    }
+
+
 
 
     //Phase -3 - Praveen

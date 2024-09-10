@@ -1,5 +1,7 @@
 package com.pages.Admin.RulesManagerPages;
 
+import com.beust.ah.A;
+import com.config.ConfigurationManager;
 import com.data.dynamic.FakerDataFactory;
 import com.microsoft.playwright.Locator;
 import com.page.base.DashboardPage;
@@ -14,6 +16,7 @@ public class RulesManagerPage extends AdminPage {
     private String rulesManagerText = "//h1[text()='Rules Manager']";
     private String firstRuleNameText = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()])[1]";
     private String actionRuleLocator = "(//td[@class='action-edit-delete-column']/a)[1]";
+    private String enableCheckBoxLocator = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[2])[position() < last()]//div)[1]//span[@class='dx-checkbox-icon']";
 
 
     public RulesManagerPage validateRulesManagerPage() {
@@ -70,7 +73,7 @@ public class RulesManagerPage extends AdminPage {
     //Get first rule name text
     public AddNewRulePage getFirstRuleNametext() {
         pause("medium");
-        if (isVisible(firstRuleNameText)) {
+        if (isVisibleWithMinimumTime(firstRuleNameText)) {
             String innerText = getInnerText(firstRuleNameText);
             System.out.println("firstRuleNameText :" + innerText);
             getFirstRuleNametext.set(innerText);
@@ -86,14 +89,16 @@ public class RulesManagerPage extends AdminPage {
         }
         return new AddNewRulePage();
     }
-    //Rule Name:
 
+    //Rule Name
     public RulesManagerPage validateNewRuleNameIsEnabled(String ruleName) {
         waitForLoaderToDisappear();
         pause("medium");
         waitForLoaderToDisappear();
         pause("low");
+
         int ruleNameCount = getLocatorsCount("(((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()]");
+        boolean ruleFound = false; // Flag to track if rule is found
 
         for (int i = 1; i <= ruleNameCount; i++) {
             String ruleNameInnerText = getInnerText("((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()])[" + i + "]");
@@ -105,15 +110,74 @@ public class RulesManagerPage extends AdminPage {
                 click(frameSpanTextLocator("Enable"), "Enable", "Action Item");
                 waitForLoaderToDisappear();
                 pause("low");
-                boolean isRuleEnable = isEnabled(enableCheckBox, "Enable Check Box");
-                Assert.assertTrue(isRuleEnable, "Rule is Enabled");
-                reportPass("User successfully validated the new rule and Rule is Enabled as Expected.");
+
+                boolean isRuleEnabled = isEnabled(enableCheckBox, "Enable Check Box");
+                Assert.assertTrue(isRuleEnabled, "Rule is Enabled");
+                reportPass("User successfully validated the new rule " + ruleName + "  and Rule is Enabled as Expected.");
+
+                ruleFound = true; // Mark that rule is found
                 break;
             }
         }
 
+        // If no rule matched, report fail after the loop completes
+        if (!ruleFound) {
+            reportFail("The " + ruleName + " rule was not created in the Rule Manager.");
+        }
+
         return this;
     }
+
+
+    //Rule Name
+    public RulesManagerPage validateNewRuleNameIsEnabled(String ruleName, boolean isEnabled) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        waitForLoaderToDisappear();
+        pause("low");
+
+        int ruleNameCount = getLocatorsCount("(((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()]");
+        boolean ruleFound = false; // Flag to track if rule is found
+
+        for (int i = 1; i <= ruleNameCount; i++) {
+            String ruleNameInnerText = getInnerText("((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()])[" + i + "]");
+            String enableCheckBox = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[2])[position() < last()])[" + i + "]";
+            String actionLocatorStr = "(//td[@class='action-edit-delete-column']/a)[" + i + "]";
+
+            if (ruleNameInnerText.equals(ruleName)) {
+                // Use switch case to decide whether to enable the rule
+                switch (isEnabled ? "enable" : "disable") {
+                    case "enable":
+                        click(actionLocatorStr, "Action", "Action Icon");
+                        click(frameSpanTextLocator("Enable"), "Enable", "Action Item");
+                        waitForLoaderToDisappear();
+                        pause("low");
+
+                        boolean isRuleEnabled = isEnabled(enableCheckBox, "Enable Check Box");
+                        Assert.assertTrue(isRuleEnabled, "Rule is Enabled");
+                        reportPass("User successfully validated the new rule " + ruleName + " and Rule is Enabled as Expected.");
+                        break;
+
+                    case "disable":
+                        // Logic for disable (can be added here if needed in future)
+                        reportPass("Rule " + ruleName + " is created Successfully as expected.");
+                        break;
+                }
+
+                ruleFound = true; // Mark that rule is found
+                break;
+            }
+        }
+
+        // If no rule matched, report fail after the loop completes
+        if (!ruleFound) {
+            reportFail("The " + ruleName + " rule was not created in the Rule Manager.");
+        }
+
+        return this;
+    }
+
+
 
     //Validate the edit changes
     public RulesManagerPage validateEditRuleChanges(String ruleName, String description) {
@@ -177,10 +241,9 @@ public class RulesManagerPage extends AdminPage {
 
         for (int i = 1; i <= ruleNameCount; i++) {
             String ruleNameInnerText = getInnerText("((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[6])[position() < last()])[" + i + "]");
-            String enableCheckBox = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[2])[position() < last()])[" + i + "]";
             String actionLocatorStr = "(//td[@class='action-edit-delete-column']/a)[" + i + "]";
 
-            if (ruleNameInnerText.equals(ruleName)) {
+            if (ruleNameInnerText.contains(ruleName)) {
                 click(actionLocatorStr, "Action", "Action Icon");
                 click(frameSpanTextLocator("Delete"), "Delete", "Delete Item");
                 pause("low");
@@ -232,5 +295,66 @@ public class RulesManagerPage extends AdminPage {
             reportWarning("User is unable to edit the rule because there are no rule items.");
         }
         return new EditRulePage();
+    }
+
+    //Enable And Disable Rule
+    public RulesManagerPage enableAndDisableRule(String isEnable) {
+        waitForLoaderToDisappear();
+        pause("medium");
+        waitForLoaderToDisappear();
+        pause("low");
+
+        String enabledLocator = "((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[2])[position() < last()]//div)[1]";
+        getFirstRuleNametext();
+        String getOutputColumnFirstGridText = getInnerText("((((//tbody[@role='presentation'])[3]//tr//td[9])/preceding-sibling::td[1])[position() < last()]//div)[1]");
+
+        //Check if the rule is Enable or Not
+        String checkRuleIsEnabledOrNot = getAttribute(enabledLocator, "aria-checked");
+        System.out.println("Check Rule Is Enabled Or Not : ---->" + checkRuleIsEnabledOrNot);
+
+        switch (isEnable) {
+            case "Enable":
+                if (checkRuleIsEnabledOrNot.equals("true")) {
+                    System.out.println("If---Enable");
+                    clickUsingJs(enableCheckBoxLocator, "Enable Check box", "Check Box");
+                    waitForLoaderToDisappear();
+                }
+                pause("low");
+                clickUsingJs(enableCheckBoxLocator, "Enable Check box", "Check Box");
+                waitForLoaderToDisappear();
+
+                String checkRuleIsEnabled = getAttribute(enabledLocator, "aria-checked");
+                System.out.println("Check Rule Is Enabled : ---->" + checkRuleIsEnabled);
+
+                boolean isRuleEnabled = Boolean.parseBoolean(checkRuleIsEnabled);
+                System.out.println("Check Rule Is Enabled : ---->Boolean >>>>" + isRuleEnabled);
+
+                Assert.assertTrue(isRuleEnabled);
+                reportPass("User Successfully enabled the Existing rule");
+                break;
+            case "Disable":
+                if (checkRuleIsEnabledOrNot.equals("false")) {
+                    System.out.println("If---Disable");
+                    clickUsingJs(enableCheckBoxLocator, "Enable Check box", "Check Box");
+                    waitForLoaderToDisappear();
+                }
+                pause("low");
+                clickUsingJs(enableCheckBoxLocator, "Enable Check box", "Check Box");
+                waitForLoaderToDisappear();
+
+                String checkRuleIsDisabled = getAttribute(enabledLocator, "aria-checked");
+                System.out.println("Check Rule Is Disabled : ---->" + checkRuleIsDisabled);
+
+                boolean isRuleDisabled = Boolean.parseBoolean(checkRuleIsDisabled);
+                System.out.println("Check Rule Is Enabled : ---->Boolean >>>>" + isRuleDisabled);
+
+                Assert.assertFalse(isRuleDisabled);
+                reportPass("User Successfully disabled the Existing rule");
+                break;
+            default:
+                break;
+        }
+
+        return this;
     }
 }

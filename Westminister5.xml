@@ -19,12 +19,23 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-            <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
             <class name="com.westminster.testcases.budgeting.TC_Budgeting">
                 <methods>
+                    <include name="verifyNonPositiveTargetAmountIsRejectedForBudgetItem"/>
                     <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.analytics.TC_Analytics">
+                <methods>
+                    <include name="verifyEditAnalysis"/>
+                    <include name="verifyNumericValuesInAnalysisStep1"/>
+                    <include name="validateComparisonRangeOptions"/>
+                    <include name="verifyPivotTableToggleOptionForFullData"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.report.TC_Reports">
+                <methods>
+                    <include name="verifyDownloadFile"/>
                 </methods>
             </class>
         </classes>

@@ -1,5 +1,6 @@
 package com.page.base;
 
+import com.config.ConfigurationManager;
 import com.pages.Admin.AdminPage;
 import com.pages.Analytics.AnalyticsPage;
 import com.pages.Analytics.NewAnalysisPage;
@@ -125,7 +126,7 @@ public class DashboardPage extends MenuPage {
     public DashboardPage checkAnalysisIsInDashboardOrNot(String analysisName) {
 
         pause("low");
-        if (isVisible(frameh2TextLocator(analysisName), "Analysis")) {
+        if (isVisibleWithMinimumTime(frameh2TextLocator(analysisName))) {
             reportPass("The analysis " + analysisName + " is present in the dashboard.");
         } else {
             reportPass("The analysis " + analysisName + " is not present in the dashboard.");
@@ -164,6 +165,49 @@ public class DashboardPage extends MenuPage {
     public DashboardPage clickOnRemoveFromDashboard() {
         pause("low");
         click(frameSpanTextLocator("Remove from Dashboard"), "Remove from Dashboard Link");
+        return this;
+    }
+
+    //select client
+    public DashboardPage setClient() {
+        switch (xmlUserLevel) {
+            case "Tier2Admin":
+                break;
+            case "Tier2User":
+                break;
+            case "Tier3EndUser":
+                break;
+            case "Tier1User":
+                try {
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1User() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1User());
+                    pause("low");
+                    reportPass("User successfully selected the Client.");
+                } catch (Exception e) {
+                    reportWarning("Client is not selected as it is set as default");
+                }
+                break;
+            default:
+                try {
+                    clickAndChoose(clientSelectDrpDown, "//div[contains(text(),'" + ConfigurationManager.configuration().appClientNameTier1Admin() + "')]", "Client Name", ConfigurationManager.configuration().appClientNameTier1Admin());
+                    pause("low");
+                    reportPass("User successfully selected the Client.");
+                } catch (Exception e) {
+                    reportWarning("Client is not selected as it is set as default");
+                }
+                break;
+        }
+        return this;
+    }
+    public DashboardPage validateEditedUserName(String firstName, String lastName){
+        String innertext = getInnerText("//p[@class='header__profile__info__name']");
+        String verification = firstName+" "+lastName;
+        if(innertext.equals(verification)){
+            reportPass("Successfully validated the edited name");
+        }else {
+            reportFail("Failed to validate");
+        }
+
+
         return this;
     }
 

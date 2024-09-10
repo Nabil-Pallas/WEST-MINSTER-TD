@@ -230,4 +230,25 @@ public class TC_AccountSettings extends WestMinsterPageHook {
                 .validateLocalTimezonevalue();
     }
 
+    //Phase -03 --Nabil
+    //TC_RE_404
+    @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void editUserProfileInformation() {
+        testcaseName = "TC_RE_404";
+        testDescription = "My Account Settings Profile screen - User will go in, update the necessary fields and decided to SAVE.";
+        authors = "Automation Team";
+        category = "Account Settings";
+        startTestCase();
+        setNode();
+
+        String fname = FakerDataFactory.getFirstName();
+        String lname = FakerDataFactory.getLastName();
+        new DashboardPage()
+                .validateDashBoardElements()
+                .editProfileInfo(fname,lname)
+                .clickOnHomePage()
+                .validateEditedUserName(fname,lname)
+                .editProfileInfo(firstName.get(),lastName.get());
+
+    }
 }

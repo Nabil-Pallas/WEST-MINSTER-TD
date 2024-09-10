@@ -54,6 +54,8 @@ public class DataManagerPage extends AdminPage {
     //variable for upload date in data manager
     public static String timeInDataManager;
 
+    public static String columnvalue="";
+
     //list of data Manager grid column
     private static List<String> DatamanagerColumn = new ArrayList<>();
 
@@ -530,7 +532,7 @@ public class DataManagerPage extends AdminPage {
                 }
                 break;
         }
-
+        System.out.println("value: "+valuee);
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
         for (int i = 1; i < headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
@@ -801,6 +803,227 @@ public class DataManagerPage extends AdminPage {
         click(frameSpanExactTextLocator("Restore All Columns"), "Restore all columns button");
         reportPass("Columns restored back to Data Manager Grid");
 
+        pause("low");
+        return this;
+    }
+
+
+//    // Validate the Added Column Values
+//    public DataManagerPage validateAddedColumnHasValues(String verificationHeader, boolean expectValue) {
+//        pause("medium");
+//
+//        // Locate the header count
+//        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+//
+//        boolean valuesFound = false;
+//
+//        // Loop through headers to find the correct column
+//        for (int i = 1; i <= headerCount; i++) {
+//            String headerLocator = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+//            String headerText = getInnerText(headerLocator).trim();
+//
+//            if (headerText.contains(verificationHeader)) {
+//                // Click the search box for filtering the column (if applicable)
+//                click(searchValueWithHeader(i), "Search Filter", "Search Box");
+//                pause("medium");
+//
+//                // Determine the locator based on expectValue (true or false)
+//                String valueLocator;
+//                if (expectValue) {
+//                    // If we expect values, use the locator for the specific column
+//                    valueLocator = "((//table)[3]//tr//td[" + (i + 2) + "])[" + i + "]//span";
+//                } else {
+//                    // If we do not expect values, use the locator for the 4th column
+//                    valueLocator = "((//table)[3]//tr//td[" + (i + 2) + "])";
+//                }
+//
+//                // Locate the cells in the specific column once
+//                List<String> columnValues = getAllInnerText(valueLocator);
+//                int rowCount = columnValues.size();
+//
+//                System.out.println("Total row count: " + rowCount);
+//
+//                // Check values in batches for faster execution
+//                for (int j = 0; j < rowCount; j++) {
+//                    String actualValue = columnValues.get(j).trim();
+//
+//                    // If we find any non-empty value, log it and exit early
+//                    if (!actualValue.isEmpty()) {
+//                        System.out.println("Value in row " + (j + 1) + ": " + actualValue);
+//                        valuesFound = true;
+//                        break; // Exit loop early if a value is found
+//                    }
+//                }
+//
+//                // Validate based on the expectation (presence or absence of values)
+//                if (expectValue) {
+//                    Assert.assertTrue(valuesFound, "Expected values to be present in the column '" + verificationHeader + "', but no values were found.");
+//                    reportPass("Values are present as expected in the column '" + verificationHeader + "'.");
+//                } else {
+//                    Assert.assertFalse(valuesFound, "Expected no values in the column '" + verificationHeader + "', but some values were found.");
+//                    reportPass("No values found in the column '" + verificationHeader + "' as expected.");
+//                }
+//
+//                break; // Exit loop once the header is matched and values are processed
+//            }
+//        }
+//
+//        return new DataManagerPage();
+//    }
+
+    // Validate the Added Column Values
+    public DataManagerPage validateAddedColumnHasValues(String verificationHeader, boolean expectValue) {
+        pause("medium");
+
+        // Locate the header count
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+
+        boolean valuesFound = false;
+
+        // Loop through headers to find the correct column
+        for (int i = 1; i <= headerCount; i++) {
+            String headerLocator = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerLocator).trim();
+
+            if (headerText.contains(verificationHeader)) {
+                // Click the search box for filtering the column (if applicable)
+                click(searchValueWithHeader(i), "Search Filter", "Search Box");
+                pause("medium");
+
+                // Determine the locator based on expectValue
+                String valueLocator;
+                if (expectValue) {
+                    // If we expect values, use the locator for the specific column
+                    valueLocator = "((//table)[3]//tr//td[" + (i + 2) + "]//span)";
+                } else {
+                    // If we do not expect values, use the locator for the specific column without span
+                    valueLocator = "((//table)[3]//tr//td[" + (i + 2) + "])";
+                }
+
+                // Locate the cells in the specific column once
+                List<String> columnValues = getAllInnerText(valueLocator);
+                int rowCount = columnValues.size();
+
+                System.out.println("Total row count: " + rowCount);
+
+                // If we expect values to be present
+                if (expectValue) {
+                    // Check if any value in the column is non-empty
+                    for (String value : columnValues) {
+                        System.out.println("Found value: '" + value + "'");
+                        if (!value.trim().isEmpty()) {
+                            valuesFound = true;
+                            break; // Exit early if any value is found
+                        }
+                    }
+                    // Validate based on the expectation
+                    Assert.assertTrue(valuesFound, "Expected values to be present in the column '" + verificationHeader + "', but no values were found.");
+                    reportPass("Values are present as expected in the column '" + verificationHeader + "'.");
+
+                } else {
+                    // If we expect all values to be empty
+                    valuesFound = false; // Assume all are empty initially
+                    for (String value : columnValues) {
+                        System.out.println("Found value: '" + value + "'");
+                        if (!value.trim().isEmpty()) {
+                            valuesFound = true; // Set to true if a non-empty value is found
+                            break;
+                        }
+                    }
+                    // Validate based on the expectation
+                    Assert.assertFalse(valuesFound, "Expected no values in the column '" + verificationHeader + "', but some values were found.");
+                    reportPass("No values found in the column '" + verificationHeader + "' as expected.");
+                }
+
+                break; // Exit loop once the header is matched and values are processed
+            }
+        }
+
+        return new DataManagerPage();
+    }
+
+
+
+
+    public DataManagerPage clickOnFieldFilterAndSelectValue(String VerificationValues, String verificationHeader1, String verificationHeader2) {
+        pause("medium");
+        pause("medium");
+        System.out.println("printing:---->" + decimalPrecision);
+
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i < headerCount; i++) {
+            String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerElement);
+            if (headerText.equalsIgnoreCase(verificationHeader1)) {
+                pause("low");
+                click("//span[contains(@aria-label,'Show filter options for column') and contains(@aria-label,'Broker Name')]", "Field Drop Down");
+                pause("low");
+                mouseOver("//div[@aria-label='Select All']", "Broker Name filter");
+                while (!isVisibleWithMinimumTime("//div[text()='" + VerificationValues + "']")) {
+                    scrollUsingMouseWheelVertically("//div[@aria-label='Filter options']//div[@class='dx-scrollable-scroll-content']");
+                }
+                pause("low");
+                click("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");
+                pause("low");
+                click("//span[text()='OK']", "filter OK button");
+                pause("medium");
+                pause("medium");
+                for (i = 1; i < headerCount; i++) {
+                    String header2Element = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+                    String header2Text = getInnerText(header2Element);
+                    if (header2Text.equalsIgnoreCase(verificationHeader2)) {
+//                    click("//div[text()='"+verificationHeader2+"']",verificationHeader2);
+                        scrollToElement("//div[text()='" + verificationHeader2 + "']");
+                        pause("low");
+                        double num1 = Double.parseDouble(number.get());
+                        System.out.println("num1: "+num1);
+                        columnvalue = getInnerText("//td[text()='" + num1 + "']");
+                        System.out.println("columnvalue: "+columnvalue);
+                        double num2 = Double.parseDouble(columnvalue);
+                        System.out.println("num2: "+num2);
+
+                        if (num1 == num2) {
+                            reportPass("Successfully validated the added row");
+                        } else {
+                            reportFail("failed to validate the row");
+                        }
+                    }
+                }
+
+            }
+        }
+        return this;
+    }
+
+    public DataManagerPage validateColumnValue(String verificationHeader2){
+        pause("medium");
+        pause("medium");
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+        for (int i = 1; i < headerCount; i++) {
+            String header2Element = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String header2Text = getInnerText(header2Element);
+            if (header2Text.equalsIgnoreCase(verificationHeader2)) {
+//                    click("//div[text()='"+verificationHeader2+"']",verificationHeader2);
+                pause("medium");
+                scrollToElement("(//div[text()='" + verificationHeader2 + "'])[1]");
+                reportPass("Reached column: "+verificationHeader2);
+                pause("low");
+                double num1 = Double.parseDouble(number.get());
+                System.out.println("num1: "+num1);
+               columnvalue = getInnerText("(//table)[3]//td)["+(i+1)+"]");
+                if(columnvalue.isEmpty()) {
+                    reportPass("Successfully validated and column doesn't have data");
+                }else {
+                    reportFail("failed to validate");
+                }
+            }
+        }
+        return this;
+    }
+
+    public DataManagerPage removeRowInformation(String BaseGrossCommission){
+        pause("low");
+        typeWithType(frameClientDetailsLocator("Base  Gross  Commission:", 2), BaseGrossCommission, "BaseGrossCommission");
         pause("low");
         return this;
     }

@@ -53,6 +53,8 @@ public class PlaywrightWrapper extends Reporter {
     int retry = 0;
     String attachment = "";
 
+    public static String suggestedFilename="";
+
 
     /**
      * Load the URL on the browser launched
@@ -613,6 +615,32 @@ public class PlaywrightWrapper extends Reporter {
         return false;
     }
 
+    public boolean clickAndDownload(String locator, String savePath, String s) {
+        try {
+            // Set a default timeout and wait for the element to be visible
+            getPage().setDefaultTimeout(ConfigurationManager.configuration().timeout());
+            Locator element = getPage().locator(locator);
+            element.waitFor(new Locator.WaitForOptions().setTimeout(20));
+            element.scrollIntoViewIfNeeded();
+
+            // Start waiting for the download before clicking
+            Download download = getPage().waitForDownload(() -> element.click(new Locator.ClickOptions().setForce(true)));
+            reportPass("Clicked Download ");
+            suggestedFilename = download.suggestedFilename();
+
+            // Save the downloaded file
+            String filePath = savePath+"/"+suggestedFilename;
+            download.saveAs(Paths.get(filePath));
+            reportStep("File saved as " + filePath, "info");
+            return true;
+        } catch (PlaywrightException e) {
+            reportStep("PlaywrightException: \n" + e.getMessage(), "fail");
+        } catch (Exception e) {
+            reportStep("Exception: \n" + e.getMessage(), "fail");
+        }
+        return false;
+    }
+
     public boolean deleteFilesInDirectory(String directoryPath) {
         File directory = new File(directoryPath);
 
@@ -1110,6 +1138,25 @@ public class PlaywrightWrapper extends Reporter {
         }
         return "";
     }
+
+    public List<String> getAllInnerText(String locator) {
+        List<String> allTexts = new ArrayList<>();
+        try {
+            // Fetch all matching elements for the locator
+            List<Locator> elements = getPage().locator(locator).all();
+
+            // Iterate over each element and get its innerText
+            for (Locator element : elements) {
+                String text = element.innerText().trim(); // trim to remove unnecessary whitespace
+                allTexts.add(text);
+            }
+        } catch (Exception e) {
+            // Handle any exceptions
+            e.printStackTrace();
+        }
+        return allTexts;
+    }
+
 
     /**
      * Use this method to check if the element is enabled

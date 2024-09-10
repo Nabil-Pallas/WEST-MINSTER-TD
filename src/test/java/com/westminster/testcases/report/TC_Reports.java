@@ -222,4 +222,26 @@ public class TC_Reports extends WestMinsterPageHook {
 
         System.out.println("TC-----------TC_RE_1746");
     }
+
+    //Phase -03 --Nabil
+    //TC_RE_132 - Reports - Download option.
+    @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void verifyDownloadFile() {
+        testcaseName = "TC_RE_132";
+        testDescription = "Verify Download Report";
+        authors = "Automation Team";
+        category = "Report Download";
+        startTestCase();
+        setNode();
+
+        filePath.set("./src/test/resources/download");
+        new DashboardPage()
+                .validateDashBoardElements()
+                .setClient()
+                .clickOnReports()
+                .validateReportsPage()
+                .clickOnReport()
+                .clickOnDownload(filePath.get())
+                .validateDownloadedFile(filePath.get());
+    }
 }

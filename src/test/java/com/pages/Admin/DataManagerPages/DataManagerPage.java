@@ -543,7 +543,7 @@ public class DataManagerPage extends AdminPage {
                 pause("low");
                 mouseOver("//div[@aria-label='Select All']", "Broker Name filter");
                 while (!isVisibleWithMinimumTime("//div[text()='" + VerificationValues + "']")) {
-                    scrollUsingMouseWheelVertically("(//div[@class='dx-scrollable-scroll-content'])[2]");
+                    scrollUsingMouseWheelVertically("//div[@aria-label='Filter options']//div[@class='dx-scrollable-scroll-content']");
                 }
                 pause("low");
                 click("//div[text()='" + VerificationValues + "']", verificationHeader1, "Broker Name");

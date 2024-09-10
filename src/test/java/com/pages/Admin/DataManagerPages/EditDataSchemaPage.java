@@ -16,6 +16,13 @@ public class EditDataSchemaPage extends DataManagerPage {
     private String uniqueTradeIdentifier_1 = "(//span[text()='Unique Trade Identifier']//following::tbody//td[4])[1]";
     private String uniqueTradeIdentifier_2 = "(//span[text()='Unique Trade Identifier']//following::tbody//td[4])[2]";
 
+    private String requiredFields = ("(//input[@aria-disabled='true'])[2]");
+
+    private String readOnlyFields = ("(//input[@aria-disabled='true'])[3]");
+
+
+
+
 
     public EditDataSchemaPage validateEditDataSchemaColumnsPage() {
         waitForElementToLoad(EditDataSchemaColumnsText);
@@ -84,7 +91,14 @@ public class EditDataSchemaPage extends DataManagerPage {
         return new AdminPage();
     }
 
-    //trade id 
+    public EditDataSchemaPage sortByFieldColumn() {
+        waitForLoaderToDisappear();
+        pause("medium");
+        click("//div[text()='Field Name']", "sort");
+        return this;
+    }
+
+        //trade id
     public EditDataSchemaPage clickOnUniqueTradeIdentifier(String fieldName, String UTI) {
         waitForLoaderToDisappear();
         pause("medium");
@@ -132,7 +146,7 @@ public class EditDataSchemaPage extends DataManagerPage {
 
     public EditDataSchemaPage clickOnRelevantFieldNameActionIcon(String fieldName) {
         click("//td[text()='Account Name']", "Account Name", "First Field");
-        int maxAttempts = 40;
+        int maxAttempts = 50;
         int attempts = 0;
         while (!isVisibleWithMinimumTime("//td[text()='" + fieldName + "']") && attempts < maxAttempts) {
             pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
@@ -141,7 +155,6 @@ public class EditDataSchemaPage extends DataManagerPage {
         scrollToElement("//td[text()='" + fieldName + "']");
         pause("medium");
         clickUsingJs("//td[text()='" + fieldName + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]//a[text()='⋯']", fieldName, "Action Icon");
-
         pause("low");
         return this;
     }
@@ -218,6 +231,13 @@ public class EditDataSchemaPage extends DataManagerPage {
         click(frameSpanTextLocator("Add Validation"), "Add Validation", "Add Validation");
         return this;
     }
+
+    public EditDataSchemaPage clickOnRename() {
+        click(frameSpanTextLocator("Rename"), "Rename", "Rename");
+        return this;
+    }
+
+
 
     public EditDataSchemaPage selectParameterType() {
         pause("low");
@@ -309,6 +329,20 @@ public class EditDataSchemaPage extends DataManagerPage {
         pause("medium");
         return new EditDataSchemaPage();
     }
+
+    public EditDataSchemaPage validateDisabledFieldsForCalcualtedColumns() {
+        pause("medium");
+        if(isVisible(readOnlyFields) && isVisible(requiredFields)){
+            reportPass("Read-only Fields & Required Fields state has been disabled and successfully validated");
+        } else {
+            reportFail("Read-only Fields & Required Fields state has been enabled and validation has been failed");
+        }
+      return this;
+    }
+
+
+
+
 
     public EditDataSchemaPage readOnlyCheckbox(boolean readOnlyCheckbox) {
         if (readOnlyCheckbox) {

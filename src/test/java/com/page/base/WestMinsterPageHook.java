@@ -22,6 +22,8 @@ public class WestMinsterPageHook extends ProjectHooks {
     public static final ThreadLocal<String> userMailId = new ThreadLocal<>();
     public static final ThreadLocal<String> userMailIdText = new ThreadLocal<>();
     public static final ThreadLocal<String> ruleName = new ThreadLocal<>();
+
+    public static final ThreadLocal<String> budgetName = new ThreadLocal<>();
     public static final ThreadLocal<String> getFirstRuleNametext = new ThreadLocal<>();
     public static final ThreadLocal<String> getTime = new ThreadLocal<>();
     public static final ThreadLocal<String> newListName = new ThreadLocal<>();
@@ -145,7 +147,7 @@ public class WestMinsterPageHook extends ProjectHooks {
                 getContext().tracing().start(new Tracing.StartOptions().setName(testcaseName).setSnapshots(true).setTitle(testcaseName));
 
             // Get the screen size and maximize
-            //maximize();
+//            maximize();
 
             // Load the page with URL based on configuration
             navigate(ConfigurationManager.configuration().baseStagingUrl());

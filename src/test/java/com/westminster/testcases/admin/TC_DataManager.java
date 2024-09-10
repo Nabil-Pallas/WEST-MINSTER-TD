@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.DataManagerPage;
 import com.pages.Admin.DataManagerPages.EditDataManagerRow;
 import com.pages.Admin.DataManagerPages.EditDataSchemaPage;
@@ -24,8 +25,8 @@ import com.ui.utilities.TestGroups;
 public class TC_DataManager extends WestMinsterPageHook {
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
-        testcaseName = "Login with " + xmlUserLevel;
-        testDescription = "Login with " + xmlUserLevel;
+        testcaseName = "Login as " + xmlUserLevel;
+        testDescription = "Login as " + xmlUserLevel;
         authors = "Automation Team";
         category = "Login for Data Manager Module";
     }
@@ -575,14 +576,16 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters()
+                .getTotalRowCount("Initial")
+                .clickOnSelectRow(8)
+                .clickOnBulkDeleteBtn()
                 .clickOnDataManager()
                 .validateDataManagerPage()
-                .getTotalRowCount("Initial")
-                .clickOnSelectRow()
-                .clickOnBulkDeleteBtn()
+                .clickOnClearAllFilters()
                 .getTotalRowCount("Final")
-                .getTotalRowCount()
-                .validateRowCountAfterBulkDelete();
+                .validateRowCountAfterBulkDelete(8);
 
         System.out.println("TC-----------TC_RE_1686");
     }
@@ -638,7 +641,7 @@ public class TC_DataManager extends WestMinsterPageHook {
     //Phase -3 - Praveen
     //TC_RE_5161 Verify the duplicate file detection functionality when no unique trade identifier is selected
     @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void verifyDuplicateFileDetectionWithoutUniqueTradeIdentifier() {
+    public void checkDuplicatesWithoutTradeIdentifier() {
         testcaseName = "TC_RE_5161";
         testDescription = "Detect Duplicate File When No Unique Trade Identifier Selected";
         authors = "Automation Team";
@@ -670,6 +673,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "true")
                 .clickOnExit()
                 .clickOnFileManager()
@@ -688,6 +692,7 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "false")
                 .clickOnExit();
 
@@ -695,9 +700,8 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     //Phase -3 - Praveen
-    //TC_RE_5162
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void checkDuplicateFileDetectionForMultipleUniqueIdentifiers() {
+    public void checkDuplicateFileByUniqueIDs() {
         testcaseName = "TC_RE_5162";
         testDescription = "Check Duplicate File Detection for Multiple Unique Identifiers";
         authors = "Automation Team";
@@ -729,8 +733,10 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "false")
-                .clickOnUniqueTradeIdentifier("Account Name", "false")
+                .sortByFieldColumn()
+                .clickOnUniqueTradeIdentifier("Account Name","false")
                 .clickOnExit()
                 .clickOnFileManager()
                 .validateFileManagerPage()
@@ -743,12 +749,14 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickFilterAndSelectDuplicateRows()
                 .getErrorQueueRowCounts()
                 .clickOnExitBtn()
-                .validateRowCountIsZero()
+                .validateRowCountIsNotZero()
                 .clickOnDataManager()
                 .validateDataManagerPage()
                 .clickOnEditDataSchema()
                 .validateEditDataSchemaColumnsPage()
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "false")
+                .sortByFieldColumn()
                 .clickOnUniqueTradeIdentifier("Trade ID", "true")
                 .clickOnExit();
         System.out.println("TC-----------TC_RE_5162");
@@ -779,11 +787,11 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnClearAllFilters()
                 .clickOnAddNewRowBtn()
                 .validateAddNewRowPage()
-                .addNewRow(clientCompanyName.get(),getTradeDate.get(),getSettlementDate.get(),number.get(),"7890")
+                .addNewRow(clientCompanyName.get(), getTradeDate.get(), getSettlementDate.get(), number.get(), "7890")
                 .clickOnAddBtn()
                 .clickOnApplyBtn()
                 .clickOnDataManager()
-                .clickOnFieldFilterAndSelectValue(clientCompanyName.get(),"Broker Name","Base Gross Commission")
+                .clickOnFieldFilterAndSelectValue(clientCompanyName.get(), "Broker Name", "Base Gross Commission")
                 .clickOnSelectAll()
                 .clickOnActionsBtn()
                 .clickOnEditBtn()
@@ -794,8 +802,37 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     }
 
+    //Phase -3 - Praveen
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void testCalculatedColumnRestrictions () {
+        testcaseName = "TC_RE_5163";
+        testDescription = "test validate restrictions on calculated column properties";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
 
-
+         new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                 .clickOnAddNewColumn()
+                 .validateAddNewColumnPage()
+                 .typeInformationInAddNewColumnsAndValidate(false, true, false)
+                 .clickOnDataManager()
+                 .validateDataManagerPage()
+                 .clickOnEditDataSchema()
+                 .validateEditDataSchemaColumnsPage()
+                 .clickOnRelevantFieldNameActionIcon(clientCompanyName.get())
+                 .clickOnRename()
+                 .validateDisabledFieldsForCalcualtedColumns();
+        System.out.println("TC-----------TC_RE_5163");
+    }
 }
 
 

@@ -77,7 +77,7 @@ public class FileManagerPage extends AdminPage {
         validateFileNameInFileManagerGridAndDelete(fileName);
         //upload
         uploadFile(filePath);
-        reportPass("User successfully selected the File Before Mapping.");
+        reportPass("User successfully Selected the File Before Mapping.");
         return this;
     }
 
@@ -126,7 +126,7 @@ public class FileManagerPage extends AdminPage {
         click(frameSelectMappingLocator("Select a mapping:"), "Select Mapping DropDown", "DropDown");
         pause("low");
         //click Existing Map From DropDown
-        forceClick("//div[contains(@title,'" + dataMap + "')]", "Existing DataMap", "Drop down Value");
+        clickUsingJs("//div[contains(@title,'" + dataMap + "')]", "Existing DataMap", "Drop down Value");
         pause("low");
         return this;
     }
@@ -189,7 +189,7 @@ public class FileManagerPage extends AdminPage {
         String fileLocator = "//a[text()='" + fileName + "']";
         boolean verifyExactText = isNotVisible(fileLocator, fileName);
         Assert.assertFalse(verifyExactText);
-        reportPass("User successfully validated that the " + fileName + " is not visible.");
+        reportPass("User successfully validated that the " + fileName + " is not 'Uploaded'.");
 
         return this;
     }
@@ -200,6 +200,8 @@ public class FileManagerPage extends AdminPage {
         waitForElementToLoad(cancelIcon);
         click(cancelIcon, "Cancel Icon Button");
         reportPass("User successfully clicked cancel Icon Button");
+        pause("medium");
+        pause("low");
 //        waitForElementToLoad(frameSpanTextLocator("cancelled successfully"));
 //        String getInnerText = getInnerText(frameSpanTextLocator("cancelled successfully"));
 //        System.out.println("Inner Text: " + getInnerText);

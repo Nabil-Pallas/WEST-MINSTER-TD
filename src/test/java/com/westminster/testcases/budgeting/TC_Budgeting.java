@@ -3,6 +3,8 @@ package com.westminster.testcases.budgeting;
 import java.util.Arrays;
 
 import com.config.ConfigurationManager;
+import com.pages.Bugeting.AllBudgetsPage;
+import com.pages.Bugeting.createNewBudgetPages.CreateNewBudgetPage;
 import com.pages.Bugeting.importBudgetPages.ImportBudgetPage;
 import com.ui.utilities.TestGroups;
 import org.testng.annotations.BeforeTest;
@@ -164,7 +166,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
     //Phase -03 --Manoj
     //TC_RE_6091 - Verifies that the system permits importing the same budget a second time after editing its name and target column.
     @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
-    public void verifyBudgetImportWithEditedNameAndTargetColumn() {
+    public void checkBudgetImportWithChanges() {
         testcaseName = "TC_RE_6091";
         testDescription = "Verify Budget Import With Edited Name And TargetColumn";
         authors = "Automation Team";
@@ -209,5 +211,36 @@ public class TC_Budgeting extends WestMinsterPageHook {
 
     }
 
+    //Phase -03 -- Praveen
+    //TC_RE_4445 - verifyNonPositiveTargetAmountIsRejectedForBudgetItem
+    @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void validateNonPositiveTargetAmountRejection() {
+        testcaseName = "TC_RE_4445";
+        testDescription = "Verify Non Positive Target Amount Is Rejected For BudgetItem";
+        authors = "Automation Team";
+        category = "Target Amount for Budget Item";
+        startTestCase();
+        setNode();
 
+        budgetName.set(FakerDataFactory.getReportsName());
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters();
+        new DashboardPage()
+                .clickOnBudgeting()
+                .validateAllBudgetsPage()
+                .clickOnCreateNewBudget()
+                .validateAddBudgetPage();
+        new CreateNewBudgetPage()
+                .addNewBudget(budgetName.get(), "01/01/2023", "08/31/2024", "Local Executed Value", "Broker Name", "BMCUS", "-2345.00")
+                .clickSaveItemBtn()
+                .validateOutofRangeErrorMsg("Target Amount is out of range");
+        System.out.println("TC-----------TC_RE_4445");
+    }
 }

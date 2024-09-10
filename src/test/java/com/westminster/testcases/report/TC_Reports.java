@@ -16,8 +16,8 @@ public class TC_Reports extends WestMinsterPageHook {
 
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
-        testcaseName = "Login with " + xmlUserLevel;
-        testDescription = "Login with " + xmlUserLevel;
+        testcaseName = "Login as " + xmlUserLevel;
+        testDescription = "Login as " + xmlUserLevel;
         authors = "Automation Team";
         category = "Login for Report Module";
 

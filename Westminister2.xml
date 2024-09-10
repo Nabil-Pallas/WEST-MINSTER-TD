@@ -29,9 +29,9 @@
             </class>
             <class name="com.westminster.testcases.admin.TC_DataManager">
                 <methods>
-                    <include name="checkDuplicateFileDetectionForMultipleUniqueIdentifiers"/>
-                    <include name="verifyDuplicateFileDetectionWithoutUniqueTradeIdentifier"/>
-                    <include name="testValidateRestrictionsOnCalculatedColumnProperties"/>
+                    <include name="checkDuplicateFileByUniqueIDs"/>
+                    <include name="checkDuplicatesWithoutTradeIdentifier"/>
+                    <include name="testCalculatedColumnRestrictions"/>
                     <include name="removeRuleOnCalculatedColumnDeletion"/>
                     <include name="verifyClearedDataInDataManager"/>
                     <include name="verifyDeleteIconsInChangeLog"/>
@@ -42,7 +42,6 @@
                 <methods>
                     <include name="enableExistingRule"/>
                     <include name="disableExistingRule"/>
-
                 </methods>
             </class>
             <class name="com.westminster.testcases.admin.TC_ListManager">
@@ -52,8 +51,8 @@
             </class>
             <class name="com.westminster.testcases.budgeting.TC_Budgeting">
                 <methods>
-                    <include name="verifyNonPositiveTargetAmountIsRejectedForBudgetItem"/>
-                    <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>
+                    <include name="validateNonPositiveTargetAmountRejection"/>
+                    <include name="checkBudgetImportWithChanges"/>
                 </methods>
             </class>
             <class name="com.westminster.testcases.analytics.TC_Analytics">

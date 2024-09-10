@@ -29,6 +29,8 @@ public class FakerDataFactory {
         return faker.company().name().replaceAll("[^a-zA-Z ]", "").replaceAll("[\\s]", "") + getTimeStamp();
     }
 
+
+
     public static String getUrl() {
         return faker.company().url();
     }

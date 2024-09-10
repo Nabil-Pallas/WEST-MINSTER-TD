@@ -1,5 +1,6 @@
 package com.pages.Bugeting.createNewBudgetPages;
 
+import com.page.base.DashboardPage;
 import org.testng.Assert;
 
 import com.pages.Bugeting.AllBudgetsPage;
@@ -9,6 +10,8 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
     String viewBudgetText = "//h1[text()='View Budget']";
 
     private String budgetDateErrorText = "//span[contains(text(),'Beginning date and ending date must be in chronological order.')]";
+
+
 
     public CreateNewBudgetPage validateViewBudget() {
         waitForElementToLoad(viewBudgetText);
@@ -148,6 +151,14 @@ public class CreateNewBudgetPage extends AllBudgetsPage {
         return this;
     }
 
+    public CreateNewBudgetPage validateOutofRangeErrorMsg(String errorMsg) {
+        waitForElementToLoad(frameDivTextLocator(errorMsg));
+        String errorMsgText = getInnerText(frameDivTextLocator(errorMsg));
+        Assert.assertEquals(errorMsgText, errorMsg);
+        reportPass("User successfully Validated the Out of Range Target Column Error : " + errorMsgText);
+        return this;
+
+    }
 
     //Validate Invalid Budget Date Error
     public CreateNewBudgetPage validateInvalidBudgetDateError(String errorText) {

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import com.pages.Admin.AdminPage;
 import com.pages.Admin.DataManagerPages.DataManagerPage;
 import com.pages.Admin.DataManagerPages.EditDataManagerRow;
 import com.pages.Admin.DataManagerPages.EditDataSchemaPage;
@@ -638,10 +639,9 @@ public class TC_DataManager extends WestMinsterPageHook {
     }
 
     //Phase -3 - Praveen
-    //Phase -3 - Praveen
     //TC_RE_5161 Verify the duplicate file detection functionality when no unique trade identifier is selected
     @Test(priority = 5, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void verifyDuplicateFileDetectionWithoutUniqueTradeIdentifier() {
+    public void checkDuplicatesWithoutTradeIdentifier() {
         testcaseName = "TC_RE_5161";
         testDescription = "Detect Duplicate File When No Unique Trade Identifier Selected";
         authors = "Automation Team";
@@ -701,7 +701,7 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     //Phase -3 - Praveen
     @Test(priority = 6, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
-    public void checkDuplicateFileDetectionForMultipleUniqueIdentifiers() {
+    public void checkDuplicateFileByUniqueIDs() {
         testcaseName = "TC_RE_5162";
         testDescription = "Check Duplicate File Detection for Multiple Unique Identifiers";
         authors = "Automation Team";
@@ -802,7 +802,37 @@ public class TC_DataManager extends WestMinsterPageHook {
 
     }
 
+    //Phase -3 - Praveen
+    @Test(priority = 7, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.REGRESSION})
+    public void testCalculatedColumnRestrictions () {
+        testcaseName = "TC_RE_5163";
+        testDescription = "test validate restrictions on calculated column properties";
+        authors = "Automation Team";
+        category = "Data Manager";
+        startTestCase();
+        setNode();
 
+         new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAdmin()
+                .validateAdminPage()
+                .setClient()
+                .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnEditDataSchema()
+                .validateEditDataSchemaColumnsPage()
+                 .clickOnAddNewColumn()
+                 .validateAddNewColumnPage()
+                 .typeInformationInAddNewColumnsAndValidate(false, true, false)
+                 .clickOnDataManager()
+                 .validateDataManagerPage()
+                 .clickOnEditDataSchema()
+                 .validateEditDataSchemaColumnsPage()
+                 .clickOnRelevantFieldNameActionIcon(clientCompanyName.get())
+                 .clickOnRename()
+                 .validateDisabledFieldsForCalcualtedColumns();
+        System.out.println("TC-----------TC_RE_5163");
+    }
 }
 
 

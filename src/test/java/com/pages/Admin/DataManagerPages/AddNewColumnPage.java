@@ -88,17 +88,15 @@ public class AddNewColumnPage extends EditDataSchemaPage {
             typeFieldName(clientCompanyName.get());
             pause("medium");
             selectFieldDataType(i);
-//            pause("medium");
-//            pause("medium");
-//            pause("medium");
             switch (i) {
 //                case 0:
-//                    calculatedCheckbox(calculatedCheckbox);
+//
 //                    break;
-//                case 1:
-//                    uniqueTradeIdentifierCheckbox(uniqueTradeIdentifierCheckbox);
+////                case 1:
+////                    uniqueTradeIdentifierCheckbox(uniqueTradeIdentifierCheckbox);
 //                    break;
                 case 0:
+                    calculatedCheckbox(calculatedCheckbox);
                     pause("medium");
                     readOnlyCheckbox(readOnlyCheckbox);
                     break;
@@ -107,7 +105,6 @@ public class AddNewColumnPage extends EditDataSchemaPage {
 //                            .clickOnConfirmBtn();
 //                    break;
             }
-
             clickOnApplyAndExitBtn()
                     .validateAddedNewColumn(clientCompanyName.get());
             if (i > 0) {
@@ -117,37 +114,5 @@ public class AddNewColumnPage extends EditDataSchemaPage {
         }
         return this;
     }
-
-//    public AddNewRowPage deleteDataSchema() {
-//        clickOnEditDataSchema();
-////        pause("low");
-//        click("//td[text()='Account Name']", "");
-//        int maxAttempts = 40;
-//        int attempts = 0;
-//
-//        while (!isVisibleWithMinimumTime("//td[text()='" + clientCompanyName.get() + "']") && attempts < maxAttempts) {
-//            pressDownArrow("(//tr[@class='dx-row dx-data-row dx-column-lines'])[8]");
-//            attempts++;
-//        }
-//
-//        scrollToElement("//td[text()='" + clientCompanyName.get() + "']");
-//        pause("low");
-//        pause("low");
-//        forceClick("(//td[text()='" + clientCompanyName.get() + "']//following-sibling::td[contains(@class,'action-edit-delete-column')]/a)[1]", "Delete Button", "");
-//        pause("low");
-//        click(deleteBtn, "Delete Button");
-//        pause("low");
-//        click(confirmDeleteBtn, "Confirm Delete");
-//        pause("low");
-//
-//        if (getInnerText(frameSpanTextLocator("Success")).equals("Success")) {
-//            reportStep("Added Data Schema is deleted successfully", "pass");
-//
-//        } else {
-//            reportStep("Added Data Schema is not deleted", "warning");
-//
-//        }
-//        return new AddNewRowPage();
-//    }
 
 }

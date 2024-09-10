@@ -19,16 +19,23 @@
         <parameter name="Browser" value="edge"></parameter>
 
         <classes>
-            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings"/>
             <class name="com.westminster.testcases.budgeting.TC_Budgeting">
                 <methods>
-                    <include name="checkDuplicateBudgetFileUpload"/>
-                    <include name="validateBudgetCreationWithInvalidDateRange"/>
+                    <include name="verifyNonPositiveTargetAmountIsRejectedForBudgetItem"/>
+                    <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>
+                </methods>
+            </class>
+            <class name="com.westminster.testcases.analytics.TC_Analytics">
+                <methods>
+                    <include name="verifyEditAnalysis"/>
+                    <include name="verifyNumericValuesInAnalysisStep1"/>
+                    <include name="validateComparisonRangeOptions"/>
+                    <include name="verifyPivotTableToggleOptionForFullData"/>
                 </methods>
             </class>
             <class name="com.westminster.testcases.report.TC_Reports">
                 <methods>
-                    <include name="verifyReportDateCreatedColumn"/>
+                    <include name="verifyDownloadFile"/>
                 </methods>
             </class>
         </classes>

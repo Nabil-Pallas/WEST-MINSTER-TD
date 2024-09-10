@@ -8,6 +8,9 @@ import com.pages.Report.myReportsPages.EditReportPage;
 import com.pages.Report.myReportsPages.ViewReportPage;
 import org.testng.Assert;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -164,6 +167,7 @@ public class ReportsPage extends MenuPage {
     }
 
     public ViewReportPage clickOnReport() {
+        waitForLoaderToDisappear();
         click(frameSpanTextLocator("⋯", 1), "My Report", "My report");
 //        pause("low");
         return new ViewReportPage();
@@ -174,10 +178,36 @@ public class ReportsPage extends MenuPage {
         return new EditReportPage();
     }
 
+    public EditReportPage clickOnDownload(String filepath) {
+        deleteFilesInDirectory(filepath);
+        pause("low");
+       clickAndDownload(frameSpanTextLocator("Download"),filepath,"");
+        return new EditReportPage();
+    }
+
     public EditReportPage clickOnEditIcon() {
         click("//i[@class='dx-icon dx-icon-edit']", "Edit Icon", "Edit Icon");
         pause("low");
         return new EditReportPage();
+    }
+
+    public ReportsPage validateDownloadedFile(String filepath){
+        // Define the download directory path
+        String downloadDirPath = filepath;  // Adjust the path as per your setup
+        String fileName = suggestedFilename;  // Replace with the actual file name
+        reportStep("Downloaded File name is: "+suggestedFilename,"info");
+
+        // Create a Path object for the downloaded file
+        Path filePath = Paths.get(downloadDirPath, fileName);
+
+        // Check if the file exists
+        File file = filePath.toFile();
+        if (file.exists()) {
+            reportPass("Successfully validated the downloaded file");
+        } else {
+            reportFail("Failed to validate the download file");
+        }
+        return this;
     }
 
 

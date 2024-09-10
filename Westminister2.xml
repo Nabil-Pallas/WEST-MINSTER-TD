@@ -26,11 +26,11 @@
             <!--                    <exclude name="editClient"/>-->
             <!--                </methods>-->
             <!--            </class>-->
-            <class name="com.westminster.testcases.admin.TC_DataManager">
-                <methods>
-                    <include name="verifyClearedDataInDataManager"/>
-                </methods>
-            </class>
+<!--            <class name="com.westminster.testcases.admin.TC_DataManager">-->
+<!--                <methods>-->
+<!--                    <include name="verifyClearedDataInDataManager"/>-->
+<!--                </methods>-->
+<!--            </class>-->
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
             <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
@@ -41,12 +41,21 @@
 <!--                    <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>-->
 <!--                </methods>-->
 <!--            </class>-->
-            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
+<!--            <class name="com.westminster.testcases.report.TC_Reports">-->
+<!--                <methods>-->
+<!--                    <include name="verifyDownloadFile"/>-->
+<!--                </methods>-->
+<!--            </class>-->
 <!--            <class name="com.westminster.testcases.admin.TC_FileManager">-->
 <!--                <methods>-->
 <!--                    <include name="editInvalidDateFormatToValid"/>-->
 <!--                </methods>-->
 <!--            </class>-->
+            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
+                <methods>
+                    <include name="editUserProfileInformation"/>
+                </methods>
+            </class>
         </classes>
     </test>
     <!--

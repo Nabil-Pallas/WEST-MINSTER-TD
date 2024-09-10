@@ -22,11 +22,11 @@
 
             <!--            <class name="com.westminster.testcases.admin.TC_FileManager"/>-->
             <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity"/>-->
-                        <class name="com.westminster.testcases.admin.TC_DataManager">
-                            <methods>
-                                <include name="verifyClearedDataInDataManager"/>
-                            </methods>
-                        </class>
+<!--                        <class name="com.westminster.testcases.admin.TC_DataManager">-->
+<!--                            <methods>-->
+<!--                                <include name="verifyClearedDataInDataManager"/>-->
+<!--                            </methods>-->
+<!--                        </class>-->
             <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
 <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
 <!--                <methods>-->
@@ -39,7 +39,16 @@
 <!--                                <include name="verifyNumericValuesInAnalysisStep1"/>-->
 <!--                            </methods>-->
 <!--                        </class>-->
-            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
+<!--                        <class name="com.westminster.testcases.report.TC_Reports">-->
+<!--                            <methods>-->
+<!--                                <include name="verifyDownloadFile"/>-->
+<!--                            </methods>-->
+<!--                        </class>-->
+                <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
+                    <methods>
+                        <include name="editUserProfileInformation"/>
+                    </methods>
+                </class>
 
         </classes>
 

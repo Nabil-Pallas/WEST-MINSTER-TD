@@ -55,6 +55,10 @@ public class MenuPage extends WestMinsterPageHook {
     public static String currentTimeBeforeFileUpload;
     public static String currentTimeAfterFileUpload;
 
+    //default FirstName and LastName of the user
+//    public static String firstName="";
+//    public static String lastName="";
+
     // To store Local Timezone options in this list
     public static List<String> texts = new ArrayList<>();
 
@@ -141,6 +145,24 @@ public class MenuPage extends WestMinsterPageHook {
         return this;
     }
 
+    public MenuPage clickProfileBtn() {
+        click("//span[text()='Profile']", "click on Profile");
+        return this;
+    }
+
+    public MenuPage clickEditProfileBtn() {
+        click("//span[text()='Edit Profile']", "click on Edit Profile");
+        return this;
+    }
+
+    public MenuPage clickProfileSaveBtn() {
+        click("//div[@id='profile-view']//span[text()='Save']", "click on Save Button", "Save Button");
+        boolean message = isVisible("//span[text()='Success']");
+        Assert.assertTrue(message);
+        pause("low");
+        return this;
+    }
+
     public MenuPage clickEditPreferencesBtn() {
         click("//span[text()='Edit Preferences']", "click on Edit Preferences");
         return this;
@@ -181,6 +203,28 @@ public class MenuPage extends WestMinsterPageHook {
         } else {
             reportFailAndThrowException("Mouser Hover on Profile is failed");
         }
+        return new DashboardPage();
+    }
+
+    public DashboardPage editProfileInfo(String firstName, String lastName){
+        mouseHoverOnProfile()
+                .clickAccountSettingsBtn()
+                .waitForLoaderToDisappear();
+        clickProfileBtn()
+                .clickEditProfileBtn()
+                .editFirstAndLastName(firstName,lastName)
+                .clickProfileSaveBtn();
+        return new DashboardPage();
+    }
+
+    public DashboardPage editFirstAndLastName(String fName, String lName){
+        waitForLoaderToDisappear();
+        firstName.set(getInputText("//input[contains(@id,'FIRST_NAME')]"));
+        lastName.set(getInputText("//input[contains(@id,'LAST_NAME')]"));
+        typeAndEnter("//input[contains(@id,'FIRST_NAME')]",fName,"First Name");
+        typeAndEnter("//input[contains(@id,'LAST_NAME')]",lName,"Last Name");
+        reportPass("Successfully entered First Name: "+fName+" || Last Name: "+lName);
+        pause("low");
         return new DashboardPage();
     }
 

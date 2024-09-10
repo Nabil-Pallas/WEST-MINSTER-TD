@@ -805,5 +805,143 @@ public class DataManagerPage extends AdminPage {
         return this;
     }
 
+
+//    // Validate the Added Column Values
+//    public DataManagerPage validateAddedColumnHasValues(String verificationHeader, boolean expectValue) {
+//        pause("medium");
+//
+//        // Locate the header count
+//        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+//
+//        boolean valuesFound = false;
+//
+//        // Loop through headers to find the correct column
+//        for (int i = 1; i <= headerCount; i++) {
+//            String headerLocator = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+//            String headerText = getInnerText(headerLocator).trim();
+//
+//            if (headerText.contains(verificationHeader)) {
+//                // Click the search box for filtering the column (if applicable)
+//                click(searchValueWithHeader(i), "Search Filter", "Search Box");
+//                pause("medium");
+//
+//                // Determine the locator based on expectValue (true or false)
+//                String valueLocator;
+//                if (expectValue) {
+//                    // If we expect values, use the locator for the specific column
+//                    valueLocator = "((//table)[3]//tr//td[" + (i + 2) + "])[" + i + "]//span";
+//                } else {
+//                    // If we do not expect values, use the locator for the 4th column
+//                    valueLocator = "((//table)[3]//tr//td[" + (i + 2) + "])";
+//                }
+//
+//                // Locate the cells in the specific column once
+//                List<String> columnValues = getAllInnerText(valueLocator);
+//                int rowCount = columnValues.size();
+//
+//                System.out.println("Total row count: " + rowCount);
+//
+//                // Check values in batches for faster execution
+//                for (int j = 0; j < rowCount; j++) {
+//                    String actualValue = columnValues.get(j).trim();
+//
+//                    // If we find any non-empty value, log it and exit early
+//                    if (!actualValue.isEmpty()) {
+//                        System.out.println("Value in row " + (j + 1) + ": " + actualValue);
+//                        valuesFound = true;
+//                        break; // Exit loop early if a value is found
+//                    }
+//                }
+//
+//                // Validate based on the expectation (presence or absence of values)
+//                if (expectValue) {
+//                    Assert.assertTrue(valuesFound, "Expected values to be present in the column '" + verificationHeader + "', but no values were found.");
+//                    reportPass("Values are present as expected in the column '" + verificationHeader + "'.");
+//                } else {
+//                    Assert.assertFalse(valuesFound, "Expected no values in the column '" + verificationHeader + "', but some values were found.");
+//                    reportPass("No values found in the column '" + verificationHeader + "' as expected.");
+//                }
+//
+//                break; // Exit loop once the header is matched and values are processed
+//            }
+//        }
+//
+//        return new DataManagerPage();
+//    }
+
+    // Validate the Added Column Values
+    public DataManagerPage validateAddedColumnHasValues(String verificationHeader, boolean expectValue) {
+        pause("medium");
+
+        // Locate the header count
+        int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
+
+        boolean valuesFound = false;
+
+        // Loop through headers to find the correct column
+        for (int i = 1; i <= headerCount; i++) {
+            String headerLocator = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
+            String headerText = getInnerText(headerLocator).trim();
+
+            if (headerText.contains(verificationHeader)) {
+                // Click the search box for filtering the column (if applicable)
+                click(searchValueWithHeader(i), "Search Filter", "Search Box");
+                pause("medium");
+
+                // Determine the locator based on expectValue
+                String valueLocator;
+                if (expectValue) {
+                    // If we expect values, use the locator for the specific column
+                    valueLocator = "((//table)[3]//tr//td[" + (i + 2) + "]//span)";
+                } else {
+                    // If we do not expect values, use the locator for the specific column without span
+                    valueLocator = "((//table)[3]//tr//td[" + (i + 2) + "])";
+                }
+
+                // Locate the cells in the specific column once
+                List<String> columnValues = getAllInnerText(valueLocator);
+                int rowCount = columnValues.size();
+
+                System.out.println("Total row count: " + rowCount);
+
+                // If we expect values to be present
+                if (expectValue) {
+                    // Check if any value in the column is non-empty
+                    for (String value : columnValues) {
+                        System.out.println("Found value: '" + value + "'");
+                        if (!value.trim().isEmpty()) {
+                            valuesFound = true;
+                            break; // Exit early if any value is found
+                        }
+                    }
+                    // Validate based on the expectation
+                    Assert.assertTrue(valuesFound, "Expected values to be present in the column '" + verificationHeader + "', but no values were found.");
+                    reportPass("Values are present as expected in the column '" + verificationHeader + "'.");
+
+                } else {
+                    // If we expect all values to be empty
+                    valuesFound = false; // Assume all are empty initially
+                    for (String value : columnValues) {
+                        System.out.println("Found value: '" + value + "'");
+                        if (!value.trim().isEmpty()) {
+                            valuesFound = true; // Set to true if a non-empty value is found
+                            break;
+                        }
+                    }
+                    // Validate based on the expectation
+                    Assert.assertFalse(valuesFound, "Expected no values in the column '" + verificationHeader + "', but some values were found.");
+                    reportPass("No values found in the column '" + verificationHeader + "' as expected.");
+                }
+
+                break; // Exit loop once the header is matched and values are processed
+            }
+        }
+
+        return new DataManagerPage();
+    }
+
+
+
+
 }
 

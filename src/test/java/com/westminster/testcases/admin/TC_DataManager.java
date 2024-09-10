@@ -24,8 +24,8 @@ import com.ui.utilities.TestGroups;
 public class TC_DataManager extends WestMinsterPageHook {
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
-        testcaseName = "Login with " + xmlUserLevel;
-        testDescription = "Login with " + xmlUserLevel;
+        testcaseName = "Login as " + xmlUserLevel;
+        testDescription = "Login as " + xmlUserLevel;
         authors = "Automation Team";
         category = "Login for Data Manager Module";
     }
@@ -575,14 +575,16 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateAdminPage()
                 .setClient()
                 .clickOnDataManager()
+                .validateDataManagerPage()
+                .clickOnClearAllFilters()
+                .getTotalRowCount("Initial")
+                .clickOnSelectRow(8)
+                .clickOnBulkDeleteBtn()
                 .clickOnDataManager()
                 .validateDataManagerPage()
-                .getTotalRowCount("Initial")
-                .clickOnSelectRow()
-                .clickOnBulkDeleteBtn()
+                .clickOnClearAllFilters()
                 .getTotalRowCount("Final")
-                .getTotalRowCount()
-                .validateRowCountAfterBulkDelete();
+                .validateRowCountAfterBulkDelete(8);
 
         System.out.println("TC-----------TC_RE_1686");
     }
@@ -779,11 +781,11 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .clickOnClearAllFilters()
                 .clickOnAddNewRowBtn()
                 .validateAddNewRowPage()
-                .addNewRow(clientCompanyName.get(),getTradeDate.get(),getSettlementDate.get(),number.get(),"7890")
+                .addNewRow(clientCompanyName.get(), getTradeDate.get(), getSettlementDate.get(), number.get(), "7890")
                 .clickOnAddBtn()
                 .clickOnApplyBtn()
                 .clickOnDataManager()
-                .clickOnFieldFilterAndSelectValue(clientCompanyName.get(),"Broker Name","Base Gross Commission")
+                .clickOnFieldFilterAndSelectValue(clientCompanyName.get(), "Broker Name", "Base Gross Commission")
                 .clickOnSelectAll()
                 .clickOnActionsBtn()
                 .clickOnEditBtn()
@@ -793,7 +795,6 @@ public class TC_DataManager extends WestMinsterPageHook {
                 .validateColumnValue("Base Gross Commission");
 
     }
-
 
 
 }

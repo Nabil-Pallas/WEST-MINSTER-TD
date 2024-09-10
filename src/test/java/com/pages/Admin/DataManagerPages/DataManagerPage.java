@@ -54,7 +54,7 @@ public class DataManagerPage extends AdminPage {
     //variable for upload date in data manager
     public static String timeInDataManager;
 
-    public static String columnvalue="";
+    public static String columnvalue = "";
 
     //list of data Manager grid column
     private static List<String> DatamanagerColumn = new ArrayList<>();
@@ -154,7 +154,7 @@ public class DataManagerPage extends AdminPage {
             click("//span[text()='Yes']", "Click Yes Button");
             typeAndEnter("//input[@class='confirm-delete-text-input dx-texteditor-input']", "DELETE", "Enter Delete in input box");
             click("//span[text()='Confirm Delete']", "Click Delete button");
-            reportPass("User successfully clicked Confirm Delete button.");
+            reportPass("User successfully deleted the selected rows");
         }
         return new EditDataManagerRow();
     }
@@ -194,8 +194,8 @@ public class DataManagerPage extends AdminPage {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
             String headerText = getInnerText(headerElement);
             if (headerText.equalsIgnoreCase(verificationHeader)) {
-                click(searchValueWithHeader(i), "Search Filter", "Search Box");
-                type(searchValueWithHeader(i), verificationValue, verificationValue);
+                click(searchValueWithHeader(i), verificationHeader, "Search Box");
+                type(searchValueWithHeader(i), verificationValue, verificationHeader);
                 pause("medium");
                 pause("medium");
                 int count = getLocatorsCount("//td[text()='" + verificationValue + "']");
@@ -339,7 +339,17 @@ public class DataManagerPage extends AdminPage {
         pause("medium");
         for (int i = 1; i < 9; i++) {
             waitForElementToLoad("(//div[@aria-label='Select row'])[" + i + "]");
-            forceClick("(//div[@aria-label='Select row'])[" + i + "]", "select option", "`checkbox");
+            forceClick("(//div[@aria-label='Select row'])[" + i + "]", "Select option", "Checkbox");
+        }
+        return this;
+    }
+
+    //click row select option on Data Manager Grid
+    public DataManagerPage clickOnSelectRow(int noOfRows) {
+        pause("medium");
+        for (int i = 1; i <= noOfRows; i++) {
+            waitForElementToLoad("(//div[@aria-label='Select row'])[" + i + "]");
+            forceClick("(//div[@aria-label='Select row'])[" + i + "]", "Select option", "Checkbox");
         }
         return this;
     }
@@ -416,8 +426,8 @@ public class DataManagerPage extends AdminPage {
 
         if (!cleanNumberString.isEmpty()) {
             getRowCounts.set(Long.parseLong(cleanNumberString)); // Set the parsed number
-            reportPass("Final Row Counts: " + getRowCounts.get() + " noted.");
-            System.out.println("Final Row Counts: " + getRowCounts.get());
+            reportPass("Final Row Count: " + getRowCounts.get() + " noted.");
+            System.out.println("Final Row Count: " + getRowCounts.get());
         } else {
             System.out.println("No matching row count found.");
         }
@@ -431,21 +441,30 @@ public class DataManagerPage extends AdminPage {
         pause("medium");
 //        waitForLoaderToDisappear();
         String rowCount = getInnerText("//span[contains(text(),'Total Row Count:')]");
+        System.out.println("Row Count Inner Text:" + rowCount);
 
         // Remove any non-digit character including any type of space
-        String cleanNumberString = rowCount.replaceAll("[^\\d]", ""); // Removes all non-digit characters
+        //String cleanNumberString = rowCount.replaceAll("[^\\d]", ""); // Removes all non-digit characters
+
+        // Use regex to extract the number after ':' and before '(' (if present), ignoring commas
+        //String cleanNumberString = rowCount.replaceAll(".*Total Row Count:\\s*([\\d,]+).*", "$1");
+
+        String cleanNumberString = rowCount.split(":")[1].split("\\(")[0].trim();
+
+        // Remove commas from the number
+        cleanNumberString = cleanNumberString.replaceAll(",", "");
 
         if (!cleanNumberString.isEmpty()) {
             long rowCountNumber = Long.parseLong(cleanNumberString);
 
             if (state.equalsIgnoreCase("Initial")) {
                 InitRowCounts = rowCountNumber;
-                reportPass("Initial Row Counts: " + InitRowCounts + " noted.");
-                System.out.println("InitRowCounts: " + InitRowCounts);
+                reportPass("Initial Row Count: " + InitRowCounts + " noted.");
+                System.out.println("Initial Row Count: " + InitRowCounts);
             } else {
                 FinRowCounts = rowCountNumber;
-                reportPass("Final Row Counts: " + FinRowCounts + " noted.");
-                System.out.println("FinRowCounts: " + FinRowCounts);
+                reportPass("Final Row Count : " + FinRowCounts + " noted.");
+                System.out.println("Final Row Count : " + FinRowCounts);
             }
         } else {
             System.out.println("No matching row count found.");
@@ -455,9 +474,10 @@ public class DataManagerPage extends AdminPage {
     }
 
 
-    public DataManagerPage validateRowCountAfterBulkDelete() {
-        Assert.assertEquals(FinRowCounts, getRowCounts.get());
-        reportPass("Final Row Counts: " + FinRowCounts + " is equal to the final row count after bulk delete: " + getRowCounts.get());
+    public DataManagerPage validateRowCountAfterBulkDelete(int noOfDeletedRows) {
+        long finalRowCount = InitRowCounts - noOfDeletedRows;
+        Assert.assertEquals(FinRowCounts, finalRowCount);
+        reportPass("Final Row Count : " + FinRowCounts + " is equal to the row count after bulk delete : " + finalRowCount);
         return this;
     }
 
@@ -532,7 +552,7 @@ public class DataManagerPage extends AdminPage {
                 }
                 break;
         }
-        System.out.println("value: "+valuee);
+        System.out.println("value: " + valuee);
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
         for (int i = 1; i < headerCount; i++) {
             String headerElement = "(((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1]))[" + i + "]";
@@ -588,9 +608,9 @@ public class DataManagerPage extends AdminPage {
                 if (totalRowCountText.contains("filtered")) {
                     click("//span[text()='Clear All Filters']", "Clear All Filters");
                     pause("medium");
-                    reportPass("Successfully cleared all filters.");
+                    reportStep("Successfully cleared all filters.", "info");
                 } else {
-                    reportPass("No filters to clear (No 'filtered' text found).");
+                    reportStep("No filters to clear.", "info");
                 }
                 break;
         }
@@ -943,8 +963,6 @@ public class DataManagerPage extends AdminPage {
     }
 
 
-
-
     public DataManagerPage clickOnFieldFilterAndSelectValue(String VerificationValues, String verificationHeader1, String verificationHeader2) {
         pause("medium");
         pause("medium");
@@ -976,11 +994,11 @@ public class DataManagerPage extends AdminPage {
                         scrollToElement("//div[text()='" + verificationHeader2 + "']");
                         pause("low");
                         double num1 = Double.parseDouble(number.get());
-                        System.out.println("num1: "+num1);
+                        System.out.println("num1: " + num1);
                         columnvalue = getInnerText("//td[text()='" + num1 + "']");
-                        System.out.println("columnvalue: "+columnvalue);
+                        System.out.println("columnvalue: " + columnvalue);
                         double num2 = Double.parseDouble(columnvalue);
-                        System.out.println("num2: "+num2);
+                        System.out.println("num2: " + num2);
 
                         if (num1 == num2) {
                             reportPass("Successfully validated the added row");
@@ -995,7 +1013,7 @@ public class DataManagerPage extends AdminPage {
         return this;
     }
 
-    public DataManagerPage validateColumnValue(String verificationHeader2){
+    public DataManagerPage validateColumnValue(String verificationHeader2) {
         pause("medium");
         pause("medium");
         int headerCount = getLocatorsCount("((//td[contains(@class,'dx-cell-focus-disabled dx-datagrid-drag-action')])[position() > 1])");
@@ -1006,14 +1024,14 @@ public class DataManagerPage extends AdminPage {
 //                    click("//div[text()='"+verificationHeader2+"']",verificationHeader2);
                 pause("medium");
                 scrollToElement("(//div[text()='" + verificationHeader2 + "'])[1]");
-                reportPass("Reached column: "+verificationHeader2);
+                reportPass("Reached column: " + verificationHeader2);
                 pause("low");
                 double num1 = Double.parseDouble(number.get());
-                System.out.println("num1: "+num1);
-               columnvalue = getInnerText("(//table)[3]//td)["+(i+1)+"]");
-                if(columnvalue.isEmpty()) {
+                System.out.println("num1: " + num1);
+                columnvalue = getInnerText("(//table)[3]//td)[" + (i + 1) + "]");
+                if (columnvalue.isEmpty()) {
                     reportPass("Successfully validated and column doesn't have data");
-                }else {
+                } else {
                     reportFail("failed to validate");
                 }
             }
@@ -1021,7 +1039,7 @@ public class DataManagerPage extends AdminPage {
         return this;
     }
 
-    public DataManagerPage removeRowInformation(String BaseGrossCommission){
+    public DataManagerPage removeRowInformation(String BaseGrossCommission) {
         pause("low");
         typeWithType(frameClientDetailsLocator("Base  Gross  Commission:", 2), BaseGrossCommission, "BaseGrossCommission");
         pause("low");

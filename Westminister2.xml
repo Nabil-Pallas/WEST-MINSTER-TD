@@ -19,41 +19,10 @@
         <parameter name="Browser" value="chrome"></parameter>
 
         <classes>
-            <!--            <class name="com.westminster.testcases.admin.TC_FileManager"/>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_UsersAndSecurity">-->
-            <!--                <methods>-->
-            <!--                    <exclude name="createClient"/>-->
-            <!--                    <exclude name="editClient"/>-->
-            <!--                </methods>-->
-            <!--            </class>-->
-<!--            <class name="com.westminster.testcases.admin.TC_DataManager">-->
-<!--                <methods>-->
-<!--                    <include name="verifyClearedDataInDataManager"/>-->
-<!--                </methods>-->
-<!--            </class>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_RulesManager"/>-->
-            <!--            <class name="com.westminster.testcases.admin.TC_ListManager"/>-->
-            <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-            <!--            <class name="com.westminster.testcases.analytics.TC_Analytics"/>-->
-            <!--            <class name="com.westminster.testcases.report.TC_Reports"/>-->
-<!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting">-->
-<!--                <methods>-->
-<!--                    <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>-->
-<!--                </methods>-->
-<!--            </class>-->
-<!--            <class name="com.westminster.testcases.report.TC_Reports">-->
-<!--                <methods>-->
-<!--                    <include name="verifyDownloadFile"/>-->
-<!--                </methods>-->
-<!--            </class>-->
-<!--            <class name="com.westminster.testcases.admin.TC_FileManager">-->
-<!--                <methods>-->
-<!--                    <include name="editInvalidDateFormatToValid"/>-->
-<!--                </methods>-->
-<!--            </class>-->
-            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
+            <class name="com.westminster.testcases.admin.TC_RulesManager">
                 <methods>
-                    <include name="editUserProfileInformation"/>
+                    <include name="enableExistingRule"/>
+                    <include name="disableExistingRule"/>
                 </methods>
             </class>
         </classes>

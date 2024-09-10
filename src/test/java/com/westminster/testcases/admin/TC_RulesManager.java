@@ -15,8 +15,8 @@ public class TC_RulesManager extends WestMinsterPageHook {
 
     @BeforeTest(groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", TestGroups.Type.SANITY, TestGroups.Type.REGRESSION})
     public void setReportValues() {
-        testcaseName = "Login with " + xmlUserLevel;
-        testDescription = "Login with " + xmlUserLevel;
+        testcaseName = "Login as " + xmlUserLevel;
+        testDescription = "Login as " + xmlUserLevel;
         authors = "Automation Team";
         category = "Login for Rules Manager Module";
     }
@@ -120,7 +120,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
 
 
         ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
-        reportName.set(FakerDataFactory.getFieldName());
+        reportName.set(FakerDataFactory.getStaticNameWithTimeStamp("Enable"));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()
@@ -164,7 +164,7 @@ public class TC_RulesManager extends WestMinsterPageHook {
         setNode();
 
         ruleName.set(FakerDataFactory.getNameWithTimeStamp("Rule"));
-        reportName.set(FakerDataFactory.getFieldName());
+        reportName.set(FakerDataFactory.getStaticNameWithTimeStamp("Disable"));
         new DashboardPage()
                 .validateDashBoardElements()
                 .clickOnAdmin()

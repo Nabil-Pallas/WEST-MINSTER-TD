@@ -385,6 +385,7 @@ public class MenuPage extends WestMinsterPageHook {
         validateLoginElements().typeUserName(userName).typePassword(password);
         if (isEnabled(loginWithPassword, "Login With Password")) {
             clickLoginWithPassword();
+            reportPass("User Successfully Logged Into the Application");
         } else {
             reportFailAndThrowException("login With Password is not enabled");
         }

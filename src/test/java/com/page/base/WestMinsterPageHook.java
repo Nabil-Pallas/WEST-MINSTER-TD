@@ -147,7 +147,7 @@ public class WestMinsterPageHook extends ProjectHooks {
                 getContext().tracing().start(new Tracing.StartOptions().setName(testcaseName).setSnapshots(true).setTitle(testcaseName));
 
             // Get the screen size and maximize
-            //maximize();
+//            maximize();
 
             // Load the page with URL based on configuration
             navigate(ConfigurationManager.configuration().baseStagingUrl());

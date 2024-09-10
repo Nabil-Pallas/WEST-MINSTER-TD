@@ -236,11 +236,13 @@ public class MenuPage extends WestMinsterPageHook {
 //        preferenceDateFormat = "MM/DD/YYYY";
         if (innerText.equals("MM/DD/YYYY")) {
             preferenceDateFormat = "MM/DD/YYYY";
+            reportPass("Successfully validated preferred Date Format: "+preferenceDateFormat);
 //            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
 
         } else {
             clickAndChoose("//input[contains(@id,'DATE_FORMAT')]", "//div[text()='MM/DD/YYYY']", "MM/DD/YYYY", "Date Format");
             preferenceDateFormat = "MM/DD/YYYY";
+            reportPass("Successfully selected Data Format: "+preferenceDateFormat);
 //            clickPreferenceSaveBtn();
         }
         return this;
@@ -250,10 +252,12 @@ public class MenuPage extends WestMinsterPageHook {
         String innerText = getInputText("//input[contains(@id,'DECIMAL_PRECISION')]");
         if (innerText.equals("1 decimal")) {
             decimalPrecision = "1 decimal";
+            reportPass("Successfully validated preferred Decimal Precision: "+decimalPrecision);
 //            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
         } else {
             clickAndChoose("//input[contains(@id,'DECIMAL_PRECISION')]", "//div[text()='1 decimal']", "1 decimal", "Decimal Precision");
             decimalPrecision = "1 decimal";
+            reportPass("Successfully selected Decimal Precision: "+decimalPrecision);
             //            clickPreferenceSaveBtn();
         }
 
@@ -264,10 +268,12 @@ public class MenuPage extends WestMinsterPageHook {
         String innerText = getInputText("//input[contains(@id,'NUMBER_FORMAT')]");
         if (innerText.equals("#,##0.00")) {
             preferenceNumberFormat = "#,##0.00";
+            reportPass("Successfully validated preferred Number Format: "+preferenceNumberFormat);
 //            click("(//span[text()='Cancel'])[2]", "Cancel", "Button");
         } else {
             clickAndChoose("//input[contains(@id,'NUMBER_FORMAT')]", "//div[text()='#,##0.00']", "#,##0.00", "Number Format");
             preferenceNumberFormat = "#,##0.00";
+            reportPass("Successfully selected Number Format: "+preferenceNumberFormat);
 //            clickPreferenceSaveBtn();
         }
         return this;
@@ -408,7 +414,7 @@ public class MenuPage extends WestMinsterPageHook {
         int max = texts.size();
         randomNumber = random.nextInt(max - min + 1) + min;
         System.out.println("random number is: " + randomNumber);
-        click("//div[@class='wdx-custom-dropdown__text']/div[text()='" + texts.get(randomNumber) + "']", "option");
+        clickUsingJs("//div[@class='wdx-custom-dropdown__text']/div[text()='" + texts.get(randomNumber) + "']", "option","Drop Down");
         pause("low");
         clickPreferenceSaveBtn();
         return this;

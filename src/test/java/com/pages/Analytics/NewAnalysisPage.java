@@ -1,5 +1,6 @@
 package com.pages.Analytics;
 
+import com.microsoft.playwright.Frame;
 import org.testng.Assert;
 
 public class NewAnalysisPage extends AnalyticsPage {
@@ -16,12 +17,12 @@ public class NewAnalysisPage extends AnalyticsPage {
 
     public NewAnalysisPage validateNewAnalysisPage() {
         waitForElementToLoad(newAnalysisText);
-        if (isVisible(newAnalysisText, "New Analysis Text")) {
+        if (isVisible(newAnalysisText, "New Analysis Text") && isVisible(frameSpanTextLocator("Create A Filter"),"Create A Filter Button")) {
             reportPass("User successfully reached the correct New Analysis page");
         } else {
             reportFailAndThrowException("New Analysis Page is not loaded.");
         }
-        pause("low");
+        pause("medium");
         return this;
     }
 
@@ -165,7 +166,7 @@ public class NewAnalysisPage extends AnalyticsPage {
 
     public NewAnalysisPage selectVisualizationType(String visualizationType) {
         pause("low");
-        click(frameVisualizationTypeLocator(visualizationType), visualizationType, "visualization Type :" + visualizationType);
+        click(frameVisualizationTypeLocator(visualizationType), visualizationType, "visualization Type");
         reportPass("User successfully Selected Visualization Type");
         return this;
     }
@@ -432,6 +433,39 @@ public class NewAnalysisPage extends AnalyticsPage {
     public NewAnalysisPage clickOnFavouriteIcon() {
         pause("low");
         click("//button[@id='analysis-quickaction-fav']//i", "Favorite Icon");
+        return this;
+    }
+
+    public NewAnalysisPage clickShowFieldChooser(){
+        pause("medium");
+        getPage().waitForLoadState();
+        click("//div[@title='Show Field Chooser']", "Show Field Chooser");
+        pause("low");
+
+        return this;
+    }
+
+    public NewAnalysisPage dragColumnToDataField(){
+        pause("low");
+        dragAndDrop("//ul[@class='dx-treeview-node-container']//span[text()='Local Executed Value']","//div[contains(@class,'dx-visibility-change-handler') and @group='data']");
+        reportPass("Dragged column \"Local Executed Value\" to Data Field Space");
+        return this;
+    }
+
+    public NewAnalysisPage clickShowFieldChooserCloseIcon(){
+        pause("low");
+        click("//div[text()='Field Chooser']//ancestor::div//i[contains(@class,'dx-icon-close')]","Close Icon");
+        return this;
+    }
+
+    //SFC-Show Field Chooser
+    public NewAnalysisPage validateSelectedColumnFromSFC(){
+        if(isVisible("(//thead[@class='dx-pivotgrid-horizontal-headers']//span[text()='Local Executed Value'])[last()]")){
+            String innertext = getInnerText("(//thead[@class='dx-pivotgrid-horizontal-headers']//span[text()='Local Executed Value'])[last()]");
+            reportPass("Selected column have been displayed as Expected: "+innertext);
+        }else{
+            reportFail("Column not displayed as Expected");
+        }
         return this;
     }
 

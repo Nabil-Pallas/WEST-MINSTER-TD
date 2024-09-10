@@ -244,7 +244,9 @@ public class TC_Analytics extends WestMinsterPageHook {
                 .validateViewAnalysisPage()
                 .getGrandTotalInViewAnalysis()
                 .validateGrandTotal()
-                .clickOnBackBtn();
+                .clickOnBackBtn()
+                .validateAnalysis(analysisName.get())
+                .deleteAnalytics(analysisName.get());
 
     }
 
@@ -400,5 +402,41 @@ public class TC_Analytics extends WestMinsterPageHook {
         System.out.println("TC-----------TC_RE_6203");
     }
 
+    //Phase -04 --Nabil
+    //TC_RE_5023
+    @Test(priority = 1, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
+    public void verifyPivotTableViewAnalysisEdit() {
+        testcaseName = "TC_RE_5023";
+        testDescription = "To verify after editing the field chooser filter in the View Analysis page, the edited analytics are saved and displayed correctly upon page load.";
+        authors = "Automation Team";
+        category = "Verification of Pivot Table";
+        startTestCase();
+        setNode();
+
+        analysisName.set(FakerDataFactory.getNameWithTimeStamp("Analysis"));
+        new DashboardPage()
+                .validateDashBoardElements()
+                .clickOnAnalytics()
+                .validateAnalyticsPage()
+                .setClient()
+                .clickOnCreateNewDataAnalysis()
+                .validateNewAnalysisPage()
+                .clickOnNextBtn()
+                .selectVisualizationType("Pivot Table")
+                .clickOnNextBtn()
+                .plotDetailsPivotTable("Broker Name", "Base Gross Commission", "Trade Date", "Settlement Date")
+                .clickOnNextBtn()
+                .reviewYourAnalysis(analysisName.get(), "Black")
+                .clickOnSaveBtn()
+                .validateViewAnalysisPage()
+                .clickShowFieldChooser()
+                .dragColumnToDataField()
+                .clickShowFieldChooserCloseIcon()
+                .validateSelectedColumnFromSFC()
+                .clickOnBackBtn()
+                .validateAnalysis(analysisName.get())
+                .deleteAnalytics(analysisName.get());
+
+    }
 
 }

@@ -15,6 +15,10 @@
                 <!--                <include name="SANITY"></include>-->
                 <include name="REGRESSION"></include>
             </run>
+            <run>
+                <!--                <include name="SANITY"></include>-->
+                <include name="phase 2"></include>
+            </run>
         </groups>
         <parameter name="Browser" value="chrome"></parameter>
 
@@ -34,21 +38,21 @@
 <!--                </methods>-->
 <!--            </class>-->
             <!--            <class name="com.westminster.testcases.budgeting.TC_Budgeting"/>-->
-<!--                        <class name="com.westminster.testcases.analytics.TC_Analytics">-->
+                        <class name="com.westminster.testcases.analytics.TC_Analytics">
 <!--                            <methods>-->
-<!--                                <include name="verifyNumericValuesInAnalysisStep1"/>-->
+<!--                                <include name="verifyPivotTableViewAnalysisEdit"/>-->
 <!--                            </methods>-->
-<!--                        </class>-->
+                        </class>
 <!--                        <class name="com.westminster.testcases.report.TC_Reports">-->
 <!--                            <methods>-->
 <!--                                <include name="verifyDownloadFile"/>-->
 <!--                            </methods>-->
 <!--                        </class>-->
-                <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
-                    <methods>
-                        <include name="editUserProfileInformation"/>
-                    </methods>
-                </class>
+<!--                <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">-->
+<!--                    <methods>-->
+<!--                        <include name="editUserProfileInformation"/>-->
+<!--                    </methods>-->
+<!--                </class>-->
 
         </classes>
 

@@ -77,7 +77,7 @@ public class FileManagerPage extends AdminPage {
         validateFileNameInFileManagerGridAndDelete(fileName);
         //upload
         uploadFile(filePath);
-        reportPass("User successfully Uploaded the File Before Mapping.");
+        reportPass("User successfully selected the File Before Mapping.");
         return this;
     }
 

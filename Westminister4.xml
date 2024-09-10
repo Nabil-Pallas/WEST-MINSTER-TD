@@ -55,9 +55,14 @@
 <!--                    <include name="editInvalidDateFormatToValid"/>-->
 <!--                </methods>-->
 <!--            </class>-->
-            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">
+<!--            <class name="com.westminster.testcases.accountSettings.TC_AccountSettings">-->
+<!--                <methods>-->
+<!--                    <include name="editUserProfileInformation"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+            <class name="com.westminster.testcases.analytics.TC_Analytics">
                 <methods>
-                    <include name="editUserProfileInformation"/>
+                    <include name="verifyPivotTableViewAnalysisEdit"/>
                 </methods>
             </class>
         </classes>

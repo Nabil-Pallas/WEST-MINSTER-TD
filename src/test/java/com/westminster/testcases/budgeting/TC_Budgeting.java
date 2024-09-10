@@ -166,7 +166,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
     //Phase -03 --Manoj
     //TC_RE_6091 - Verifies that the system permits importing the same budget a second time after editing its name and target column.
     @Test(priority = 2, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
-    public void verifyBudgetImportWithEditedNameAndTargetColumn() {
+    public void checkBudgetImportWithChanges() {
         testcaseName = "TC_RE_6091";
         testDescription = "Verify Budget Import With Edited Name And TargetColumn";
         authors = "Automation Team";
@@ -214,7 +214,7 @@ public class TC_Budgeting extends WestMinsterPageHook {
     //Phase -03 -- Praveen
     //TC_RE_4445 - verifyNonPositiveTargetAmountIsRejectedForBudgetItem
     @Test(priority = 3, groups = {"Tier1Admin", "Tier1User", "Tier2Admin", "Tier2User", "Tier3EndUser", TestGroups.Type.REGRESSION})
-    public void verifyNonPositiveTargetAmountIsRejectedForBudgetItem() {
+    public void validateNonPositiveTargetAmountRejection() {
         testcaseName = "TC_RE_4445";
         testDescription = "Verify Non Positive Target Amount Is Rejected For BudgetItem";
         authors = "Automation Team";

@@ -21,8 +21,8 @@
         <classes>
             <class name="com.westminster.testcases.budgeting.TC_Budgeting">
                 <methods>
-                    <include name="verifyNonPositiveTargetAmountIsRejectedForBudgetItem"/>
-                    <include name="verifyBudgetImportWithEditedNameAndTargetColumn"/>
+                    <include name="validateNonPositiveTargetAmountRejection"/>
+                    <include name="checkBudgetImportWithChanges"/>
                 </methods>
             </class>
             <class name="com.westminster.testcases.analytics.TC_Analytics">
